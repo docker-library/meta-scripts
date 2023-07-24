@@ -5,6 +5,8 @@ if [ "$#" -eq 0 ]; then
 	set -- --all
 fi
 
+# TODO do this for oisupport too! (without arch namespaces; just straight into the staging repos)
+
 defaultArchNamespaces='
 	amd64 = amd64,
 	arm32v5 = arm32v5,
@@ -18,7 +20,7 @@ defaultArchNamespaces='
 	s390x = s390x,
 	windows-amd64 = winamd64
 ' # TODO
-: "${BASHBREW_ARCH_NAMESPACES:=$defaultArchNamespaces}"
+: "${BASHBREW_ARCH_NAMESPACES=$defaultArchNamespaces}"
 export BASHBREW_ARCH_NAMESPACES
 
 # let's resolve all the external pins so we can inject those too
@@ -41,17 +43,18 @@ _sha256() {
 }
 
 json="$(
-	bashbrew cat --format '
+	bashbrew cat --build-order --format '
 		{{- range $e := .Entries -}}
 			{{- range $a := $e.Architectures -}}
 				{{- with $e -}}
 					{
 						"repo": {{ json $.RepoName }},
+						"namespace": {{ json namespace }},
 						"arch": {{ json $a }},
 						"archNamespace": {{ json (archNamespace $a) }},
 						"gitCache": {{ json gitCache }},
-						"Tags": {{ json .Tags }},
-						"SharedTags": {{ json .SharedTags }},
+						"tags": {{ json ($.Tags namespace false .) }},
+						"archTags": {{ json ($.Tags (archNamespace $a) false .) }},
 						"GitRepo": {{ json (.ArchGitRepo $a) }},
 						"GitFetch": {{ json (.ArchGitFetch $a) }},
 						"GitCommit": {{ json (.ArchGitCommit $a) }},
@@ -78,12 +81,12 @@ shell="$(
 					empty
 				] | join(" | ")
 			),
-			sourceId: "printf \("%s\\n" | @sh) \"$reproducibleGitChecksum\" \(.File | @sh) \(.Builder | @sh) | _sha256", # the combination of things that might cause a rebuild
+			sourceId: "printf \("%s\\n" | @sh) \"$reproducibleGitChecksum\" \(.File | @sh) \(.Builder | @sh) | _sha256", # the combination of things that might cause a rebuild # TODO consider making this a compressed JSON object like buildId
 			SOURCE_DATE_EPOCH: "git -C \(.gitCache | @sh) show --no-patch --format=format:%ct \(.GitCommit | @sh)",
 		}
 		| to_entries
 		| [
-			"printf >&2 \("%s (%s): " | @sh) \($e.repo + ":" + $e.Tags[0]) \($e.arch)",
+			"printf >&2 \("%s (%s): " | @sh) \($e.tags[0]) \($e.arch)",
 			empty
 		]
 		+ map(.key + "=\"$(" + .value + ")\"")
@@ -91,9 +94,9 @@ shell="$(
 			"export \(map(.key) | join(" "))",
 			"printf >&2 \("%s\\n" | @sh) \"$sourceId\"",
 			(
-				$e | {
-					tags: (.Tags | map($e.repo + ":" + .)),
-					sharedTags: (.SharedTags | map($e.repo + ":" + .)),
+				$e
+				| {
+					allTags: (.tags + .archTags),
 					entry: {
 						GitRepo: .GitRepo,
 						GitFetch: .GitFetch,
@@ -104,12 +107,14 @@ shell="$(
 					},
 					arches: {
 						(.arch): {
-							ns: .archNamespace,
+							tags: .tags,
+							archTags: .archTags,
+							stagingRepo: "tianongravi468/doi-staging", # "oisupport/staging-\(.arch)", # TODO this should be configurable somehow
 							froms: .froms,
 						},
 					},
 				} as $obj
-				| "jq <<<\($obj | tojson | @sh) -c \(".sourceId = env.sourceId | .reproducibleGitChecksum = env.reproducibleGitChecksum | .entry.SOURCE_DATE_EPOCH = (env.SOURCE_DATE_EPOCH | tonumber)" | @sh)" # TODO
+				| "jq <<<\($obj | tojson | @sh) -c \("{ sourceId: env.sourceId, reproducibleGitChecksum: env.reproducibleGitChecksum } + . | .entry.SOURCE_DATE_EPOCH = (env.SOURCE_DATE_EPOCH | tonumber)" | @sh)"
 			),
 			empty
 		]
@@ -127,10 +132,10 @@ jq <<<"$json" -s --argjson pins "$externalPinsJson" '
 			if . == null then
 				$in
 			else
-				.tags |= (. + $in.tags | unique_unsorted)
-				| .sharedTags |= (. + $in.sharedTags | unique_unsorted)
+				.allTags |= (. + $in.allTags | unique_unsorted)
 				| .arches += $in.arches # TODO error on duplicates here
 				| if .entry.SOURCE_DATE_EPOCH > $in.entry.SOURCE_DATE_EPOCH then
+					# smallest SOURCE_DATE_EPOCH wins in the face of duplicates for a given sourceId
 					.entry = $in.entry
 				else . end
 			end
@@ -139,7 +144,7 @@ jq <<<"$json" -s --argjson pins "$externalPinsJson" '
 	| (
 		reduce to_entries[] as $e ({};
 			$e.key as $sourceId
-			| .[$e.value.tags + $e.value.sharedTags | .[]] |= (
+			| .[$e.value.allTags[]] |= (
 				.[$e.value.arches | keys[]] |= (
 					. + [$sourceId] | unique_unsorted
 				)
