@@ -23,6 +23,31 @@ defaultArchNamespaces='
 : "${BASHBREW_ARCH_NAMESPACES=$defaultArchNamespaces}"
 export BASHBREW_ARCH_NAMESPACES
 
+dir="$(dirname "$BASH_SOURCE")"
+dir="$(readlink -ve "$dir")"
+if [ "$dir/tar-scrubber.go" -nt "$dir/tar-scrubber" ]; then
+	# TODO this should probably live somewhere else (bashbrew?)
+	{
+		echo "building '$dir/tar-scrubber' from 'tar-scrubber.go'"
+		user="$(id -u):$(id -g)"
+		args=(
+			--rm
+			--user "$user"
+			--mount "type=bind,src=$dir,dst=/app"
+			--workdir /app
+			--tmpfs /tmp
+			--env HOME=/tmp
+			--env CGO_ENABLED=0
+			golang:1.20
+			go build -v -o tar-scrubber tar-scrubber.go
+		)
+		docker run "${args[@]}"
+		ls -l "$dir/tar-scrubber"
+	} >&2
+fi
+[ -x "$dir/tar-scrubber" ]
+export tarScrubber="$dir/tar-scrubber"
+
 # let's resolve all the external pins so we can inject those too
 libraryDir="${BASHBREW_LIBRARY:-"$HOME/docker/official-images/library"}"
 libraryDir="$(readlink -ve "$libraryDir")"
@@ -77,7 +102,7 @@ shell="$(
 				[
 					# TODO do this inside bashbrew? (could then use go-git to make an even more determistic tarball instead of munging Git afterwards, and could even do things like munge the Dockerfile to remove no-rebuild variance like comments and non-COPY-ed files)
 					"git -C \(.gitCache | @sh) archive --format=tar \(.GitCommit + ":" + (.Directory | if . == "." then "" else . + "/" end) | @sh)",
-					"~/source-checksums/tar-scrubber --sha256", # TODO
+					"\(env.tarScrubber | @sh) --sha256",
 					empty
 				] | join(" | ")
 			),
