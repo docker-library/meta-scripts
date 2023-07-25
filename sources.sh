@@ -71,6 +71,7 @@ json="$(
 	bashbrew cat --build-order --format '
 		{{- range $e := .Entries -}}
 			{{- range $a := $e.Architectures -}}
+				{{- $archNs := archNamespace $a -}}
 				{{- with $e -}}
 					{
 						"repo": {{ $.RepoName | json }},
@@ -79,7 +80,7 @@ json="$(
 						"platform": {{ ociPlatform $a | json }},
 						"gitCache": {{ gitCache | json }},
 						"tags": {{ $.Tags namespace false . | json }},
-						"archTags": {{ $.Tags (archNamespace $a) false . | json }},
+						"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
 						"GitRepo": {{ .ArchGitRepo $a | json }},
 						"GitFetch": {{ .ArchGitFetch $a | json }},
 						"GitCommit": {{ .ArchGitCommit $a | json }},
