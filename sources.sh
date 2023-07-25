@@ -135,7 +135,7 @@ shell="$(
 						(.arch): {
 							tags: .tags,
 							archTags: .archTags,
-							stagingRepo: "tianongravi468/doi-staging", # "oisupport/staging-\(.arch)", # TODO this should be configurable somehow
+							stagingRepo: "tianongravi468/doi-staging", # "oisupport/staging-\(.arch)", # TODO this should be configurable somehow (and should be part of "builds.sh", not "sources.sh")
 							froms: .froms,
 							platformString: .platformString,
 							platform: .platform,
