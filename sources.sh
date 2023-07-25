@@ -77,6 +77,8 @@ json="$(
 						"namespace": {{ json namespace }},
 						"arch": {{ json $a }},
 						"archNamespace": {{ json (archNamespace $a) }},
+						"platformString": {{ (ociPlatform $a).String | json }},
+						"platform": {{ ociPlatform $a | json }},
 						"gitCache": {{ json gitCache }},
 						"tags": {{ json ($.Tags namespace false .) }},
 						"archTags": {{ json ($.Tags (archNamespace $a) false .) }},
@@ -136,6 +138,8 @@ shell="$(
 							archTags: .archTags,
 							stagingRepo: "tianongravi468/doi-staging", # "oisupport/staging-\(.arch)", # TODO this should be configurable somehow
 							froms: .froms,
+							platformString: .platformString,
+							platform: .platform,
 						},
 					},
 				} as $obj
