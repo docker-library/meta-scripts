@@ -73,22 +73,20 @@ json="$(
 			{{- range $a := $e.Architectures -}}
 				{{- with $e -}}
 					{
-						"repo": {{ json $.RepoName }},
-						"namespace": {{ json namespace }},
-						"arch": {{ json $a }},
-						"archNamespace": {{ json (archNamespace $a) }},
+						"repo": {{ $.RepoName | json }},
+						"arch": {{ $a | json }},
 						"platformString": {{ (ociPlatform $a).String | json }},
 						"platform": {{ ociPlatform $a | json }},
-						"gitCache": {{ json gitCache }},
-						"tags": {{ json ($.Tags namespace false .) }},
-						"archTags": {{ json ($.Tags (archNamespace $a) false .) }},
-						"GitRepo": {{ json (.ArchGitRepo $a) }},
-						"GitFetch": {{ json (.ArchGitFetch $a) }},
-						"GitCommit": {{ json (.ArchGitCommit $a) }},
-						"Directory": {{ json (.ArchDirectory $a) }},
-						"File": {{ json (.ArchFile $a) }},
-						"Builder": {{ json (.ArchBuilder $a) }},
-						"froms": {{ json ($.ArchDockerFroms $a .) }}
+						"gitCache": {{ gitCache | json }},
+						"tags": {{ $.Tags namespace false . | json }},
+						"archTags": {{ $.Tags (archNamespace $a) false . | json }},
+						"GitRepo": {{ .ArchGitRepo $a | json }},
+						"GitFetch": {{ .ArchGitFetch $a | json }},
+						"GitCommit": {{ .ArchGitCommit $a | json }},
+						"Directory": {{ .ArchDirectory $a | json }},
+						"File": {{ .ArchFile $a | json }},
+						"Builder": {{ .ArchBuilder $a | json }},
+						"froms": {{ $.ArchDockerFroms $a . | json }}
 					}
 				{{- end -}}
 			{{- end -}}
