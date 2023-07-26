@@ -28,19 +28,25 @@ def build_command:
 										"org.opencontainers.image.source": $buildUrl,
 										"org.opencontainers.image.revision": .source.entry.GitCommit,
 
-										# TODO come up with a less hacky/assuming value here?
-										"org.opencontainers.image.url": (
-											first(.source.allTags[])
-											| sub("[:@].*$"; "")
-											| if index("/") then
+										# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
+										"org.opencontainers.image.version": ( # value of the first image tag
+											first(.source.allTags[] | select(contains(":")))
+											| sub("^.*:"; "")
+											# TODO maybe we should do the first, longest, non-latest tag instead of just the first tag?
+										),
+										"org.opencontainers.image.url": ( # URL to Docker Hub
+											first(.source.allTags[] | select(contains(":")))
+											| sub(":.*$"; "")
+											| if contains("/") then
 												"r/" + .
 											else
 												"_/" + .
 											end
 											| "https://hub.docker.com/" + .
 										),
+										# TODO org.opencontainers.image.vendor ? (feels leaky to put "Docker Official Images" here when this is all otherwise mostly generic)
 									}
-									| to_entries[] |
+									| to_entries[] | select(.value != null) |
 									"annotation." + .key + "=" + .value,
 									"annotation-manifest-descriptor." + .key + "=" + .value
 								),
