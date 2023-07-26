@@ -3,6 +3,9 @@ set -Eeuo pipefail
 
 json="$1"
 
+: "${BASHBREW_STAGING_TEMPLATE:=oisupport/staging-ARCH:BUILD}"
+export BASHBREW_STAGING_TEMPLATE
+
 shell="$(jq -r '
 	[
 		"set -- \(keys_unsorted | map(@sh) | join(" "))",
@@ -100,7 +103,6 @@ for sourceId; do
 
 		shell="$(jq <<<"$archObj" -r '
 			[
-				"stagingRepo=\(.stagingRepo | @sh)",
 				"parents=(",
 				(
 					.parents
@@ -158,7 +160,10 @@ for sourceId; do
 			buildIdJson="$(jq <<<"$buildIdParts" -c 'del(.resolvedParents)')" # see notes above (where buildIdParts is first defined)
 			buildId="$(sha256sum <<<"$buildIdJson" | cut -d' ' -f1)" # see notes above (where buildIdParts is first defined)
 			printf >&2 '%s\n' "$buildId"
-			img="$stagingRepo:$buildId"
+			img="$BASHBREW_STAGING_TEMPLATE"
+			img="${img//BUILD/$buildId}"
+			[ "$img" != "$BASHBREW_STAGING_TEMPLATE" ] # BUILD is required, for proper uniqueness (ARCH is optional)
+			img="${img//ARCH/$arch}"
 			resolved="$(_resolve "$img" "$arch")"
 			: "${resolved:=null}"
 			sourceArchResolved["$sourceId-$arch"]="$resolved"

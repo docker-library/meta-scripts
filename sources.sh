@@ -5,7 +5,7 @@ if [ "$#" -eq 0 ]; then
 	set -- --all
 fi
 
-# TODO do this for oisupport too! (without arch namespaces; just straight into the staging repos)
+# TODO do this for oisupport too! (without arch namespaces; just straight into/from the staging repos)
 
 defaultArchNamespaces='
 	amd64 = amd64,
@@ -135,7 +135,6 @@ shell="$(
 						(.arch): {
 							tags: .tags,
 							archTags: .archTags,
-							stagingRepo: "tianongravi468/doi-staging", # "oisupport/staging-\(.arch)", # TODO this should be configurable somehow (and should be part of "builds.sh", not "sources.sh")
 							froms: .froms,
 							platformString: .platformString,
 							platform: .platform,
