@@ -36,8 +36,13 @@ def build_command:
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
-					"--provenance=mode=max",
-					"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"", # TODO .doi/.bin/bashbrew-buildkit-env-setup.sh (needs to be set appropriately per-architecture)
+					if .build.arch as $arch | [ "amd64", "arm64v8" ] | index($arch) then
+						# TODO .doi/.bin/bashbrew-buildkit-env-setup.sh (needs to be set appropriately per-architecture, and this arch list needs to match that one)
+						"--provenance=mode=max", # see "bashbrew remote arches moby/buildkit:buildx-stable-1" (we need buildkit-in-docker for provenance today)
+						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"", # see "bashbrew remote arches docker/buildkit-syft-scanner:stable-1" (we need the scanner to run natively)
+						# currently these two are controlled by the same arch list because they overlap but we could split them (or rely on "bashbrew-buildkit-env-setup.sh" to set variables correctly where they can be used, but that's a little more complicated)
+						empty
+					else empty end,
 					(
 						"--output " + (
 							[
