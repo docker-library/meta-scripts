@@ -4,6 +4,27 @@ def needs_build:
 	.build.resolved == null
 ;
 # input: "build" object (with "buildId" top level key)
+# output: string "pull command" ("docker pull ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail", might be empty
+def pull_command:
+	.source.entry.Builder as $builder
+	| if $builder == "buildkit" or $builder == "" then
+		"" # buildkit has to pull during build 🙈
+	elif $builder == "classic" then
+		[
+			(
+				.build.resolvedParents | to_entries[] |
+				@sh "docker pull \(.value.manifest.ref)",
+				@sh "docker tag \(.value.manifest.ref) \(.key)"
+			),
+			empty
+		] | join("\n")
+	elif $builder == "oci-import" then
+		"" # "oci-import" is essentially "FROM scratch"
+	else
+		error("unknown/unimplemented Builder: \($builder)")
+	end
+;
+# input: "build" object (with "buildId" top level key)
 # output: string "build command" ("docker buildx build ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def build_command:
 	.source.entry.Builder as $builder
@@ -75,14 +96,6 @@ def build_command:
 					empty
 				] | join(" ")
 			),
-			# extract to a directory and "crane push" (easier to get correct than "ctr image import" + "ctr image push", especially with authentication)
-			"mkdir temp",
-			"tar -xvf temp.tar -C temp",
-			# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
-			@sh "jq \(".manifests |= (del(.[].annotations) | unique)") temp/index.json > temp/index.json.new",
-			"mv temp/index.json.new temp/index.json",
-			@sh "crane push temp \(.build.img)",
-			"rm -rf temp temp.tar",
 			# possible improvements in buildkit/buildx that could help us:
 			# - allowing OCI output directly to a directory instead of a tar (thus getting symmetry with the oci-layout:// inputs it can take)
 			# - allowing tag as one thing and push as something else, potentially mutually exclusive
@@ -91,11 +104,6 @@ def build_command:
 		] | join("\n")
 	elif $builder == "classic" then
 		[
-			(
-				.build.resolvedParents | to_entries[] |
-				@sh "docker pull \(.value.manifest.ref)",
-				@sh "docker tag \(.value.manifest.ref) \(.key)"
-			),
 			(
 				[
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
@@ -114,7 +122,6 @@ def build_command:
 				]
 				| join(" ")
 			),
-			@sh "docker push \(.build.img)",
 			empty
 		] | join("\n")
 	elif $builder == "oci-import" then
@@ -125,6 +132,30 @@ def build_command:
 			# TODO something clever, especially to deal with "index.json" vs not-"index.json" (possibly using "jq" to either synthesize/normalize to what we actually need it to be for "crane push temp/dir \(.build.img)")
 			empty
 		] | join("\n")
+	else
+		error("unknown/unimplemented Builder: \($builder)")
+	end
+;
+# input: "build" object (with "buildId" top level key)
+# output: string "push command" ("docker push ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
+def push_command:
+	.source.entry.Builder as $builder
+	| if $builder == "buildkit" or $builder == "" then
+		[
+			# extract to a directory and "crane push" (easier to get correct than "ctr image import" + "ctr image push", especially with authentication)
+			"mkdir temp",
+			"tar -xvf temp.tar -C temp",
+			# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
+			@sh "jq \(".manifests |= (del(.[].annotations) | unique)") temp/index.json > temp/index.json.new",
+			"mv temp/index.json.new temp/index.json",
+			@sh "crane push temp \(.build.img)",
+			"rm -rf temp temp.tar",
+			empty
+		] | join("\n")
+	elif $builder == "classic" then
+		@sh "docker push \(.build.img)"
+	elif $builder == "oci-import" then
+		"TODO"
 	else
 		error("unknown/unimplemented Builder: \($builder)")
 	end
