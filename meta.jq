@@ -23,6 +23,7 @@ def should_use_docker_buildx_driver:
 		| index($arch)
 		| not
 	)
+	# TODO "failed to read dockerfile: failed to load cache key: subdir not supported yet" asdflkjalksdjfklasdjfklajsdklfjasdklgfnlkasdfgbhnkljasdhgouiahsdoifjnask,.dfgnklasdbngoikasdhfoiasjdklfjasdlkfjalksdjfkladshjflikashdbgiohasdfgiohnaskldfjhnlkasdhfnklasdhglkahsdlfkjasdlkfjadsklfjsdl
 ;
 # input: "build" object (with "buildId" top level key)
 # output: string "pull command" ("docker pull ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail", might be empty
