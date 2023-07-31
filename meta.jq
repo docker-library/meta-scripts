@@ -200,3 +200,12 @@ def push_command:
 		error("unknown/unimplemented Builder: \($builder)")
 	end
 ;
+# input: "build" object (with "buildId" top level key)
+# output: "commands" object with keys "pull", "build", "push"
+def commands:
+	{
+		pull: pull_command,
+		build: build_command,
+		push: push_command,
+	}
+;
