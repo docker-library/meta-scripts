@@ -1,0 +1,183 @@
+// one job per arch (for now) that just builds "the top thing" (triggered by the meta-update job)
+properties([
+	disableConcurrentBuilds(),
+	disableResume(),
+	durabilityHint('PERFORMANCE_OPTIMIZED'),
+	parameters([
+		string(name: 'buildId', trim: true),
+	]),
+])
+
+env.BASHBREW_ARCH = env.JOB_NAME.split('[/-]')[-1] // "arm64v8", etc
+env.BUILD_ID = params.buildId
+
+node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
+	stage('Checkout') {
+		checkout(scmGit(
+			userRemoteConfigs: [[
+				url: 'git@github.com:docker-library/meta.git',
+				credentialsId: 'docker-library-bot',
+				name: 'origin',
+			]],
+			branches: [[name: '*/subset']], // TODO back to main
+			extensions: [
+				submodule(
+					parentCredentials: true,
+					recursiveSubmodules: true,
+					trackingSubmodules: true,
+				),
+				cleanBeforeCheckout(),
+				cleanAfterCheckout(),
+				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
+			],
+		))
+	}
+
+	dir('.bin') {
+		deleteDir()
+
+		stage('Crane') {
+			// https://github.com/google/go-containerregistry/releases
+			// TODO other arches, including those we have to build from source (even on Windows and/or platforms where we don't have a golang:latest image...)
+			//   GOBIN=... CGO_ENABLED=0 go install github.com/google/go-containerregistry/cmd/crane@dbecb1de8cfa6cb8b133b5303aef0175b158915e
+			sh '''#!/usr/bin/env bash
+				set -Eeuo pipefail -x
+
+				ext=''
+				if [ "$BASHBREW_ARCH" = 'windows-amd64' ]; then
+					ext='.exe'
+				fi
+
+				# https://github.com/google/go-containerregistry/releases
+				craneVersion='v0.15.2'
+				case "$BASHBREW_ARCH" in
+					amd64) craneTar='go-containerregistry_Linux_x86_64.tar.gz' ;;
+					arm32v[67]) craneTar='go-containerregistry_Linux_armv6.tar.gz' ;;
+					arm64v8) craneTar='go-containerregistry_Linux_arm64.tar.gz' ;;
+					i386) craneTar='go-containerregistry_Linux_i386.tar.gz' ;;
+					ppc64le) craneTar='go-containerregistry_Linux_ppc64le.tar.gz' ;;
+					s390x) craneTar='go-containerregistry_Linux_s390x.tar.gz' ;;
+					windows-amd64) craneTar='go-containerregistry_Windows_x86_64.tar.gz' ;;
+					*) echo >&2 "error: unsupported arch: $BASHBREW_ARCH"; exit 1 ;;
+				esac
+				wget -O crane.tgz "https://github.com/google/go-containerregistry/releases/download/$craneVersion/$craneTar" --progress=dot:giga
+				# TODO checksum verification ("checksums.txt")
+				tar -xvf crane.tgz "crane$ext"
+				rm crane.tgz
+				"./crane$ext" version
+			'''
+			env.PATH = "${workspace}/.bin:${env.PATH}"
+		}
+	}
+
+	dir('meta') {
+		def obj = ''
+		stage('JSON') {
+			obj = sh(returnStdout: true, script: '''
+				[ -n "$BUILD_ID" ]
+				shell="$(
+					jq -L.scripts -r '
+						include "meta";
+						.[env.BUILD_ID]
+						| select(needs_build and .build.arch == env.BASHBREW_ARCH) # sanity check
+						| .commands = commands
+						| @sh "if ! crane digest \\(.build.img) >&2; then printf %s \\(tojson); exit 0; fi"
+					' builds.json
+				)"
+				eval "$shell"
+			''').trim()
+		}
+		if (obj) {
+			obj = readJSON(text: obj)
+			currentBuild.displayName = obj.source.allTags[0] + ' (#' + currentBuild.number + ')'
+			currentBuild.description = '<code>' + obj.build.img + '</code>'
+		} else {
+			currentBuild.displayName = 'nothing to do (#' + currentBuild.number + ')'
+			return
+		}
+
+		/*
+		// TODO this is currently already done on the worker machines themselves, which is a tradeoff
+		// make sure "docker login" is localized to this workspace
+		env.DOCKER_CONFIG = workspace + '/.docker'
+		dir(env.DOCKER_CONFIG) { deleteDir() }
+
+		withCredentials([usernamePassword(
+			credentialsId: 'docker-hub-' + env.BASHBREW_ARCH, // TODO windows?
+			usernameVariable: 'DOCKER_USERNAME',
+			passwordVariable: 'DOCKER_PASSWORD',
+		)]) {
+			sh '''#!/usr/bin/env bash
+				set -Eeuo pipefail
+				docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
+			'''
+		}
+		*/
+
+		def buildEnvs = []
+		stage('Prep') {
+			if (obj.commands.build.contains(' buildx ')) {
+				// TODO remove this hackiness and do this correctly (fix the upstream script, fix the "build_command" function to not use SBOM-creating variables on arches that can't be supported by either or both of buildkit / the sbom-scanner image)
+				sh '''#!/usr/bin/env bash
+					set -Eeuo pipefail -x
+
+					patch >&2 -p1 --directory=.doi <<-'EOP'
+diff --git a/.bin/bashbrew-buildkit-env-setup.sh b/.bin/bashbrew-buildkit-env-setup.sh
+index 190fb4740..a35d4d77a 100755
+--- a/.bin/bashbrew-buildkit-env-setup.sh
++++ b/.bin/bashbrew-buildkit-env-setup.sh
+@@ -52,7 +52,7 @@ _bashbrew_buildkit_env_setup() {
+ 	vars="$(_jq_setenv <<<"$vars" BASHBREW_BUILDKIT_SYNTAX "$dockerfileTag")"
+ 
+ 	case "${BASHBREW_ARCH:-}" in
+-		nope) # amd64 | arm64v8) # TODO re-enable this once we figure out how to handle "docker build --tag X" + "FROM X" correctly all-local
++		amd64 | arm64v8)
+ 			BASHBREW_BUILDKIT_IMAGE="$(grep <<<"$externalPins" -m1 '^moby/buildkit:')"
+ 			BASHBREW_BUILDKIT_IMAGE="$(_resolve_external_pins "$BASHBREW_BUILDKIT_IMAGE")"
+ 			export BASHBREW_BUILDKIT_IMAGE
+					EOP
+				'''
+
+				def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
+					set -Eeuo pipefail -x
+
+					.doi/.bin/bashbrew-buildkit-env-setup.sh \\
+						| jq 'to_entries | map(.key + "=" + .value)'
+				''').trim()
+				if (json) {
+					buildEnvs += readJSON(text: json)
+				}
+			}
+		}
+
+		withEnv(buildEnvs) {
+			dir('build') {
+				deleteDir()
+
+				stage('Pull') {
+					sh """#!/usr/bin/env bash
+						set -Eeuo pipefail -x
+
+						${ obj.commands.pull }
+					"""
+				}
+
+				stage('Build') {
+					sh """#!/usr/bin/env bash
+						set -Eeuo pipefail -x
+
+						${ obj.commands.build }
+					"""
+				}
+
+				stage('Push') {
+					sh """#!/usr/bin/env bash
+						set -Eeuo pipefail -x
+
+						${ obj.commands.push }
+					"""
+				}
+			}
+		}
+	}
+} }

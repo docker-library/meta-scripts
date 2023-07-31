@@ -1,0 +1,58 @@
+node {
+	stage('Checkout') {
+		checkout(scmGit(
+			userRemoteConfigs: [[
+				url: 'git@github.com:docker-library/meta.git',
+				credentialsId: 'docker-library-bot',
+				name: 'origin',
+			]],
+			branches: [[name: '*/subset']], // TODO back to main
+			extensions: [
+				submodule(
+					recursiveSubmodules: true,
+					parentCredentials: true,
+				),
+				cleanBeforeCheckout(),
+				cleanAfterCheckout(),
+				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
+			],
+		))
+		sh '''
+			git -C meta config user.name 'Docker Library Bot'
+			git -C meta config user.email 'doi+docker-library-bot@docker.com'
+		'''
+	}
+
+	env.BASHBREW_LIBRARY = workspace + '/meta/.doi/library'
+
+	dir('meta') {
+		stage('Update DOI') {
+			sh '''
+				git submodule update --remote --merge .doi
+			'''
+		}
+
+		withCredentials([string(credentialsId: 'dockerhub-public-proxy', variable: 'DOCKERHUB_PUBLIC_PROXY')]) { // thanks to rate limits, we either have to "docker login" or look things up via our proxy
+			stage('Fetch') {
+				sh 'bashbrew --library .doi/library fetch $(cat subset.txt)' // TODO --all
+			}
+			stage('Sources') {
+				sh '.scripts/sources.sh $(cat subset.txt) > sources.json'
+			}
+			stage('Builds') {
+				sh '.scripts/builds.sh sources.json > builds.json'
+			}
+		}
+		stage('Commit') {
+			sh '''
+				git add -A .
+				git commit -m 'Update and regenerate' || :
+			'''
+		}
+		sshagent(['docker-library-bot']) {
+			stage('Push') {
+				sh 'git push origin HEAD:subset' // TODO back to main
+			}
+		}
+	}
+}
