@@ -3,13 +3,13 @@
 def needs_build:
 	.build.resolved == null
 ;
-# input "build" object (with "buildId" top level key)
+# input: "build" object (with "buildId" top level key)
 # output: string ("Builder", but normalized)
 def normalized_builder:
 	.source.entry.Builder
 	| if . == "" then "buildkit" else . end
 ;
-# input "build" object (with "buildId" top level key)
+# input: "build" object (with "buildId" top level key)
 # output: boolean
 def should_use_docker_buildx_driver:
 	normalized_builder == "buildkit"
