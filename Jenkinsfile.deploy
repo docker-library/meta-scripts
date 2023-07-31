@@ -1,0 +1,104 @@
+// one job per arch (for now) that copies built images to the arch-specific namespaces
+properties([
+	disableConcurrentBuilds(),
+	disableResume(),
+	durabilityHint('PERFORMANCE_OPTIMIZED'),
+	pipelineTriggers([
+		upstream(threshold: 'FAILURE', upstreamProjects: 'meta'),
+	]),
+])
+
+env.BASHBREW_ARCH = env.JOB_NAME.split('[/-]')[-1] // "arm64v8", etc
+
+node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
+	stage('Checkout') {
+		checkout(scmGit(
+			userRemoteConfigs: [[
+				url: 'git@github.com:docker-library/meta.git',
+				credentialsId: 'docker-library-bot',
+				name: 'origin',
+			]],
+			branches: [[name: '*/subset']], // TODO back to main
+			extensions: [
+				submodule(
+					parentCredentials: true,
+					recursiveSubmodules: true,
+					trackingSubmodules: true,
+				),
+				cleanBeforeCheckout(),
+				cleanAfterCheckout(),
+				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
+			],
+		))
+	}
+
+	dir('.bin') {
+		deleteDir()
+
+		stage('Crane') {
+			// https://github.com/google/go-containerregistry/releases
+			// TODO other arches, including those we have to build from source (even on Windows and/or platforms where we don't have a golang:latest image...)
+			//   GOBIN=... CGO_ENABLED=0 go install github.com/google/go-containerregistry/cmd/crane@dbecb1de8cfa6cb8b133b5303aef0175b158915e
+			sh '''#!/usr/bin/env bash
+				set -Eeuo pipefail -x
+
+				ext=''
+				if [ "$BASHBREW_ARCH" = 'windows-amd64' ]; then
+					ext='.exe'
+				fi
+
+				# https://github.com/google/go-containerregistry/releases
+				craneVersion='v0.15.2'
+				case "$BASHBREW_ARCH" in
+					amd64) craneTar='go-containerregistry_Linux_x86_64.tar.gz' ;;
+					arm32v[67]) craneTar='go-containerregistry_Linux_armv6.tar.gz' ;;
+					arm64v8) craneTar='go-containerregistry_Linux_arm64.tar.gz' ;;
+					i386) craneTar='go-containerregistry_Linux_i386.tar.gz' ;;
+					ppc64le) craneTar='go-containerregistry_Linux_ppc64le.tar.gz' ;;
+					s390x) craneTar='go-containerregistry_Linux_s390x.tar.gz' ;;
+					windows-amd64) craneTar='go-containerregistry_Windows_x86_64.tar.gz' ;;
+					*) echo >&2 "error: unsupported arch: $BASHBREW_ARCH"; exit 1 ;;
+				esac
+				wget -O crane.tgz "https://github.com/google/go-containerregistry/releases/download/$craneVersion/$craneTar" --progress=dot:giga
+				# TODO checksum verification ("checksums.txt")
+				tar -xvf crane.tgz "crane$ext"
+				rm crane.tgz
+				"./crane$ext" version
+			'''
+			env.PATH = "${workspace}/.bin:${env.PATH}"
+		}
+	}
+
+	dir('meta') {
+		def shell = ''
+		stage('Generate') {
+			shell = sh(returnStdout: true, script: '''
+				jq -L.scripts -r '
+					include "meta";
+						reduce (.[] | select(.build.resolved and .build.arch == env.BASHBREW_ARCH)) as $i ({};
+						.[ $i.source.arches[].archTags[] ] += [
+							$i.build.resolved
+							| .index.ref // .manifest.ref
+						]
+					)
+					| to_entries[]
+					| .key as $target
+					| .value
+					| if length == 1 then
+						@sh "crane copy \\(.) \\($target)"
+					else
+						@sh "crane index append --tag \\($target) " + (map("--manifest " + @sh) | join(" ")) + " --flatten"
+					end
+				' builds.json
+			''').trim()
+		}
+
+		stage('Deploy') {
+			sh """#!/usr/bin/env bash
+				set -Eeuo pipefail
+
+				${ shell }
+			"""
+		}
+	}
+} }
