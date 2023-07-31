@@ -78,36 +78,58 @@ node {
 						jq <<<"$json" .
 					'''
 					if (env.BASHBREW_ARCH == 'gha') {
-						sh '''#!/usr/bin/env bash
-							set -Eeuo pipefail -x
+						withCredentials([
+							string(
+								variable: 'GH_TOKEN',
+								credentialsId: 'github-access-token-docker-library-bot-meta',
+							),
+						]) {
+							sh '''#!/usr/bin/env bash
+								set -Eeuo pipefail -x
 
-							jq <<<"$json" -L.scripts '
-								include "meta";
-								{
-									buildId: .buildId,
-									bashbrewArch: .build.arch,
-									firstTag: .source.allTags[0],
-								} + (
-									[ .build.resolvedParents[].manifest.desc.platform? | select(has("os.version")) | ."os.version" ][0] // ""
-									| if . != "" then
-										{ windowsVersion: (
-											# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-											# https://github.com/microsoft/hcsshim/blob/e8208853ff0f7f23fa5d2e018deddff2249d35c8/osversion/windowsbuilds.go
-											capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
-											| {
-												# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
-												# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-												"20348": "2022",
-												"17763": "2019",
-												"": "",
-											}[.build] // "unknown"
-										) }
-									else {} end
-								)
-							'
+								# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
+								payload="$(
+									jq <<<"$json" -L.scripts '
+										include "meta";
+										{
+											ref: "subset", # TODO back to main
+											inputs: (
+												{
+													buildId: .buildId,
+													bashbrewArch: .build.arch,
+													firstTag: .source.allTags[0],
+												} + (
+													[ .build.resolvedParents[].manifest.desc.platform? | select(has("os.version")) | ."os.version" ][0] // ""
+													| if . != "" then
+														{ windowsVersion: (
+															# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
+															# https://github.com/microsoft/hcsshim/blob/e8208853ff0f7f23fa5d2e018deddff2249d35c8/osversion/windowsbuilds.go
+															capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
+															| {
+																# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
+																# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+																"20348": "2022",
+																"17763": "2019",
+																"": "",
+															}[.build] // "unknown"
+														) }
+													else {} end
+												)
+											)
+										}
+									'
+								)"
 
-							# TODO get a GH token and actually trigger builds
-						'''
+								set +x
+								curl -fL \
+									-X POST \
+									-H 'Accept: application/vnd.github+json' \
+									-H "Authorization: Bearer $GH_TOKEN" \
+									-H 'X-GitHub-Api-Version: 2022-11-28' \
+									https://api.github.com/repos/docker-library/meta/actions/workflows/build.yml/dispatches \
+									-d "$payload"
+							'''
+						}
 					} else {
 						def res = build(
 							job: 'build-' + env.BASHBREW_ARCH,
