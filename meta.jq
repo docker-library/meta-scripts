@@ -15,15 +15,13 @@ def should_use_docker_buildx_driver:
 	normalized_builder == "buildkit"
 	and (
 		.build.arch as $arch
-		# TODO .doi/.bin/bashbrew-buildkit-env-setup.sh (needs to be set appropriately per-architecture, and this arch list needs to match that one)
-		| [ "amd64", "arm64v8" ]
-		# see "bashbrew remote arches moby/buildkit:buildx-stable-1" (we need buildkit-in-docker for --provenance today)
-		# see "bashbrew remote arches docker/buildkit-syft-scanner:stable-1" (we need the SBOM scanner to be runnable on the host architecture)
-		# currently these are controlled by the same arch list because they overlap but we could split them (or rely on "bashbrew-buildkit-env-setup.sh" to set variables correctly where they can be used, but that's a little more complicated esp since we can't use "type=oci" with the "docker" driver 🙈), but we can't SBOM without buildkit-in-docker (yet? containerd integration in Docker?)
+		# bashbrew remote arches --json tianon/buildkit:0.12 | jq '.arches | keys_unsorted' -c
+		| ["amd64","arm32v5","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
+		# TODO "bashbrew remote arches moby/buildkit:buildx-stable-1"
 		| index($arch)
 		| not
 	)
-	# TODO "failed to read dockerfile: failed to load cache key: subdir not supported yet" asdflkjalksdjfklasdjfklajsdklfjasdklgfnlkasdfgbhnkljasdhgouiahsdoifjnask,.dfgnklasdbngoikasdhfoiasjdklfjasdlkfjalksdjfkladshjflikashdbgiohasdfgiohnaskldfjhnlkasdhfnklasdhglkahsdlfkjasdlkfjadsklfjsdl
+	# TODO "failed to read dockerfile: failed to load cache key: subdir not supported yet" asdflkjalksdjfklasdjfklajsdklfjasdklgfnlkasdfgbhnkljasdhgouiahsdoifjnask,.dfgnklasdbngoikasdhfoiasjdklfjasdlkfjalksdjfkladshjflikashdbgiohasdfgiohnaskldfjhnlkasdhfnklasdhglkahsdlfkjasdlkfjadsklfjsdl (hence "tianon/buildkit" and "doi-buildkit.patch")
 ;
 # input: "build" object (with "buildId" top level key)
 # output: string "pull command" ("docker pull ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail", might be empty
@@ -60,7 +58,11 @@ def build_command:
 					"docker buildx build --progress=plain",
 					if should_use_docker_buildx_driver then "--load" else # TODO if we get containerd integration and thus use "--load" unconditionally again, we should update this to still set annotations! (and still gate SBOMs on appropriate scanner-supported architectures)
 						"--provenance=mode=max",
-						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"",
+						# see "bashbrew remote arches docker/buildkit-syft-scanner:stable-1" (we need the SBOM scanner to be runnable on the host architecture)
+						# bashbrew remote arches --json docker/buildkit-syft-scanner:stable-1 | jq '.arches | keys_unsorted' -c
+						if .build.arch as $arch | ["amd64","arm32v7","arm64v8","ppc64le","riscv64","s390x"] | index($arch) then
+							"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
+						else empty end,
 						(
 							"--output " + (
 								[
