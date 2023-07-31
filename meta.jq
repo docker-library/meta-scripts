@@ -17,6 +17,7 @@ def should_use_docker_buildx_driver:
 		.build.arch as $arch
 		# bashbrew remote arches --json tianon/buildkit:0.12 | jq '.arches | keys_unsorted' -c
 		| ["amd64","arm32v5","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
+		# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
 		# TODO "bashbrew remote arches moby/buildkit:buildx-stable-1"
 		| index($arch)
 		| not
@@ -61,6 +62,7 @@ def build_command:
 						# see "bashbrew remote arches docker/buildkit-syft-scanner:stable-1" (we need the SBOM scanner to be runnable on the host architecture)
 						# bashbrew remote arches --json docker/buildkit-syft-scanner:stable-1 | jq '.arches | keys_unsorted' -c
 						if .build.arch as $arch | ["amd64","arm32v7","arm64v8","ppc64le","riscv64","s390x"] | index($arch) then
+							# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
 							"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
 						else empty end,
 						(
