@@ -1,3 +1,12 @@
+properties([
+	disableConcurrentBuilds(),
+	disableResume(),
+	durabilityHint('PERFORMANCE_OPTIMIZED'),
+	pipelineTriggers([
+		cron('@hourly'),
+	]),
+])
+
 node {
 	stage('Checkout') {
 		checkout(scmGit(
