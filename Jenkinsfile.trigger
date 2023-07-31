@@ -120,6 +120,10 @@ node {
 						// TODO do something useful with "res.result" (especially "res.result != 'SUCCESS'")
 						// (maybe store "res.startTimeInMillis + res.duration" as endTime so we can implement some amount of backoff somehow?)
 						echo(res.result)
+						if (res.result != 'SUCCESS') {
+							// "catchError" is the only way to set "stageResult" :(
+							catchError(message: 'Build of "' + identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') { error() }
+						}
 					}
 				}
 			}
