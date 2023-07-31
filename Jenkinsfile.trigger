@@ -78,7 +78,9 @@ node {
 						jq <<<"$json" .
 					'''
 					if (env.BASHBREW_ARCH == 'gha') {
-						sh '''
+						sh '''#!/usr/bin/env bash
+							set -Eeuo pipefail -x
+
 							jq <<<"$json" -L.scripts '
 								include "meta";
 								{
