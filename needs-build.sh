@@ -3,6 +3,9 @@ set -Eeuo pipefail
 
 dir="$(dirname "$BASH_SOURCE")"
 
+# example:
+#   jq 'map_values(select(.build.arch == env.BASHBREW_ARCH))' builds.json | .scripts/needs-build.sh
+
 exec jq -L"$dir" '
 	include "meta";
 	map_values(
