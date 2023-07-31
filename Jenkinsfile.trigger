@@ -104,7 +104,7 @@ node {
 										) }
 									else {} end
 								)
-							' builds.json
+							'
 
 							# TODO get a GH token and actually trigger builds
 						'''
