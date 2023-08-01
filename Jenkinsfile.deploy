@@ -36,9 +36,6 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		deleteDir()
 
 		stage('Crane') {
-			// https://github.com/google/go-containerregistry/releases
-			// TODO other arches, including those we have to build from source (even on Windows and/or platforms where we don't have a golang:latest image...)
-			//   GOBIN=... CGO_ENABLED=0 go install github.com/google/go-containerregistry/cmd/crane@dbecb1de8cfa6cb8b133b5303aef0175b158915e
 			sh '''#!/usr/bin/env bash
 				set -Eeuo pipefail -x
 
@@ -47,22 +44,10 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 					ext='.exe'
 				fi
 
-				# https://github.com/google/go-containerregistry/releases
-				craneVersion='v0.15.2'
-				case "$BASHBREW_ARCH" in
-					amd64) craneTar='go-containerregistry_Linux_x86_64.tar.gz' ;;
-					arm32v*) craneTar='go-containerregistry_Linux_armv6.tar.gz' ;; # these build on a 64bit host anyhow, so this should be fine even for arm32v5
-					arm64v8) craneTar='go-containerregistry_Linux_arm64.tar.gz' ;;
-					i386) craneTar='go-containerregistry_Linux_i386.tar.gz' ;;
-					ppc64le) craneTar='go-containerregistry_Linux_ppc64le.tar.gz' ;;
-					s390x) craneTar='go-containerregistry_Linux_s390x.tar.gz' ;;
-					windows-amd64) craneTar='go-containerregistry_Windows_x86_64.tar.gz' ;;
-					*) echo >&2 "error: unsupported arch: $BASHBREW_ARCH"; exit 1 ;;
-				esac
-				wget -O crane.tgz "https://github.com/google/go-containerregistry/releases/download/$craneVersion/$craneTar" --progress=dot:giga
+				# https://doi-janky.infosiftr.net/job/wip/job/crane
+				wget -O "crane$ext" "https://doi-janky.infosiftr.net/job/wip/job/crane/lastSuccessfulBuild/artifact/crane-$BASHBREW_ARCH$ext" --progress=dot:giga
 				# TODO checksum verification ("checksums.txt")
-				tar -xvf crane.tgz "crane$ext"
-				rm crane.tgz
+				chmod +x "crane$ext"
 				"./crane$ext" version
 			'''
 			env.PATH = "${workspace}/.bin:${env.PATH}"
