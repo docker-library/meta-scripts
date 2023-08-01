@@ -52,7 +52,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 				craneVersion='v0.15.2'
 				case "$BASHBREW_ARCH" in
 					amd64) craneTar='go-containerregistry_Linux_x86_64.tar.gz' ;;
-					arm32v[67]) craneTar='go-containerregistry_Linux_armv6.tar.gz' ;;
+					arm32v*) craneTar='go-containerregistry_Linux_armv6.tar.gz' ;; # these build on a 64bit host anyhow, so this should be fine even for arm32v5
 					arm64v8) craneTar='go-containerregistry_Linux_arm64.tar.gz' ;;
 					i386) craneTar='go-containerregistry_Linux_i386.tar.gz' ;;
 					ppc64le) craneTar='go-containerregistry_Linux_ppc64le.tar.gz' ;;
