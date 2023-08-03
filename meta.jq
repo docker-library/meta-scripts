@@ -6,8 +6,16 @@ def needs_build:
 # input: "build" object (with "buildId" top level key)
 # output: string ("Builder", but normalized)
 def normalized_builder:
-	.source.entry.Builder
-	| if . == "" then "buildkit" else . end
+	.build.arch as $arch
+	| .source.entry.Builder
+	| if . == "" then
+		if $arch | startswith("windows-") then
+			# https://github.com/microsoft/Windows-Containers/issues/34
+			"classic"
+		else
+			"buildkit"
+		end
+	else . end
 ;
 # input: "build" object (with "buildId" top level key)
 # output: boolean
