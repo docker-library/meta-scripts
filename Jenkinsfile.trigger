@@ -55,13 +55,15 @@ node {
 				' builds.json
 			''').trim()
 		}
-		if (queue) {
+		if (queue && queue != '[]') {
 			queue = readJSON(text: queue)
 			currentBuild.displayName = 'queue size: ' + queue.size() + ' (#' + currentBuild.number + ')'
 		} else {
 			currentBuild.displayName = 'empty queue (#' + currentBuild.number + ')'
 			return
 		}
+
+		// TODO now that we have our parsed queue, we should release the node we're holding up and only re-allocate one for running `sh` commands (like curling GitHub)
 
 		for (buildObj in queue) {
 			def identifier = buildObj.source.allTags[0]

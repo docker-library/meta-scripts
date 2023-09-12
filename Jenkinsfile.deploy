@@ -60,7 +60,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			shell = sh(returnStdout: true, script: '''
 				jq -L.scripts -r '
 					include "meta";
-						reduce (.[] | select(.build.resolved and .build.arch == env.BASHBREW_ARCH)) as $i ({};
+					reduce (.[] | select(.build.resolved and .build.arch == env.BASHBREW_ARCH)) as $i ({};
 						.[ $i.source.arches[].archTags[] ] += [
 							$i.build.resolved
 							| .index.ref // .manifest.ref
