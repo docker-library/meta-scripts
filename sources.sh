@@ -160,7 +160,20 @@ jq <<<"$json" -s --argjson pins "$externalPinsJson" '
 				$in
 			else
 				.allTags |= (. + $in.allTags | unique_unsorted)
-				| .arches += $in.arches # TODO error on duplicates here
+				| .arches |= (
+					reduce ($in.arches | to_entries[]) as {$key, $value} (.;
+						if has($key) then
+							# if we already have this architecture, this must be a weird edge case (same sourceId, but different Architectures: lists, for example), so we should validate that the metadata is the same and then do a smart combination of the tags
+							if (.[$key] | del(.tags, .archTags)) != ($value | del(.tags, .archTags)) then
+								error("duplicate architecture \($key) for \($in.sourceId), but mismatched objects: \(.[$key]) vs \($value)")
+							else . end
+							| .[$key].tags |= (. + $value.tags | unique_unsorted)
+							| .[$key].archTags |= (. + $value.archTags | unique_unsorted)
+						else
+							.[$key] = $value
+						end
+					)
+				)
 				| if .entry.SOURCE_DATE_EPOCH > $in.entry.SOURCE_DATE_EPOCH then
 					# smallest SOURCE_DATE_EPOCH wins in the face of duplicates for a given sourceId
 					.entry = $in.entry
