@@ -35,10 +35,11 @@ node {
 	env.BASHBREW_LIBRARY = workspace + '/meta/.doi/library'
 
 	dir('meta') {
-		// TODO we actually *should* update .scripts (since that's where Jenkinsfile.* comes from, so it doesn't really make sense to update our Jenkinsfile and not have it use updated scripts), but it probably should update explicitly to the commit that the Jenkinsfile itself is coming from, if that's possible? (maybe "latest" is fine?)
+		// we *should* update .scripts (since that's where Jenkinsfile.* comes from, so it doesn't really make sense to update our Jenkinsfile and not have it use updated scripts), but it probably should update explicitly to the commit that the Jenkinsfile itself is coming from, if that's possible? ("latest" is probably fine)
 		stage('Update DOI') {
 			sh '''
 				git submodule update --remote --merge .doi
+				git submodule update --remote --merge .scripts
 			'''
 		}
 
