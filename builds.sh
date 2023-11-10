@@ -19,13 +19,25 @@ shell="$(jq -r '
 ' "$json")"
 eval "$shell"
 
+_resolveRemoteArch() {
+	local img="$1"; shift
+
+	local arches
+	if ! arches="$(bashbrew remote arches --json "$img" 2>/dev/null)"; then # TODO somehow differentiate errors like 404 / 403, "insufficient_scope" from other bashbrew errors here so we can stop eating stderr
+		printf 'null'
+		return
+	fi
+
+	echo "$arches"
+}
+
 # resolve an image reference to an architecture-specific imageId (digest of the image manifest)
 _resolve() {
 	local img="$1"; shift
 	local arch="$1"; shift
+	local bashbrewRemoteArches="$1"; shift
 
-	local bashbrewRemoteArches
-	if ! bashbrewRemoteArches="$(bashbrew remote arches --json "$img" 2>/dev/null)"; then # TODO somehow differentiate errors like 404 / 403, "insufficient_scope" from other bashbrew errors here so we can stop eating stderr
+	if [ "$bashbrewRemoteArches" = 'null' ]; then
 		printf 'null'
 		return
 	fi
@@ -55,6 +67,10 @@ _resolve() {
 		else null end
 	' || exit 1
 }
+
+declare -A imageArchResolved=(
+	#["image"]="{...}" # JSON result of bashbrew remote arches
+)
 
 # for each sourceId, try to calculate a buildId, then do a registry lookup to get an imageId
 # then, anything that has a calculated buildId but *not* an imageId is something that needs a build
@@ -134,7 +150,12 @@ for sourceId; do
 			if [ -n "$lookup" ] && [ -n "${sources["$lookup"]:+x}" ]; then
 				resolved="${sourceArchResolved["$lookup-$arch"]:-}"
 			elif [ -n "$lookup" ]; then
-				resolved="$(_resolve "$lookup" "$arch")"
+				if [ -z "${imageArchResolved["$lookup"]:+x}" ]; then
+					remoteArches="$(_resolveRemoteArch "$lookup")"
+					imageArchResolved["$lookup"]="$remoteArches"
+				fi
+
+				resolved="$(_resolve "$lookup" "$arch" "${imageArchResolved["$lookup"]}")"
 			else
 				resolved=
 			fi
@@ -160,11 +181,18 @@ for sourceId; do
 			buildIdJson="$(jq <<<"$buildIdParts" -c 'del(.resolvedParents)')" # see notes above (where buildIdParts is first defined)
 			buildId="$(sha256sum <<<"$buildIdJson" | cut -d' ' -f1)" # see notes above (where buildIdParts is first defined)
 			printf >&2 '%s\n' "$buildId"
+
 			img="$BASHBREW_STAGING_TEMPLATE"
 			img="${img//BUILD/$buildId}"
 			[ "$img" != "$BASHBREW_STAGING_TEMPLATE" ] # BUILD is required, for proper uniqueness (ARCH is optional)
 			img="${img//ARCH/$arch}"
-			resolved="$(_resolve "$img" "$arch")"
+
+			if [ -z "${imageArchResolved["$img"]:+x}" ]; then
+				remoteArches="$(_resolveRemoteArch "$img")"
+				imageArchResolved["$img"]="$remoteArches"
+			fi
+
+			resolved="$(_resolve "$img" "$arch" "${imageArchResolved["$img"]}")"
 			: "${resolved:=null}"
 			sourceArchResolved["$sourceId-$arch"]="$resolved"
 			builds="$(
