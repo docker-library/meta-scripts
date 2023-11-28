@@ -102,13 +102,6 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		def buildEnvs = []
 		stage('Prep') {
 			if (obj.commands.build.contains(' buildx ')) {
-				// TODO remove this hackiness and do this correctly (fix the upstream script, fix the "build_command" function to not use SBOM-creating variables on arches that can't be supported by either or both of buildkit / the sbom-scanner image)
-				sh '''#!/usr/bin/env bash
-					set -Eeuo pipefail -x
-
-					patch >&2 -p1 --input="$PWD/.scripts/doi-buildkit.patch" --directory=.doi
-				'''
-
 				def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
 					set -Eeuo pipefail -x
 
