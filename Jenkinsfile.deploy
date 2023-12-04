@@ -49,14 +49,20 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 				chmod +x "crane$ext"
 				"./crane$ext" version
 			'''
-			env.PATH = "${workspace}/.bin:${env.PATH}"
+			if (env.BASHBREW_ARCH == 'windows-amd64') {
+				env.PATH = "${workspace}/.bin;${env.PATH}"
+			} else {
+				env.PATH = "${workspace}/.bin:${env.PATH}"
+			}
 		}
 	}
 
 	dir('meta') {
 		def shell = ''
 		stage('Generate') {
-			shell = sh(returnStdout: true, script: '''
+			shell = sh(returnStdout: true, script: '''#/usr/bin/env bash
+				set -Eeuo pipefail -x
+
 				jq -L.scripts -r '
 					include "meta";
 					reduce (.[] | select(.build.resolved and .build.arch == env.BASHBREW_ARCH)) as $i ({};
@@ -75,6 +81,8 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 					end
 				' builds.json
 			''').trim()
+
+			shell = shell.replaceAll("\r", '') // deal with Windows...
 		}
 
 		stage('Deploy') {
