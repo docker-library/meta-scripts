@@ -17,8 +17,7 @@ node {
 	stage('Checkout') {
 		checkout(scmGit(
 			userRemoteConfigs: [[
-				url: 'git@github.com:docker-library/meta.git',
-				credentialsId: 'docker-library-bot',
+				url: 'https://github.com/docker-library/meta.git',
 				name: 'origin',
 			]],
 			branches: [[name: '*/subset']], // TODO back to main
