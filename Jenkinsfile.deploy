@@ -8,7 +8,7 @@ properties([
 	]),
 ])
 
-env.BASHBREW_ARCH = env.JOB_NAME.split('[/-]')[-1] // "arm64v8", etc
+env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('deploy-') // "windows-amd64", "arm64v8", etc
 
 node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 	stage('Checkout') {
