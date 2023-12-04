@@ -8,7 +8,7 @@ properties([
 	]),
 ])
 
-env.BASHBREW_ARCH = env.JOB_NAME.split('[/-]')[-1] // "gha", "arm64v8", etc
+env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('trigger-') // "windows-amd64", "arm64v8", etc
 
 def queue = []
 def breakEarly = false // thanks Jenkins...
