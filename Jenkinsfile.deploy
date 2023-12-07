@@ -60,7 +60,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 	dir('meta') {
 		def shell = ''
 		stage('Generate') {
-			shell = sh(returnStdout: true, script: '''#/usr/bin/env bash
+			shell = sh(returnStdout: true, script: '''#!/usr/bin/env bash
 				set -Eeuo pipefail -x
 
 				jq -L.scripts -r '
