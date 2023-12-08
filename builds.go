@@ -11,6 +11,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/docker-library/meta-scripts/om"
+
 	c8derrdefs "github.com/containerd/containerd/errdefs"
 	"github.com/docker-library/bashbrew/registry"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
@@ -23,10 +25,10 @@ type MetaSource struct {
 	SourceID string   `json:"sourceId"`
 	AllTags  []string `json:"allTags"`
 	Arches   map[string]struct {
-		Parents map[string]struct {
+		Parents om.OrderedMap[struct {
 			SourceID *string `json:"sourceId"`
 			Pin      *string `json:"pin"`
-		}
+		}]
 	}
 }
 
@@ -43,7 +45,7 @@ type RemoteResolvedFull struct {
 type BuildIDParts struct {
 	SourceID string            `json:"sourceId"`
 	Arch     string            `json:"arch"`
-	Parents  map[string]string `json:"parents"`
+	Parents  om.OrderedMap[string] `json:"parents"`
 }
 
 type MetaBuild struct {
@@ -52,7 +54,7 @@ type MetaBuild struct {
 		Img      string              `json:"img"`
 		Resolved *RemoteResolvedFull `json:"resolved"`
 		BuildIDParts
-		ResolvedParents map[string]RemoteResolvedFull `json:"resolvedParents"`
+		ResolvedParents om.OrderedMap[RemoteResolvedFull] `json:"resolvedParents"`
 	} `json:"build"`
 	Source json.RawMessage `json:"source"`
 }
@@ -162,8 +164,6 @@ func main() {
 		decoder := json.NewDecoder(stdout)
 		for decoder.More() {
 			var build MetaBuild
-			build.Build.Parents = map[string]string{}                     // thanks Go (nil slice becomes null)
-			build.Build.ResolvedParents = map[string]RemoteResolvedFull{} // thanks Go (nil slice becomes null)
 
 			if err := decoder.Decode(&build.Source); err == io.EOF {
 				break
@@ -190,7 +190,8 @@ func main() {
 			outs <- outChan
 
 			sourceArchResolvedFunc := sync.OnceValue(func() *RemoteResolvedFull {
-				for from, parent := range source.Arches[build.Build.Arch].Parents {
+				for _, from := range source.Arches[build.Build.Arch].Parents.Keys() {
+					parent := source.Arches[build.Build.Arch].Parents.Get(from)
 					if from == "scratch" {
 						continue
 					}
@@ -219,8 +220,8 @@ func main() {
 						close(outChan)
 						return nil
 					}
-					build.Build.ResolvedParents[from] = *resolved
-					build.Build.Parents[from] = string(resolved.Manifest.Desc.Digest)
+					build.Build.ResolvedParents.Set(from, *resolved)
+					build.Build.Parents.Set(from, string(resolved.Manifest.Desc.Digest))
 				}
 
 				// buildId calculation
