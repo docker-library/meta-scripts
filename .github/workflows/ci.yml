@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: 0 0 * * 0
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: 'bash -Eeuo pipefail -x {0}'
+
+jobs:
+  test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Bashbrew
+        run: |
+          # not doing "uses: docker-library/bashbrew@xxx" because it'll build which is slow and we don't need more than just bashbrew here
+          mkdir .bin
+          wget -O .bin/bashbrew 'https://github.com/docker-library/bashbrew/releases/download/v0.1.9/bashbrew-amd64'
+          echo '8cdd7adc707b972040577006f7a05b8e9d4dd362be5069f862fd1885f2eb107a *.bin/bashbrew' | sha256sum --strict --check -
+          chmod +x .bin/bashbrew
+          .bin/bashbrew --version
+          echo "$PWD/.bin" >> "$GITHUB_PATH"
+      - run: .test/test.sh
+      - run: git diff --exit-code
