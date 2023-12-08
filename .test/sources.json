@@ -1,0 +1,739 @@
+{
+  "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b": {
+    "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
+    "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
+    "allTags": [
+      "docker:24.0.7-cli",
+      "docker:24.0-cli",
+      "docker:24-cli",
+      "docker:cli",
+      "docker:24.0.7-cli-alpine3.18"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/docker.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "6d541d27b5dd12639e5a33a675ebca04d3837d74",
+      "Directory": "24/cli",
+      "File": "Dockerfile",
+      "Builder": "buildkit",
+      "SOURCE_DATE_EPOCH": 1700741054
+    },
+    "arches": {
+      "amd64": {
+        "tags": [
+          "docker:24.0.7-cli",
+          "docker:24.0-cli",
+          "docker:24-cli",
+          "docker:cli",
+          "docker:24.0.7-cli-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "alpine:3.18"
+        ],
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "alpine:3.18": {
+            "sourceId": null,
+            "pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
+          }
+        }
+      },
+      "arm32v6": {
+        "tags": [
+          "docker:24.0.7-cli",
+          "docker:24.0-cli",
+          "docker:24-cli",
+          "docker:cli",
+          "docker:24.0.7-cli-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "alpine:3.18"
+        ],
+        "platformString": "linux/arm/v6",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v6"
+        },
+        "parents": {
+          "alpine:3.18": {
+            "sourceId": null,
+            "pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
+          }
+        }
+      },
+      "arm32v7": {
+        "tags": [
+          "docker:24.0.7-cli",
+          "docker:24.0-cli",
+          "docker:24-cli",
+          "docker:cli",
+          "docker:24.0.7-cli-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "alpine:3.18"
+        ],
+        "platformString": "linux/arm/v7",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v7"
+        },
+        "parents": {
+          "alpine:3.18": {
+            "sourceId": null,
+            "pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
+          }
+        }
+      },
+      "arm64v8": {
+        "tags": [
+          "docker:24.0.7-cli",
+          "docker:24.0-cli",
+          "docker:24-cli",
+          "docker:cli",
+          "docker:24.0.7-cli-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "alpine:3.18"
+        ],
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "alpine:3.18": {
+            "sourceId": null,
+            "pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
+          }
+        }
+      }
+    }
+  },
+  "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3": {
+    "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
+    "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
+    "allTags": [
+      "docker:24.0.7-dind",
+      "docker:24.0-dind",
+      "docker:24-dind",
+      "docker:dind",
+      "docker:24.0.7-dind-alpine3.18",
+      "docker:24.0.7",
+      "docker:24.0",
+      "docker:24",
+      "docker:latest",
+      "docker:24.0.7-alpine3.18"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/docker.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "99073a3b6be3aa7e6b5af1e69509e8c532254500",
+      "Directory": "24/dind",
+      "File": "Dockerfile",
+      "Builder": "buildkit",
+      "SOURCE_DATE_EPOCH": 1701129870
+    },
+    "arches": {
+      "amd64": {
+        "tags": [
+          "docker:24.0.7-dind",
+          "docker:24.0-dind",
+          "docker:24-dind",
+          "docker:dind",
+          "docker:24.0.7-dind-alpine3.18",
+          "docker:24.0.7",
+          "docker:24.0",
+          "docker:24",
+          "docker:latest",
+          "docker:24.0.7-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "docker:24-cli"
+        ],
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "docker:24-cli": {
+            "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
+            "pin": null
+          }
+        }
+      },
+      "arm32v6": {
+        "tags": [
+          "docker:24.0.7-dind",
+          "docker:24.0-dind",
+          "docker:24-dind",
+          "docker:dind",
+          "docker:24.0.7-dind-alpine3.18",
+          "docker:24.0.7",
+          "docker:24.0",
+          "docker:24",
+          "docker:latest",
+          "docker:24.0.7-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "docker:24-cli"
+        ],
+        "platformString": "linux/arm/v6",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v6"
+        },
+        "parents": {
+          "docker:24-cli": {
+            "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
+            "pin": null
+          }
+        }
+      },
+      "arm32v7": {
+        "tags": [
+          "docker:24.0.7-dind",
+          "docker:24.0-dind",
+          "docker:24-dind",
+          "docker:dind",
+          "docker:24.0.7-dind-alpine3.18",
+          "docker:24.0.7",
+          "docker:24.0",
+          "docker:24",
+          "docker:latest",
+          "docker:24.0.7-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "docker:24-cli"
+        ],
+        "platformString": "linux/arm/v7",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v7"
+        },
+        "parents": {
+          "docker:24-cli": {
+            "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
+            "pin": null
+          }
+        }
+      },
+      "arm64v8": {
+        "tags": [
+          "docker:24.0.7-dind",
+          "docker:24.0-dind",
+          "docker:24-dind",
+          "docker:dind",
+          "docker:24.0.7-dind-alpine3.18",
+          "docker:24.0.7",
+          "docker:24.0",
+          "docker:24",
+          "docker:latest",
+          "docker:24.0.7-alpine3.18"
+        ],
+        "archTags": [],
+        "froms": [
+          "docker:24-cli"
+        ],
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "docker:24-cli": {
+            "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984": {
+    "sourceId": "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984",
+    "reproducibleGitChecksum": "1711f6dcb5def8e2e6ce88e3a12c24e2dd37bf967a79ae86128c4d45429c0a2c",
+    "allTags": [
+      "docker:24.0.7-windowsservercore-ltsc2022",
+      "docker:24.0-windowsservercore-ltsc2022",
+      "docker:24-windowsservercore-ltsc2022",
+      "docker:windowsservercore-ltsc2022",
+      "docker:24.0.7-windowsservercore",
+      "docker:24.0-windowsservercore",
+      "docker:24-windowsservercore",
+      "docker:windowsservercore"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/docker.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "6d541d27b5dd12639e5a33a675ebca04d3837d74",
+      "Directory": "24/windows/windowsservercore-ltsc2022",
+      "File": "Dockerfile",
+      "Builder": "classic",
+      "SOURCE_DATE_EPOCH": 1700741054
+    },
+    "arches": {
+      "windows-amd64": {
+        "tags": [
+          "docker:24.0.7-windowsservercore-ltsc2022",
+          "docker:24.0-windowsservercore-ltsc2022",
+          "docker:24-windowsservercore-ltsc2022",
+          "docker:windowsservercore-ltsc2022",
+          "docker:24.0.7-windowsservercore",
+          "docker:24.0-windowsservercore",
+          "docker:24-windowsservercore",
+          "docker:windowsservercore"
+        ],
+        "archTags": [],
+        "froms": [
+          "mcr.microsoft.com/windows/servercore:ltsc2022"
+        ],
+        "platformString": "windows/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "windows"
+        },
+        "parents": {
+          "mcr.microsoft.com/windows/servercore:ltsc2022": {
+            "sourceId": null,
+            "pin": "sha256:308ef3f8ee3e9c9a1bdec460009c1e6394b329db13eb3149461f8841be5b538a"
+          }
+        }
+      }
+    }
+  },
+  "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a": {
+    "sourceId": "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a",
+    "reproducibleGitChecksum": "40dcbc9e7a451cfc7f2bd12400074f3f21bc6c0331e249019623aeb617d18747",
+    "allTags": [
+      "docker:24.0.7-windowsservercore-1809",
+      "docker:24.0-windowsservercore-1809",
+      "docker:24-windowsservercore-1809",
+      "docker:windowsservercore-1809",
+      "docker:24.0.7-windowsservercore",
+      "docker:24.0-windowsservercore",
+      "docker:24-windowsservercore",
+      "docker:windowsservercore"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/docker.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "6d541d27b5dd12639e5a33a675ebca04d3837d74",
+      "Directory": "24/windows/windowsservercore-1809",
+      "File": "Dockerfile",
+      "Builder": "classic",
+      "SOURCE_DATE_EPOCH": 1700741054
+    },
+    "arches": {
+      "windows-amd64": {
+        "tags": [
+          "docker:24.0.7-windowsservercore-1809",
+          "docker:24.0-windowsservercore-1809",
+          "docker:24-windowsservercore-1809",
+          "docker:windowsservercore-1809",
+          "docker:24.0.7-windowsservercore",
+          "docker:24.0-windowsservercore",
+          "docker:24-windowsservercore",
+          "docker:windowsservercore"
+        ],
+        "archTags": [],
+        "froms": [
+          "mcr.microsoft.com/windows/servercore:1809"
+        ],
+        "platformString": "windows/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "windows"
+        },
+        "parents": {
+          "mcr.microsoft.com/windows/servercore:1809": {
+            "sourceId": null,
+            "pin": "sha256:4fe58f25a157ea749c7b770acebfdbd70c3cb2088c446943e90fe89ea059558b"
+          }
+        }
+      }
+    }
+  },
+  "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4": {
+    "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
+    "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
+    "allTags": [
+      "notary:server-0.7.0",
+      "notary:server"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker/notary-official-images.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "77b9b7833f8dd6be07104b214193788795a320ff",
+      "Directory": "notary-server",
+      "File": "Dockerfile",
+      "Builder": "buildkit",
+      "SOURCE_DATE_EPOCH": 1666649444
+    },
+    "arches": {
+      "amd64": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "arm32v6": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/arm/v6",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v6"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "arm64v8": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "i386": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/386",
+        "platform": {
+          "architecture": "386",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "ppc64le": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/ppc64le",
+        "platform": {
+          "architecture": "ppc64le",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "s390x": {
+        "tags": [
+          "notary:server-0.7.0",
+          "notary:server"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/s390x",
+        "platform": {
+          "architecture": "s390x",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      }
+    }
+  },
+  "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8": {
+    "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
+    "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
+    "allTags": [
+      "notary:signer-0.7.0",
+      "notary:signer"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker/notary-official-images.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "77b9b7833f8dd6be07104b214193788795a320ff",
+      "Directory": "notary-signer",
+      "File": "Dockerfile",
+      "Builder": "buildkit",
+      "SOURCE_DATE_EPOCH": 1666649444
+    },
+    "arches": {
+      "amd64": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "arm32v6": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/arm/v6",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v6"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "arm64v8": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "i386": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/386",
+        "platform": {
+          "architecture": "386",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "ppc64le": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/ppc64le",
+        "platform": {
+          "architecture": "ppc64le",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      },
+      "s390x": {
+        "tags": [
+          "notary:signer-0.7.0",
+          "notary:signer"
+        ],
+        "archTags": [],
+        "froms": [
+          "golang:1.19-alpine3.16",
+          "alpine:3.16",
+          "golang:1.19-alpine3.16"
+        ],
+        "platformString": "linux/s390x",
+        "platform": {
+          "architecture": "s390x",
+          "os": "linux"
+        },
+        "parents": {
+          "golang:1.19-alpine3.16": {
+            "sourceId": null,
+            "pin": null
+          },
+          "alpine:3.16": {
+            "sourceId": null,
+            "pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
+          }
+        }
+      }
+    }
+  }
+}

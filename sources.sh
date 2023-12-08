@@ -60,7 +60,7 @@ externalPinsJson='{}'
 for tag in $externalPins; do
 	f="$("$externalPinsDir/file.sh" "$tag")"
 	digest="$(< "$f")"
-	externalPinsJson="$(jq <<<"$externalPinsJson" -c --arg tag "$tag" --arg digest "$digest" '.[$tag] = $digest')"
+	externalPinsJson="$(jq <<<"$externalPinsJson" -c --arg tag "${tag#library/}" --arg digest "$digest" '.[$tag] = $digest')"
 done
 
 _sha256() {
