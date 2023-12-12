@@ -7,6 +7,7 @@ fi
 
 # TODO do this for oisupport too! (without arch namespaces; just straight into/from the staging repos)
 
+# TODO drop this from the defaults and set it explicitly in DOI instead (to prevent accidents)
 defaultArchNamespaces='
 	amd64 = amd64,
 	arm32v5 = arm32v5,
@@ -19,29 +20,16 @@ defaultArchNamespaces='
 	riscv64 = riscv64,
 	s390x = s390x,
 	windows-amd64 = winamd64
-' # TODO
+'
 : "${BASHBREW_ARCH_NAMESPACES=$defaultArchNamespaces}"
 export BASHBREW_ARCH_NAMESPACES
 
 dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
-if [ "$dir/tar-scrubber.go" -nt "$dir/tar-scrubber" ]; then
-	# TODO this should probably live somewhere else (bashbrew?)
+if [ "$dir/tar-scrubber.go" -nt "$dir/tar-scrubber" ] || [ "$dir/.go-env.sh" -nt "$dir/tar-scrubber" ]; then
 	{
 		echo "building '$dir/tar-scrubber' from 'tar-scrubber.go'"
-		user="$(id -u):$(id -g)"
-		args=(
-			--rm
-			--user "$user"
-			--mount "type=bind,src=$dir,dst=/app"
-			--workdir /app
-			--tmpfs /tmp
-			--env HOME=/tmp
-			--env CGO_ENABLED=0
-			golang:1.20
-			go build -v -o tar-scrubber tar-scrubber.go
-		)
-		docker run "${args[@]}"
+		"$dir/.go-env.sh" go build -v -o tar-scrubber tar-scrubber.go
 		ls -l "$dir/tar-scrubber"
 	} >&2
 fi

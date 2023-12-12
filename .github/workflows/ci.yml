@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: ./.go-env.sh go test -v -cover ./om
       - name: Install Bashbrew
         run: |
           # not doing "uses: docker-library/bashbrew@xxx" because it'll build which is slow and we don't need more than just bashbrew here
