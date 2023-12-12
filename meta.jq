@@ -24,7 +24,7 @@ def should_use_docker_buildx_driver:
 	and (
 		.build.arch as $arch
 		# bashbrew remote arches --json tianon/buildkit:0.12 | jq '.arches | keys_unsorted' -c
-		| ["amd64","arm32v5","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
+		| ["amd64","arm32v5","arm32v6","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
 		# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
 		| index($arch)
 		| not
