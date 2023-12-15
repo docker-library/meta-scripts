@@ -80,7 +80,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			""" + '''
 				for c in "${commands[@]}"; do
 					tries=3
-					while ! output="$( { $c; } |& tee /dev/stderr )"; then
+					while ! output="$( { eval "$c"; } |& tee /dev/stderr )"; do
 						# check to see if we hit the docker hub rate limit
 						if grep -q 'TOOMANYREQUESTS' <<<"$output"; then
 							if [ "$(( --tries ))" -le 0 ]; then
@@ -93,7 +93,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 							# non 429 error
 							exit 1
 						fi
-					fi
+					done
 				done
 			'''
 		}
