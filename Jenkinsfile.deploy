@@ -65,37 +65,25 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 
 				jq -L.scripts -r '
 					include "jenkins";
-					crane_deploy_commands | @sh
+					crane_deploy_commands
+					| sub("^crane "; "crane --mirror \\"$DOCKERHUB_PUBLIC_PROXY_HOST\\" ")
 				' builds.json
 			''').trim()
 
 			shell = shell.replaceAll("\r", '') // deal with Windows...
 		}
 
-		stage('Deploy') {
-			sh """#!/usr/bin/env bash
-				set -Eeuo pipefail -x
+		withCredentials([
+			string(credentialsId: 'dockerhub-public-proxy', variable: 'DOCKERHUB_PUBLIC_PROXY'),
+			string(credentialsId: 'dockerhub-public-proxy-host', variable: 'DOCKERHUB_PUBLIC_PROXY_HOST'),
+		]) {
+			stage('Deploy') {
+				sh """#!/usr/bin/env bash
+					set -Eeuo pipefail -x
 
-				commands=( ${ shell } )
-			""" + '''
-				for c in "${commands[@]}"; do
-					tries=3
-					while ! output="$( { eval "$c"; } |& tee /dev/stderr )"; do
-						# check to see if we hit the docker hub rate limit
-						if grep -q 'TOOMANYREQUESTS' <<<"$output"; then
-							if [ "$(( --tries ))" -le 0 ]; then
-								echo >&2 'failed to copy image 3 times'
-								exit 1
-							fi
-							echo 'sleeping before retrying...'
-							sleep 60
-						else
-							# non 429 error
-							exit 1
-						fi
-					done
-				done
-			'''
+					${ shell }
+				"""
+			}
 		}
 	}
 } }
