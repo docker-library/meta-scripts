@@ -4,7 +4,7 @@ properties([
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
-		upstream(threshold: 'FAILURE', upstreamProjects: 'meta'),
+		upstream(threshold: 'UNSTABLE', upstreamProjects: 'meta'),
 	]),
 ])
 
