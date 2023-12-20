@@ -66,9 +66,9 @@ def build_command:
 					"docker buildx build --progress=plain",
 					if should_use_docker_buildx_driver then "--load" else # TODO if we get containerd integration and thus use "--load" unconditionally again, we should update this to still set annotations! (and still gate SBOMs on appropriate scanner-supported architectures)
 						"--provenance=mode=max",
-						# see "bashbrew remote arches docker/buildkit-syft-scanner:stable-1" (we need the SBOM scanner to be runnable on the host architecture)
-						# bashbrew remote arches --json docker/buildkit-syft-scanner:stable-1 | jq '.arches | keys_unsorted' -c
-						if .build.arch as $arch | ["amd64","arm32v7","arm64v8","ppc64le","riscv64","s390x"] | index($arch) then
+						# see "bashbrew remote arches docker/scout-sbom-indexer:1" (we need the SBOM scanner to be runnable on the host architecture)
+						# bashbrew remote arches --json docker/scout-sbom-indexer:1 | jq '.arches | keys_unsorted' -c
+						if .build.arch as $arch | ["amd64","arm32v5","arm32v7","arm64v8","i386","ppc64le","riscv64","s390x"] | index($arch) then
 							# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
 							"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
 						else empty end,
