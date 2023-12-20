@@ -57,7 +57,7 @@ _sha256() {
 
 json="$(
 	bashbrew cat --build-order --format '
-		{{- range $e := .Entries -}}
+		{{- range $e := .SortedEntries false -}}
 			{{- range $a := $e.Architectures -}}
 				{{- $archNs := archNamespace $a -}}
 				{{- with $e -}}
