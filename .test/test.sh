@@ -13,4 +13,4 @@ set -- docker:cli docker:dind docker:windowsservercore notary # a little bit of 
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
 
 time "$dir/../sources.sh" "$@" > "$dir/sources.json"
-time "$dir/../builds.sh" "$dir/sources.json" > "$dir/builds.json"
+time "$dir/../builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
