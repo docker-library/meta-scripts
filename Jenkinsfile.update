@@ -77,7 +77,7 @@ node {
 				'''
 			}
 			stage('Builds') {
-				sh '.scripts/builds.sh sources.json > builds.json'
+				sh '.scripts/builds.sh --cache cache-builds.json sources.json > builds.json'
 			}
 		}
 		stage('Commit') {
