@@ -68,7 +68,7 @@ var (
 	cacheResolve = sync.Map{}
 	cacheFile    string
 
-	registryRateLimiter = rate.NewLimiter(500/rate.Limit((1*time.Minute).Seconds()), 100) // stick to at most 500/min in registry/Hub requests (and allow an immediate burst of 100)
+	registryRateLimiter = rate.NewLimiter(100/rate.Limit((1*time.Minute).Seconds()), 100) // stick to at most 100/min in registry/Hub requests (and allow an immediate burst of 100)
 )
 
 type cacheResolveType struct {
@@ -81,6 +81,7 @@ func resolveRemoteArch(ctx context.Context, img string, arch string, diskCacheFo
 		var (
 			ret = cacheResolveType{}
 			err error
+			individualLookupLimiter = rate.NewLimiter(rate.Every(time.Second), 2) // only do each image lookup at most once per second
 		)
 
 		shouldRetry := func(err error) bool {
@@ -106,8 +107,10 @@ func resolveRemoteArch(ctx context.Context, img string, arch string, diskCacheFo
 		}
 
 		for {
-			err = registryRateLimiter.Wait(ctx)
-			if err != nil {
+			if err := individualLookupLimiter.Wait(ctx); err != nil {
+				return nil, err
+			}
+			if err := registryRateLimiter.Wait(ctx); err != nil {
 				return nil, err
 			}
 
@@ -125,8 +128,10 @@ func resolveRemoteArch(ctx context.Context, img string, arch string, diskCacheFo
 		}
 
 		for {
-			err = registryRateLimiter.Wait(ctx)
-			if err != nil {
+			if err := individualLookupLimiter.Wait(ctx); err != nil {
+				return nil, err
+			}
+			if err := registryRateLimiter.Wait(ctx); err != nil {
 				return nil, err
 			}
 
