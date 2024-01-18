@@ -53,10 +53,28 @@ def pull_command:
 	end
 ;
 # input: "build" object (with "buildId" top level key)
+# output: string "giturl" ("https://github.com/docker-library/golang.git#commit:directory), used for "docker buildx build giturl"
+def git_build_url:
+	.source.entry
+	| (
+		.GitRepo
+		| if (endswith(".git") | not) then
+			if test("^https?://github.com/") then
+				# without ".git" in the url "docker buildx build url" fails and tries to build the html repo page as a Dockerfile
+				# https://github.com/moby/buildkit/blob/0e1e36ba9eb8142968b2c5cfa2f12549bf9246d9/util/gitutil/git_ref.go#L81-L87
+				# https://github.com/docker/cli/issues/1738
+				. + ".git"
+			else
+				error("\(.) does not end in '.git' so build will fail to recognize it as a Git URL")
+			end
+		else . end
+	) + "#" + .GitCommit + ":" + .Directory
+;
+# input: "build" object (with "buildId" top level key)
 # output: string "build command" ("docker buildx build ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def build_command:
 	normalized_builder as $builder
-	| (.source.entry.GitRepo + "#" + .source.entry.GitCommit + ":" + .source.entry.Directory) as $buildUrl
+	| git_build_url as $buildUrl
 	| if $builder == "buildkit" then
 		[
 			(
