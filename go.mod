@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/containerd/containerd v1.6.19
-	github.com/docker-library/bashbrew v0.1.9
+	github.com/docker-library/bashbrew v0.1.11
 	github.com/opencontainers/image-spec v1.1.0-rc2.0.20221013174636-8159c8264e2e
 	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/time v0.5.0
