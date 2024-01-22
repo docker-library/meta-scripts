@@ -3,8 +3,8 @@ github.com/containerd/containerd v1.6.19/go.mod h1:HZCDMn4v/Xl2579/MvtOC2M206i+J
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/docker-library/bashbrew v0.1.9 h1:mDRel5sLJzpWbbnacZ2Y0RL6pRsCD/DI57vwEIX0uHQ=
-github.com/docker-library/bashbrew v0.1.9/go.mod h1:fp+ljAv22z5OK3k7gutU/1eZz0lIRnM6SSvfJd9ABEE=
+github.com/docker-library/bashbrew v0.1.11 h1:9S6jYFu0+RaqEAfvS2lh7jcaDkcvFi2maB2aU3yb0TM=
+github.com/docker-library/bashbrew v0.1.11/go.mod h1:6fyRRSm4vgBAgTw87EsfOT7wXKsc4JA9I5cdQJmwOm8=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.2 h1:ROPKBNFfQgOUMifHyP+KYbvpjbdoFNs+aK7DXlji0Tw=
 github.com/golang/protobuf v1.5.2/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
