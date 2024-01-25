@@ -19,7 +19,7 @@ time "$dir/../sources.sh" "$@" > "$dir/sources.json"
 time "$dir/../builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
 
 # generate an "example commands" file so that changes to generated commands are easier to review
-jq -r -L "$dir/.." '
+SOURCE_DATE_EPOCH=0 jq -r -L "$dir/.." '
 	include "meta";
 	[
 		first(.[] | select(normalized_builder == "buildkit")),
