@@ -17,19 +17,26 @@ def normalized_builder:
 		end
 	else . end
 ;
+def docker_uses_containerd_storage:
+	# TODO somehow detect docker-with-containerd-storage
+	false
+;
 # input: "build" object (with "buildId" top level key)
 # output: boolean
 def should_use_docker_buildx_driver:
 	normalized_builder == "buildkit"
 	and (
-		.build.arch as $arch
-		# bashbrew remote arches --json tianon/buildkit:0.12 | jq '.arches | keys_unsorted' -c
-		| ["amd64","arm32v5","arm32v6","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
-		# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
-		| index($arch)
-		| not
+		docker_uses_containerd_storage
+		or (
+			.build.arch as $arch
+			# bashbrew remote arches --json tianon/buildkit:0.12 | jq '.arches | keys_unsorted' -c
+			| ["amd64","arm32v5","arm32v6","arm32v7","arm64v8","i386","mips64le","ppc64le","riscv64","s390x"]
+			# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
+			| index($arch)
+			| not
+			# TODO "failed to read dockerfile: failed to load cache key: subdir not supported yet" asdflkjalksdjfklasdjfklajsdklfjasdklgfnlkasdfgbhnkljasdhgouiahsdoifjnask,.dfgnklasdbngoikasdhfoiasjdklfjasdlkfjalksdjfkladshjflikashdbgiohasdfgiohnaskldfjhnlkasdhfnklasdhglkahsdlfkjasdlkfjadsklfjsdl (hence "tianon/buildkit" instead of "moby/buildkit"; need *all* the arches we care about/support for consistent support)
+		)
 	)
-	# TODO "failed to read dockerfile: failed to load cache key: subdir not supported yet" asdflkjalksdjfklasdjfklajsdklfjasdklgfnlkasdfgbhnkljasdhgouiahsdoifjnask,.dfgnklasdbngoikasdhfoiasjdklfjasdlkfjalksdjfkladshjflikashdbgiohasdfgiohnaskldfjhnlkasdhfnklasdhglkahsdlfkjasdlkfjadsklfjsdl (hence "tianon/buildkit" instead of "moby/buildkit")
 ;
 # input: "build" object (with "buildId" top level key)
 # output: string "pull command" ("docker pull ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail", might be empty
@@ -71,66 +78,110 @@ def git_build_url:
 	) + "#" + .GitCommit + ":" + .Directory
 ;
 # input: "build" object (with "buildId" top level key)
+# output: map of annotations to set
+def build_annotations($buildUrl):
+	{
+		# https://github.com/opencontainers/image-spec/blob/v1.1.0-rc4/annotations.md#pre-defined-annotation-keys
+		"org.opencontainers.image.source": $buildUrl,
+		"org.opencontainers.image.revision": .source.entry.GitCommit,
+		"org.opencontainers.image.created": (.source.entry.SOURCE_DATE_EPOCH | strftime("%FT%TZ")), # see notes below about image index vs image manifest
+
+		# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
+		"org.opencontainers.image.version": ( # value of the first image tag
+			first(.source.allTags[] | select(contains(":")))
+			| sub("^.*:"; "")
+			# TODO maybe we should do the first, longest, non-latest tag instead of just the first tag?
+		),
+		"org.opencontainers.image.url": ( # URL to Docker Hub
+			first(.source.allTags[] | select(contains(":")))
+			| sub(":.*$"; "")
+			| if contains("/") then
+				"r/" + .
+			else
+				"_/" + .
+			end
+			| "https://hub.docker.com/" + .
+		),
+
+		# TODO org.opencontainers.image.vendor ? (feels leaky to put "Docker Official Images" here when this is all otherwise mostly generic)
+	}
+	| with_entries(select(.value)) # strip off anything missing a value (possibly "source", "url", "version", etc)
+;
+def build_annotations:
+	build_annotations(git_build_url)
+;
+# input: multi-line string with indentation and comments
+# output: multi-line string with less indentation and no comments
+def unindent_and_decomment_jq($indents):
+	# trim out comment lines and unnecessary indentation
+	gsub("(?m)^(\t+#[^\n]*\n?|\t{\($indents)}(?<extra>.*)$)"; "\(.extra // "")")
+	# trim out empty lines
+	| gsub("\n\n+"; "\n")
+;
+# input: "build" object (with "buildId" top level key)
 # output: string "build command" ("docker buildx build ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def build_command:
 	normalized_builder as $builder
-	| git_build_url as $buildUrl
 	| if $builder == "buildkit" then
-		[
+		git_build_url as $buildUrl
+		| (
+			(should_use_docker_buildx_driver | not)
+			or docker_uses_containerd_storage
+		) as $supportsAnnotationsAndAttestsations
+		| [
 			(
 				[
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
-					if should_use_docker_buildx_driver then "--load" else # TODO if we get containerd integration and thus use "--load" unconditionally again, we should update this to still set annotations! (and still gate SBOMs on appropriate scanner-supported architectures)
+					if $supportsAnnotationsAndAttestsations then
 						"--provenance=mode=max",
 						# see "bashbrew remote arches docker/scout-sbom-indexer:1" (we need the SBOM scanner to be runnable on the host architecture)
 						# bashbrew remote arches --json docker/scout-sbom-indexer:1 | jq '.arches | keys_unsorted' -c
 						if .build.arch as $arch | ["amd64","arm32v5","arm32v7","arm64v8","i386","ppc64le","riscv64","s390x"] | index($arch) then
 							# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
 							"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
+							# TODO this should also be totally optional -- for example, Tianon doesn't want SBOMs on his personal images
 						else empty end,
-						(
-							"--output " + (
-								[
-									"type=oci", # TODO find a better way to build/tag with a full list of tags but only actually *push* to one of them so we don't have to round-trip through containerd
-									"dest=temp.tar", # TODO choose/find a good "safe" place to put this (temporarily)
-									(
-										{
-											# https://github.com/opencontainers/image-spec/blob/v1.1.0-rc4/annotations.md#pre-defined-annotation-keys
-											"org.opencontainers.image.source": $buildUrl,
-											"org.opencontainers.image.revision": .source.entry.GitCommit,
-
-											# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
-											"org.opencontainers.image.version": ( # value of the first image tag
-												first(.source.allTags[] | select(contains(":")))
-												| sub("^.*:"; "")
-												# TODO maybe we should do the first, longest, non-latest tag instead of just the first tag?
-											),
-											"org.opencontainers.image.url": ( # URL to Docker Hub
-												first(.source.allTags[] | select(contains(":")))
-												| sub(":.*$"; "")
-												| if contains("/") then
-													"r/" + .
-												else
-													"_/" + .
-												end
-												| "https://hub.docker.com/" + .
-											),
-											# TODO org.opencontainers.image.vendor ? (feels leaky to put "Docker Official Images" here when this is all otherwise mostly generic)
-										}
-										| to_entries[] | select(.value != null) |
-										"annotation." + .key + "=" + .value,
-										"annotation-manifest-descriptor." + .key + "=" + .value
-									),
-									empty
-								]
-								| @csv
-								| @sh
-							)
-						),
 						empty
-					end,
+					else empty end,
+					"--output " + (
+						[
+							if should_use_docker_buildx_driver then
+								"type=docker"
+							else
+								"type=oci",
+								"dest=temp.tar", # TODO choose/find a good "safe" place to put this (temporarily)
+								empty
+							end,
+							empty
+						]
+						| @csv
+						| @sh
+					),
+					(
+						if $supportsAnnotationsAndAttestsations then
+							build_annotations($buildUrl)
+							| to_entries
+							# separate loops so that "image manifest" annotations are grouped separate from the index/descriptor annotations (easier to read)
+							| (
+								.[]
+								| @sh "--annotation \(.key + "=" + .value)"
+							),
+							(
+								.[]
+								| @sh "--annotation \(
+									"manifest-descriptor:" + .key + "="
+									+ if .key == "org.opencontainers.image.created" then
+										# the "current" time breaks reproducibility (for the purposes of build verification), so we put "now" in the image index but "SOURCE_DATE_EPOCH" in the image manifest (which is the thing we'd ideally like to have reproducible, eventually)
+										(env.SOURCE_DATE_EPOCH // now) | tonumber | strftime("%FT%TZ")
+										# (this assumes the actual build is going to happen shortly after generating the command)
+									else .value end
+								)",
+								empty
+							)
+						else empty end
+					),
 					(
 						.source.arches[].tags[],
 						.source.arches[].archTags[],
@@ -148,8 +199,26 @@ def build_command:
 					@sh "--file \(.source.entry.File)",
 					($buildUrl | @sh),
 					empty
-				] | join(" ")
+				] | join(" \\\n\t")
 			),
+			if should_use_docker_buildx_driver then empty else
+				# munge the tarball into a suitable "oci layout" directory (ready for "crane push")
+				"mkdir temp",
+				"tar -xvf temp.tar -C temp",
+				"rm temp.tar",
+				# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
+				@sh "jq \("
+					.manifests |= (
+						del(.[].annotations)
+						| unique
+						| if length != 1 then
+							error(\"unexpected number of manifests: \" + length)
+						else . end
+					)
+				" | unindent_and_decomment_jq(4)) temp/index.json > temp/index.json.new",
+				"mv temp/index.json.new temp/index.json",
+				empty
+			end,
 			# possible improvements in buildkit/buildx that could help us:
 			# - allowing OCI output directly to a directory instead of a tar (thus getting symmetry with the oci-layout:// inputs it can take)
 			# - allowing tag as one thing and push as something else, potentially mutually exclusive
@@ -158,7 +227,8 @@ def build_command:
 			empty
 		] | join("\n")
 	elif $builder == "classic" then
-		[
+		git_build_url as $buildUrl
+		| [
 			(
 				[
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
@@ -175,7 +245,7 @@ def build_command:
 					($buildUrl | @sh),
 					empty
 				]
-				| join(" ")
+				| join(" \\\n\t")
 			),
 			empty
 		] | join("\n")
@@ -199,14 +269,9 @@ def push_command:
 		@sh "docker push \(.build.img)"
 	elif $builder == "buildkit" then
 		[
-			# extract to a directory and "crane push" (easier to get correct than "ctr image import" + "ctr image push", especially with authentication)
-			"mkdir temp",
-			"tar -xvf temp.tar -C temp",
-			# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
-			@sh "jq \(".manifests |= (del(.[].annotations) | unique)") temp/index.json > temp/index.json.new",
-			"mv temp/index.json.new temp/index.json",
+			# "crane push" is easier to get correct than "ctr image import" + "ctr image push", especially with authentication
 			@sh "crane push temp \(.build.img)",
-			"rm -rf temp temp.tar",
+			"rm -rf temp",
 			empty
 		] | join("\n")
 	elif $builder == "oci-import" then
