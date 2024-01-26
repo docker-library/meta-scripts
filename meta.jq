@@ -105,7 +105,21 @@ def build_annotations($buildUrl):
 
 		# TODO org.opencontainers.image.vendor ? (feels leaky to put "Docker Official Images" here when this is all otherwise mostly generic)
 	}
-	| with_entries(select(.value)) # strip off anything missing a value (possibly "source", "url", "version", etc)
+	+ (
+		.source.arches[.build.arch].lastStageFrom as $lastStageFrom
+		| if $lastStageFrom then
+			.build.parents[$lastStageFrom] as $lastStageDigest
+			| {
+				"org.opencontainers.image.base.name": $lastStageFrom,
+			}
+			+ if $lastStageDigest then
+				{
+					"org.opencontainers.image.base.digest": .build.parents[$lastStageFrom],
+				}
+			else {} end
+		else {} end
+	)
+	| with_entries(select(.value)) # strip off anything missing a value (possibly "source", "url", "version", "base.digest", etc)
 ;
 def build_annotations:
 	build_annotations(git_build_url)
@@ -183,12 +197,12 @@ def build_command:
 						else empty end
 					),
 					(
-						.source.arches[].tags[],
-						.source.arches[].archTags[],
+						.source.arches[.build.arch].tags[],
+						.source.arches[.build.arch].archTags[],
 						.build.img
 						| "--tag " + @sh
 					),
-					@sh "--platform \(first(.source.arches[].platformString))",
+					@sh "--platform \(.source.arches[.build.arch].platformString)",
 					(
 						.build.resolvedParents
 						| to_entries[]
@@ -235,12 +249,12 @@ def build_command:
 					"DOCKER_BUILDKIT=0",
 					"docker build",
 					(
-						.source.arches[].tags[],
-						.source.arches[].archTags[],
+						.source.arches[.build.arch].tags[],
+						.source.arches[.build.arch].archTags[],
 						.build.img
 						| "--tag " + @sh
 					),
-					@sh "--platform \(first(.source.arches[].platformString))",
+					@sh "--platform \(.source.arches[.build.arch].platformString)",
 					@sh "--file \(.source.entry.File)",
 					($buildUrl | @sh),
 					empty

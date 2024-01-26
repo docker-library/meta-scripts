@@ -31,6 +31,7 @@
         "froms": [
           "alpine:3.18"
         ],
+        "lastStageFrom": "alpine:3.18",
         "platformString": "linux/amd64",
         "platform": {
           "architecture": "amd64",
@@ -55,6 +56,7 @@
         "froms": [
           "alpine:3.18"
         ],
+        "lastStageFrom": "alpine:3.18",
         "platformString": "linux/arm/v6",
         "platform": {
           "architecture": "arm",
@@ -80,6 +82,7 @@
         "froms": [
           "alpine:3.18"
         ],
+        "lastStageFrom": "alpine:3.18",
         "platformString": "linux/arm/v7",
         "platform": {
           "architecture": "arm",
@@ -105,6 +108,7 @@
         "froms": [
           "alpine:3.18"
         ],
+        "lastStageFrom": "alpine:3.18",
         "platformString": "linux/arm64/v8",
         "platform": {
           "architecture": "arm64",
@@ -162,6 +166,7 @@
         "froms": [
           "docker:24-cli"
         ],
+        "lastStageFrom": "docker:24-cli",
         "platformString": "linux/amd64",
         "platform": {
           "architecture": "amd64",
@@ -191,6 +196,7 @@
         "froms": [
           "docker:24-cli"
         ],
+        "lastStageFrom": "docker:24-cli",
         "platformString": "linux/arm/v6",
         "platform": {
           "architecture": "arm",
@@ -221,6 +227,7 @@
         "froms": [
           "docker:24-cli"
         ],
+        "lastStageFrom": "docker:24-cli",
         "platformString": "linux/arm/v7",
         "platform": {
           "architecture": "arm",
@@ -251,6 +258,7 @@
         "froms": [
           "docker:24-cli"
         ],
+        "lastStageFrom": "docker:24-cli",
         "platformString": "linux/arm64/v8",
         "platform": {
           "architecture": "arm64",
@@ -304,6 +312,7 @@
         "froms": [
           "mcr.microsoft.com/windows/servercore:ltsc2022"
         ],
+        "lastStageFrom": "mcr.microsoft.com/windows/servercore:ltsc2022",
         "platformString": "windows/amd64",
         "platform": {
           "architecture": "amd64",
@@ -356,6 +365,7 @@
         "froms": [
           "mcr.microsoft.com/windows/servercore:1809"
         ],
+        "lastStageFrom": "mcr.microsoft.com/windows/servercore:1809",
         "platformString": "windows/amd64",
         "platform": {
           "architecture": "amd64",
@@ -398,6 +408,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/amd64",
         "platform": {
           "architecture": "amd64",
@@ -425,6 +436,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/arm/v6",
         "platform": {
           "architecture": "arm",
@@ -453,6 +465,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/arm64/v8",
         "platform": {
           "architecture": "arm64",
@@ -481,6 +494,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/386",
         "platform": {
           "architecture": "386",
@@ -508,6 +522,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/ppc64le",
         "platform": {
           "architecture": "ppc64le",
@@ -535,6 +550,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/s390x",
         "platform": {
           "architecture": "s390x",
@@ -581,6 +597,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/amd64",
         "platform": {
           "architecture": "amd64",
@@ -608,6 +625,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/arm/v6",
         "platform": {
           "architecture": "arm",
@@ -636,6 +654,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/arm64/v8",
         "platform": {
           "architecture": "arm64",
@@ -664,6 +683,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/386",
         "platform": {
           "architecture": "386",
@@ -691,6 +711,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/ppc64le",
         "platform": {
           "architecture": "ppc64le",
@@ -718,6 +739,7 @@
           "alpine:3.16",
           "golang:1.19-alpine3.16"
         ],
+        "lastStageFrom": "alpine:3.16",
         "platformString": "linux/s390x",
         "platform": {
           "architecture": "s390x",

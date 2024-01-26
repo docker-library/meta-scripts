@@ -13,11 +13,15 @@ SOURCE_DATE_EPOCH=1700741054 \
 	--annotation 'org.opencontainers.image.created=2023-11-23T12:04:14Z' \
 	--annotation 'org.opencontainers.image.version=24.0.7-cli' \
 	--annotation 'org.opencontainers.image.url=https://hub.docker.com/_/docker' \
+	--annotation 'org.opencontainers.image.base.name=alpine:3.18' \
+	--annotation 'org.opencontainers.image.base.digest=sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
 	--annotation 'manifest-descriptor:org.opencontainers.image.source=https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli' \
 	--annotation 'manifest-descriptor:org.opencontainers.image.revision=6d541d27b5dd12639e5a33a675ebca04d3837d74' \
 	--annotation 'manifest-descriptor:org.opencontainers.image.created=1970-01-01T00:00:00Z' \
 	--annotation 'manifest-descriptor:org.opencontainers.image.version=24.0.7-cli' \
 	--annotation 'manifest-descriptor:org.opencontainers.image.url=https://hub.docker.com/_/docker' \
+	--annotation 'manifest-descriptor:org.opencontainers.image.base.name=alpine:3.18' \
+	--annotation 'manifest-descriptor:org.opencontainers.image.base.digest=sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
 	--tag 'docker:24.0.7-cli' \
 	--tag 'docker:24.0-cli' \
 	--tag 'docker:24-cli' \
