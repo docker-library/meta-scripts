@@ -65,6 +65,7 @@ bashbrew cat --build-order --format '
 							"tags": {{ $.Tags namespace false . | json }},
 							"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
 							"froms": {{ $.ArchDockerFroms $a . | json }},
+							"lastStageFrom": {{ $.ArchLastStageFrom $a . | json }},
 							"platformString": {{ (ociPlatform $a).String | json }},
 							"platform": {{ ociPlatform $a | json }},
 							"parents": { }
