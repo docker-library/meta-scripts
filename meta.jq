@@ -265,10 +265,76 @@ def build_command:
 		] | join("\n")
 	elif $builder == "oci-import" then
 		[
-			"git init temp", # TODO figure out a good, safe place to temporary "git init"??
-			@sh "git -C temp fetch \(.source.entry.GitRepo) \(.source.entry.GitCommit): || git -C temp fetch \(.source.entry.GitRepo) \(.source.entry.GitFetch):",
-			@sh "git -C temp checkout -q \(.source.entry.GitCommit)",
-			# TODO something clever, especially to deal with "index.json" vs not-"index.json" (possibly using "jq" to either synthesize/normalize to what we actually need it to be for "crane push temp/dir \(.build.img)")
+			# initialize "~/.cache/bashbrew/git"
+			#"gitCache=\"$(bashbrew cat --format '{{ gitCache }}' <(echo 'Maintainers: empty hack (@example)'))\"",
+			# https://github.com/docker-library/bashbrew/blob/5152c0df682515cbe7ac62b68bcea4278856429f/cmd/bashbrew/git.go#L52-L80
+			"export BASHBREW_CACHE=\"${BASHBREW_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/bashbrew}\"",
+			"gitCache=\"$BASHBREW_CACHE/git\"",
+			"git init --bare \"$gitCache\"",
+			"_git() { git -C \"$gitCache\" \"$@\"; }",
+			"_git config gc.auto 0",
+			# "bashbrew fetch" but in Bash (because we have bashbrew, but not the library file -- we could synthesize a library file instead, but six of one half a dozen of another)
+			@sh "_commit() { _git rev-parse \(.source.entry.GitCommit + "^{commit}"); }",
+			@sh "if ! _commit &> /dev/null; then _git fetch \(.source.entry.GitRepo) \(.source.entry.GitCommit + ":") || _git fetch \(.source.entry.GitFetch + ":"); fi",
+			"_commit",
+
+			# TODO figure out a good, safe place to store our temporary build/push directory (maybe this is fine? we do it for buildx build too)
+			"mkdir temp",
+			# https://github.com/docker-library/bashbrew/blob/5152c0df682515cbe7ac62b68bcea4278856429f/cmd/bashbrew/git.go#L140-L147 (TODO "bashbrew context" ?)
+			@sh "_git archive --format=tar \(.source.entry.GitCommit + ":" + (.source.entry.Directory | if . == "." then "" else . + "/" end)) | tar -xvC temp",
+
+			# validate oci-layout file (https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L104-L112)
+			@sh "jq -s \("
+				if length != 1 then
+					error(\"unexpected 'oci-layout' document count: \" + length)
+				else .[0] end
+				| if .imageLayoutVersion != \"1.0.0\" then
+					error(\"unsupported imageLayoutVersion: \" + .imageLayoutVersion)
+				else . end
+			" | unindent_and_decomment_jq(3)) temp/oci-layout > /dev/null",
+
+			# https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L116
+			if .source.entry.File != "index.json" then
+				@sh "jq -s \("{ schemaVersion: 2, manifests: . }") \("./" + .source.entry.File) > temp/index.json"
+			else empty end,
+
+			@sh "jq -s \("
+				if length != 1 then
+					error(\"unexpected 'index.json' document count: \" + length)
+				else .[0] end
+
+				# https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L117-L127
+				| if .schemaVersion != 2 then
+					error(\"unsupported schemaVersion: \" + .schemaVersion)
+				else . end
+				# TODO check .mediaType ? (technically optional, but does not have to be *and* shouldn't be); https://github.com/moby/buildkit/issues/4595
+				| if .manifests | length != 1 then
+					error(\"expected only one manifests entry, not \" + (.manifests | length))
+				else . end
+
+				| .manifests[0] |= (
+					# https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L135-L144
+					if .mediaType != \"application/vnd.oci.image.manifest.v1+json\" then
+						error(\"unsupported descriptor mediaType: \" + .mediaType)
+					else . end
+					# TODO validate .digest somehow (`crane validate`? see below) - would also be good to validate all descriptors recursively (not sure if `crane push` does that)
+					| if .size < 0 then
+						error(\"invalid descriptor size: \" + .size)
+					else . end
+
+					# purge maintainer-provided URLs / annotations (https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L146-L147)
+					| del(.annotations, .urls)
+
+					# inject our annotations
+					| .annotations = \(build_annotations(.source.entry.GitRepo) | @json)
+				)
+			" | unindent_and_decomment_jq(3)) temp/index.json > temp/index.json.new",
+			"mv temp/index.json.new temp/index.json",
+
+			# TODO consider / check what "crane validate" does and if it would be appropriate here
+
+			# TODO generate SBOM? ... somehow
+
 			empty
 		] | join("\n")
 	else
@@ -289,7 +355,11 @@ def push_command:
 			empty
 		] | join("\n")
 	elif $builder == "oci-import" then
-		"TODO"
+		[
+			@sh "crane push --index temp \(.build.img)",
+			"rm -rf temp",
+			empty
+		] | join("\n")
 	else
 		error("unknown/unimplemented Builder: \($builder)")
 	end

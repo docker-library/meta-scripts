@@ -65,7 +65,12 @@ bashbrew cat --build-order --format '
 							"tags": {{ $.Tags namespace false . | json }},
 							"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
 							"froms": {{ $.ArchDockerFroms $a . | json }},
-							"lastStageFrom": {{ $.ArchLastStageFrom $a . | json }},
+							"lastStageFrom": {{ if eq $builder "oci-import" -}}
+								{{- /* TODO remove this special case: https://github.com/docker-library/bashbrew/pull/92 */ -}}
+								"scratch"
+							{{- else -}}
+								{{ $.ArchLastStageFrom $a . | json }}
+							{{- end }},
 							"platformString": {{ (ociPlatform $a).String | json }},
 							"platform": {{ ociPlatform $a | json }},
 							"parents": { }
