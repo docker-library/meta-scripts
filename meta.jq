@@ -104,6 +104,8 @@ def build_annotations($buildUrl):
 		),
 
 		# TODO org.opencontainers.image.vendor ? (feels leaky to put "Docker Official Images" here when this is all otherwise mostly generic)
+
+		"com.docker.official-images.bashbrew.arch": .build.arch,
 	}
 	+ (
 		.source.arches[.build.arch].lastStageFrom as $lastStageFrom
