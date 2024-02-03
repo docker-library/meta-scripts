@@ -757,5 +757,50 @@
         }
       }
     }
+  },
+  "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b": {
+    "sourceId": "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b",
+    "reproducibleGitChecksum": "0ea17ff707666270e1fcb3edd76545906c68714d658ccde88c22d1606b2d7e4f",
+    "allTags": [
+      "ubuntu:22.04",
+      "ubuntu:jammy-20240111",
+      "ubuntu:jammy",
+      "ubuntu:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://git.launchpad.net/cloud-images/+oci/ubuntu-base",
+      "GitFetch": "refs/tags/dist-jammy-amd64-20240111-e6e3490a",
+      "GitCommit": "e6e3490ad3f524ccaa072edafe525f8ca8ac5490",
+      "Directory": "oci",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1704931200
+    },
+    "arches": {
+      "amd64": {
+        "tags": [
+          "ubuntu:22.04",
+          "ubuntu:jammy-20240111",
+          "ubuntu:jammy",
+          "ubuntu:latest"
+        ],
+        "archTags": [],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
   }
 }

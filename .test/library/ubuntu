@@ -1,0 +1,15 @@
+# https://github.com/docker-library/official-images/blob/fe9c059402181390eac083cbdd7229b5d123236e/library/ubuntu but intentionally slimmed down (just "latest" on one architecture, no email addresses)
+
+Maintainers: Tomáš Virtus (@woky), Cristóvão Cordeiro (@cjdcordeiro)
+GitRepo: https://git.launchpad.net/cloud-images/+oci/ubuntu-base
+GitCommit: fa42be9027eccb928a1f0f43d95ffd9a45d36737
+Builder: oci-import
+File: index.json
+
+# 20240111 (jammy)
+Tags: 22.04, jammy-20240111, jammy, latest
+Architectures: amd64
+Directory: oci
+# https://git.launchpad.net/cloud-images/+oci/ubuntu-base/tree/?h=dist-jammy-amd64-20240111-e6e3490a
+amd64-GitFetch: refs/tags/dist-jammy-amd64-20240111-e6e3490a
+amd64-GitCommit: e6e3490ad3f524ccaa072edafe525f8ca8ac5490

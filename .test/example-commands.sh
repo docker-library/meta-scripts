@@ -79,3 +79,54 @@ SOURCE_DATE_EPOCH=1700741054 \
 # <push>
 docker push 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e'
 # </push>
+
+# ubuntu:22.04 [amd64]
+# <pull>
+
+# </pull>
+# <build>
+export BASHBREW_CACHE="${BASHBREW_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/bashbrew}"
+gitCache="$BASHBREW_CACHE/git"
+git init --bare "$gitCache"
+_git() { git -C "$gitCache" "$@"; }
+_git config gc.auto 0
+_commit() { _git rev-parse 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490^{commit}'; }
+if ! _commit &> /dev/null; then _git fetch 'https://git.launchpad.net/cloud-images/+oci/ubuntu-base' 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:' || _git fetch 'refs/tags/dist-jammy-amd64-20240111-e6e3490a:'; fi
+_commit
+mkdir temp
+_git archive --format=tar 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:oci/' | tar -xvC temp
+jq -s '
+	if length != 1 then
+		error("unexpected '\''oci-layout'\'' document count: " + length)
+	else .[0] end
+	| if .imageLayoutVersion != "1.0.0" then
+		error("unsupported imageLayoutVersion: " + .imageLayoutVersion)
+	else . end
+' temp/oci-layout > /dev/null
+jq -s '
+	if length != 1 then
+		error("unexpected '\''index.json'\'' document count: " + length)
+	else .[0] end
+	| if .schemaVersion != 2 then
+		error("unsupported schemaVersion: " + .schemaVersion)
+	else . end
+	| if .manifests | length != 1 then
+		error("expected only one manifests entry, not " + (.manifests | length))
+	else . end
+	| .manifests[0] |= (
+		if .mediaType != "application/vnd.oci.image.manifest.v1+json" then
+			error("unsupported descriptor mediaType: " + .mediaType)
+		else . end
+		| if .size < 0 then
+			error("invalid descriptor size: " + .size)
+		else . end
+		| del(.annotations, .urls)
+		| .annotations = {"org.opencontainers.image.source":"https://git.launchpad.net/cloud-images/+oci/ubuntu-base","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","org.opencontainers.image.base.name":"scratch"}
+	)
+' temp/index.json > temp/index.json.new
+mv temp/index.json.new temp/index.json
+# </build>
+# <push>
+crane push --index temp 'oisupport/staging-amd64:93476ae64659d71f4ee7fac781d6d1890df8926682e2fa6bd647a246b33ad9bf'
+rm -rf temp
+# </push>
