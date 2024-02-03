@@ -121,7 +121,7 @@ jq -s '
 			error("invalid descriptor size: " + .size)
 		else . end
 		| del(.annotations, .urls)
-		| .annotations = {"org.opencontainers.image.source":"https://git.launchpad.net/cloud-images/+oci/ubuntu-base","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","org.opencontainers.image.base.name":"scratch"}
+		| .annotations = {"org.opencontainers.image.source":"https://git.launchpad.net/cloud-images/+oci/ubuntu-base","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
 	)
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
