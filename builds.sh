@@ -7,7 +7,7 @@ export BASHBREW_STAGING_TEMPLATE
 
 dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
-if [ "$dir/builds.go" -nt "$dir/builds" ] || [ "$dir/om/om.go" -nt "$dir/builds" ] || [ "$dir/.go-env.sh" -nt "$dir/builds" ]; then
+if "$dir/.any-go-nt.sh" builds; then
 	{
 		echo "building '$dir/builds' from 'builds.go'"
 		"$dir/.go-env.sh" go build -v -o builds builds.go

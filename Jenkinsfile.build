@@ -77,7 +77,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		}
 		if (obj) {
 			obj = readJSON(text: obj)
-			currentBuild.displayName = obj.source.allTags[0] + ' (#' + currentBuild.number + ')'
+			currentBuild.displayName = obj.source.tags[0] + ' (#' + currentBuild.number + ')'
 			currentBuild.description = '<code>' + obj.build.img + '</code>'
 		} else {
 			currentBuild.displayName = 'nothing to do (#' + currentBuild.number + ')'

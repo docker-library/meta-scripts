@@ -38,6 +38,12 @@ def should_use_docker_buildx_driver:
 		)
 	)
 ;
+# input: "docker.io/library/foo:bar"
+# output: "foo:bar"
+def normalize_ref_to_docker:
+	ltrimstr("docker.io/")
+	| ltrimstr("library/")
+;
 # input: "build" object (with "buildId" top level key)
 # output: string "pull command" ("docker pull ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail", might be empty
 def pull_command:
@@ -45,9 +51,14 @@ def pull_command:
 	| if $builder == "classic" or should_use_docker_buildx_driver then
 		[
 			(
-				.build.resolvedParents | to_entries[] |
-				@sh "docker pull \(.value.manifest.ref)",
-				@sh "docker tag \(.value.manifest.ref) \(.key)"
+				.build.resolvedParents
+				| to_entries[]
+				| (
+					.value.annotations["org.opencontainers.image.ref.name"] // error("parent \(.key) missing ref")
+					| normalize_ref_to_docker
+				) as $ref
+				| @sh "docker pull \($ref)",
+					@sh "docker tag \($ref) \(.key)"
 			),
 			empty
 		] | join("\n")
@@ -81,19 +92,19 @@ def git_build_url:
 # output: map of annotations to set
 def build_annotations($buildUrl):
 	{
-		# https://github.com/opencontainers/image-spec/blob/v1.1.0-rc4/annotations.md#pre-defined-annotation-keys
+		# https://github.com/opencontainers/image-spec/blob/v1.1.0/annotations.md#pre-defined-annotation-keys
 		"org.opencontainers.image.source": $buildUrl,
 		"org.opencontainers.image.revision": .source.entry.GitCommit,
 		"org.opencontainers.image.created": (.source.entry.SOURCE_DATE_EPOCH | strftime("%FT%TZ")), # see notes below about image index vs image manifest
 
 		# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
 		"org.opencontainers.image.version": ( # value of the first image tag
-			first(.source.allTags[] | select(contains(":")))
+			first(.source.tags[] | select(contains(":")))
 			| sub("^.*:"; "")
 			# TODO maybe we should do the first, longest, non-latest tag instead of just the first tag?
 		),
 		"org.opencontainers.image.url": ( # URL to Docker Hub
-			first(.source.allTags[] | select(contains(":")))
+			first(.source.tags[] | select(contains(":")))
 			| sub(":.*$"; "")
 			| if contains("/") then
 				"r/" + .
@@ -199,7 +210,7 @@ def build_command:
 						else empty end
 					),
 					(
-						.source.arches[.build.arch].tags[],
+						.source.tags[],
 						.source.arches[.build.arch].archTags[],
 						.build.img
 						| "--tag " + @sh
@@ -208,7 +219,10 @@ def build_command:
 					(
 						.build.resolvedParents
 						| to_entries[]
-						| .key + "=docker-image://" + .value.manifest.ref
+						| .key + "=docker-image://" + (
+							.value.annotations["org.opencontainers.image.ref.name"] // error("parent \(.key) missing ref")
+							| normalize_ref_to_docker
+						)
 						| "--build-context " + @sh
 					),
 					"--build-arg BUILDKIT_SYNTAX=\"$BASHBREW_BUILDKIT_SYNTAX\"", # TODO .doi/.bin/bashbrew-buildkit-env-setup.sh
@@ -251,7 +265,7 @@ def build_command:
 					"DOCKER_BUILDKIT=0",
 					"docker build",
 					(
-						.source.arches[.build.arch].tags[],
+						.source.tags[],
 						.source.arches[.build.arch].archTags[],
 						.build.img
 						| "--tag " + @sh

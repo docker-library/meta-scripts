@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-export BASHBREW_ARCH_NAMESPACES=
+export BASHBREW_ARCH_NAMESPACES='
+	amd64 = amd64,
+	arm32v5 = arm32v5,
+	arm32v6 = arm32v6,
+	arm32v7 = arm32v7,
+	arm64v8 = arm64v8,
+	i386 = i386,
+	mips64le = mips64le,
+	ppc64le = ppc64le,
+	riscv64 = riscv64,
+	s390x = s390x,
+	windows-amd64 = winamd64,
+'
 export BASHBREW_STAGING_TEMPLATE='oisupport/staging-ARCH:BUILD'
 
 dir="$(dirname "$BASH_SOURCE")"
@@ -32,7 +44,7 @@ SOURCE_DATE_EPOCH=0 jq -r -L "$dir/.." '
 		| commands
 		| to_entries
 		| map("# <\(.key)>\n\(.value)\n# </\(.key)>")
-		| "# \(first($b.source.allTags[])) [\($b.build.arch)]\n" + join("\n")
+		| "# \($b.source.tags[0]) [\($b.build.arch)]\n" + join("\n")
 	)
 	| join("\n\n")
 ' "$dir/builds.json" > "$dir/example-commands.sh"
