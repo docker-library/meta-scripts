@@ -4,7 +4,10 @@ properties([
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
-		upstream(threshold: 'UNSTABLE', upstreamProjects: 'meta'),
+		// TODO https://github.com/docker-library/meta-scripts/issues/22
+		//upstream(threshold: 'UNSTABLE', upstreamProjects: 'meta'),
+		cron('H H/2 * * *'),
+		// (we've dropped to only running this periodically to avoid it clogging the whole queue for a no-op, which also gives build+meta more time to cycle and get deps so they have a higher chance to all go out at once -- see the above linked issue)
 	]),
 ])
 
