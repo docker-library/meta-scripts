@@ -91,7 +91,7 @@ git init --bare "$gitCache"
 _git() { git -C "$gitCache" "$@"; }
 _git config gc.auto 0
 _commit() { _git rev-parse 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490^{commit}'; }
-if ! _commit &> /dev/null; then _git fetch 'https://git.launchpad.net/cloud-images/+oci/ubuntu-base' 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:' || _git fetch 'refs/tags/dist-jammy-amd64-20240111-e6e3490a:'; fi
+if ! _commit &> /dev/null; then _git fetch 'https://github.com/tianon/temp.git' 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:' || _git fetch 'refs/tags/dist-jammy-amd64-20240111-e6e3490a:'; fi
 _commit
 mkdir temp
 _git archive --format=tar 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:oci/' | tar -xvC temp
@@ -121,7 +121,7 @@ jq -s '
 			error("invalid descriptor size: " + .size)
 		else . end
 		| del(.annotations, .urls)
-		| .annotations = {"org.opencontainers.image.source":"https://git.launchpad.net/cloud-images/+oci/ubuntu-base","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
+		| .annotations = {"org.opencontainers.image.source":"https://github.com/tianon/temp.git","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
 	)
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
