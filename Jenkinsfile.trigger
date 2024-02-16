@@ -13,6 +13,10 @@ env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('trigger-') // "windows-am
 def queue = []
 def breakEarly = false // thanks Jenkins...
 
+// this includes the number of attempts per failing buildId
+// { buildId: { "count": 1, ... }, ... }
+def pastFailedJobsJson = '{}'
+
 node {
 	stage('Checkout') {
 		checkout(scmGit(
@@ -32,33 +36,49 @@ node {
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
 			],
 		))
+		pastFailedJobsJson = sh(returnStdout: true, script: '''#!/usr/bin/env bash
+			set -Eeuo pipefail -x
+
+			if ! json="$(wget -qO- "$JOB_URL/lastSuccessfulBuild/artifact/pastFailedJobs.json")"; then
+				echo >&2 'failed to get pastFailedJobs.json'
+				json='{}'
+			fi
+			jq <<<"$json" '.'
+		''').trim()
 	}
 
 	dir('meta') {
-		def queueJSON = ''
+		def queueJson = ''
 		stage('Queue') {
-			// TODO this job should export a JSON file that includes the number of attempts so far per failing buildId, and then this list should inject those values, initialize missing to 0, and sort by attempts so that failing builds always live at the bottom of the queue
-			queueJSON = sh(returnStdout: true, script: '''
-				jq -L.scripts '
-					include "meta";
-					[
-						.[]
-						| select(
-							needs_build
-							and (
-								.build.arch as $arch
-								| if env.BASHBREW_ARCH == "gha" then
-									[ "amd64", "i386", "windows-amd64" ]
-								else [ env.BASHBREW_ARCH ] end
-								| index($arch)
+			withEnv([
+				'pastFailedJobsJson=' + pastFailedJobsJson,
+			]) {
+				// using pastFailedJobsJson, sort the needs_build queue so that failing builds always live at the bottom of the queue
+				queueJson = sh(returnStdout: true, script: '''
+					jq -L.scripts '
+						include "meta";
+						(env.pastFailedJobsJson | fromjson) as $pastFailedJobs
+						| [
+							.[]
+							| select(
+								needs_build
+								and (
+									.build.arch as $arch
+									| if env.BASHBREW_ARCH == "gha" then
+										[ "amd64", "i386", "windows-amd64" ]
+									else [ env.BASHBREW_ARCH ] end
+									| index($arch)
+								)
 							)
-						)
-					]
-				' builds.json
-			''').trim()
+						]
+						# this Jenkins job exports a JSON file that includes the number of attempts so far per failing buildId so that this can sort by attempts which means failing builds always live at the bottom of the queue (sorted by the number of times they have failed, so the most failing is always last)
+						| sort_by($pastFailedJobs[.buildId].count // 0)
+					' builds.json
+				''').trim()
+			}
 		}
-		if (queueJSON && queueJSON != '[]') {
-			queue = readJSON(text: queueJSON)
+		if (queueJson && queueJson != '[]') {
+			queue = readJSON(text: queueJson)
 			currentBuild.displayName = 'queue size: ' + queue.size() + ' (#' + currentBuild.number + ')'
 		} else {
 			currentBuild.displayName = 'empty queue (#' + currentBuild.number + ')'
@@ -142,6 +162,8 @@ node {
 if (breakEarly) { return } // thanks Jenkins...
 
 // now that we have our parsed queue, we can release the node we're holding up (since we handle GHA builds above)
+def pastFailedJobs = readJSON(text: pastFailedJobsJson)
+def newFailedJobs = [:]
 
 for (buildObj in queue) {
 	def identifier = buildObj.source.allTags[0]
@@ -161,11 +183,47 @@ for (buildObj in queue) {
 				quietPeriod: 5, // seconds
 			)
 			// TODO do something useful with "res.result" (especially "res.result != 'SUCCESS'")
-			// (maybe store "res.startTimeInMillis + res.duration" as endTime so we can implement some amount of backoff somehow?)
 			echo(res.result)
 			if (res.result != 'SUCCESS') {
+				def c = 1
+				if (pastFailedJobs[buildObj.buildId]) {
+					// TODO more defensive access of .count? (it is created just below, so it should be safe)
+					c += pastFailedJobs[buildObj.buildId].count
+				}
+				// TODO maybe implement some amount of backoff? keep first url/endTime?
+				newFailedJobs[buildObj.buildId] = [
+					count: c,
+					identifier: identifier,
+					url: res.absoluteUrl,
+					endTime: (res.startTimeInMillis + res.duration) / 1000.0, // convert to seconds
+				]
+
 				// "catchError" is the only way to set "stageResult" :(
 				catchError(message: 'Build of "' + identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') { error() }
+			}
+		}
+	}
+}
+
+// save newFailedJobs so we can use it next run as pastFailedJobs
+node {
+	def newFailedJobsJson = writeJSON(json: newFailedJobs, returnText: true)
+	withEnv([
+		'newFailedJobsJson=' + newFailedJobsJson,
+	]) {
+		stage('Archive') {
+			dir('builds') {
+				deleteDir()
+				sh '''#!/usr/bin/env bash
+					set -Eeuo pipefail -x
+
+					jq <<<"$newFailedJobsJson" '.' | tee pastFailedJobs.json
+				'''
+				archiveArtifacts(
+					artifacts: '*.json',
+					fingerprint: true,
+					onlyIfSuccessful: true,
+				)
 			}
 		}
 	}
