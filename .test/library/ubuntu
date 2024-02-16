@@ -1,7 +1,9 @@
 # https://github.com/docker-library/official-images/blob/fe9c059402181390eac083cbdd7229b5d123236e/library/ubuntu but intentionally slimmed down (just "latest" on one architecture, no email addresses)
+# ... https://github.com/docker-library/meta-scripts/issues/25 (moved to GitHub because Launchpad won't give us old commits)
 
 Maintainers: Tomáš Virtus (@woky), Cristóvão Cordeiro (@cjdcordeiro)
-GitRepo: https://git.launchpad.net/cloud-images/+oci/ubuntu-base
+#GitRepo: https://git.launchpad.net/cloud-images/+oci/ubuntu-base
+GitRepo: https://github.com/tianon/temp.git
 GitCommit: fa42be9027eccb928a1f0f43d95ffd9a45d36737
 Builder: oci-import
 File: index.json
