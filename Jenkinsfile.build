@@ -84,65 +84,67 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			return
 		}
 
-		/*
-		// TODO this is currently already done on the worker machines themselves, which is a tradeoff
-		// make sure "docker login" is localized to this workspace
-		env.DOCKER_CONFIG = workspace + '/.docker'
-		dir(env.DOCKER_CONFIG) { deleteDir() }
+		timeout(time: 3, unit: 'HOURS') {
+			/*
+			// TODO this is currently already done on the worker machines themselves, which is a tradeoff
+			// make sure "docker login" is localized to this workspace
+			env.DOCKER_CONFIG = workspace + '/.docker'
+			dir(env.DOCKER_CONFIG) { deleteDir() }
 
-		withCredentials([usernamePassword(
-			credentialsId: 'docker-hub-' + env.BASHBREW_ARCH, // TODO windows?
-			usernameVariable: 'DOCKER_USERNAME',
-			passwordVariable: 'DOCKER_PASSWORD',
-		)]) {
-			sh '''#!/usr/bin/env bash
-				set -Eeuo pipefail
-				docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
-			'''
-		}
-		*/
+			withCredentials([usernamePassword(
+				credentialsId: 'docker-hub-' + env.BASHBREW_ARCH, // TODO windows?
+				usernameVariable: 'DOCKER_USERNAME',
+				passwordVariable: 'DOCKER_PASSWORD',
+			)]) {
+				sh '''#!/usr/bin/env bash
+					set -Eeuo pipefail
+					docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
+				'''
+			}
+			*/
 
-		def buildEnvs = []
-		stage('Prep') {
-			if (obj.commands.build.contains(' buildx ')) {
-				def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
-					set -Eeuo pipefail -x
+			def buildEnvs = []
+			stage('Prep') {
+				if (obj.commands.build.contains(' buildx ')) {
+					def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
+						set -Eeuo pipefail -x
 
-					.doi/.bin/bashbrew-buildkit-env-setup.sh \\
-						| jq 'to_entries | map(.key + "=" + .value)'
-				''').trim()
-				if (json) {
-					buildEnvs += readJSON(text: json)
+						.doi/.bin/bashbrew-buildkit-env-setup.sh \\
+							| jq 'to_entries | map(.key + "=" + .value)'
+					''').trim()
+					if (json) {
+						buildEnvs += readJSON(text: json)
+					}
 				}
 			}
-		}
 
-		withEnv(buildEnvs) {
-			dir('build') {
-				deleteDir()
+			withEnv(buildEnvs) {
+				dir('build') {
+					deleteDir()
 
-				stage('Pull') {
-					sh """#!/usr/bin/env bash
-						set -Eeuo pipefail -x
+					stage('Pull') {
+						sh """#!/usr/bin/env bash
+							set -Eeuo pipefail -x
 
-						${ obj.commands.pull }
-					"""
-				}
+							${ obj.commands.pull }
+						"""
+					}
 
-				stage('Build') {
-					sh """#!/usr/bin/env bash
-						set -Eeuo pipefail -x
+					stage('Build') {
+						sh """#!/usr/bin/env bash
+							set -Eeuo pipefail -x
 
-						${ obj.commands.build }
-					"""
-				}
+							${ obj.commands.build }
+						"""
+					}
 
-				stage('Push') {
-					sh """#!/usr/bin/env bash
-						set -Eeuo pipefail -x
+					stage('Push') {
+						sh """#!/usr/bin/env bash
+							set -Eeuo pipefail -x
 
-						${ obj.commands.push }
-					"""
+							${ obj.commands.push }
+						"""
+					}
 				}
 			}
 		}
