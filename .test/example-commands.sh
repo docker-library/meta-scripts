@@ -29,9 +29,14 @@ SOURCE_DATE_EPOCH=1700741054 \
 	--tag 'docker:24-cli' \
 	--tag 'docker:cli' \
 	--tag 'docker:24.0.7-cli-alpine3.18' \
+	--tag 'amd64/docker:24.0.7-cli' \
+	--tag 'amd64/docker:24.0-cli' \
+	--tag 'amd64/docker:24-cli' \
+	--tag 'amd64/docker:cli' \
+	--tag 'amd64/docker:24.0.7-cli-alpine3.18' \
 	--tag 'oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43' \
 	--platform 'linux/amd64' \
-	--build-context 'alpine:3.18=docker-image://alpine:3.18@sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
+	--build-context 'alpine:3.18=docker-image://alpine@sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0' \
 	--build-arg BUILDKIT_SYNTAX="$BASHBREW_BUILDKIT_SYNTAX" \
 	--file 'Dockerfile' \
 	'https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli'
@@ -56,8 +61,8 @@ rm -rf temp
 
 # docker:24.0.7-windowsservercore-ltsc2022 [windows-amd64]
 # <pull>
-docker pull 'mcr.microsoft.com/windows/servercore:ltsc2022@sha256:d4ab2dd7d3d0fce6edc5df459565a4c96bbb1d0148065b215ab5ddcab1e42eb4'
-docker tag 'mcr.microsoft.com/windows/servercore:ltsc2022@sha256:d4ab2dd7d3d0fce6edc5df459565a4c96bbb1d0148065b215ab5ddcab1e42eb4' 'mcr.microsoft.com/windows/servercore:ltsc2022'
+docker pull 'mcr.microsoft.com/windows/servercore@sha256:308ef3f8ee3e9c9a1bdec460009c1e6394b329db13eb3149461f8841be5b538a'
+docker tag 'mcr.microsoft.com/windows/servercore@sha256:308ef3f8ee3e9c9a1bdec460009c1e6394b329db13eb3149461f8841be5b538a' 'mcr.microsoft.com/windows/servercore:ltsc2022'
 # </pull>
 # <build>
 SOURCE_DATE_EPOCH=1700741054 \
@@ -71,6 +76,14 @@ SOURCE_DATE_EPOCH=1700741054 \
 	--tag 'docker:24.0-windowsservercore' \
 	--tag 'docker:24-windowsservercore' \
 	--tag 'docker:windowsservercore' \
+	--tag 'winamd64/docker:24.0.7-windowsservercore-ltsc2022' \
+	--tag 'winamd64/docker:24.0-windowsservercore-ltsc2022' \
+	--tag 'winamd64/docker:24-windowsservercore-ltsc2022' \
+	--tag 'winamd64/docker:windowsservercore-ltsc2022' \
+	--tag 'winamd64/docker:24.0.7-windowsservercore' \
+	--tag 'winamd64/docker:24.0-windowsservercore' \
+	--tag 'winamd64/docker:24-windowsservercore' \
+	--tag 'winamd64/docker:windowsservercore' \
 	--tag 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e' \
 	--platform 'windows/amd64' \
 	--file 'Dockerfile' \

@@ -20,11 +20,16 @@ args=(
 
 	--env "CGO_ENABLED=${CGO_ENABLED-0}"
 	--env "GOTOOLCHAIN=${GOTOOLCHAIN-local}"
+	--env GODEBUG
 	--env GOFLAGS
 	--env GOOS --env GOARCH
 	--env GO386
 	--env GOAMD64
 	--env GOARM
+
+	# hack hack hack (useful for "go run" during dev/test)
+	--env DOCKERHUB_PUBLIC_PROXY
+	--env DOCKERHUB_PUBLIC_PROXY_HOST
 )
 if [ -t 0 ] && [ -t 1 ]; then
 	args+=( --tty )

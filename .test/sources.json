@@ -2,7 +2,7 @@
   "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b": {
     "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
     "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
-    "allTags": [
+    "tags": [
       "docker:24.0.7-cli",
       "docker:24.0-cli",
       "docker:24-cli",
@@ -20,14 +20,13 @@
     },
     "arches": {
       "amd64": {
-        "tags": [
-          "docker:24.0.7-cli",
-          "docker:24.0-cli",
-          "docker:24-cli",
-          "docker:cli",
-          "docker:24.0.7-cli-alpine3.18"
+        "archTags": [
+          "amd64/docker:24.0.7-cli",
+          "amd64/docker:24.0-cli",
+          "amd64/docker:24-cli",
+          "amd64/docker:cli",
+          "amd64/docker:24.0.7-cli-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "alpine:3.18"
         ],
@@ -45,14 +44,13 @@
         }
       },
       "arm32v6": {
-        "tags": [
-          "docker:24.0.7-cli",
-          "docker:24.0-cli",
-          "docker:24-cli",
-          "docker:cli",
-          "docker:24.0.7-cli-alpine3.18"
+        "archTags": [
+          "arm32v6/docker:24.0.7-cli",
+          "arm32v6/docker:24.0-cli",
+          "arm32v6/docker:24-cli",
+          "arm32v6/docker:cli",
+          "arm32v6/docker:24.0.7-cli-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "alpine:3.18"
         ],
@@ -71,14 +69,13 @@
         }
       },
       "arm32v7": {
-        "tags": [
-          "docker:24.0.7-cli",
-          "docker:24.0-cli",
-          "docker:24-cli",
-          "docker:cli",
-          "docker:24.0.7-cli-alpine3.18"
+        "archTags": [
+          "arm32v7/docker:24.0.7-cli",
+          "arm32v7/docker:24.0-cli",
+          "arm32v7/docker:24-cli",
+          "arm32v7/docker:cli",
+          "arm32v7/docker:24.0.7-cli-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "alpine:3.18"
         ],
@@ -97,14 +94,13 @@
         }
       },
       "arm64v8": {
-        "tags": [
-          "docker:24.0.7-cli",
-          "docker:24.0-cli",
-          "docker:24-cli",
-          "docker:cli",
-          "docker:24.0.7-cli-alpine3.18"
+        "archTags": [
+          "arm64v8/docker:24.0.7-cli",
+          "arm64v8/docker:24.0-cli",
+          "arm64v8/docker:24-cli",
+          "arm64v8/docker:cli",
+          "arm64v8/docker:24.0.7-cli-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "alpine:3.18"
         ],
@@ -127,7 +123,7 @@
   "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3": {
     "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
     "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
-    "allTags": [
+    "tags": [
       "docker:24.0.7-dind",
       "docker:24.0-dind",
       "docker:24-dind",
@@ -150,19 +146,18 @@
     },
     "arches": {
       "amd64": {
-        "tags": [
-          "docker:24.0.7-dind",
-          "docker:24.0-dind",
-          "docker:24-dind",
-          "docker:dind",
-          "docker:24.0.7-dind-alpine3.18",
-          "docker:24.0.7",
-          "docker:24.0",
-          "docker:24",
-          "docker:latest",
-          "docker:24.0.7-alpine3.18"
+        "archTags": [
+          "amd64/docker:24.0.7-dind",
+          "amd64/docker:24.0-dind",
+          "amd64/docker:24-dind",
+          "amd64/docker:dind",
+          "amd64/docker:24.0.7-dind-alpine3.18",
+          "amd64/docker:24.0.7",
+          "amd64/docker:24.0",
+          "amd64/docker:24",
+          "amd64/docker:latest",
+          "amd64/docker:24.0.7-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "docker:24-cli"
         ],
@@ -180,19 +175,18 @@
         }
       },
       "arm32v6": {
-        "tags": [
-          "docker:24.0.7-dind",
-          "docker:24.0-dind",
-          "docker:24-dind",
-          "docker:dind",
-          "docker:24.0.7-dind-alpine3.18",
-          "docker:24.0.7",
-          "docker:24.0",
-          "docker:24",
-          "docker:latest",
-          "docker:24.0.7-alpine3.18"
+        "archTags": [
+          "arm32v6/docker:24.0.7-dind",
+          "arm32v6/docker:24.0-dind",
+          "arm32v6/docker:24-dind",
+          "arm32v6/docker:dind",
+          "arm32v6/docker:24.0.7-dind-alpine3.18",
+          "arm32v6/docker:24.0.7",
+          "arm32v6/docker:24.0",
+          "arm32v6/docker:24",
+          "arm32v6/docker:latest",
+          "arm32v6/docker:24.0.7-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "docker:24-cli"
         ],
@@ -211,19 +205,18 @@
         }
       },
       "arm32v7": {
-        "tags": [
-          "docker:24.0.7-dind",
-          "docker:24.0-dind",
-          "docker:24-dind",
-          "docker:dind",
-          "docker:24.0.7-dind-alpine3.18",
-          "docker:24.0.7",
-          "docker:24.0",
-          "docker:24",
-          "docker:latest",
-          "docker:24.0.7-alpine3.18"
+        "archTags": [
+          "arm32v7/docker:24.0.7-dind",
+          "arm32v7/docker:24.0-dind",
+          "arm32v7/docker:24-dind",
+          "arm32v7/docker:dind",
+          "arm32v7/docker:24.0.7-dind-alpine3.18",
+          "arm32v7/docker:24.0.7",
+          "arm32v7/docker:24.0",
+          "arm32v7/docker:24",
+          "arm32v7/docker:latest",
+          "arm32v7/docker:24.0.7-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "docker:24-cli"
         ],
@@ -242,19 +235,18 @@
         }
       },
       "arm64v8": {
-        "tags": [
-          "docker:24.0.7-dind",
-          "docker:24.0-dind",
-          "docker:24-dind",
-          "docker:dind",
-          "docker:24.0.7-dind-alpine3.18",
-          "docker:24.0.7",
-          "docker:24.0",
-          "docker:24",
-          "docker:latest",
-          "docker:24.0.7-alpine3.18"
+        "archTags": [
+          "arm64v8/docker:24.0.7-dind",
+          "arm64v8/docker:24.0-dind",
+          "arm64v8/docker:24-dind",
+          "arm64v8/docker:dind",
+          "arm64v8/docker:24.0.7-dind-alpine3.18",
+          "arm64v8/docker:24.0.7",
+          "arm64v8/docker:24.0",
+          "arm64v8/docker:24",
+          "arm64v8/docker:latest",
+          "arm64v8/docker:24.0.7-alpine3.18"
         ],
-        "archTags": [],
         "froms": [
           "docker:24-cli"
         ],
@@ -277,7 +269,7 @@
   "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984": {
     "sourceId": "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984",
     "reproducibleGitChecksum": "1711f6dcb5def8e2e6ce88e3a12c24e2dd37bf967a79ae86128c4d45429c0a2c",
-    "allTags": [
+    "tags": [
       "docker:24.0.7-windowsservercore-ltsc2022",
       "docker:24.0-windowsservercore-ltsc2022",
       "docker:24-windowsservercore-ltsc2022",
@@ -298,17 +290,16 @@
     },
     "arches": {
       "windows-amd64": {
-        "tags": [
-          "docker:24.0.7-windowsservercore-ltsc2022",
-          "docker:24.0-windowsservercore-ltsc2022",
-          "docker:24-windowsservercore-ltsc2022",
-          "docker:windowsservercore-ltsc2022",
-          "docker:24.0.7-windowsservercore",
-          "docker:24.0-windowsservercore",
-          "docker:24-windowsservercore",
-          "docker:windowsservercore"
+        "archTags": [
+          "winamd64/docker:24.0.7-windowsservercore-ltsc2022",
+          "winamd64/docker:24.0-windowsservercore-ltsc2022",
+          "winamd64/docker:24-windowsservercore-ltsc2022",
+          "winamd64/docker:windowsservercore-ltsc2022",
+          "winamd64/docker:24.0.7-windowsservercore",
+          "winamd64/docker:24.0-windowsservercore",
+          "winamd64/docker:24-windowsservercore",
+          "winamd64/docker:windowsservercore"
         ],
-        "archTags": [],
         "froms": [
           "mcr.microsoft.com/windows/servercore:ltsc2022"
         ],
@@ -330,7 +321,7 @@
   "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a": {
     "sourceId": "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a",
     "reproducibleGitChecksum": "40dcbc9e7a451cfc7f2bd12400074f3f21bc6c0331e249019623aeb617d18747",
-    "allTags": [
+    "tags": [
       "docker:24.0.7-windowsservercore-1809",
       "docker:24.0-windowsservercore-1809",
       "docker:24-windowsservercore-1809",
@@ -351,17 +342,16 @@
     },
     "arches": {
       "windows-amd64": {
-        "tags": [
-          "docker:24.0.7-windowsservercore-1809",
-          "docker:24.0-windowsservercore-1809",
-          "docker:24-windowsservercore-1809",
-          "docker:windowsservercore-1809",
-          "docker:24.0.7-windowsservercore",
-          "docker:24.0-windowsservercore",
-          "docker:24-windowsservercore",
-          "docker:windowsservercore"
+        "archTags": [
+          "winamd64/docker:24.0.7-windowsservercore-1809",
+          "winamd64/docker:24.0-windowsservercore-1809",
+          "winamd64/docker:24-windowsservercore-1809",
+          "winamd64/docker:windowsservercore-1809",
+          "winamd64/docker:24.0.7-windowsservercore",
+          "winamd64/docker:24.0-windowsservercore",
+          "winamd64/docker:24-windowsservercore",
+          "winamd64/docker:windowsservercore"
         ],
-        "archTags": [],
         "froms": [
           "mcr.microsoft.com/windows/servercore:1809"
         ],
@@ -383,7 +373,7 @@
   "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4": {
     "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
     "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-    "allTags": [
+    "tags": [
       "notary:server-0.7.0",
       "notary:server"
     ],
@@ -398,11 +388,10 @@
     },
     "arches": {
       "amd64": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "amd64/notary:server-0.7.0",
+          "amd64/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -426,11 +415,10 @@
         }
       },
       "arm32v6": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "arm32v6/notary:server-0.7.0",
+          "arm32v6/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -455,11 +443,10 @@
         }
       },
       "arm64v8": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "arm64v8/notary:server-0.7.0",
+          "arm64v8/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -484,11 +471,10 @@
         }
       },
       "i386": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "i386/notary:server-0.7.0",
+          "i386/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -512,11 +498,10 @@
         }
       },
       "ppc64le": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "ppc64le/notary:server-0.7.0",
+          "ppc64le/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -540,11 +525,10 @@
         }
       },
       "s390x": {
-        "tags": [
-          "notary:server-0.7.0",
-          "notary:server"
+        "archTags": [
+          "s390x/notary:server-0.7.0",
+          "s390x/notary:server"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -572,7 +556,7 @@
   "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8": {
     "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
     "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-    "allTags": [
+    "tags": [
       "notary:signer-0.7.0",
       "notary:signer"
     ],
@@ -587,11 +571,10 @@
     },
     "arches": {
       "amd64": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "amd64/notary:signer-0.7.0",
+          "amd64/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -615,11 +598,10 @@
         }
       },
       "arm32v6": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "arm32v6/notary:signer-0.7.0",
+          "arm32v6/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -644,11 +626,10 @@
         }
       },
       "arm64v8": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "arm64v8/notary:signer-0.7.0",
+          "arm64v8/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -673,11 +654,10 @@
         }
       },
       "i386": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "i386/notary:signer-0.7.0",
+          "i386/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -701,11 +681,10 @@
         }
       },
       "ppc64le": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "ppc64le/notary:signer-0.7.0",
+          "ppc64le/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -729,11 +708,10 @@
         }
       },
       "s390x": {
-        "tags": [
-          "notary:signer-0.7.0",
-          "notary:signer"
+        "archTags": [
+          "s390x/notary:signer-0.7.0",
+          "s390x/notary:signer"
         ],
-        "archTags": [],
         "froms": [
           "golang:1.19-alpine3.16",
           "alpine:3.16",
@@ -761,7 +739,7 @@
   "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b": {
     "sourceId": "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b",
     "reproducibleGitChecksum": "0ea17ff707666270e1fcb3edd76545906c68714d658ccde88c22d1606b2d7e4f",
-    "allTags": [
+    "tags": [
       "ubuntu:22.04",
       "ubuntu:jammy-20240111",
       "ubuntu:jammy",
@@ -778,13 +756,12 @@
     },
     "arches": {
       "amd64": {
-        "tags": [
-          "ubuntu:22.04",
-          "ubuntu:jammy-20240111",
-          "ubuntu:jammy",
-          "ubuntu:latest"
+        "archTags": [
+          "amd64/ubuntu:22.04",
+          "amd64/ubuntu:jammy-20240111",
+          "amd64/ubuntu:jammy",
+          "amd64/ubuntu:latest"
         ],
-        "archTags": [],
         "froms": [
           "scratch"
         ],

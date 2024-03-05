@@ -95,7 +95,7 @@ node {
 				),
 			]) {
 				for (buildObj in queue) {
-					def identifier = buildObj.source.allTags[0] + ' (' + buildObj.build.arch + ')'
+					def identifier = buildObj.source.tags[0] + ' (' + buildObj.build.arch + ')'
 					def json = writeJSON(json: buildObj, returnText: true)
 					withEnv([
 						'json=' + json,
@@ -116,7 +116,7 @@ node {
 												{
 													buildId: .buildId,
 													bashbrewArch: .build.arch,
-													firstTag: .source.allTags[0],
+													firstTag: .source.tags[0],
 												} + (
 													[ .build.resolvedParents[].manifest.desc.platform? | select(has("os.version")) | ."os.version" ][0] // ""
 													| if . != "" then
@@ -166,7 +166,7 @@ def pastFailedJobs = readJSON(text: pastFailedJobsJson)
 def newFailedJobs = [:]
 
 for (buildObj in queue) {
-	def identifier = buildObj.source.allTags[0]
+	def identifier = buildObj.source.tags[0]
 	def json = writeJSON(json: buildObj, returnText: true)
 	withEnv([
 		'json=' + json,
