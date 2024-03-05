@@ -203,4 +203,63 @@ func (rc *registryCache) ResolveTag(ctx context.Context, repo string, tag string
 	return desc, nil
 }
 
-// TODO more methods (currently only implements what's actually necessary for SynthesizeIndex)
+func (rc *registryCache) PushManifest(ctx context.Context, repo string, tag string, contents []byte, mediaType string) (ociregistry.Descriptor, error) {
+	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific tag)
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	desc, err := rc.registry.PushManifest(ctx, repo, tag, contents, mediaType)
+	if err != nil {
+		return ociregistry.Descriptor{}, err
+	}
+
+	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
+	if tag != "" {
+		rc.tags[cacheKeyTag(repo, tag)] = desc.Digest
+	}
+	rc.types[desc.Digest] = desc.MediaType
+	if len(contents) <= manifestSizeLimit {
+		rc.data[desc.Digest] = contents
+	} else {
+		delete(rc.data, desc.Digest)
+	}
+
+	return desc, nil
+}
+
+func (rc *registryCache) PushBlob(ctx context.Context, repo string, desc ociregistry.Descriptor, r io.Reader) (ociregistry.Descriptor, error) {
+	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific digest)
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	// TODO if desc.Size <= manifestSizeLimit, we should technically wrap up the Reader we're given and cache the result so we can shove it directly into the cache, but we currently don't read back blobs we pushed in (and I don't think that's a common use case), so I'm taking the simpler answer of just using this event as a cache bust intead
+
+	desc, err := rc.registry.PushBlob(ctx, repo, desc, r)
+	if err != nil {
+		return ociregistry.Descriptor{}, err
+	}
+
+	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
+	rc.types[desc.Digest] = desc.MediaType
+	delete(rc.data, desc.Digest) // see TODO above
+
+	return desc, nil
+}
+
+func (rc *registryCache) MountBlob(ctx context.Context, fromRepo, toRepo string, digest ociregistry.Digest) (ociregistry.Descriptor, error) {
+	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific digest)
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	desc, err := rc.registry.MountBlob(ctx, fromRepo, toRepo, digest)
+	if err != nil {
+		return ociregistry.Descriptor{}, err
+	}
+
+	rc.has[cacheKeyDigest(toRepo, desc.Digest)] = true // TODO technically we should also be able to safely imply that "fromRepo" has digest here too, but need to double check whether the contract of the MountBlob API in OCI is such that it's legal for it to return success if "toRepo" already has "digest" (even if "fromRepo" doesn't)
+	rc.types[desc.Digest] = desc.MediaType
+
+	return desc, nil
+}
+
+// TODO more methods (currently only implements what's actually necessary for SynthesizeIndex and PushIndex)
