@@ -736,31 +736,33 @@
       }
     }
   },
-  "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b": {
-    "sourceId": "a7e4b56dd1e5dde4c9d988092cb8639987559f13c5c92210664a4ffb880f222b",
-    "reproducibleGitChecksum": "0ea17ff707666270e1fcb3edd76545906c68714d658ccde88c22d1606b2d7e4f",
+  "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2": {
+    "sourceId": "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2",
+    "reproducibleGitChecksum": "17e76ce3a5b47357c5724738db231ed2477c94d43df69ce34ae0871c99f7de78",
     "tags": [
-      "ubuntu:22.04",
-      "ubuntu:jammy-20240111",
-      "ubuntu:jammy",
-      "ubuntu:latest"
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
     ],
     "entry": {
-      "GitRepo": "https://github.com/tianon/temp.git",
-      "GitFetch": "refs/tags/dist-jammy-amd64-20240111-e6e3490a",
-      "GitCommit": "e6e3490ad3f524ccaa072edafe525f8ca8ac5490",
-      "Directory": "oci",
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-amd64",
+      "GitCommit": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+      "Directory": "latest/glibc/amd64",
       "File": "index.json",
       "Builder": "oci-import",
-      "SOURCE_DATE_EPOCH": 1704931200
+      "SOURCE_DATE_EPOCH": 1709081058
     },
     "arches": {
       "amd64": {
         "archTags": [
-          "amd64/ubuntu:22.04",
-          "amd64/ubuntu:jammy-20240111",
-          "amd64/ubuntu:jammy",
-          "amd64/ubuntu:latest"
+          "amd64/busybox:1.36.1",
+          "amd64/busybox:1.36",
+          "amd64/busybox:1",
+          "amd64/busybox:stable",
+          "amd64/busybox:latest"
         ],
         "froms": [
           "scratch"
@@ -769,6 +771,424 @@
         "platformString": "linux/amd64",
         "platform": {
           "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e": {
+    "sourceId": "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e",
+    "reproducibleGitChecksum": "b9cd3fd9104af7427dd8328524fcdf0bc72a5f37da5e803d1e4f5eacf09a5089",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-arm32v5",
+      "GitCommit": "7044abc7ee26712d998311b402b975124786e0cf",
+      "Directory": "latest/glibc/arm32v5",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "arm32v5": {
+        "archTags": [
+          "arm32v5/busybox:1.36.1",
+          "arm32v5/busybox:1.36",
+          "arm32v5/busybox:1",
+          "arm32v5/busybox:stable",
+          "arm32v5/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/arm/v5",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v5"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42": {
+    "sourceId": "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42",
+    "reproducibleGitChecksum": "87d20b767462df91b125a3f1e79239da0bfc4c9da8ebd0f83648714d905029d0",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-arm32v6",
+      "GitCommit": "c8b6d08f1f78467e7dd1ae3d5e4ec3563877e9a5",
+      "Directory": "latest/musl/arm32v6",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "arm32v6": {
+        "archTags": [
+          "arm32v6/busybox:1.36.1",
+          "arm32v6/busybox:1.36",
+          "arm32v6/busybox:1",
+          "arm32v6/busybox:stable",
+          "arm32v6/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/arm/v6",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v6"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222": {
+    "sourceId": "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222",
+    "reproducibleGitChecksum": "af0ae1b14b8f4948eddffa8793791a267870f343fd072e0304834ee800f9732e",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-arm32v7",
+      "GitCommit": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+      "Directory": "latest/glibc/arm32v7",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "arm32v7": {
+        "archTags": [
+          "arm32v7/busybox:1.36.1",
+          "arm32v7/busybox:1.36",
+          "arm32v7/busybox:1",
+          "arm32v7/busybox:stable",
+          "arm32v7/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/arm/v7",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v7"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd": {
+    "sourceId": "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd",
+    "reproducibleGitChecksum": "54bcd95fc260d3d478b097eaf7541c24f70ff8d6d8d09a132033789349acfcca",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-arm64v8",
+      "GitCommit": "a8344687869ba9f95e140a62a915a30822ff2147",
+      "Directory": "latest/glibc/arm64v8",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "arm64v8": {
+        "archTags": [
+          "arm64v8/busybox:1.36.1",
+          "arm64v8/busybox:1.36",
+          "arm64v8/busybox:1",
+          "arm64v8/busybox:stable",
+          "arm64v8/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524": {
+    "sourceId": "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524",
+    "reproducibleGitChecksum": "ebaf8389e11a5ed571a2d934b59ab02d0f7e9181f338d960a98e69ca5ae0a020",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-i386",
+      "GitCommit": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+      "Directory": "latest/glibc/i386",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "i386": {
+        "archTags": [
+          "i386/busybox:1.36.1",
+          "i386/busybox:1.36",
+          "i386/busybox:1",
+          "i386/busybox:stable",
+          "i386/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/386",
+        "platform": {
+          "architecture": "386",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4": {
+    "sourceId": "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4",
+    "reproducibleGitChecksum": "b07cede4baa85b37cac67e2e3a9c2644d7cc8599fbbe7d440bd1965371d7c16f",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-mips64le",
+      "GitCommit": "ea5639e7af6b21b81230ccaba4c05ccb2d80b9e3",
+      "Directory": "latest/glibc/mips64le",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "mips64le": {
+        "archTags": [
+          "mips64le/busybox:1.36.1",
+          "mips64le/busybox:1.36",
+          "mips64le/busybox:1",
+          "mips64le/busybox:stable",
+          "mips64le/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/mips64le",
+        "platform": {
+          "architecture": "mips64le",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db": {
+    "sourceId": "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db",
+    "reproducibleGitChecksum": "f9cd472cc7b1228b9c2318c547fb3a954d2cbe1fb0bc04c5e871b0158b5d5adb",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-ppc64le",
+      "GitCommit": "97dad737e59de0698f74b81a7dac4ce4d834e36c",
+      "Directory": "latest/glibc/ppc64le",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "ppc64le": {
+        "archTags": [
+          "ppc64le/busybox:1.36.1",
+          "ppc64le/busybox:1.36",
+          "ppc64le/busybox:1",
+          "ppc64le/busybox:stable",
+          "ppc64le/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/ppc64le",
+        "platform": {
+          "architecture": "ppc64le",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a": {
+    "sourceId": "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a",
+    "reproducibleGitChecksum": "e6549a760e04114ed4fb344ad095430c0b07657e8d9cdcc737181273c071981e",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-riscv64",
+      "GitCommit": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+      "Directory": "latest/uclibc/riscv64",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "riscv64": {
+        "archTags": [
+          "riscv64/busybox:1.36.1",
+          "riscv64/busybox:1.36",
+          "riscv64/busybox:1",
+          "riscv64/busybox:stable",
+          "riscv64/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/riscv64",
+        "platform": {
+          "architecture": "riscv64",
+          "os": "linux"
+        },
+        "parents": {
+          "scratch": {
+            "sourceId": null,
+            "pin": null
+          }
+        }
+      }
+    }
+  },
+  "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b": {
+    "sourceId": "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b",
+    "reproducibleGitChecksum": "6269faba1236ba6494bffcc94c9b3cc262a7efabd9e9f65e5dc9df1e40339c30",
+    "tags": [
+      "busybox:1.36.1",
+      "busybox:1.36",
+      "busybox:1",
+      "busybox:stable",
+      "busybox:latest"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/docker-library/busybox.git",
+      "GitFetch": "refs/heads/dist-s390x",
+      "GitCommit": "ecf31f814875084a2bc85a162b78f512ea2df0c9",
+      "Directory": "latest/glibc/s390x",
+      "File": "index.json",
+      "Builder": "oci-import",
+      "SOURCE_DATE_EPOCH": 1709081058
+    },
+    "arches": {
+      "s390x": {
+        "archTags": [
+          "s390x/busybox:1.36.1",
+          "s390x/busybox:1.36",
+          "s390x/busybox:1",
+          "s390x/busybox:stable",
+          "s390x/busybox:latest"
+        ],
+        "froms": [
+          "scratch"
+        ],
+        "lastStageFrom": "scratch",
+        "platformString": "linux/s390x",
+        "platform": {
+          "architecture": "s390x",
           "os": "linux"
         },
         "parents": {

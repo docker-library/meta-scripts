@@ -20,7 +20,7 @@ dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
 export BASHBREW_LIBRARY="$dir/library"
 
-set -- docker:cli docker:dind docker:windowsservercore notary ubuntu:latest # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import
+set -- docker:cli docker:dind docker:windowsservercore notary busybox:latest # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import
 # (see "library/" and ".external-pins/" for where these come from / are hard-coded for consistent testing purposes)
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
 

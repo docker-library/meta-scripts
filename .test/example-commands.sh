@@ -93,7 +93,7 @@ SOURCE_DATE_EPOCH=1700741054 \
 docker push 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e'
 # </push>
 
-# ubuntu:22.04 [amd64]
+# busybox:1.36.1 [amd64]
 # <pull>
 
 # </pull>
@@ -103,11 +103,11 @@ gitCache="$BASHBREW_CACHE/git"
 git init --bare "$gitCache"
 _git() { git -C "$gitCache" "$@"; }
 _git config gc.auto 0
-_commit() { _git rev-parse 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490^{commit}'; }
-if ! _commit &> /dev/null; then _git fetch 'https://github.com/tianon/temp.git' 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:' || _git fetch 'refs/tags/dist-jammy-amd64-20240111-e6e3490a:'; fi
+_commit() { _git rev-parse 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592^{commit}'; }
+if ! _commit &> /dev/null; then _git fetch 'https://github.com/docker-library/busybox.git' 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592:' || _git fetch 'refs/heads/dist-amd64:'; fi
 _commit
 mkdir temp
-_git archive --format=tar 'e6e3490ad3f524ccaa072edafe525f8ca8ac5490:oci/' | tar -xvC temp
+_git archive --format=tar 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592:latest/glibc/amd64/' | tar -xvC temp
 jq -s '
 	if length != 1 then
 		error("unexpected '\''oci-layout'\'' document count: " + length)
@@ -134,12 +134,12 @@ jq -s '
 			error("invalid descriptor size: " + .size)
 		else . end
 		| del(.annotations, .urls)
-		| .annotations = {"org.opencontainers.image.source":"https://github.com/tianon/temp.git","org.opencontainers.image.revision":"e6e3490ad3f524ccaa072edafe525f8ca8ac5490","org.opencontainers.image.created":"2024-01-11T00:00:00Z","org.opencontainers.image.version":"22.04","org.opencontainers.image.url":"https://hub.docker.com/_/ubuntu","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
+		| .annotations = {"org.opencontainers.image.source":"https://github.com/docker-library/busybox.git","org.opencontainers.image.revision":"d0b7d566eb4f1fa9933984e6fc04ab11f08f4592","org.opencontainers.image.created":"2024-02-28T00:44:18Z","org.opencontainers.image.version":"1.36.1","org.opencontainers.image.url":"https://hub.docker.com/_/busybox","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
 	)
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
 # </build>
 # <push>
-crane push --index temp 'oisupport/staging-amd64:93476ae64659d71f4ee7fac781d6d1890df8926682e2fa6bd647a246b33ad9bf'
+crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
 rm -rf temp
 # </push>
