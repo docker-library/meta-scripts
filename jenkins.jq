@@ -16,3 +16,34 @@ def crane_deploy_commands:
 		@sh "crane index append --tag \($target) " + (map("--manifest " + @sh) | join(" ")) + " --flatten"
 	end
 ;
+
+# input: "build" object (with "buildId" top level key)
+# output: json object (to trigger the build on GitHub Actions)
+def gha_payload:
+	{
+		ref: "subset", # TODO back to main
+		inputs: (
+			{
+				buildId: .buildId,
+				bashbrewArch: .build.arch,
+				firstTag: .source.tags[0],
+			} + (
+				[ .build.resolvedParents[].manifests[].platform? | select(has("os.version")) | ."os.version" ][0] // ""
+				| if . != "" then
+					{ windowsVersion: (
+						# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
+						# https://github.com/microsoft/hcsshim/blob/e8208853ff0f7f23fa5d2e018deddff2249d35c8/osversion/windowsbuilds.go
+						capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
+						| {
+							# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
+							# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+							"20348": "2022",
+							"17763": "2019",
+							"": "",
+						}[.build] // "unknown"
+					) }
+				else {} end
+			)
+		)
+	}
+;
