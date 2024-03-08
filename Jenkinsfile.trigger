@@ -109,33 +109,8 @@ node {
 								# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
 								payload="$(
 									jq <<<"$json" -L.scripts '
-										include "meta";
-										{
-											ref: "subset", # TODO back to main
-											inputs: (
-												{
-													buildId: .buildId,
-													bashbrewArch: .build.arch,
-													firstTag: .source.tags[0],
-												} + (
-													[ .build.resolvedParents[].manifest.desc.platform? | select(has("os.version")) | ."os.version" ][0] // ""
-													| if . != "" then
-														{ windowsVersion: (
-															# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-															# https://github.com/microsoft/hcsshim/blob/e8208853ff0f7f23fa5d2e018deddff2249d35c8/osversion/windowsbuilds.go
-															capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
-															| {
-																# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
-																# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-																"20348": "2022",
-																"17763": "2019",
-																"": "",
-															}[.build] // "unknown"
-														) }
-													else {} end
-												)
-											)
-										}
+										include "jenkins";
+										gha_payload
 									'
 								)"
 
