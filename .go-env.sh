@@ -8,8 +8,8 @@ user="$(id -u):$(id -g)"
 args=(
 	--interactive --rm --init
 	--user "$user"
-	--mount "type=bind,src=$dir,dst=/app"
-	--workdir /app
+	--mount "type=bind,src=$dir,dst=$dir"
+	--workdir "$dir"
 	--tmpfs /tmp,exec
 	--env HOME=/tmp
 
@@ -20,6 +20,7 @@ args=(
 
 	--env "CGO_ENABLED=${CGO_ENABLED-0}"
 	--env "GOTOOLCHAIN=${GOTOOLCHAIN-local}"
+	--env GOCOVERDIR # https://go.dev/doc/build-cover
 	--env GODEBUG
 	--env GOFLAGS
 	--env GOOS --env GOARCH

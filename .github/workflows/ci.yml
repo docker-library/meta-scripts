@@ -31,4 +31,10 @@ jobs:
           .bin/bashbrew --version
           echo "$PWD/.bin" >> "$GITHUB_PATH"
       - run: .test/test.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: .test/coverage**
+          if-no-files-found: error
       - run: git diff --exit-code
+      # TODO download latest coverage artifacts from HEAD / PR target to emulate Codecov but without another flaky third-party service that's begging for write-access to all our repositories via a GitHub App? 👀

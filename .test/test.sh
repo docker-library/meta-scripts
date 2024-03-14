@@ -28,7 +28,39 @@ time bashbrew fetch "$@"
 
 time "$dir/../sources.sh" "$@" > "$dir/sources.json"
 
+rm -rf "$dir/coverage"
+mkdir -p "$dir/coverage"
+export GOCOVERDIR="${GOCOVERDIR:-"$dir/coverage"}"
+
+rm -f "$dir/../bin/builds" # make sure we build with -cover for sure
 time "$dir/../builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
+
+# test again, but with "--cache=..." instead of "--cache ..." (which also lets us delete the cache and get slightly better coverage reports at the expense of speed / Hub requests)
+time "$dir/../builds.sh" --cache="$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
+
+# test "lookup" code for more edge cases
+"$dir/../.go-env.sh" go build -cover -trimpath -o "$dir/../bin/lookup" ./cmd/lookup
+lookup=(
+	# force a config blob lookup for platform object creation (and top-level Docker media type!)
+	'tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23'
+	# (this is the first Windows manifest of "tianon/test:index-no-platform-smaller" referenced below)
+
+	# tianon/test:index-no-platform-smaller - a "broken" index with *zero* platform objects in it (so every manifest requires a platform lookup)
+	'tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac'
+	# (doing these in the same run means the manifest from above should be cached and exercise more codepaths for better coverage)
+)
+"$dir/../bin/lookup" "${lookup[@]}" | jq -s > "$dir/lookup-test.json"
+
+# don't leave around the "-cover" versions of these binaries
+rm -f "$dir/../bin/builds" "$dir/../bin/lookup"
+
+# Go tests
+"$dir/../.go-env.sh" go test -cover ./... -args -test.gocoverdir="$GOCOVERDIR"
+
+# combine the coverage data into the "legacy" coverage format (understood by "go tool cover") and pre-generate HTML for easier digestion of the data
+"$dir/../.go-env.sh" go tool covdata textfmt -i "$GOCOVERDIR" -o "$dir/coverage.txt"
+"$dir/../.go-env.sh" go tool cover -html "$dir/coverage.txt" -o "$dir/coverage.html"
+"$dir/../.go-env.sh" go tool cover -func "$dir/coverage.txt"
 
 # generate an "example commands" file so that changes to generated commands are easier to review
 SOURCE_DATE_EPOCH=0 jq -r -L "$dir/.." '

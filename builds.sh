@@ -7,13 +7,14 @@ export BASHBREW_STAGING_TEMPLATE
 
 dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
-if ( cd "$dir" && ./.any-go-nt.sh builds ); then
+bin="$dir/bin/builds"
+if ( cd "$dir" && ./.any-go-nt.sh "$bin" ); then
 	{
-		echo "building '$dir/builds' from 'builds.go'"
-		"$dir/.go-env.sh" go build -v -o builds builds.go
-		ls -l "$dir/builds"
+		echo "building '$bin'"
+		"$dir/.go-env.sh" go build ${GOCOVERDIR:+-cover} -v -trimpath -o "$bin" ./cmd/builds
+		ls -l "$bin"
 	} >&2
 fi
-[ -x "$dir/builds" ]
+[ -x "$bin" ]
 
-"$dir/builds" "$@" | jq .
+"$bin" "$@" | jq .

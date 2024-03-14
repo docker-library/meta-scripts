@@ -15,21 +15,21 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	img := os.Args[1]
+	for _, img := range os.Args[1:] {
+		ref, err := registry.ParseRefNormalized(img)
+		if err != nil {
+			panic(err)
+		}
 
-	ref, err := registry.ParseRefNormalized(img)
-	if err != nil {
-		panic(err)
-	}
+		index, err := registry.SynthesizeIndex(ctx, ref)
+		if err != nil {
+			panic(err)
+		}
 
-	index, err := registry.SynthesizeIndex(ctx, ref)
-	if err != nil {
-		panic(err)
-	}
-
-	e := json.NewEncoder(os.Stdout)
-	e.SetIndent("", "\t")
-	if err := e.Encode(index); err != nil {
-		panic(err)
+		e := json.NewEncoder(os.Stdout)
+		e.SetIndent("", "\t")
+		if err := e.Encode(index); err != nil {
+			panic(err)
+		}
 	}
 }
