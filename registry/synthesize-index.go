@@ -37,7 +37,9 @@ func SynthesizeIndex(ctx context.Context, ref ociref.Reference) (*ocispec.Index,
 		if errors.Is(err, ociregistry.ErrBlobUnknown) ||
 			errors.Is(err, ociregistry.ErrManifestUnknown) ||
 			errors.Is(err, ociregistry.ErrNameUnknown) ||
-			strings.HasPrefix(err.Error(), "404 ") {
+			strings.HasPrefix(err.Error(), "404 ") ||
+			// 401 often means "repository not found" (due to the nature of public/private mixing on Hub and the fact that ociauth definitely handled any possible authentication for us, so if we're still getting 401 it's unavoidable and might as well be 404)
+			strings.HasPrefix(err.Error(), "401 ") {
 			return nil, nil
 		}
 		return nil, fmt.Errorf("%s: failed GET: %w", ref, err)
