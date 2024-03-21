@@ -16,7 +16,7 @@ func main() {
 	defer stop()
 
 	for _, img := range os.Args[1:] {
-		ref, err := registry.ParseRefNormalized(img)
+		ref, err := registry.ParseRef(img)
 		if err != nil {
 			panic(err)
 		}
