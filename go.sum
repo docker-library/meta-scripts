@@ -32,8 +32,8 @@ github.com/sirupsen/logrus v1.9.0/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVs
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240216044210-8aa0c990bd77 h1:9EPZm+sGlYHo6LleMXWR6s3P8SJEYA7/aovpJ76JSpw=
-github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240216044210-8aa0c990bd77/go.mod h1:ApHceQLLwcOkCEXM1+DyCXTHEJhNGDpJ2kmV6axsx24=
+github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240322151419-7d3242933116 h1:ZDy4uRAhzODJXRo4EoNpJTCiSeOs8wwrkfMJy3JyDps=
+github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240322151419-7d3242933116/go.mod h1:pK23AUVXuNzzTpfMCA06sxZGeVQ/75FdVtW249de9Uo=
 golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
 golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

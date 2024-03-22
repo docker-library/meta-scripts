@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"time"
 
-	"cuelabs.dev/go/oci/ociregistry/ociclient"
 	"golang.org/x/time/rate"
 )
 
@@ -14,13 +13,13 @@ var (
 	}
 )
 
-// an implementation of [ociclient.HTTPDoer] that transparently adds a total requests rate limit and 429-retrying behavior
-type rateLimitedRetryingDoer struct {
-	doer    ociclient.HTTPDoer
-	limiter *rate.Limiter
+// an implementation of [net/http.RoundTripper] that transparently adds a total requests rate limit and 429-retrying behavior
+type rateLimitedRetryingRoundTripper struct {
+	roundTripper http.RoundTripper
+	limiter      *rate.Limiter
 }
 
-func (d *rateLimitedRetryingDoer) Do(req *http.Request) (*http.Response, error) {
+func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	requestRetryLimiter := rate.NewLimiter(rate.Every(time.Second), 1) // cap request retries at once per second
 	firstTry := true
 	ctx := req.Context()
@@ -32,23 +31,32 @@ func (d *rateLimitedRetryingDoer) Do(req *http.Request) (*http.Response, error) 
 			return nil, err
 		}
 
-		if !firstTry && req.GetBody != nil {
-			var err error
-			req.Body, err = req.GetBody()
-			if err != nil {
-				return nil, err
+		if !firstTry {
+			// https://pkg.go.dev/net/http#RoundTripper
+			// "RoundTrip should not modify the request, except for consuming and closing the Request's Body."
+			if req.Body != nil {
+				req.Body.Close()
+			}
+			req = req.Clone(ctx)
+			if req.GetBody != nil {
+				var err error
+				req.Body, err = req.GetBody()
+				if err != nil {
+					return nil, err
+				}
 			}
 		}
 		firstTry = false
 
-		res, err := d.doer.Do(req)
+		// in theory, this RoundTripper we're invoking should close req.Body (per the RoundTripper contract), so we shouldn't have to 🤞
+		res, err := d.roundTripper.RoundTrip(req)
 		if err != nil {
 			return nil, err
 		}
 
 		// TODO 503 should probably result in at least one or two auto-retries (especially with the automatic retry delay this injects)
 		if res.StatusCode == 429 {
-			// satisfy the big scary warning on https://pkg.go.dev/net/http#Client.Do about the downsides of failing to Close the response body
+			// satisfy the big scary warnings on https://pkg.go.dev/net/http#RoundTripper and https://pkg.go.dev/net/http#Client.Do about the downsides of failing to Close the response body
 			if err := res.Body.Close(); err != nil {
 				return nil, err
 			}

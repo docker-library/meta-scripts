@@ -20,5 +20,5 @@ require (
 	google.golang.org/protobuf v1.28.1 // indirect
 )
 
-// https://github.com/cue-labs/oci/pull/27
-replace cuelabs.dev/go/oci/ociregistry => github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240216044210-8aa0c990bd77
+// https://github.com/cue-labs/oci/pull/29
+replace cuelabs.dev/go/oci/ociregistry => github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240322151419-7d3242933116
