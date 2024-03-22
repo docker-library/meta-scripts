@@ -134,4 +134,73 @@ func (rc *registryCache) GetTag(ctx context.Context, repo string, tag string) (o
 	return ocimem.NewBytesReader(desc.Data, desc), nil
 }
 
+func (rc *registryCache) resolveBlob(ctx context.Context, repo string, digest ociregistry.Digest, f func(ctx context.Context, repo string, digest ociregistry.Digest) (ociregistry.Descriptor, error)) (ociregistry.Descriptor, error) {
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	if desc, ok := rc.data[digest]; ok && rc.has[cacheKeyDigest(repo, digest)] {
+		return desc, nil
+	}
+
+	desc, err := f(ctx, repo, digest)
+	if err != nil {
+		return desc, err
+	}
+
+	digest = desc.Digest // if this isn't a no-op, we've got a naughty registry
+
+	rc.has[cacheKeyDigest(repo, digest)] = true
+
+	// carefully copy only valid Resolve* fields such that any other existing fields are kept (this matters more if we ever make our mutexes better/less aggressive 👀)
+	if d, ok := rc.data[digest]; ok {
+		d.MediaType = desc.MediaType
+		d.Digest = desc.Digest
+		d.Size = desc.Size
+		desc = d
+	}
+	rc.data[digest] = desc
+
+	return desc, nil
+}
+
+func (rc *registryCache) ResolveManifest(ctx context.Context, repo string, digest ociregistry.Digest) (ociregistry.Descriptor, error) {
+	return rc.resolveBlob(ctx, repo, digest, rc.registry.ResolveManifest)
+}
+
+func (rc *registryCache) ResolveBlob(ctx context.Context, repo string, digest ociregistry.Digest) (ociregistry.Descriptor, error) {
+	return rc.resolveBlob(ctx, repo, digest, rc.registry.ResolveBlob)
+}
+
+func (rc *registryCache) ResolveTag(ctx context.Context, repo string, tag string) (ociregistry.Descriptor, error) {
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	tagKey := cacheKeyTag(repo, tag)
+
+	if digest, ok := rc.tags[tagKey]; ok {
+		if desc, ok := rc.data[digest]; ok {
+			return desc, nil
+		}
+	}
+
+	desc, err := rc.registry.ResolveTag(ctx, repo, tag)
+	if err != nil {
+		return desc, err
+	}
+
+	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
+	rc.tags[tagKey] = desc.Digest
+
+	// carefully copy only valid Resolve* fields such that any other existing fields are kept (this matters more if we ever make our mutexes better/less aggressive 👀)
+	if d, ok := rc.data[desc.Digest]; ok {
+		d.MediaType = desc.MediaType
+		d.Digest = desc.Digest
+		d.Size = desc.Size
+		desc = d
+	}
+	rc.data[desc.Digest] = desc
+
+	return desc, nil
+}
+
 // TODO more methods (currently only implements what's actually necessary for SynthesizeIndex)
