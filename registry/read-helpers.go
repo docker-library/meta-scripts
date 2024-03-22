@@ -20,6 +20,8 @@ func readJSONHelper(r ociregistry.BlobReader, v interface{}) error {
 		return err
 	}
 
+	// TODO if desc.Data != nil and len() == desc.Size, we should probably check/use that? 👀
+
 	// make sure we can't possibly read (much) more than we're supposed to
 	limited := &io.LimitedReader{
 		R: r,

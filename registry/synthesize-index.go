@@ -9,6 +9,7 @@ import (
 	"github.com/docker-library/bashbrew/architecture"
 
 	"cuelabs.dev/go/oci/ociregistry"
+	"cuelabs.dev/go/oci/ociregistry/ocimem"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
@@ -127,6 +128,11 @@ func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error)
 			}
 		}
 
+		// TODO if m.Size > 2048 {
+		// make sure we don't return any (big) data fields, now that we know we don't need them for sure (they might exist in the index we queried, but they're also used as an implementation detail in our registry cache code to store the original upstream data)
+		m.Data = nil
+		// }
+
 		index.Manifests[i] = m
 		seen[string(m.Digest)] = &index.Manifests[i]
 		i++
@@ -158,9 +164,13 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 		case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest:
 			var err error
 			if r == nil {
-				r, err = client.GetManifest(ctx, ref.Repository, m.Digest)
-				if err != nil {
-					return err
+				if m.Data != nil && int64(len(m.Data)) == m.Size {
+					r = ocimem.NewBytesReader(m.Data, *m)
+				} else {
+					r, err = client.GetManifest(ctx, ref.Repository, m.Digest)
+					if err != nil {
+						return err
+					}
 				}
 				defer r.Close()
 			}
@@ -172,9 +182,14 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 
 			switch manifest.Config.MediaType {
 			case ocispec.MediaTypeImageConfig, mediaTypeDockerImageConfig:
-				r, err := client.GetBlob(ctx, ref.Repository, manifest.Config.Digest)
-				if err != nil {
-					return err
+				var r ociregistry.BlobReader
+				if manifest.Config.Data != nil && int64(len(manifest.Config.Data)) == manifest.Config.Size {
+					r = ocimem.NewBytesReader(manifest.Config.Data, manifest.Config)
+				} else {
+					r, err = client.GetBlob(ctx, ref.Repository, manifest.Config.Digest)
+					if err != nil {
+						return err
+					}
 				}
 				defer r.Close()
 
