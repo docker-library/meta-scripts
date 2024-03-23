@@ -9,12 +9,11 @@ import (
 	"github.com/docker-library/bashbrew/architecture"
 
 	"cuelabs.dev/go/oci/ociregistry"
-	"cuelabs.dev/go/oci/ociregistry/ociref"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 // returns a synthesized [ocispec.Index] object for the given reference that includes automatically pulling up [ocispec.Platform] objects for entries missing them plus annotations for bashbrew architecture ([AnnotationBashbrewArch]) and where to find the "upstream" object if it needs to be copied/pulled ([ocispec.AnnotationRefName])
-func SynthesizeIndex(ctx context.Context, ref ociref.Reference) (*ocispec.Index, error) {
+func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error) {
 	// consider making this a full ociregistry.Interface object? GetManifest(digest) not returning an object with that digest would certainly be Weird though so maybe that's a misguided idea (with very minimal actual benefit, at least right now)
 
 	client, err := Client(ref.Host, nil)
@@ -139,8 +138,8 @@ func SynthesizeIndex(ctx context.Context, ref ociref.Reference) (*ocispec.Index,
 	return &index, nil
 }
 
-// given a (potentially `nil`) map of annotations, add [ocispec.AnnotationRefName] including the supplied [ociref.Reference] (but with [ociref.Reference.Digest] set to a new value)
-func setRefAnnotation(annotations *map[string]string, ref ociref.Reference, digest ociregistry.Digest) {
+// given a (potentially `nil`) map of annotations, add [ocispec.AnnotationRefName] including the supplied [Reference] (but with [Reference.Digest] set to a new value)
+func setRefAnnotation(annotations *map[string]string, ref Reference, digest ociregistry.Digest) {
 	if *annotations == nil {
 		// "assignment to nil map" 🙃
 		*annotations = map[string]string{}
@@ -150,7 +149,7 @@ func setRefAnnotation(annotations *map[string]string, ref ociref.Reference, dige
 }
 
 // given a manifest descriptor (and optionally an existing [ociregistry.BlobReader] on the manifest object itself), make sure it has a valid [ocispec.Platform] object if possible, querying down into the [ocispec.Image] ("config" blob) if necessary
-func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r ociregistry.BlobReader, client ociregistry.Interface, ref ociref.Reference) error {
+func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r ociregistry.BlobReader, client ociregistry.Interface, ref Reference) error {
 	if m.Platform == nil || m.Platform.OS == "" || m.Platform.Architecture == "" {
 		// if missing (or obviously invalid) "platform", we need to (maybe) reach downwards and synthesize
 		m.Platform = nil

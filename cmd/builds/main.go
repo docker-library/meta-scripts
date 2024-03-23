@@ -55,7 +55,7 @@ var (
 )
 
 func resolveIndex(ctx context.Context, img string, diskCacheForSure bool) (*ocispec.Index, error) {
-	ref, err := registry.ParseRefNormalized(img)
+	ref, err := registry.ParseRef(img)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func resolveIndex(ctx context.Context, img string, diskCacheForSure bool) (*ocis
 	if diskCacheForSure {
 		saveCacheMutex.Lock()
 		if saveCache != nil {
-			saveCache.Indexes[refString] = index
+			saveCache.Indexes[ref] = index
 		}
 		saveCacheMutex.Unlock()
 	}
@@ -137,7 +137,7 @@ func resolveArchIndex(ctx context.Context, img string, arch string, diskCacheFor
 }
 
 type cacheFileContents struct {
-	Indexes map[string]*ocispec.Index `json:"indexes"`
+	Indexes map[registry.Reference]*ocispec.Index `json:"indexes"`
 }
 
 var (
@@ -152,7 +152,7 @@ func loadCacheFromFile() error {
 
 	// now that we know we have a file we want cache to go into (and come from), let's initialize the "saveCache" (which will be written when the whole process is done / we're successful, and *only* caches staging images)
 	saveCacheMutex.Lock()
-	saveCache = &cacheFileContents{Indexes: map[string]*ocispec.Index{}}
+	saveCache = &cacheFileContents{Indexes: map[registry.Reference]*ocispec.Index{}}
 	saveCacheMutex.Unlock()
 
 	f, err := os.Open(cacheFile)
@@ -180,7 +180,7 @@ func loadCacheFromFile() error {
 			panic(err)
 		}
 		if index2 != index {
-			panic("index2 != index??? " + img)
+			panic("index2 != index??? " + img.String())
 		}
 	}
 

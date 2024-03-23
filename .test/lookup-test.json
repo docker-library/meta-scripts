@@ -9,7 +9,7 @@
         "size": 946,
         "annotations": {
           "com.docker.official-images.bashbrew.arch": "windows-amd64",
-          "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
+          "org.opencontainers.image.ref.name": "tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
         },
         "platform": {
           "architecture": "amd64",
@@ -19,7 +19,7 @@
       }
     ],
     "annotations": {
-      "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
+      "org.opencontainers.image.ref.name": "tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
     }
   },
   {
@@ -32,7 +32,7 @@
         "size": 861,
         "annotations": {
           "com.docker.official-images.bashbrew.arch": "amd64",
-          "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
+          "org.opencontainers.image.ref.name": "tianon/test@sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
           "org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
           "org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:amd64/hello-world",
           "org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
@@ -49,7 +49,7 @@
         "size": 946,
         "annotations": {
           "com.docker.official-images.bashbrew.arch": "windows-amd64",
-          "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
+          "org.opencontainers.image.ref.name": "tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23"
         },
         "platform": {
           "architecture": "amd64",
@@ -63,7 +63,7 @@
         "size": 946,
         "annotations": {
           "com.docker.official-images.bashbrew.arch": "windows-amd64",
-          "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:3a0bd0fb5ad6dd6528dc78726b3df78e980b39b379e99c5a508904ec17cfafe5"
+          "org.opencontainers.image.ref.name": "tianon/test@sha256:3a0bd0fb5ad6dd6528dc78726b3df78e980b39b379e99c5a508904ec17cfafe5"
         },
         "platform": {
           "architecture": "amd64",
@@ -73,7 +73,7 @@
       }
     ],
     "annotations": {
-      "org.opencontainers.image.ref.name": "docker.io/tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac"
+      "org.opencontainers.image.ref.name": "tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac"
     }
   }
 ]
