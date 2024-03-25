@@ -73,7 +73,25 @@ lookup=(
 	--head "tianon/this-is-a-repository-that-will-never-ever-exist-$RANDOM-$RANDOM:$RANDOM-$RANDOM"
 	'tianon/test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 )
-"$dir/../bin/lookup" "${lookup[@]}" | jq -s > "$dir/lookup-test.json"
+"$dir/../bin/lookup" "${lookup[@]}" | jq -s '
+	[
+		reduce (
+			$ARGS.positional[]
+			| if startswith("tianon/this-is-a-repository-that-will-never-ever-exist-") then
+				gsub("[0-9]+"; "$RANDOM")
+			else . end
+		) as $a ([];
+			if .[-1][-1] == "--type" then
+				.[-1][-1] += " " + $a
+			elif length > 0 and (.[-1][-1] | startswith("--")) then
+				.[-1] += [$a]
+			else
+				. += [[$a]]
+			end
+		),
+		.
+	] | transpose
+' --args -- "${lookup[@]}" > "$dir/lookup-test.json"
 
 # don't leave around the "-cover" versions of these binaries
 rm -f "$dir/../bin/builds" "$dir/../bin/lookup"
