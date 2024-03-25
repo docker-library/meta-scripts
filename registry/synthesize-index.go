@@ -2,9 +2,7 @@ package registry
 
 import (
 	"context"
-	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/docker-library/bashbrew/architecture"
 
@@ -15,34 +13,17 @@ import (
 
 // returns a synthesized [ocispec.Index] object for the given reference that includes automatically pulling up [ocispec.Platform] objects for entries missing them plus annotations for bashbrew architecture ([AnnotationBashbrewArch]) and where to find the "upstream" object if it needs to be copied/pulled ([ocispec.AnnotationRefName])
 func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error) {
-	// consider making this a full ociregistry.Interface object? GetManifest(digest) not returning an object with that digest would certainly be Weird though so maybe that's a misguided idea (with very minimal actual benefit, at least right now)
-
 	client, err := Client(ref.Host, nil)
 	if err != nil {
 		return nil, fmt.Errorf("%s: failed getting client: %w", ref, err)
 	}
 
-	var r ociregistry.BlobReader = nil
-	if ref.Digest != "" {
-		r, err = client.GetManifest(ctx, ref.Repository, ref.Digest)
-	} else {
-		tag := ref.Tag
-		if tag == "" {
-			tag = "latest"
-		}
-		r, err = client.GetTag(ctx, ref.Repository, tag)
-	}
+	r, err := Lookup(ctx, ref, nil)
 	if err != nil {
-		// https://github.com/cue-labs/oci/issues/26
-		if errors.Is(err, ociregistry.ErrBlobUnknown) ||
-			errors.Is(err, ociregistry.ErrManifestUnknown) ||
-			errors.Is(err, ociregistry.ErrNameUnknown) ||
-			strings.HasPrefix(err.Error(), "404 ") ||
-			// 401 often means "repository not found" (due to the nature of public/private mixing on Hub and the fact that ociauth definitely handled any possible authentication for us, so if we're still getting 401 it's unavoidable and might as well be 404)
-			strings.HasPrefix(err.Error(), "401 ") {
-			return nil, nil
-		}
 		return nil, fmt.Errorf("%s: failed GET: %w", ref, err)
+	}
+	if r == nil {
+		return nil, nil
 	}
 	defer r.Close()
 

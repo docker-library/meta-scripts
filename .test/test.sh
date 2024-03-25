@@ -48,6 +48,30 @@ lookup=(
 	# tianon/test:index-no-platform-smaller - a "broken" index with *zero* platform objects in it (so every manifest requires a platform lookup)
 	'tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac'
 	# (doing these in the same run means the manifest from above should be cached and exercise more codepaths for better coverage)
+
+	--type manifest 'tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac' # same manifest again, but without SynthesizeIndex
+	--type blob 'tianon/test@sha256:d2c94e258dcb3c5ac2798d32e1249e42ef01cba4841c2234249495f87264ac5a' # first config blob from the above
+	# and again, but this time HEADs
+	--head --type manifest 'tianon/test@sha256:347290ddd775c1b85a3e381b09edde95242478eb65153e9b17225356f4c072ac'
+	--head --type blob 'tianon/test@sha256:d2c94e258dcb3c5ac2798d32e1249e42ef01cba4841c2234249495f87264ac5a'
+
+	# again with things that aren't cached yet (tianon/true:oci, specifically)
+	--head --type blob 'tianon/true@sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e' # config blob
+	--head --type manifest 'tianon/true:oci@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d'
+	--type blob 'tianon/true@sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e' # config blob
+	--type manifest 'tianon/true:oci@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d'
+	'tianon/true:oci@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d'
+
+	# tag lookup! (but with a hopefully stable example tag -- a build of notary:server)
+	--head 'oisupport/staging-amd64:71756dd75e41c4bc5144b64d36b4834a5a960c495470915eb69f96e9f2cb6694'
+	--head 'oisupport/staging-amd64:71756dd75e41c4bc5144b64d36b4834a5a960c495470915eb69f96e9f2cb6694' # twice, to exercise "tag is cached" case
+	--type manifest 'oisupport/staging-amd64:71756dd75e41c4bc5144b64d36b4834a5a960c495470915eb69f96e9f2cb6694'
+	'oisupport/staging-amd64:71756dd75e41c4bc5144b64d36b4834a5a960c495470915eb69f96e9f2cb6694'
+
+	# exercise 404 codepaths
+	"tianon/this-is-a-repository-that-will-never-ever-exist-$RANDOM-$RANDOM:$RANDOM-$RANDOM"
+	--head "tianon/this-is-a-repository-that-will-never-ever-exist-$RANDOM-$RANDOM:$RANDOM-$RANDOM"
+	'tianon/test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 )
 "$dir/../bin/lookup" "${lookup[@]}" | jq -s > "$dir/lookup-test.json"
 
