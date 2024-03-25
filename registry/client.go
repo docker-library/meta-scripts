@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"slices"
 	"strings"
 	"sync"
 
@@ -137,8 +138,13 @@ func (c dockerAuthConfigWrapper) EntryForRegistry(host string) (ociauth.ConfigEn
 	if entry, err := c.Config.EntryForRegistry(host); err == nil && entry != zero {
 		return entry, err
 	} else if dockerHubHosts[host] {
-		// TODO this will iterate in a random order -- maybe that's fine, but maybe we want something more stable? (the new "SortedKeys" iterator that we might get in go1.23? I guess that was rejected, so "slices.Sorted(maps.Keys)")
-		for dockerHubHost := range dockerHubHosts {
+		// https://github.com/docker-library/meta-scripts/pull/32#issuecomment-2018950756 (TODO hopefully someday we can replace this with something like `iter.Sorted(maps.Keys(dockerHubHosts))`; https://github.com/golang/go/issues/61900)
+		keys := make([]string, 0, len(dockerHubHosts))
+		for k := range dockerHubHosts {
+			keys = append(keys, k)
+		}
+		slices.Sort(keys)
+		for _, dockerHubHost := range keys {
 			if dockerHubHost == "" {
 				continue
 			}
