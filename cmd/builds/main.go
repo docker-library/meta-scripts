@@ -171,7 +171,7 @@ func loadCacheFromFile() error {
 
 	for img, index := range cache.Indexes {
 		index := index // https://github.com/golang/go/issues/60078
-		fun, _ := cacheResolve.LoadOrStore(img, sync.OnceValues(func() (*ocispec.Index, error) {
+		fun, _ := cacheResolve.LoadOrStore(img.String(), sync.OnceValues(func() (*ocispec.Index, error) {
 			return index, nil
 		}))
 		index2, err := fun.(func() (*ocispec.Index, error))()
