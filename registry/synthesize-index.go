@@ -2,46 +2,28 @@ package registry
 
 import (
 	"context"
-	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/docker-library/bashbrew/architecture"
 
 	"cuelabs.dev/go/oci/ociregistry"
+	"cuelabs.dev/go/oci/ociregistry/ocimem"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 // returns a synthesized [ocispec.Index] object for the given reference that includes automatically pulling up [ocispec.Platform] objects for entries missing them plus annotations for bashbrew architecture ([AnnotationBashbrewArch]) and where to find the "upstream" object if it needs to be copied/pulled ([ocispec.AnnotationRefName])
 func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error) {
-	// consider making this a full ociregistry.Interface object? GetManifest(digest) not returning an object with that digest would certainly be Weird though so maybe that's a misguided idea (with very minimal actual benefit, at least right now)
-
 	client, err := Client(ref.Host, nil)
 	if err != nil {
 		return nil, fmt.Errorf("%s: failed getting client: %w", ref, err)
 	}
 
-	var r ociregistry.BlobReader = nil
-	if ref.Digest != "" {
-		r, err = client.GetManifest(ctx, ref.Repository, ref.Digest)
-	} else {
-		tag := ref.Tag
-		if tag == "" {
-			tag = "latest"
-		}
-		r, err = client.GetTag(ctx, ref.Repository, tag)
-	}
+	r, err := Lookup(ctx, ref, nil)
 	if err != nil {
-		// https://github.com/cue-labs/oci/issues/26
-		if errors.Is(err, ociregistry.ErrBlobUnknown) ||
-			errors.Is(err, ociregistry.ErrManifestUnknown) ||
-			errors.Is(err, ociregistry.ErrNameUnknown) ||
-			strings.HasPrefix(err.Error(), "404 ") ||
-			// 401 often means "repository not found" (due to the nature of public/private mixing on Hub and the fact that ociauth definitely handled any possible authentication for us, so if we're still getting 401 it's unavoidable and might as well be 404)
-			strings.HasPrefix(err.Error(), "401 ") {
-			return nil, nil
-		}
 		return nil, fmt.Errorf("%s: failed GET: %w", ref, err)
+	}
+	if r == nil {
+		return nil, nil
 	}
 	defer r.Close()
 
@@ -127,6 +109,11 @@ func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error)
 			}
 		}
 
+		// TODO if m.Size > 2048 {
+		// make sure we don't return any (big) data fields, now that we know we don't need them for sure (they might exist in the index we queried, but they're also used as an implementation detail in our registry cache code to store the original upstream data)
+		m.Data = nil
+		// }
+
 		index.Manifests[i] = m
 		seen[string(m.Digest)] = &index.Manifests[i]
 		i++
@@ -158,9 +145,13 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 		case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest:
 			var err error
 			if r == nil {
-				r, err = client.GetManifest(ctx, ref.Repository, m.Digest)
-				if err != nil {
-					return err
+				if m.Data != nil && int64(len(m.Data)) == m.Size {
+					r = ocimem.NewBytesReader(m.Data, *m)
+				} else {
+					r, err = client.GetManifest(ctx, ref.Repository, m.Digest)
+					if err != nil {
+						return err
+					}
 				}
 				defer r.Close()
 			}
@@ -172,9 +163,14 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 
 			switch manifest.Config.MediaType {
 			case ocispec.MediaTypeImageConfig, mediaTypeDockerImageConfig:
-				r, err := client.GetBlob(ctx, ref.Repository, manifest.Config.Digest)
-				if err != nil {
-					return err
+				var r ociregistry.BlobReader
+				if manifest.Config.Data != nil && int64(len(manifest.Config.Data)) == manifest.Config.Size {
+					r = ocimem.NewBytesReader(manifest.Config.Data, manifest.Config)
+				} else {
+					r, err = client.GetBlob(ctx, ref.Repository, manifest.Config.Digest)
+					if err != nil {
+						return err
+					}
 				}
 				defer r.Close()
 

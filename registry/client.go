@@ -26,17 +26,23 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 		if opts != nil {
 			clientOptions = *opts
 		}
-		if clientOptions.HTTPClient == nil {
-			clientOptions.HTTPClient = http.DefaultClient
+		if clientOptions.Transport == nil {
+			clientOptions.Transport = http.DefaultTransport
 		}
 
 		// if we have a rate limiter configured for this registry, shim it in
 		if limiter, ok := registryRateLimiters[host]; ok {
-			clientOptions.HTTPClient = &rateLimitedRetryingDoer{
-				doer:    clientOptions.HTTPClient,
-				limiter: limiter,
+			clientOptions.Transport = &rateLimitedRetryingRoundTripper{
+				roundTripper: clientOptions.Transport,
+				limiter:      limiter,
 			}
 		}
+
+		// install the "authorization" wrapper/shim
+		clientOptions.Transport = ociauth.NewStdTransport(ociauth.StdTransportParams{
+			Config:    authConfig,
+			Transport: clientOptions.Transport,
+		})
 
 		connectHost := host
 		if host == dockerHubCanonical {
@@ -45,14 +51,6 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 			// assume localhost means HTTP
 			clientOptions.Insecure = true
 			// TODO some way for callers to specify that their "localhost" *does* require TLS (maybe only do this if `opts == nil`, but then users cannot supply *any* options and still get help setting Insecure for localhost 🤔 -- at least this is a more narrow use case than the opposite of not having a way to have non-localhost insecure registries)
-		}
-
-		if clientOptions.Authorizer == nil {
-			// TODO https://github.com/cue-labs/oci/pull/28 -- ideally we'd set this sooner, but https://github.com/cue-labs/oci/blob/5ebe80b0a9a67ae83802d1fb1a189a8f0d089fb0/ociregistry/ociclient/client.go#L278-L282 means we have to do it late in case we installed a rate limiting HTTPClient (or the caller provided a custom one)
-			clientOptions.Authorizer = ociauth.NewStdAuthorizer(ociauth.StdAuthorizerParams{
-				Config:     authConfig,
-				HTTPClient: clientOptions.HTTPClient,
-			})
 		}
 
 		hostOptions := clientOptions // make a copy, since "ociclient.New" mutates it (such that sharing the object afterwards probably isn't the best idea -- they'll have the same DebugID if so, which isn't ideal)
@@ -87,7 +85,7 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 				default:
 					return nil, fmt.Errorf("unsupported DOCKERHUB_PUBLIC_PROXY (with path)")
 				}
-				// TODO complain about other URL bits (unsupported by "ociclient" except via custom "HTTPClient" / "HTTPDoer")
+				// TODO complain about other URL bits (unsupported by "ociclient" except via custom "RoundTripper")
 			} else if proxy := os.Getenv("DOCKERHUB_PUBLIC_PROXY_HOST"); proxy != "" {
 				proxyHost = proxy
 			}
