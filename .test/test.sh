@@ -189,21 +189,5 @@ fi
 "$dir/../.go-env.sh" go tool cover -html "$coverage/coverage.txt" -o "$coverage/coverage.html"
 "$dir/../.go-env.sh" go tool cover -func "$coverage/coverage.txt"
 
-# generate an "example commands" file so that changes to generated commands are easier to review
-SOURCE_DATE_EPOCH=0 jq -r -L "$dir/.." '
-	include "meta";
-	[
-		first(.[] | select(normalized_builder == "buildkit")),
-		first(.[] | select(normalized_builder == "classic")),
-		first(.[] | select(normalized_builder == "oci-import")),
-		empty
-	]
-	| map(
-		. as $b
-		| commands
-		| to_entries
-		| map("# <\(.key)>\n\(.value)\n# </\(.key)>")
-		| "# \($b.source.tags[0]) [\($b.build.arch)]\n" + join("\n")
-	)
-	| join("\n\n")
-' "$dir/builds.json" > "$dir/example-commands.sh"
+# also run our "jq" tests (like generating example commands from the "builds.json" we just generated)
+"$dir/jq.sh"

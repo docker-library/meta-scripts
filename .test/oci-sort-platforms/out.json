@@ -1,0 +1,840 @@
+[
+	{
+		"os": "linux",
+		"architecture": "amd64",
+		"variant": "v4"
+	},
+	{
+		"os": "linux",
+		"architecture": "amd64",
+		"variant": "v3"
+	},
+	{
+		"os": "linux",
+		"architecture": "amd64",
+		"variant": "v2"
+	},
+	{
+		"os": "linux",
+		"architecture": "amd64",
+		"variant": "v1"
+	},
+	{
+		"os": "linux",
+		"architecture": "amd64"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v9"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v9.5"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v9.0"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v8"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v8.1"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm64",
+		"variant": "v8.0"
+	},
+	{
+		"os": "linux",
+		"architecture": "386"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm",
+		"variant": "v8"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm",
+		"variant": "v7"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm",
+		"variant": "v6"
+	},
+	{
+		"os": "linux",
+		"architecture": "arm",
+		"variant": "v5"
+	},
+	{
+		"os": "linux",
+		"architecture": "mips64le"
+	},
+	{
+		"os": "linux",
+		"architecture": "ppc64le",
+		"variant": "power10"
+	},
+	{
+		"os": "linux",
+		"architecture": "ppc64le",
+		"variant": "power9"
+	},
+	{
+		"os": "linux",
+		"architecture": "ppc64le",
+		"variant": "power8"
+	},
+	{
+		"os": "linux",
+		"architecture": "ppc64le"
+	},
+	{
+		"os": "linux",
+		"architecture": "riscv64",
+		"variant": "rva22u64"
+	},
+	{
+		"os": "linux",
+		"architecture": "riscv64",
+		"variant": "rva20u64"
+	},
+	{
+		"os": "linux",
+		"architecture": "riscv64"
+	},
+	{
+		"os": "linux",
+		"architecture": "s390x"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "amd64",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "12.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "13.1"
+	},
+	{
+		"os": "freebsd",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "12.1"
+	},
+	{
+		"os": "unknown",
+		"architecture": "unknown"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v4",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v3",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v2",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"variant": "v1",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "amd64",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.5",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v9.0",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.1",
+		"os.version": "10.0.14393.6796"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.20348.2340"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.19042.1889"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.19041.1415"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.18363.1556"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.18362.1256"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.17763.5576"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.17134.1305"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.16299.1087"
+	},
+	{
+		"os": "windows",
+		"architecture": "arm64",
+		"variant": "v8.0",
+		"os.version": "10.0.14393.6796"
+	}
+]
