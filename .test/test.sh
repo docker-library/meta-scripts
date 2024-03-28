@@ -20,6 +20,11 @@ dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
 export BASHBREW_LIBRARY="$dir/library"
 
+doDeploy=
+if [ "${1:-}" = '--deploy' ]; then
+	doDeploy=1
+fi
+
 set -- docker:cli docker:dind docker:windowsservercore notary busybox:latest # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import
 # (see "library/" and ".external-pins/" for where these come from / are hard-coded for consistent testing purposes)
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
@@ -93,8 +98,90 @@ lookup=(
 	] | transpose
 ' --args -- "${lookup[@]}" > "$dir/lookup-test.json"
 
+if [ -n "$doDeploy" ]; then
+	# also test "deploy" (optional, disabled by default, because it's a much heavier test)
+
+	"$dir/../.go-env.sh" go build -cover -trimpath -o "$dir/../bin/deploy" ./cmd/deploy
+
+	docker rm -vf meta-scripts-test-registry &> /dev/null || :
+	trap 'docker rm -vf meta-scripts-test-registry &> /dev/null || :' EXIT
+	docker run --detach --name meta-scripts-test-registry --publish 5000 registry:2
+	registryPort="$(DOCKER_API_VERSION=1.41 docker container inspect --format '{{ index .NetworkSettings.Ports "5000/tcp" 0 "HostPort" }}' meta-scripts-test-registry)"
+
+	json="$(jq -n --arg reg "localhost:$registryPort" '
+		# explicit base64 data blob
+		{
+			type: "blob",
+			refs: [$reg+"/test@sha256:1a51828d59323e0e02522c45652b6a7a44a032b464b06d574f067d2358b0e9f1"],
+			data: "YnVmZnkgdGhlIHZhbXBpcmUgc2xheWVyCg==",
+		},
+
+		# JSON data blob
+		{
+			type: "blob",
+			refs: [$reg+"/test@sha256:bdc1ce731138e680ada95089dded3015b8e1570d9a70216867a2a29801a747b3"],
+			data: { foo: "bar", baz: [ "buzz", "buzz", "buzz" ] },
+		},
+
+		# make sure JSON strings round-trip correctly too
+		{
+			type: "blob",
+			refs: [$reg+"/test@sha256:680c1729a6d4a34f69123f5936cfd4f2cb82a008951241cfc499f9e52996b380"],
+			data: ("json string" | @json + "\n" | @base64),
+		},
+
+		# test blob mounting between repositories
+		{
+			type: "blob",
+			refs: [$reg+"/test-mount"],
+			lookup: { "": ($reg+"/test@sha256:1a51828d59323e0e02522c45652b6a7a44a032b464b06d574f067d2358b0e9f1") },
+		},
+
+		# (cross-registry) copy an image from Docker Hub with a blob that is definitely larger than our "BlobSizeWorthHEAD" (and larger than our "manifestSizeLimit" cache limit, so it hits that code too)
+		# https://oci.dag.dev/?image=cirros@sha256:6b2d9f5341bce2b1fb29669ff46744a145079ccc6a674849de3a4946ec3d8ffb ("cirros:latest" as of 2024-03-27)
+		# https://oci.dag.dev/?image=oisupport/staging-amd64:d5093352bd93df3e9effd7a53bdd46834ac0b1766587a645d4503272597a60dc (the amd64-only index containing that build)
+		# .. but first, copy one of the blob explicitly so we test both halves of the conditional
+		{
+			type: "blob",
+			refs: [$reg+"/cirros"],
+			lookup: { "": "oisupport/staging-amd64@sha256:6cef03f2716ee8ba76999750aee1a742888ccd0db923be33ff6a410d87f4277d" },
+		},
+		{
+			type: "manifest",
+			refs: [$reg+"/cirros"],
+			lookup: { "": "oisupport/staging-amd64:34bb44c7d8b6fb7a337fcee0afa7c3a84148e35db6ab83041714c3e6d4c6238b" },
+		},
+		# and again, but with a manifest bigger than "BlobSizeWorthHEAD"
+		# https://oci.dag.dev/?image=tianon/test:screaming-index (big image index, sha256:4077658bc7e39f02f81d1682fe49f66b3db2c420813e43f5db0c53046167c12f)
+		{
+			type: "manifest",
+			refs: [$reg+"/test@sha256:4077658bc7e39f02f81d1682fe49f66b3db2c420813e43f5db0c53046167c12f"],
+			lookup: { "sha256:4077658bc7e39f02f81d1682fe49f66b3db2c420813e43f5db0c53046167c12f": "tianon/test" },
+		},
+		# https://oci.dag.dev/?image=tianon/test:screaming (big image manifest, sha256:96a7a809d1b336011450164564154a5e1c257dc7eb9081e28638537c472ccb90)
+		{
+			type: "manifest",
+			refs: [$reg+"/test@sha256:96a7a809d1b336011450164564154a5e1c257dc7eb9081e28638537c472ccb90"],
+			lookup: { "sha256:96a7a809d1b336011450164564154a5e1c257dc7eb9081e28638537c472ccb90": "tianon/test" },
+		},
+		# again, but this time EVEN BIGGER, just to make sure we test right up to the limit of Docker Hub
+		# https://oci.dag.dev/?image=tianon/test:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		{
+			type: "manifest",
+			refs: [$reg+"/test:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"],
+			lookup: { "": "tianon/test:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee@sha256:73614cc99c500aa4fa061368ed349df24a81844e3c2e6d0c31f290a7c8d73c22" },
+		},
+
+		empty
+	')" # stored in a variable for easier debugging ("bash -x")
+
+	"$dir/../bin/deploy" <<<"$json"
+
+	docker rm -vf meta-scripts-test-registry
+fi
+
 # don't leave around the "-cover" versions of these binaries
-rm -f "$dir/../bin/builds" "$dir/../bin/lookup"
+rm -f "$dir/../bin/builds" "$dir/../bin/lookup" "$dir/../bin/deploy"
 
 # Go tests
 "$dir/../.go-env.sh" go test -cover ./... -args -test.gocoverdir="$GOCOVERDIR"

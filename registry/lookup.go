@@ -24,6 +24,9 @@ type LookupOptions struct {
 
 	// whether or not to do a HEAD instead of a GET (will still return an [ociregistry.BlobReader], but with an empty body / zero bytes)
 	Head bool
+
+	// TODO allow providing a Descriptor here for more validation and/or for automatic usage of any usable/valid Data field?
+	// TODO (also, if the provided Reference includes a Digest, we should probably validate it? are there cases where we don't want to / shouldn't?)
 }
 
 // a wrapper around [ociregistry.Interface.GetManifest] (and `GetTag`, `GetBlob`, and the `Resolve*` versions of the above) that accepts a [Reference] and always returns a [ociregistry.BlobReader] (in the case of a HEAD request, it will be a zero-length reader with just a valid descriptor)

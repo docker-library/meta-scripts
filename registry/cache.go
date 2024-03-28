@@ -217,12 +217,10 @@ func (rc *registryCache) PushManifest(ctx context.Context, repo string, tag stri
 	if tag != "" {
 		rc.tags[cacheKeyTag(repo, tag)] = desc.Digest
 	}
-	rc.types[desc.Digest] = desc.MediaType
-	if len(contents) <= manifestSizeLimit {
-		rc.data[desc.Digest] = contents
-	} else {
-		delete(rc.data, desc.Digest)
+	if desc.Size <= manifestSizeLimit {
+		desc.Data = contents
 	}
+	rc.data[desc.Digest] = desc
 
 	return desc, nil
 }
@@ -240,8 +238,15 @@ func (rc *registryCache) PushBlob(ctx context.Context, repo string, desc ociregi
 	}
 
 	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
-	rc.types[desc.Digest] = desc.MediaType
-	delete(rc.data, desc.Digest) // see TODO above
+
+	// carefully copy only some fields such that any other existing fields are kept (if we resolve the TODO above about desc.Data, this matters a lot less and we should just assign directly 👀)
+	if d, ok := rc.data[desc.Digest]; ok {
+		d.MediaType = desc.MediaType
+		d.Digest = desc.Digest
+		d.Size = desc.Size
+		desc = d
+	}
+	rc.data[desc.Digest] = desc
 
 	return desc, nil
 }
@@ -257,9 +262,17 @@ func (rc *registryCache) MountBlob(ctx context.Context, fromRepo, toRepo string,
 	}
 
 	rc.has[cacheKeyDigest(toRepo, desc.Digest)] = true // TODO technically we should also be able to safely imply that "fromRepo" has digest here too, but need to double check whether the contract of the MountBlob API in OCI is such that it's legal for it to return success if "toRepo" already has "digest" (even if "fromRepo" doesn't)
-	rc.types[desc.Digest] = desc.MediaType
+
+	// carefully copy only some fields such that any other existing fields are kept (esp. desc.Data)
+	if d, ok := rc.data[digest]; ok {
+		d.MediaType = desc.MediaType
+		d.Digest = desc.Digest
+		d.Size = desc.Size
+		desc = d
+	}
+	rc.data[digest] = desc
 
 	return desc, nil
 }
 
-// TODO more methods (currently only implements what's actually necessary for SynthesizeIndex and PushIndex)
+// TODO more methods (currently only implements what's actually necessary for SynthesizeIndex and {Ensure,Copy}{Manifest,Blob})

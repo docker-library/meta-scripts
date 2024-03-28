@@ -6,95 +6,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"strings"
 
 	"cuelabs.dev/go/oci/ociregistry"
-	"cuelabs.dev/go/oci/ociregistry/ociref"
 	godigest "github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
-type PushIndexOp struct {
-	// list of tags we want to push to
-	Tags []string `json:"tags"`
+var (
+	// if a manifest or blob is more than this many bytes, we'll do a pre-flight HEAD request to verify whether we need to even bother pushing it before we do so (65535 is the theoretical maximum size of a single TCP packet, although MTU means it's usually closer to 1448 bytes, but this seemed like a sane place to draw a line to where a second request that might fail is worth our time)
+	BlobSizeWorthHEAD = int64(65535)
+)
 
-	// lookup table of digests to where we can find them (used if we need to push / blob mount children of the index to push it successfully)
-	Manifests map[ociregistry.Digest]string `json:"manifests"`
-
-	// the actual index object; likely provided/unmarshalled as a second object for better raw whitespace (otherwise you'll get weird indentation in your object unless you compress-print everything)
-	Index json.RawMessage `json:"index",omitempty`
-}
-
-func PushIndex(ctx context.Context, meta PushIndexOp) (ociregistry.Descriptor, error) {
-	var desc ociregistry.Descriptor
-
-	if meta.Tags == nil {
-		return desc, fmt.Errorf("missing tags entirely (JSON input glitch?)")
-	}
-	if len(meta.Tags) == 0 {
-		return desc, fmt.Errorf("zero tags specified for pushing (need at least one)")
-	}
-
-	var index ocispec.Index
-	if err := json.Unmarshal(meta.Index, &index); err != nil {
-		return desc, fmt.Errorf("%s: failed to parse index: %w", meta.Tags[0], err)
-	}
-
-	if index.SchemaVersion != 2 {
-		return desc, fmt.Errorf("%s: unsupported index schemaVersion: %d", meta.Tags[0], index.SchemaVersion)
-	}
-	switch index.MediaType {
-	case ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList:
-		// all good, do nothing!
-	default:
-		return desc, fmt.Errorf("%s: unsupported index mediaType: %q", meta.Tags[0], index.MediaType)
-	}
-	manifestRefs := map[ociregistry.Digest]ociref.Reference{}
-	for _, manifest := range index.Manifests {
-		if manifestRefString, ok := meta.Manifests[manifest.Digest]; !ok {
-			return desc, fmt.Errorf("%s: index vs meta manifests gap: %s", meta.Tags[0], manifest.Digest)
-		} else if manifestRef, err := ParseRefNormalized(manifestRefString); err != nil {
-			return desc, fmt.Errorf("%s: failed to parse: %w", manifestRef, err)
-		} else if manifestRef.Digest != manifest.Digest {
-			return desc, fmt.Errorf("%s: meta manifests object reference %s have digest of %s", meta.Tags[0], manifestRefString, manifest.Digest)
-		} else {
-			manifestRefs[manifest.Digest] = manifestRef
-		}
-	}
-
-	desc.MediaType = index.MediaType
-	desc.Digest = godigest.FromBytes(meta.Index)
-	desc.Size = int64(len(meta.Index))
-
-	for _, tag := range meta.Tags {
-		ref, err := ParseRefNormalized(tag)
-		if err != nil {
-			return desc, fmt.Errorf("%s: error parsing: %w", tag, err)
-		}
-		if ref.Digest != "" {
-			if ref.Digest != desc.Digest {
-				return desc, fmt.Errorf("%s: digest mismatch: %s", tag, desc.Digest)
-			}
-		} else if ref.Tag == "" {
-			return desc, fmt.Errorf("%s: missing tag (and we want to be explicit)", tag)
-		}
-
-		//fmt.Printf("Pushing %s to %s ...\n", digest, ref) // TODO some kind of "progresswriter" interface?? 😭 (everything sucks and we're all gonna die eventually)
-
-		rDesc, err := ensureManifest(ctx, ref, meta.Index, index.MediaType, manifestRefs)
-		if err != nil {
-			return desc, err // TODO annotate
-		}
-		// TODO validate MediaType and Size too? 🤷
-		if rDesc.Digest != desc.Digest {
-			return desc, fmt.Errorf("%s: pushed digest from registry (%s) does not match expected digest (%s)", tag, rDesc.Digest, desc.Digest)
-		}
-	}
-
-	return desc, nil
-}
-
-func ensureManifest(ctx context.Context, ref ociref.Reference, manifest json.RawMessage, mediaType string, childRefs map[ociregistry.Digest]ociref.Reference) (ociregistry.Descriptor, error) {
+// this makes sure the given manifest (index or image) is available at the provided name (tag or digest), including copying any children (manifests or config+layers) if necessary and able (via the provided child lookup map)
+func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage, mediaType string, childRefs map[ociregistry.Digest]Reference) (ociregistry.Descriptor, error) {
 	desc := ociregistry.Descriptor{
 		MediaType: mediaType,
 		Digest:    godigest.FromBytes(manifest),
@@ -105,21 +31,32 @@ func ensureManifest(ctx context.Context, ref ociref.Reference, manifest json.Raw
 			return desc, fmt.Errorf("%s: digest mismatch: %s", ref, desc.Digest)
 		}
 	} else if ref.Tag == "" {
-		return desc, fmt.Errorf("%s: missing tag (and we want to be explicit)", ref)
+		ref.Digest = desc.Digest
 	}
 
-	switch mediaType {
-	case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest:
-		// all good, do nothing!
-	case ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList:
-		// all good, do nothing!
-	default:
-		return desc, fmt.Errorf("%s: unsupported manifest mediaType: %q", ref, mediaType)
+	if _, ok := childRefs[""]; !ok {
+		// empty digest is a "fallback" ref for where missing children might be found (if we don't have one, inject one)
+		childRefs[""] = ref
 	}
 
 	client, err := Client(ref.Host, nil)
 	if err != nil {
 		return desc, fmt.Errorf("%s: failed getting client: %w", ref, err)
+	}
+
+	if desc.Size > BlobSizeWorthHEAD {
+		r, err := Lookup(ctx, ref, &LookupOptions{Head: true})
+		if err != nil {
+			return desc, fmt.Errorf("%s: failed HEAD: %w", ref, err)
+		}
+		// TODO if we had some kind of progress interface, this would be a great place for some kind of debug log of head's contents
+		if r != nil {
+			head := r.Descriptor()
+			r.Close()
+			if head.Digest == desc.Digest && head.Size == desc.Size {
+				return head, nil
+			}
+		}
 	}
 
 	// since we need to potentially retry this call after copying/mounting children, let's wrap it up for ease of use
@@ -146,39 +83,37 @@ func ensureManifest(ctx context.Context, ref ociref.Reference, manifest json.Raw
 			if err := json.Unmarshal(manifest, &manifestChildren); err != nil {
 				return desc, fmt.Errorf("%s: failed parsing manifest JSON: %w", ref, err)
 			}
+
 			var children []ocispec.Descriptor
 			children = append(children, manifestChildren.Manifests...)
 			if manifestChildren.Config != nil {
 				children = append(children, *manifestChildren.Config)
 			}
 			children = append(children, manifestChildren.Layers...)
+
 			for _, child := range children {
-				childTargetRef := ociref.Reference{
+				childTargetRef := Reference{
 					Host:       ref.Host,
 					Repository: ref.Repository,
 					Digest:     child.Digest,
 				}
 				childRef, ok := childRefs[child.Digest]
 				if !ok {
-					// allow empty digest to specify a "fallback" ref for where missing children might be found
-					if childRef, ok = childRefs[""]; !ok {
-						return desc, fmt.Errorf("%s: missing source reference for missing child: %s", ref, child.Digest)
-					}
+					childRef = childRefs[""]
 				}
 				// this isn't *technically* necessary (we could just use "child.Digest" in "GetManifest", "MountBlob", etc below), but being strictly correct makes us feel better (with minimal overhead)
 				childRef.Tag = ""
 				childRef.Digest = child.Digest
 
-				childClient, err := Client(childRef.Host, nil)
-				if err != nil {
-					return desc, fmt.Errorf("%s: failed getting (child) client: %w", childRef, err)
-				}
-
 				switch child.MediaType {
-				case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest, ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList:
-					r, err := childClient.GetManifest(ctx, childRef.Repository, childRef.Digest)
+				case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest,
+					ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList: // TODO instead of this, we should differentiate based on children in "manifests" being manifests and children in "config" and "layers" being blobs, always (I guess separate lists of children?)
+					r, err := Lookup(ctx, childRef, nil)
 					if err != nil {
-						return desc, fmt.Errorf("%s: GetManifest failed: %w", childRef, err)
+						return desc, fmt.Errorf("%s: manifest lookup failed: %w", childRef, err)
+					}
+					if r == nil {
+						return desc, fmt.Errorf("%s: manifest not found", childRef)
 					}
 					//defer r.Close()
 					// TODO validate r.Descriptor ?
@@ -191,36 +126,19 @@ func ensureManifest(ctx context.Context, ref ociref.Reference, manifest json.Raw
 					if err := r.Close(); err != nil {
 						return desc, fmt.Errorf("%s: Close of GetManifest failed: %w", childRef, err)
 					}
-					if _, err := ensureManifest(ctx, childTargetRef, b, child.MediaType, map[ociregistry.Digest]ociref.Reference{"": childRef}); err != nil {
-						return desc, err // TODO annotate
+					grandchildRefs := maps.Clone(childRefs)
+					grandchildRefs[""] = childRef // make the child's ref explicitly the "fallback" ref for any of its children
+					if _, err := EnsureManifest(ctx, childTargetRef, b, child.MediaType, grandchildRefs); err != nil {
+						return desc, fmt.Errorf("%s: EnsureManifest failed: %w", ref, err)
 					}
-					// TODO validate ensureManifest returned descriptor?
+					// TODO validate descriptor from EnsureManifest?
 
 				default: // if not obviously manifest, assume blob
 					// TODO if blob sets URLs, don't bother (foreign layer) -- maybe check for those MediaTypes explicitly? (not a high priority as they're no longer used and officially discouraged/deprecated; would only matter if Tianon wants to use this for "hell/win" too 👀)
-					if childRef.Host == childTargetRef.Host {
-						if _, err := childClient.MountBlob(ctx, childRef.Repository, childTargetRef.Repository, childRef.Digest); err != nil {
-							return desc, fmt.Errorf("%s: MountBlob(%s) failed: %w", childTargetRef, childRef, err)
-						}
-						// TODO validate MountBlob returned descriptor?
-					} else {
-						// TODO Push/Reader progress / progresswriter concerns again 😭
-						// TODO in this case, streaming the blob back and forth between registries is heavy enough that it's probably worth doing a preflight HEAD check for whether we even need to 👀
-						r, err := childClient.GetBlob(ctx, childRef.Repository, childRef.Digest)
-						if err != nil {
-							return desc, fmt.Errorf("%s: GetBlob failed: %w", childRef, err)
-						}
-						//r.Close()
-						// TODO validate r.Descriptor ? (esp since we trust it enough to pass it forwards verbatim here)
-						if _, err := client.PushBlob(ctx, childTargetRef.Repository, r.Descriptor(), r); err != nil {
-							r.Close()
-							return desc, fmt.Errorf("%s: PushBlob(%s) failed: %w", childTargetRef, childRef, err)
-						}
-						// TODO validate PushBlob returned descriptor?
-						if err := r.Close(); err != nil {
-							return desc, fmt.Errorf("%s: Close of PushBlob(%s) failed: %w", childTargetRef, childRef, err)
-						}
+					if _, err := CopyBlob(ctx, childRef, childTargetRef); err != nil {
+						return desc, fmt.Errorf("%s: CopyBlob(%s) failed: %w", childTargetRef, childRef, err)
 					}
+					// TODO validate CopyBlob returned descriptor?
 				}
 			}
 			rDesc, err = pushManifest()
@@ -238,33 +156,121 @@ func ensureManifest(ctx context.Context, ref ociref.Reference, manifest json.Raw
 	return desc, nil
 }
 
-// "crane copy" (but only for digested objects, in service of PushIndex)
-func ensureObject(ctx context.Context, targetRepo ociref.Reference, mediaType string, ref ociref.Reference) (ociregistry.Descriptor, error) {
+// this copies a manifest (index or image) and all child objects (manifests or config+layers) from one name to another
+func CopyManifest(ctx context.Context, srcRef, dstRef Reference, childRefs map[ociregistry.Digest]Reference) (ociregistry.Descriptor, error) {
 	var desc ociregistry.Descriptor
 
-	// make sure we don't accidentally use or apply any value to "Digest" or "Tag" from our "target repo" ref (it's purely for host and repository)
-	targetRepo.Digest = ""
-	targetRepo.Tag = ""
-
-	// we don't want to do expensive blob copies (yet / for now?) 😅
-	if targetRepo.Host != ref.Host {
-		return desc, fmt.Errorf("cross-registry copy is currently unsupported (%s <- %s)", targetRepo, ref)
-	}
-
-	client, err := Client(targetRepo.Host, nil)
+	// wouldn't it be nice if MountBlob for manifests was a thing? 🥺
+	r, err := Lookup(ctx, srcRef, nil)
 	if err != nil {
-		return desc, fmt.Errorf("%s: failed getting (target) client: %w", targetRepo, err)
+		return desc, fmt.Errorf("%s: lookup failed: %w", srcRef, err)
+	}
+	if r == nil {
+		return desc, fmt.Errorf("%s: manifest not found", srcRef)
+	}
+	defer r.Close()
+	desc = r.Descriptor()
+
+	manifest, err := io.ReadAll(r)
+	if err != nil {
+		return desc, fmt.Errorf("%s: reading manifest failed: %w", srcRef, err)
 	}
 
-	switch mediaType {
-	case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest:
-		// TODO
-		return desc, fmt.Errorf("TODO")
-	case ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList:
-		// TODO
-		return desc, fmt.Errorf("TODO")
-	default:
-		// assume it is a blob and we can just mount it accordingly
-		return client.MountBlob(ctx, ref.Repository, targetRepo.Repository, ref.Digest)
+	if _, ok := childRefs[""]; !ok {
+		// if we don't have a fallback, set it to src
+		childRefs[""] = srcRef
 	}
+
+	return EnsureManifest(ctx, dstRef, manifest, desc.MediaType, childRefs)
+}
+
+// this takes an [io.Reader] of content and makes sure it is available as a blob in the given repository+digest (if larger than [BlobSizeWorthHEAD], this might return without consuming any of the provided [io.Reader])
+func EnsureBlob(ctx context.Context, ref Reference, size int64, content io.Reader) (ociregistry.Descriptor, error) {
+	desc := ociregistry.Descriptor{
+		Digest: ref.Digest,
+		Size:   size,
+	}
+
+	if ref.Digest == "" {
+		return desc, fmt.Errorf("%s: blobs must be pushed by digest", ref)
+	}
+	if ref.Tag != "" {
+		return desc, fmt.Errorf("%s: blobs cannot have tags", ref)
+	}
+
+	if desc.Size > BlobSizeWorthHEAD {
+		r, err := Lookup(ctx, ref, &LookupOptions{Type: LookupTypeBlob, Head: true})
+		if err != nil {
+			return desc, fmt.Errorf("%s: failed HEAD: %w", ref, err)
+		}
+		// TODO if we had some kind of progress interface, this would be a great place for some kind of debug log of head's contents
+		if r != nil {
+			head := r.Descriptor()
+			r.Close()
+			if head.Digest == desc.Digest && head.Size == desc.Size {
+				return head, nil
+			}
+		}
+	}
+
+	client, err := Client(ref.Host, nil)
+	if err != nil {
+		return desc, fmt.Errorf("%s: error getting Client: %w", ref, err)
+	}
+
+	return client.PushBlob(ctx, ref.Repository, desc, content)
+}
+
+// this copies a blob from one repository to another
+func CopyBlob(ctx context.Context, srcRef, dstRef Reference) (ociregistry.Descriptor, error) {
+	var desc ociregistry.Descriptor
+
+	if srcRef.Digest == "" {
+		return desc, fmt.Errorf("%s: missing digest (cannot copy blob without digest)", srcRef)
+	} else if !(dstRef.Digest == "" || dstRef.Digest == srcRef.Digest) {
+		return desc, fmt.Errorf("%s: digest mismatch in copy: %s", dstRef, srcRef)
+	} else {
+		dstRef.Digest = srcRef.Digest
+	}
+	if srcRef.Tag != "" {
+		return desc, fmt.Errorf("%s: blobs cannot have tags", srcRef)
+	} else if dstRef.Tag != "" {
+		return desc, fmt.Errorf("%s: blobs cannot have tags", dstRef)
+	}
+
+	if srcRef.Host == dstRef.Host {
+		client, err := Client(srcRef.Host, nil)
+		if err != nil {
+			return desc, fmt.Errorf("%s: error getting Client: %w", srcRef, err)
+		}
+		return client.MountBlob(ctx, srcRef.Repository, dstRef.Repository, srcRef.Digest)
+	}
+
+	// TODO Push/Reader progress / progresswriter concerns again 😭
+
+	// TODO in this case, streaming the blob back and forth between registries is heavy enough that it's probably worth doing a preflight HEAD check for whether we even need to 👀
+	r, err := Lookup(ctx, srcRef, &LookupOptions{Type: LookupTypeBlob})
+	if err != nil {
+		return desc, fmt.Errorf("%s: GetBlob failed: %w", srcRef, err)
+	}
+	if r == nil {
+		return desc, fmt.Errorf("%s: blob not found", srcRef)
+	}
+	defer r.Close()
+	desc = r.Descriptor()
+
+	if dstRef.Digest != desc.Digest {
+		return desc, fmt.Errorf("%s: registry digest mismatch: %s (%s)", dstRef, desc.Digest, srcRef)
+	}
+
+	if _, err := EnsureBlob(ctx, dstRef, desc.Size, r); err != nil {
+		return desc, fmt.Errorf("%s: EnsureBlob(%s) failed: %w", dstRef, srcRef, err)
+	}
+	// TODO validate PushBlob returned descriptor?
+
+	if err := r.Close(); err != nil {
+		return desc, fmt.Errorf("%s: Close of GetBlob(%s) failed: %w", dstRef, srcRef, err)
+	}
+
+	return desc, nil
 }

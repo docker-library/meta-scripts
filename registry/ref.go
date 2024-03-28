@@ -7,6 +7,7 @@ import (
 	_ "crypto/sha256"
 	_ "crypto/sha512"
 
+	"cuelabs.dev/go/oci/ociregistry"
 	"cuelabs.dev/go/oci/ociregistry/ociref"
 )
 
@@ -48,6 +49,14 @@ func (ref Reference) String() string {
 		ref.Repository = strings.TrimPrefix(ref.Repository, "library/")
 	}
 	return ociref.Reference(ref).String()
+}
+
+// like [Reference.String], but also stripping a known digest if this object's value matches
+func (ref Reference) StringWithKnownDigest(commonDigest ociregistry.Digest) string {
+	if ref.Digest == commonDigest {
+		ref.Digest = ""
+	}
+	return ref.String()
 }
 
 // implements [encoding.TextMarshaler] (especially for [Reference]-in-JSON)
