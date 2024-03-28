@@ -33,18 +33,19 @@ time bashbrew fetch "$@"
 
 time "$dir/../sources.sh" "$@" > "$dir/sources.json"
 
-rm -rf "$dir/coverage"
-mkdir -p "$dir/coverage"
-export GOCOVERDIR="${GOCOVERDIR:-"$dir/coverage"}"
+coverage="$dir/.coverage"
+rm -rf "$coverage/GOCOVERDIR" "$coverage/bin"
+mkdir -p "$coverage/GOCOVERDIR" "$coverage/bin"
+export GOCOVERDIR="${GOCOVERDIR:-"$coverage/GOCOVERDIR"}"
 
-rm -f "$dir/../bin/builds" # make sure we build with -cover for sure
-time "$dir/../builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
+time "$coverage/builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
+[ -s "$coverage/bin/builds" ] # just to make sure it actually did build/use an appropriate binary 🙈
 
 # test again, but with "--cache=..." instead of "--cache ..." (which also lets us delete the cache and get slightly better coverage reports at the expense of speed / Hub requests)
-time "$dir/../builds.sh" --cache="$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
+time "$coverage/builds.sh" --cache="$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
 
 # test "lookup" code for more edge cases
-"$dir/../.go-env.sh" go build -cover -trimpath -o "$dir/../bin/lookup" ./cmd/lookup
+"$dir/../.go-env.sh" go build -cover -trimpath -o "$coverage/bin/lookup" ./cmd/lookup
 lookup=(
 	# force a config blob lookup for platform object creation (and top-level Docker media type!)
 	'tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23'
@@ -78,7 +79,7 @@ lookup=(
 	--head "tianon/this-is-a-repository-that-will-never-ever-exist-$RANDOM-$RANDOM:$RANDOM-$RANDOM"
 	'tianon/test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 )
-"$dir/../bin/lookup" "${lookup[@]}" | jq -s '
+"$coverage/bin/lookup" "${lookup[@]}" | jq -s '
 	[
 		reduce (
 			$ARGS.positional[]
@@ -101,7 +102,7 @@ lookup=(
 if [ -n "$doDeploy" ]; then
 	# also test "deploy" (optional, disabled by default, because it's a much heavier test)
 
-	"$dir/../.go-env.sh" go build -cover -trimpath -o "$dir/../bin/deploy" ./cmd/deploy
+	"$dir/../.go-env.sh" go build -cover -trimpath -o "$coverage/bin/deploy" ./cmd/deploy
 
 	docker rm -vf meta-scripts-test-registry &> /dev/null || :
 	trap 'docker rm -vf meta-scripts-test-registry &> /dev/null || :' EXIT
@@ -175,21 +176,18 @@ if [ -n "$doDeploy" ]; then
 		empty
 	')" # stored in a variable for easier debugging ("bash -x")
 
-	"$dir/../bin/deploy" <<<"$json"
+	"$coverage/bin/deploy" <<<"$json"
 
 	docker rm -vf meta-scripts-test-registry
 fi
-
-# don't leave around the "-cover" versions of these binaries
-rm -f "$dir/../bin/builds" "$dir/../bin/lookup" "$dir/../bin/deploy"
 
 # Go tests
 "$dir/../.go-env.sh" go test -cover ./... -args -test.gocoverdir="$GOCOVERDIR"
 
 # combine the coverage data into the "legacy" coverage format (understood by "go tool cover") and pre-generate HTML for easier digestion of the data
-"$dir/../.go-env.sh" go tool covdata textfmt -i "$GOCOVERDIR" -o "$dir/coverage.txt"
-"$dir/../.go-env.sh" go tool cover -html "$dir/coverage.txt" -o "$dir/coverage.html"
-"$dir/../.go-env.sh" go tool cover -func "$dir/coverage.txt"
+"$dir/../.go-env.sh" go tool covdata textfmt -i "$GOCOVERDIR" -o "$coverage/coverage.txt"
+"$dir/../.go-env.sh" go tool cover -html "$coverage/coverage.txt" -o "$coverage/coverage.html"
+"$dir/../.go-env.sh" go tool cover -func "$coverage/coverage.txt"
 
 # generate an "example commands" file so that changes to generated commands are easier to review
 SOURCE_DATE_EPOCH=0 jq -r -L "$dir/.." '

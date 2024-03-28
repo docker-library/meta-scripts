@@ -33,7 +33,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: .test/coverage**
+          path: |
+            .test/.coverage/coverage.*
+            .test/.coverage/GOCOVERDIR/
           if-no-files-found: error
       - name: gofmt
         run: find -name '*.go' -type f -exec ./.go-env.sh gofmt -l -s -w '{}' +
