@@ -84,14 +84,7 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 				return desc, fmt.Errorf("%s: failed parsing manifest JSON: %w", ref, err)
 			}
 
-			var children []ocispec.Descriptor
-			children = append(children, manifestChildren.Manifests...)
-			if manifestChildren.Config != nil {
-				children = append(children, *manifestChildren.Config)
-			}
-			children = append(children, manifestChildren.Layers...)
-
-			for _, child := range children {
+			childToRefs := func(child ocispec.Descriptor) (Reference, Reference) {
 				childTargetRef := Reference{
 					Host:       ref.Host,
 					Repository: ref.Repository,
@@ -101,46 +94,53 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 				if !ok {
 					childRef = childRefs[""]
 				}
-				// this isn't *technically* necessary (we could just use "child.Digest" in "GetManifest", "MountBlob", etc below), but being strictly correct makes us feel better (with minimal overhead)
 				childRef.Tag = ""
 				childRef.Digest = child.Digest
-
-				switch child.MediaType {
-				case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest,
-					ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList: // TODO instead of this, we should differentiate based on children in "manifests" being manifests and children in "config" and "layers" being blobs, always (I guess separate lists of children?)
-					r, err := Lookup(ctx, childRef, nil)
-					if err != nil {
-						return desc, fmt.Errorf("%s: manifest lookup failed: %w", childRef, err)
-					}
-					if r == nil {
-						return desc, fmt.Errorf("%s: manifest not found", childRef)
-					}
-					//defer r.Close()
-					// TODO validate r.Descriptor ?
-					// TODO use readHelperRaw here (maybe a new "readHelperAll" wrapper too?)
-					b, err := io.ReadAll(r)
-					if err != nil {
-						r.Close()
-						return desc, fmt.Errorf("%s: ReadAll of GetManifest failed: %w", childRef, err)
-					}
-					if err := r.Close(); err != nil {
-						return desc, fmt.Errorf("%s: Close of GetManifest failed: %w", childRef, err)
-					}
-					grandchildRefs := maps.Clone(childRefs)
-					grandchildRefs[""] = childRef // make the child's ref explicitly the "fallback" ref for any of its children
-					if _, err := EnsureManifest(ctx, childTargetRef, b, child.MediaType, grandchildRefs); err != nil {
-						return desc, fmt.Errorf("%s: EnsureManifest failed: %w", ref, err)
-					}
-					// TODO validate descriptor from EnsureManifest?
-
-				default: // if not obviously manifest, assume blob
-					// TODO if blob sets URLs, don't bother (foreign layer) -- maybe check for those MediaTypes explicitly? (not a high priority as they're no longer used and officially discouraged/deprecated; would only matter if Tianon wants to use this for "hell/win" too 👀)
-					if _, err := CopyBlob(ctx, childRef, childTargetRef); err != nil {
-						return desc, fmt.Errorf("%s: CopyBlob(%s) failed: %w", childTargetRef, childRef, err)
-					}
-					// TODO validate CopyBlob returned descriptor?
-				}
+				return childRef, childTargetRef
 			}
+
+			for _, child := range manifestChildren.Manifests {
+				childRef, childTargetRef := childToRefs(child)
+				r, err := Lookup(ctx, childRef, nil)
+				if err != nil {
+					return desc, fmt.Errorf("%s: manifest lookup failed: %w", childRef, err)
+				}
+				if r == nil {
+					return desc, fmt.Errorf("%s: manifest not found", childRef)
+				}
+				//defer r.Close()
+				// TODO validate r.Descriptor ?
+				// TODO use readHelperRaw here (maybe a new "readHelperAll" wrapper too?)
+				b, err := io.ReadAll(r)
+				if err != nil {
+					r.Close()
+					return desc, fmt.Errorf("%s: ReadAll of GetManifest failed: %w", childRef, err)
+				}
+				if err := r.Close(); err != nil {
+					return desc, fmt.Errorf("%s: Close of GetManifest failed: %w", childRef, err)
+				}
+				grandchildRefs := maps.Clone(childRefs)
+				grandchildRefs[""] = childRef // make the child's ref explicitly the "fallback" ref for any of its children
+				if _, err := EnsureManifest(ctx, childTargetRef, b, child.MediaType, grandchildRefs); err != nil {
+					return desc, fmt.Errorf("%s: EnsureManifest failed: %w", ref, err)
+				}
+				// TODO validate descriptor from EnsureManifest? (at the very least, Digest and Size)
+			}
+
+			var childBlobs []ocispec.Descriptor
+			if manifestChildren.Config != nil {
+				childBlobs = append(childBlobs, *manifestChildren.Config)
+			}
+			childBlobs = append(childBlobs, manifestChildren.Layers...)
+			for _, child := range childBlobs {
+				childRef, childTargetRef := childToRefs(child)
+				// TODO if blob sets URLs, don't bother (foreign layer) -- maybe check for those MediaTypes explicitly? (not a high priority as they're no longer used and officially discouraged/deprecated; would only matter if Tianon wants to use this for "hell/win" too 👀)
+				if _, err := CopyBlob(ctx, childRef, childTargetRef); err != nil {
+					return desc, fmt.Errorf("%s: CopyBlob(%s) failed: %w", childTargetRef, childRef, err)
+				}
+				// TODO validate CopyBlob returned descriptor? (at the very least, Digest and Size)
+			}
+
 			rDesc, err = pushManifest()
 			if err != nil {
 				return desc, fmt.Errorf("%s: PushManifest failed: %w", ref, err)

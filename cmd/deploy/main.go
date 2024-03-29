@@ -67,7 +67,6 @@ func main() {
 			if ref.Digest == "" && refsDigest == "" {
 				fmt.Printf("@%s", desc.Digest)
 			}
-			// TODO validate desc?
 			fmt.Println()
 		}
 
