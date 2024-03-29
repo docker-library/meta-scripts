@@ -2,10 +2,18 @@ package om_test
 
 import (
 	"encoding/json"
+	"strconv"
 	"testing"
 
 	"github.com/docker-library/meta-scripts/om"
 )
+
+func BenchmarkSet(b *testing.B) {
+	var m om.OrderedMap[int]
+	for i := 0; i < b.N; i++ {
+		m.Set(strconv.Itoa(i), i)
+	}
+}
 
 func assert[V comparable](t *testing.T, v V, expected V) {
 	t.Helper()
