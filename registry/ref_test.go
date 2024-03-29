@@ -85,3 +85,19 @@ func TestParseRef(t *testing.T) {
 		})
 	}
 }
+
+func TestRefStringWithKnownDigest(t *testing.T) {
+	ref, err := registry.ParseRef("hello-world:latest@sha256:53641cd209a4fecfc68e21a99871ce8c6920b2e7502df0a20671c6fccc73a7c6")
+	if err != nil {
+		t.Fatal("unexpected error", err)
+	}
+	str := ref.String()
+
+	if got := ref.StringWithKnownDigest("sha256:0000000000000000000000000000000000000000000000000000000000000000"); got != str {
+		t.Fatalf("expected %q, got %q", str, got)
+	}
+
+	if got := ref.StringWithKnownDigest("sha256:53641cd209a4fecfc68e21a99871ce8c6920b2e7502df0a20671c6fccc73a7c6"); got != "hello-world:latest" {
+		t.Fatalf("expected %q, got %q", "hello-world:latest", got)
+	}
+}
