@@ -21,4 +21,4 @@ require (
 )
 
 // https://github.com/cue-labs/oci/pull/29
-replace cuelabs.dev/go/oci/ociregistry => github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240322151419-7d3242933116
+replace cuelabs.dev/go/oci/ociregistry => github.com/tianon/cuelabs-oci/ociregistry v0.0.0-20240329232705-b652d611e4b3

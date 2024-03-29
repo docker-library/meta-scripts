@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strings"
 
 	"cuelabs.dev/go/oci/ociregistry"
 	"cuelabs.dev/go/oci/ociregistry/ocimem"
@@ -85,10 +84,10 @@ func Lookup(ctx context.Context, ref Reference, opts *LookupOptions) (ociregistr
 			// obvious 404 cases
 			return nil, nil
 		}
-		// https://github.com/cue-labs/oci/issues/26
-		if errStr := strings.TrimPrefix(err.Error(), "error response: "); strings.HasPrefix(errStr, "404 ") ||
-			// 401 often means "repository not found" (due to the nature of public/private mixing on Hub and the fact that ociauth definitely handled any possible authentication for us, so if we're still getting 401 it's unavoidable and might as well be 404)
-			strings.HasPrefix(errStr, "401 ") {
+		var httpErr ociregistry.HTTPError
+		if errors.As(err, &httpErr) && (httpErr.StatusCode() == 404 ||
+			// 401 often means "repository not found" (due to the nature of public/private mixing on Hub and the fact that ociauth definitely handled any possible authentication for us, so if we're still getting 401 it's unavoidable and might as well be 404, and 403 because getting 401 is actually a server bug that ociclient/ociauth works around for us in https://github.com/cue-labs/oci/commit/7eb5fc60a0e025038cd64d7f5df0a461136d5e9b)
+			httpErr.StatusCode() == 401 || httpErr.StatusCode() == 403) {
 			return nil, nil
 		}
 		return r, err

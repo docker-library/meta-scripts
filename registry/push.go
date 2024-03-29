@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"maps"
-	"strings"
 
 	"cuelabs.dev/go/oci/ociregistry"
 	godigest "github.com/opencontainers/go-digest"
@@ -65,10 +64,10 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 	}
 	rDesc, err := pushManifest()
 	if err != nil {
-		// https://github.com/cue-labs/oci/issues/26
+		var httpErr ociregistry.HTTPError
 		if errors.Is(err, ociregistry.ErrManifestBlobUnknown) ||
 			errors.Is(err, ociregistry.ErrBlobUnknown) ||
-			strings.HasPrefix(err.Error(), "400 ") {
+			(errors.As(err, &httpErr) && httpErr.StatusCode() >= 400 && httpErr.StatusCode() <= 499) {
 			// this probably means we need to push some child manifests and/or mount missing blobs (and then retry the manifest push)
 			var manifestChildren struct {
 				// *technically* this should be two separate structs chosen based on mediaType (https://github.com/opencontainers/distribution-spec/security/advisories/GHSA-mc8v-mgrf-8f4m), but that makes the code a lot more annoying when we're just collecting a list of potential children we need to copy over for the parent object to push successfully
