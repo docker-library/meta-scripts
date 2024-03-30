@@ -247,10 +247,9 @@ func CopyBlob(ctx context.Context, srcRef, dstRef Reference) (ociregistry.Descri
 
 	// TODO Push/Reader progress / progresswriter concerns again 😭
 
-	// TODO in this case, streaming the blob back and forth between registries is heavy enough that it's probably worth doing a preflight HEAD check for whether we even need to 👀
 	r, err := Lookup(ctx, srcRef, &LookupOptions{Type: LookupTypeBlob})
 	if err != nil {
-		return desc, fmt.Errorf("%s: GetBlob failed: %w", srcRef, err)
+		return desc, fmt.Errorf("%s: blob lookup failed: %w", srcRef, err)
 	}
 	if r == nil {
 		return desc, fmt.Errorf("%s: blob not found", srcRef)
@@ -265,7 +264,7 @@ func CopyBlob(ctx context.Context, srcRef, dstRef Reference) (ociregistry.Descri
 	if _, err := EnsureBlob(ctx, dstRef, desc.Size, r); err != nil {
 		return desc, fmt.Errorf("%s: EnsureBlob(%s) failed: %w", dstRef, srcRef, err)
 	}
-	// TODO validate PushBlob returned descriptor?
+	// TODO validate returned descriptor? (at least digest/size)
 
 	if err := r.Close(); err != nil {
 		return desc, fmt.Errorf("%s: Close of GetBlob(%s) failed: %w", dstRef, srcRef, err)
