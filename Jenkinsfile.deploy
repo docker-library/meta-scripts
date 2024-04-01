@@ -3,11 +3,14 @@ properties([
 	disableConcurrentBuilds(),
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
+	rateLimitBuilds([
+		count: 1,
+		durationName: 'hour',
+		userBoost: true,
+	]),
 	pipelineTriggers([
-		// TODO https://github.com/docker-library/meta-scripts/issues/22
-		//upstream(threshold: 'UNSTABLE', upstreamProjects: 'meta'),
-		cron('H H/2 * * *'),
-		// (we've dropped to only running this periodically to avoid it clogging the whole queue for a no-op, which also gives build+meta more time to cycle and get deps so they have a higher chance to all go out at once -- see the above linked issue)
+		upstream('meta'),
+		cron('H H/6 * * *'), // run every few hours whether we "need" it or not
 	]),
 ])
 
@@ -34,46 +37,17 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		))
 	}
 
-	dir('.bin') {
-		deleteDir()
-
-		stage('Crane') {
+	dir('meta') {
+		stage('Generate') {
 			sh '''#!/usr/bin/env bash
 				set -Eeuo pipefail -x
 
-				ext=''
-				if [ "$BASHBREW_ARCH" = 'windows-amd64' ]; then
-					ext='.exe'
-				fi
-
-				# https://doi-janky.infosiftr.net/job/wip/job/crane
-				wget -O "crane$ext" "https://doi-janky.infosiftr.net/job/wip/job/crane/lastSuccessfulBuild/artifact/crane-$BASHBREW_ARCH$ext" --progress=dot:giga
-				# TODO checksum verification ("checksums.txt")
-				chmod +x "crane$ext"
-				"./crane$ext" version
+				jq -L.scripts '
+					include "deploy";
+					arch_tagged_manifests(env.BASHBREW_ARCH)
+					| deploy_objects[]
+				' builds.json | tee deploy.json
 			'''
-			if (env.BASHBREW_ARCH == 'windows-amd64') {
-				env.PATH = "${workspace}/.bin;${env.PATH}"
-			} else {
-				env.PATH = "${workspace}/.bin:${env.PATH}"
-			}
-		}
-	}
-
-	dir('meta') {
-		def shell = ''
-		stage('Generate') {
-			shell = sh(returnStdout: true, script: '''#!/usr/bin/env bash
-				set -Eeuo pipefail -x
-
-				jq -L.scripts -r '
-					include "jenkins";
-					crane_deploy_commands
-					| sub("^crane "; "crane --mirror \\"$DOCKERHUB_PUBLIC_PROXY_HOST\\" ")
-				' builds.json
-			''').trim()
-
-			shell = shell.replaceAll("\r", '') // deal with Windows...
 		}
 
 		withCredentials([
@@ -81,11 +55,18 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			string(credentialsId: 'dockerhub-public-proxy-host', variable: 'DOCKERHUB_PUBLIC_PROXY_HOST'),
 		]) {
 			stage('Deploy') {
-				sh """#!/usr/bin/env bash
+				sh '''#!/usr/bin/env bash
 					set -Eeuo pipefail -x
 
-					${ shell }
-				"""
+					(
+						cd .scripts
+						# TODO make a helper to build binaries correctly/consistently 🙃
+						if ./.any-go-nt.sh bin/deploy; then
+							./.go-env.sh go build -trimpath -o bin/deploy ./cmd/deploy
+						fi
+					)
+					.scripts/bin/deploy < deploy.json
+				'''
 			}
 		}
 	}
