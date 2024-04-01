@@ -32,11 +32,10 @@ def normalize_platform:
 	| from_entries
 ;
 
-# input: OCI "platform" object (see link above)
+# input: *normalized* OCI "platform" object (see link above)
 # output: something suitable for use in "sort_by" for sorting things based on platform
 def sort_split_platform:
-	normalize_platform
-	| .["os", "architecture", "variant", "os.version"] //= ""
+	.["os", "architecture", "variant", "os.version"] //= ""
 	| [
 		(.os | sort_split_pref([ "linux" ])),
 		(.architecture | sort_split_pref([ "amd64", "arm64" ])),
