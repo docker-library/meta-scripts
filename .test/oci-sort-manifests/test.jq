@@ -1,4 +1,4 @@
 include "oci";
 
-map(.platform |= normalize_platform)
+map(normalize_descriptor)
 | sort_manifests

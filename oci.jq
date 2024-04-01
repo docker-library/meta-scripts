@@ -46,6 +46,29 @@ def sort_split_platform:
 	]
 ;
 
+# https://github.com/opencontainers/image-spec/blob/v1.1.0/descriptor.md
+
+def normalize_descriptor:
+	if .platform then
+		.platform |= normalize_platform
+	else . end
+	| to_entries
+	| sort_by(.key | sort_split_pref([
+		"mediaType",
+		"artifactType",
+		"digest",
+		"size",
+		"platform",
+		"annotations",
+		empty # trailing comma hack
+	]; [
+		"urls",
+		"data",
+		empty # trailing comma hack
+	]))
+	| from_entries
+;
+
 # https://github.com/opencontainers/image-spec/blob/v1.1.0/image-index.md#:~:text=manifests%20array%20of%20objects
 
 # input: list of OCI "descriptor" objects (the "manifests" array of an image index; see link above)

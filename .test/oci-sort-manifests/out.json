@@ -1,119 +1,127 @@
 [
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
+		"size": 861,
+		"platform": {
+			"os": "linux",
+			"architecture": "amd64"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:amd64/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "amd64"
-		},
-		"size": 861
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:579b3724a7b189f6dca599a46f16d801a43d5def185de0b7bcd5fb9d1e312c27",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:579b3724a7b189f6dca599a46f16d801a43d5def185de0b7bcd5fb9d1e312c27",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
-		"annotations": {
-			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
-			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm64v8/hello-world",
-			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
-			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:2d4e459f4ecb5329407ae3e47cbc107a2fbace221354ca75960af4c047b3cb13",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:2d4e459f4ecb5329407ae3e47cbc107a2fbace221354ca75960af4c047b3cb13",
+		"size": 863,
 		"platform": {
 			"os": "linux",
 			"architecture": "arm64",
 			"variant": "v8"
 		},
-		"size": 863
+		"annotations": {
+			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
+			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm64v8/hello-world",
+			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
+			"org.opencontainers.image.version": "linux"
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:2d4e459f4ecb5329407ae3e47cbc107a2fbace221354ca75960af4c047b3cb13",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:1f11fbd1720fcae3e402fc3eecb7d57c67023d2d1e11becc99ad9c7fe97d65ca",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:1f11fbd1720fcae3e402fc3eecb7d57c67023d2d1e11becc99ad9c7fe97d65ca",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:2d4e459f4ecb5329407ae3e47cbc107a2fbace221354ca75960af4c047b3cb13",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:dbbd3cf666311ad526fad9d1746177469268f32fd91b371df2ebd1c84eb22f23",
+		"size": 860,
+		"platform": {
+			"os": "linux",
+			"architecture": "386"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:i386/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:dbbd3cf666311ad526fad9d1746177469268f32fd91b371df2ebd1c84eb22f23",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "386"
-		},
-		"size": 860
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:dbbd3cf666311ad526fad9d1746177469268f32fd91b371df2ebd1c84eb22f23",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:18b1c92de36d42c75440c6fd6b25605cc91709d176faaccca8afe58b317bc33a",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:18b1c92de36d42c75440c6fd6b25605cc91709d176faaccca8afe58b317bc33a",
+		"size": 566,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 566
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:dbbd3cf666311ad526fad9d1746177469268f32fd91b371df2ebd1c84eb22f23",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
-		"annotations": {
-			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
-			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm32v7/hello-world",
-			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
-			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:20aea1c63c90d5e117db787c9fe1a8cd0ad98bedb5fd711273ffe05c084ff18a",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:20aea1c63c90d5e117db787c9fe1a8cd0ad98bedb5fd711273ffe05c084ff18a",
+		"size": 863,
 		"platform": {
 			"os": "linux",
 			"architecture": "arm",
 			"variant": "v7"
 		},
-		"size": 863
+		"annotations": {
+			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
+			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm32v7/hello-world",
+			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
+			"org.opencontainers.image.version": "linux"
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:20aea1c63c90d5e117db787c9fe1a8cd0ad98bedb5fd711273ffe05c084ff18a",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:70304c314d8a61ba1b36518624bb00bfff8d4b6016153792042de43f0453ca61",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:70304c314d8a61ba1b36518624bb00bfff8d4b6016153792042de43f0453ca61",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:20aea1c63c90d5e117db787c9fe1a8cd0ad98bedb5fd711273ffe05c084ff18a",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:1363c810cc39a563c6f315e26951d2ed9e93f3bf929fde8223633ecf81a4a430",
+		"size": 1039,
+		"platform": {
+			"os": "linux",
+			"architecture": "arm",
+			"variant": "v6"
+		},
 		"annotations": {
 			"com.docker.official-images.bashbrew.arch": "arm32v6",
 			"org.opencontainers.image.base.name": "scratch",
@@ -122,188 +130,180 @@
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#61f3ba26fe1d027b5b443c04ac2b0690fd97561a:arm32v6/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:1363c810cc39a563c6f315e26951d2ed9e93f3bf929fde8223633ecf81a4a430",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "arm",
-			"variant": "v6"
-		},
-		"size": 1039
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:1363c810cc39a563c6f315e26951d2ed9e93f3bf929fde8223633ecf81a4a430",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:085e87951950ac62a771af158d4d8275505088897a0e520a8a5bd582343631b0",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:085e87951950ac62a771af158d4d8275505088897a0e520a8a5bd582343631b0",
+		"size": 566,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 566
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:1363c810cc39a563c6f315e26951d2ed9e93f3bf929fde8223633ecf81a4a430",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
-		"annotations": {
-			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
-			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm32v5/hello-world",
-			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
-			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:c2d891e5c2fb4c723efb72b064be3351189f62222bd3681ce7e57f2a1527362c",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:c2d891e5c2fb4c723efb72b064be3351189f62222bd3681ce7e57f2a1527362c",
+		"size": 863,
 		"platform": {
 			"os": "linux",
 			"architecture": "arm",
 			"variant": "v5"
 		},
-		"size": 863
+		"annotations": {
+			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
+			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:arm32v5/hello-world",
+			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
+			"org.opencontainers.image.version": "linux"
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:c2d891e5c2fb4c723efb72b064be3351189f62222bd3681ce7e57f2a1527362c",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:6901d6a88eee6e90f0baa62b020bb61c4f13194cbcd9bf568ab66e8cc3f940dd",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:6901d6a88eee6e90f0baa62b020bb61c4f13194cbcd9bf568ab66e8cc3f940dd",
+		"size": 566,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 566
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:c2d891e5c2fb4c723efb72b064be3351189f62222bd3681ce7e57f2a1527362c",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:c19784034d46da48550487c5c44639f5f92d48be7b9baf4d67b5377a454d92af",
+		"size": 864,
+		"platform": {
+			"os": "linux",
+			"architecture": "mips64le"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:mips64le/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:c19784034d46da48550487c5c44639f5f92d48be7b9baf4d67b5377a454d92af",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "mips64le"
-		},
-		"size": 864
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:c19784034d46da48550487c5c44639f5f92d48be7b9baf4d67b5377a454d92af",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:951bcd144ddccd1ee902dc180b435faabaaa6a8747e70cbc893f2dca16badb94",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:951bcd144ddccd1ee902dc180b435faabaaa6a8747e70cbc893f2dca16badb94",
+		"size": 566,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 566
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:c19784034d46da48550487c5c44639f5f92d48be7b9baf4d67b5377a454d92af",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:f0c95f1ebb50c9b0b3e3416fb9dd4d1d197386a076c464cceea3d1f94c321b8f",
+		"size": 863,
+		"platform": {
+			"os": "linux",
+			"architecture": "ppc64le"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:ppc64le/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:f0c95f1ebb50c9b0b3e3416fb9dd4d1d197386a076c464cceea3d1f94c321b8f",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "ppc64le"
-		},
-		"size": 863
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:f0c95f1ebb50c9b0b3e3416fb9dd4d1d197386a076c464cceea3d1f94c321b8f",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:838d191bca398e46cddebc48e816da83b0389d4ed2d64f408d618521b8fd1a57",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:838d191bca398e46cddebc48e816da83b0389d4ed2d64f408d618521b8fd1a57",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:f0c95f1ebb50c9b0b3e3416fb9dd4d1d197386a076c464cceea3d1f94c321b8f",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:8d064a6fc27fd5e97fa8225994a1addd872396236367745bea30c92d6c032fa3",
+		"size": 863,
+		"platform": {
+			"os": "linux",
+			"architecture": "riscv64"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:riscv64/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:8d064a6fc27fd5e97fa8225994a1addd872396236367745bea30c92d6c032fa3",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "riscv64"
-		},
-		"size": 863
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:8d064a6fc27fd5e97fa8225994a1addd872396236367745bea30c92d6c032fa3",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:48147407c4594e45b7c3f0be1019bb0f44d78d7f037ce63e0e3da75b256f849e",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:48147407c4594e45b7c3f0be1019bb0f44d78d7f037ce63e0e3da75b256f849e",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:8d064a6fc27fd5e97fa8225994a1addd872396236367745bea30c92d6c032fa3",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
+		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:65f4b0d1802589b418bb6774d85de3d1a11d5bd971ee73cb8569504d928bb5d9",
+		"size": 861,
+		"platform": {
+			"os": "linux",
+			"architecture": "s390x"
+		},
 		"annotations": {
 			"org.opencontainers.image.revision": "3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee",
 			"org.opencontainers.image.source": "https://github.com/docker-library/hello-world.git#3fb6ebca4163bf5b9cc496ac3e8f11cb1e754aee:s390x/hello-world",
 			"org.opencontainers.image.url": "https://hub.docker.com/_/hello-world",
 			"org.opencontainers.image.version": "linux"
-		},
-		"digest": "sha256:65f4b0d1802589b418bb6774d85de3d1a11d5bd971ee73cb8569504d928bb5d9",
-		"mediaType": "application/vnd.oci.image.manifest.v1+json",
-		"platform": {
-			"os": "linux",
-			"architecture": "s390x"
-		},
-		"size": 861
+		}
 	},
 	{
-		"annotations": {
-			"vnd.docker.reference.digest": "sha256:65f4b0d1802589b418bb6774d85de3d1a11d5bd971ee73cb8569504d928bb5d9",
-			"vnd.docker.reference.type": "attestation-manifest"
-		},
-		"digest": "sha256:50f420e8710676da03668e446f1f51097b745e3e2c9807b018e569d26d4f65f7",
 		"mediaType": "application/vnd.oci.image.manifest.v1+json",
+		"digest": "sha256:50f420e8710676da03668e446f1f51097b745e3e2c9807b018e569d26d4f65f7",
+		"size": 837,
 		"platform": {
 			"os": "unknown",
 			"architecture": "unknown"
 		},
-		"size": 837
+		"annotations": {
+			"vnd.docker.reference.digest": "sha256:65f4b0d1802589b418bb6774d85de3d1a11d5bd971ee73cb8569504d928bb5d9",
+			"vnd.docker.reference.type": "attestation-manifest"
+		}
 	},
 	{
-		"digest": "sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23",
 		"mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+		"digest": "sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23",
+		"size": 946,
 		"platform": {
 			"os": "windows",
 			"architecture": "amd64",
 			"os.version": "10.0.20348.2340"
-		},
-		"size": 946
+		}
 	},
 	{
-		"digest": "sha256:3a0bd0fb5ad6dd6528dc78726b3df78e980b39b379e99c5a508904ec17cfafe5",
 		"mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+		"digest": "sha256:3a0bd0fb5ad6dd6528dc78726b3df78e980b39b379e99c5a508904ec17cfafe5",
+		"size": 946,
 		"platform": {
 			"os": "windows",
 			"architecture": "amd64",
 			"os.version": "10.0.17763.5576"
-		},
-		"size": 946
+		}
 	}
 ]
