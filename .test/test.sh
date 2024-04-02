@@ -189,6 +189,7 @@ if [ -n "$doDeploy" ]; then
 	"$coverage/bin/deploy" <<<"$json"
 
 	docker rm -vf meta-scripts-test-registry
+	trap - EXIT
 fi
 
 # Go tests
