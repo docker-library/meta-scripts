@@ -110,7 +110,14 @@ if [ -n "$doDeploy" ]; then
 	docker run --detach --name meta-scripts-test-registry --publish 5000 registry:2
 	registryPort="$(DOCKER_API_VERSION=1.41 docker container inspect --format '{{ index .NetworkSettings.Ports "5000/tcp" 0 "HostPort" }}' meta-scripts-test-registry)"
 
-	# TODO apparently my local system is too good and that registry spins up fast enough, but this needs a small "wait for the registry to be ready" loop 😭
+	# apparently Tianon's local system is too good and the registry spins up fast enough, but this needs a small "wait for the registry to be ready" loop for systems like GHA (adding "--cpus 0.01" to the above "docker run" seems to replicate the race reasonably well)
+	tries=10
+	while [ "$(( tries-- ))" -gt 0 ]; do
+		if docker logs meta-scripts-test-registry |& grep -F ' listening on '; then
+			break
+		fi
+		sleep 1
+	done
 
 	json="$(jq -n --arg reg "localhost:$registryPort" '
 		# explicit base64 data blob
