@@ -14,14 +14,12 @@ func main() {
 	defer stop()
 
 	// TODO --dry-run ?
-	// TODO --verbose (show full index object/JSON?)
 
 	// TODO the best we can do on whether or not this actually updated tags is "yes, definitely (we had to copy some children)" and "maybe (we didn't have to copy any children)", but we should maybe still output those so we can trigger put-shared based on them (~immediately on "definitely" and with some medium delay on "maybe")
 
 	// see "input.go" and "inputRaw" for details on the expected JSON input format
 
 	// we pass through "jq" to pretty-print any JSON-form data fields with sane whitespace
-	// TODO probably move these "jq" bits into a function too?  maybe we could do a new-fangled iter.Seq2?
 	jq := exec.Command("jq", "del(.data), .data")
 	jq.Stdin = os.Stdin
 	jq.Stderr = os.Stderr
