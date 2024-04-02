@@ -1,1 +1,0 @@
-meta-commands/out.sh
