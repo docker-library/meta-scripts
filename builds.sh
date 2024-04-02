@@ -5,7 +5,7 @@ set -Eeuo pipefail
 : "${BASHBREW_STAGING_TEMPLATE:=oisupport/staging-ARCH:BUILD}"
 export BASHBREW_STAGING_TEMPLATE
 
-# but the binary in the directory of a symlink of "builds.sh" (used for testing coverage; see GOCOVERDIR below)
+# put the binary in the directory of a symlink of "builds.sh" (used for testing coverage; see GOCOVERDIR below)
 dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
 bin="$dir/bin/builds"
