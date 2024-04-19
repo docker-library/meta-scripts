@@ -6,12 +6,21 @@ dir="$(readlink -ve "$dir")"
 
 src="$dir"
 dst="$dir"
+tmp='/tmp'
+goDir='/go'
+
 msys=
-if [ "$(uname -o)" = 'Msys' ]; then
-	msys=1
-	if command -v cygpath > /dev/null; then
-		src="$(cygpath --windows "$dst")"
-	fi
+cygwin=
+case "$(uname -o)" in
+	Msys)
+		msys=1
+		;;
+	Cygwin)
+		cygwin=1
+		;;
+esac
+if [ -n "${msys:-$cygwin}" ] && command -v cygpath > /dev/null; then
+	src="$(cygpath --windows "$dst")"
 fi
 windowsContainers=
 serverOs="$(docker version --format '{{ .Server.Os }}')"
@@ -19,19 +28,21 @@ if [ "$serverOs" = 'windows' ]; then
 	windowsContainers=1
 	# normally we'd want this to match $src so error messages, traces, etc are easier to follow, but $src might be on a non-C: drive letter and not be usable in the container as-is 😭
 	dst='C:\app'
+	tmp='C:\Temp'
+	goDir='C:\go'
 fi
 
 args=(
 	--interactive --rm --init
 	--mount "type=bind,src=$src,dst=$dst"
 	--workdir "$dst"
-	--tmpfs /tmp,exec
-	--env HOME=/tmp
+	--tmpfs "$tmp",exec
+	--env HOME="$tmp"
 
 	# "go mod" cache is stored in /go/pkg/mod/cache
-	--env GOPATH=/go
-	--mount type=volume,src=doi-meta-gopath,dst=/go
-	--env GOCACHE=/go/.cache
+	--env GOPATH="$goDir"
+	--mount type=volume,src=doi-meta-gopath,dst="$goDir"
+	--env GOCACHE="$goDir/.cache"
 
 	--env "CGO_ENABLED=${CGO_ENABLED-0}"
 	--env "GOTOOLCHAIN=${GOTOOLCHAIN-local}"
@@ -57,7 +68,7 @@ fi
 winpty=()
 if [ -t 0 ] && [ -t 1 ]; then
 	args+=( --tty )
-	if [ -n "$msys" ]; then
+	if [ -n "$msys" ] && command -v winpty > /dev/null; then
 		winpty=( winpty )
 	fi
 fi
