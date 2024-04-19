@@ -1,5 +1,6 @@
 module github.com/docker-library/meta-scripts
 
+// ideally this would be the single source of truth for this entire repository, but riscv64 means this bleeds into .go-env.sh too -- if changing this, see that file too
 go 1.21
 
 require (
