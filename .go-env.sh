@@ -4,12 +4,27 @@ set -Eeuo pipefail
 dir="$(dirname "$BASH_SOURCE")"
 dir="$(readlink -ve "$dir")"
 
-user="$(id -u):$(id -g)"
+src="$dir"
+dst="$dir"
+msys=
+if [ "$(uname -o)" = 'Msys' ]; then
+	msys=1
+	if command -v cygpath > /dev/null; then
+		src="$(cygpath --windows "$dst")"
+	fi
+fi
+windowsContainers=
+serverOs="$(docker version --format '{{ .Server.Os }}')"
+if [ "$serverOs" = 'windows' ]; then
+	windowsContainers=1
+	# normally we'd want this to match $src so error messages, traces, etc are easier to follow, but $src might be on a non-C: drive letter and not be usable in the container as-is 😭
+	dst='C:\app'
+fi
+
 args=(
 	--interactive --rm --init
-	--user "$user"
-	--mount "type=bind,src=$dir,dst=$dir"
-	--workdir "$dir"
+	--mount "type=bind,src=$src,dst=$dst"
+	--workdir "$dst"
 	--tmpfs /tmp,exec
 	--env HOME=/tmp
 
@@ -32,9 +47,21 @@ args=(
 	--env DOCKERHUB_PUBLIC_PROXY
 	--env DOCKERHUB_PUBLIC_PROXY_HOST
 )
+
+if [ -z "$windowsContainers" ]; then
+	user="$(id -u)"
+	user+=":$(id -g)"
+	args+=( --user "$user" )
+fi
+
+winpty=()
 if [ -t 0 ] && [ -t 1 ]; then
 	args+=( --tty )
+	if [ -n "$msys" ]; then
+		winpty=( winpty )
+	fi
 fi
+
 go="$(awk '$1 == "go" { print $2; exit }' "$dir/go.mod")"
 if [[ "$go" == *.*.* ]]; then
 	go="${go%.*}" # strip to just X.Y
@@ -43,5 +70,6 @@ args+=(
 	"golang:$go"
 	"$@"
 )
+
 set -x
-exec docker run "${args[@]}"
+exec "${winpty[@]}" docker run "${args[@]}"
