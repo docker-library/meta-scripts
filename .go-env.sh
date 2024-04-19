@@ -73,12 +73,35 @@ if [ -t 0 ] && [ -t 1 ]; then
 	fi
 fi
 
-go="$(awk '$1 == "go" { print $2; exit }' "$dir/go.mod")"
-if [[ "$go" == *.*.* ]]; then
-	go="${go%.*}" # strip to just X.Y
+if [ -z "${GOLANG_IMAGE:-}" ]; then
+	go="$(awk '$1 == "go" { print $2; exit }' "$dir/go.mod")"
+	if [[ "$go" == *.*.* ]]; then
+		go="${go%.*}" # strip to just X.Y
+	fi
+	GOLANG_IMAGE="golang:$go"
+
+	# handle riscv64 "gracefully" (no golang image yet because no stable distro releases yet)
+	{
+		if ! docker image inspect --format '.' "$GOLANG_IMAGE" &> /dev/null && ! docker pull "$GOLANG_IMAGE"; then
+			if [ -n "${BASHBREW_ARCH:-}" ] && docker buildx inspect "bashbrew-$BASHBREW_ARCH" &> /dev/null; then
+				# a very rough hack to avoid:
+				#  ERROR: failed to solve: failed to solve with frontend dockerfile.v0: failed to read dockerfile: failed to load cache key: subdir not supported yet
+				# (we need buildkit/buildx for --build-context, but newer buildkit than our dockerd might have for build-from-git-with-subdir)
+				export BUILDX_BUILDER="bashbrew-$BASHBREW_ARCH"
+			fi
+			(
+				set -x
+				# TODO make this more dynamic, less hard-coded 🙈
+				# https://github.com/docker-library/golang/blob/ea6bbce8c9b13acefed0f5507336be01f0918f97/1.21/bookworm/Dockerfile
+				GOLANG_IMAGE='golang:1.21' # to be explicit
+				docker buildx build --load --tag "$GOLANG_IMAGE" --build-context 'buildpack-deps:bookworm-scm=docker-image://buildpack-deps:unstable-scm' 'https://github.com/docker-library/golang.git#ea6bbce8c9b13acefed0f5507336be01f0918f97:1.21/bookworm'
+			)
+		fi
+	} >&2
 fi
+
 args+=(
-	"golang:$go"
+	"$GOLANG_IMAGE"
 	"$@"
 )
 
