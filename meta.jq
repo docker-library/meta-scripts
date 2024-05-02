@@ -99,12 +99,12 @@ def build_annotations($buildUrl):
 
 		# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
 		"org.opencontainers.image.version": ( # value of the first image tag
-			first(.source.tags[] | select(contains(":")))
+			first(.source.arches[.build.arch].tags[] | select(contains(":")))
 			| sub("^.*:"; "")
 			# TODO maybe we should do the first, longest, non-latest tag instead of just the first tag?
 		),
 		"org.opencontainers.image.url": ( # URL to Docker Hub
-			first(.source.tags[] | select(contains(":")))
+			first(.source.arches[.build.arch].tags[] | select(contains(":")))
 			| sub(":.*$"; "")
 			| if contains("/") then
 				"r/" + .
@@ -210,8 +210,10 @@ def build_command:
 						else empty end
 					),
 					(
-						.source.tags[],
-						.source.arches[.build.arch].archTags[],
+						(
+							.source.arches[.build.arch]
+							| .tags[], .archTags[]
+						),
 						.build.img
 						| "--tag " + @sh
 					),
@@ -265,8 +267,10 @@ def build_command:
 					"DOCKER_BUILDKIT=0",
 					"docker build",
 					(
-						.source.tags[],
-						.source.arches[.build.arch].archTags[],
+						(
+							.source.arches[.build.arch]
+							| .tags[], .archTags[]
+						),
 						.build.img
 						| "--tag " + @sh
 					),

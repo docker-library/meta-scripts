@@ -21,9 +21,9 @@ import (
 var concurrency = 1000
 
 type MetaSource struct {
-	SourceID string   `json:"sourceId"`
-	Tags     []string `json:"tags"`
+	SourceID string `json:"sourceId"`
 	Arches   map[string]struct {
+		Tags    []string `json:"tags"`
 		Parents om.OrderedMap[struct {
 			SourceID *string `json:"sourceId"`
 			Pin      *string `json:"pin"`
@@ -312,7 +312,7 @@ func main() {
 						}
 					}
 					if resolved == nil {
-						fmt.Fprintf(os.Stderr, "%s (%s) -> not yet! [%s]\n", source.SourceID, source.Tags[0], build.Build.Arch)
+						fmt.Fprintf(os.Stderr, "%s (%s) -> not yet! [%s]\n", source.SourceID, source.Arches[build.Build.Arch].Tags[0], build.Build.Arch)
 						close(outChan)
 						return nil
 					}
@@ -329,7 +329,7 @@ func main() {
 				// TODO if we ever have a bigger "buildId break" event (like adding major base images that force the whole tree to rebuild), we should probably ditch this newline
 
 				build.BuildID = fmt.Sprintf("%x", sha256.Sum256(buildIDJSON))
-				fmt.Fprintf(os.Stderr, "%s (%s) -> %s [%s]\n", source.SourceID, source.Tags[0], build.BuildID, build.Build.Arch)
+				fmt.Fprintf(os.Stderr, "%s (%s) -> %s [%s]\n", source.SourceID, source.Arches[build.Build.Arch].Tags[0], build.BuildID, build.Build.Arch)
 
 				build.Build.Img = strings.ReplaceAll(strings.ReplaceAll(stagingTemplate, "BUILD", build.BuildID), "ARCH", build.Build.Arch) // "oisupport/staging-amd64:xxxx"
 

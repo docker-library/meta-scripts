@@ -10,6 +10,6 @@ include "meta";
 	| commands
 	| to_entries
 	| map("# <\(.key)>\n\(.value)\n# </\(.key)>")
-	| "# \($b.source.tags[0]) [\($b.build.arch)]\n" + join("\n")
+	| "# \($b.source.arches[$b.build.arch].tags[0]) [\($b.build.arch)]\n" + join("\n")
 )
 | join("\n\n")

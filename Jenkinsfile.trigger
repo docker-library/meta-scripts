@@ -95,7 +95,7 @@ node {
 				),
 			]) {
 				for (buildObj in queue) {
-					def identifier = buildObj.source.tags[0] + ' (' + buildObj.build.arch + ')'
+					def identifier = buildObj.source.arches[buildObj.build.arch].tags[0] + ' (' + buildObj.build.arch + ')'
 					def json = writeJSON(json: buildObj, returnText: true)
 					withEnv([
 						'json=' + json,
@@ -141,7 +141,7 @@ def pastFailedJobs = readJSON(text: pastFailedJobsJson)
 def newFailedJobs = [:]
 
 for (buildObj in queue) {
-	def identifier = buildObj.source.tags[0]
+	def identifier = buildObj.source.arches[buildObj.build.arch].tags[0]
 	def json = writeJSON(json: buildObj, returnText: true)
 	withEnv([
 		'json=' + json,
