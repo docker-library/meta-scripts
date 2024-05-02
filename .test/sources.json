@@ -1948,5 +1948,221 @@
         }
       }
     }
+  },
+  "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62": {
+    "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+    "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+    "tags": [
+      "infosiftr-moby:20.10.27",
+      "infosiftr-moby:20.10",
+      "infosiftr-moby:20",
+      "infosiftr-moby:latest",
+      "infosiftr-moby:amd64",
+      "infosiftr-moby:arm32v5",
+      "infosiftr-moby:arm32v7",
+      "infosiftr-moby:arm64v8",
+      "infosiftr-moby:i386",
+      "infosiftr-moby:mips64le",
+      "infosiftr-moby:ppc64le",
+      "infosiftr-moby:s390x"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/tianon/dockerfiles.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+      "Directory": "infosiftr-moby",
+      "File": "Dockerfile",
+      "Builder": "",
+      "SOURCE_DATE_EPOCH": 1709705469
+    },
+    "arches": {
+      "amd64": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/amd64",
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "arm32v5": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/arm/v5",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v5"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "arm32v7": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/arm/v7",
+        "platform": {
+          "architecture": "arm",
+          "os": "linux",
+          "variant": "v7"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "arm64v8": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/arm64/v8",
+        "platform": {
+          "architecture": "arm64",
+          "os": "linux",
+          "variant": "v8"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "i386": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/386",
+        "platform": {
+          "architecture": "386",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "mips64le": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/mips64le",
+        "platform": {
+          "architecture": "mips64le",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "ppc64le": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/ppc64le",
+        "platform": {
+          "architecture": "ppc64le",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      },
+      "s390x": {
+        "archTags": [],
+        "froms": [
+          "debian:bookworm-slim"
+        ],
+        "lastStageFrom": "debian:bookworm-slim",
+        "platformString": "linux/s390x",
+        "platform": {
+          "architecture": "s390x",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:bookworm-slim": {
+            "sourceId": null,
+            "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    }
+  },
+  "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633": {
+    "sourceId": "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633",
+    "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+    "tags": [
+      "infosiftr-moby:20.10.27",
+      "infosiftr-moby:20.10",
+      "infosiftr-moby:20",
+      "infosiftr-moby:latest",
+      "infosiftr-moby:riscv64"
+    ],
+    "entry": {
+      "GitRepo": "https://github.com/tianon/dockerfiles.git",
+      "GitFetch": "refs/heads/master",
+      "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+      "Directory": "infosiftr-moby",
+      "File": "Dockerfile.unstable",
+      "Builder": "",
+      "SOURCE_DATE_EPOCH": 1709705469
+    },
+    "arches": {
+      "riscv64": {
+        "archTags": [],
+        "froms": [
+          "debian:unstable-slim"
+        ],
+        "lastStageFrom": "debian:unstable-slim",
+        "platformString": "linux/riscv64",
+        "platform": {
+          "architecture": "riscv64",
+          "os": "linux"
+        },
+        "parents": {
+          "debian:unstable-slim": {
+            "sourceId": null,
+            "pin": "sha256:8ab93b5dec6c19b4a45fbfdebc55c5d08ce7d39a90dc66cc273440ba3a1a5af0"
+          }
+        }
+      }
+    }
   }
 }
