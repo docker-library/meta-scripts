@@ -25,13 +25,31 @@ if [ "${1:-}" = '--deploy' ]; then
 	doDeploy=1
 fi
 
-set -- docker:cli docker:dind docker:windowsservercore notary busybox:latest # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import
+set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,glibc,musl,uclibc} # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import (and a little bit of cursed busybox)
 # (see "library/" and ".external-pins/" for where these come from / are hard-coded for consistent testing purposes)
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
 
 time bashbrew fetch "$@"
 
 time "$dir/../sources.sh" "$@" > "$dir/sources.json"
+
+# an attempt to highlight tag mapping bugs in the future
+jq '
+	to_entries
+	| map(
+		# emulate builds.json (poorly)
+		(.value.arches | keys[]) as $arch
+		| .key += "-" + $arch
+		| .value.arches = { ($arch): .value.arches[$arch] }
+
+		# filter to just the list of canonical tags per "build"
+		| .value |= [ .tags[], .arches[$arch].archTags[] ]
+	)
+	# combine our new pseudo-buildIds into overlapping lists of tags (see also "deploy.jq" and "tagged_manifests" which this is emulating)
+	| reduce .[] as $i ({};
+		.[ $i.value[] ] += [ $i.key ]
+	)
+' "$dir/sources.json" > "$dir/all-tags.json"
 
 coverage="$dir/.coverage"
 rm -rf "$coverage/GOCOVERDIR" "$coverage/bin"

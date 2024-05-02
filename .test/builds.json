@@ -3043,7 +3043,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3061,7 +3066,12 @@
             "amd64/busybox:1.36",
             "amd64/busybox:1",
             "amd64/busybox:stable",
-            "amd64/busybox:latest"
+            "amd64/busybox:latest",
+            "amd64/busybox:1.36.1-glibc",
+            "amd64/busybox:1.36-glibc",
+            "amd64/busybox:1-glibc",
+            "amd64/busybox:stable-glibc",
+            "amd64/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3128,7 +3138,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3146,7 +3161,12 @@
             "arm32v5/busybox:1.36",
             "arm32v5/busybox:1",
             "arm32v5/busybox:stable",
-            "arm32v5/busybox:latest"
+            "arm32v5/busybox:latest",
+            "arm32v5/busybox:1.36.1-glibc",
+            "arm32v5/busybox:1.36-glibc",
+            "arm32v5/busybox:1-glibc",
+            "arm32v5/busybox:stable-glibc",
+            "arm32v5/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3214,7 +3234,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3232,7 +3257,12 @@
             "arm32v6/busybox:1.36",
             "arm32v6/busybox:1",
             "arm32v6/busybox:stable",
-            "arm32v6/busybox:latest"
+            "arm32v6/busybox:latest",
+            "arm32v6/busybox:1.36.1-musl",
+            "arm32v6/busybox:1.36-musl",
+            "arm32v6/busybox:1-musl",
+            "arm32v6/busybox:stable-musl",
+            "arm32v6/busybox:musl"
           ],
           "froms": [
             "scratch"
@@ -3300,7 +3330,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3318,7 +3353,12 @@
             "arm32v7/busybox:1.36",
             "arm32v7/busybox:1",
             "arm32v7/busybox:stable",
-            "arm32v7/busybox:latest"
+            "arm32v7/busybox:latest",
+            "arm32v7/busybox:1.36.1-glibc",
+            "arm32v7/busybox:1.36-glibc",
+            "arm32v7/busybox:1-glibc",
+            "arm32v7/busybox:stable-glibc",
+            "arm32v7/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3386,7 +3426,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3404,7 +3449,12 @@
             "arm64v8/busybox:1.36",
             "arm64v8/busybox:1",
             "arm64v8/busybox:stable",
-            "arm64v8/busybox:latest"
+            "arm64v8/busybox:latest",
+            "arm64v8/busybox:1.36.1-glibc",
+            "arm64v8/busybox:1.36-glibc",
+            "arm64v8/busybox:1-glibc",
+            "arm64v8/busybox:stable-glibc",
+            "arm64v8/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3471,7 +3521,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3489,7 +3544,12 @@
             "i386/busybox:1.36",
             "i386/busybox:1",
             "i386/busybox:stable",
-            "i386/busybox:latest"
+            "i386/busybox:latest",
+            "i386/busybox:1.36.1-glibc",
+            "i386/busybox:1.36-glibc",
+            "i386/busybox:1-glibc",
+            "i386/busybox:stable-glibc",
+            "i386/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3555,7 +3615,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3573,7 +3638,12 @@
             "mips64le/busybox:1.36",
             "mips64le/busybox:1",
             "mips64le/busybox:stable",
-            "mips64le/busybox:latest"
+            "mips64le/busybox:latest",
+            "mips64le/busybox:1.36.1-glibc",
+            "mips64le/busybox:1.36-glibc",
+            "mips64le/busybox:1-glibc",
+            "mips64le/busybox:stable-glibc",
+            "mips64le/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3639,7 +3709,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3657,7 +3732,12 @@
             "ppc64le/busybox:1.36",
             "ppc64le/busybox:1",
             "ppc64le/busybox:stable",
-            "ppc64le/busybox:latest"
+            "ppc64le/busybox:latest",
+            "ppc64le/busybox:1.36.1-glibc",
+            "ppc64le/busybox:1.36-glibc",
+            "ppc64le/busybox:1-glibc",
+            "ppc64le/busybox:stable-glibc",
+            "ppc64le/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3723,7 +3803,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3741,7 +3826,12 @@
             "riscv64/busybox:1.36",
             "riscv64/busybox:1",
             "riscv64/busybox:stable",
-            "riscv64/busybox:latest"
+            "riscv64/busybox:latest",
+            "riscv64/busybox:1.36.1-uclibc",
+            "riscv64/busybox:1.36-uclibc",
+            "riscv64/busybox:1-uclibc",
+            "riscv64/busybox:stable-uclibc",
+            "riscv64/busybox:uclibc"
           ],
           "froms": [
             "scratch"
@@ -3807,7 +3897,12 @@
         "busybox:1.36",
         "busybox:1",
         "busybox:stable",
-        "busybox:latest"
+        "busybox:latest",
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
       ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
@@ -3825,7 +3920,12 @@
             "s390x/busybox:1.36",
             "s390x/busybox:1",
             "s390x/busybox:stable",
-            "s390x/busybox:latest"
+            "s390x/busybox:latest",
+            "s390x/busybox:1.36.1-glibc",
+            "s390x/busybox:1.36-glibc",
+            "s390x/busybox:1-glibc",
+            "s390x/busybox:stable-glibc",
+            "s390x/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3834,6 +3934,1192 @@
           "platformString": "linux/s390x",
           "platform": {
             "architecture": "s390x",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4": {
+    "buildId": "49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4",
+    "build": {
+      "img": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:0655efce797564e516aa59453e5b70fa42c72a09b7ada5536f0cd3a35bad1581",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4@sha256:0655efce797564e516aa59453e5b70fa42c72a09b7ada5536f0cd3a35bad1581",
+              "org.opencontainers.image.revision": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-glibc"
+            },
+            "platform": {
+              "architecture": "riscv64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4@sha256:33df35e48df34f08add4627e8d9d3fb7ac4997b7fcad4ff1414fa32e300e9914"
+        }
+      },
+      "sourceId": "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299",
+      "arch": "riscv64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299",
+      "reproducibleGitChecksum": "daf1f21d9740e773d1dc6bdb8e0fdae08ffade5f69617abd4f615aa39df06ab5",
+      "tags": [
+        "busybox:1.36.1-glibc",
+        "busybox:1.36-glibc",
+        "busybox:1-glibc",
+        "busybox:stable-glibc",
+        "busybox:glibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-riscv64",
+        "GitCommit": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+        "Directory": "latest/glibc/riscv64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "riscv64": {
+          "archTags": [
+            "riscv64/busybox:1.36.1-glibc",
+            "riscv64/busybox:1.36-glibc",
+            "riscv64/busybox:1-glibc",
+            "riscv64/busybox:stable-glibc",
+            "riscv64/busybox:glibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/riscv64",
+          "platform": {
+            "architecture": "riscv64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513": {
+    "buildId": "1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513",
+    "build": {
+      "img": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b9d056b83bb6446fee29e89a7fcf10203c562c1f59586a6e2f39c903597bda34",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513@sha256:b9d056b83bb6446fee29e89a7fcf10203c562c1f59586a6e2f39c903597bda34",
+              "org.opencontainers.image.revision": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513@sha256:452fd31732fd0b9006e2b4063b7cec8b56531ed2d6e2963b431dd30e616b7ae2"
+        }
+      },
+      "sourceId": "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126",
+      "arch": "amd64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126",
+      "reproducibleGitChecksum": "a3e7286345afcef13f3ddba0d34e7e9de2a490ee1983d193d2c9d7524404195a",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-amd64",
+        "GitCommit": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+        "Directory": "latest/musl/amd64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "amd64": {
+          "archTags": [
+            "amd64/busybox:1.36.1-musl",
+            "amd64/busybox:1.36-musl",
+            "amd64/busybox:1-musl",
+            "amd64/busybox:stable-musl",
+            "amd64/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/amd64",
+          "platform": {
+            "architecture": "amd64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa": {
+    "buildId": "81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa",
+    "build": {
+      "img": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:f2939eb0b529af5706172c10db02a0894949c461b81ed4282ff4df5bf18c14d0",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa@sha256:f2939eb0b529af5706172c10db02a0894949c461b81ed4282ff4df5bf18c14d0",
+              "org.opencontainers.image.revision": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa@sha256:16b98a23c57f61af71de3517197c2155f42e97a6342a3219f4da6c29ee1e0f41"
+        }
+      },
+      "sourceId": "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0",
+      "arch": "arm32v7",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0",
+      "reproducibleGitChecksum": "c28d23b61a78f989ecfd9a4887e818b4d29c96bdf54783f4c90935843e8c00a4",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v7",
+        "GitCommit": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+        "Directory": "latest/musl/arm32v7",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v7": {
+          "archTags": [
+            "arm32v7/busybox:1.36.1-musl",
+            "arm32v7/busybox:1.36-musl",
+            "arm32v7/busybox:1-musl",
+            "arm32v7/busybox:stable-musl",
+            "arm32v7/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v7",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v7"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e": {
+    "buildId": "faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e",
+    "build": {
+      "img": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:648143a312f16e5b5a6f64dfa4024a281fb4a30467500ca8b0091a9984f1c751",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e@sha256:648143a312f16e5b5a6f64dfa4024a281fb4a30467500ca8b0091a9984f1c751",
+              "org.opencontainers.image.revision": "a8344687869ba9f95e140a62a915a30822ff2147",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e@sha256:16adba09c9dbecdc868d03b4e56dc2857cc38ea7cb7ebbccb2b3ec1d4336c669"
+        }
+      },
+      "sourceId": "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124",
+      "arch": "arm64v8",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124",
+      "reproducibleGitChecksum": "99149604120ea53fce493cd15e2d46dcc4a0c95fca2cc42b80fff27cc7c29033",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm64v8",
+        "GitCommit": "a8344687869ba9f95e140a62a915a30822ff2147",
+        "Directory": "latest/musl/arm64v8",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm64v8": {
+          "archTags": [
+            "arm64v8/busybox:1.36.1-musl",
+            "arm64v8/busybox:1.36-musl",
+            "arm64v8/busybox:1-musl",
+            "arm64v8/busybox:stable-musl",
+            "arm64v8/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm64/v8",
+          "platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01": {
+    "buildId": "94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01",
+    "build": {
+      "img": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:9820f2dc12be11390dfbff4e5bd2b99f5e963ccb16e75085a47235fd9e8da9af",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01@sha256:9820f2dc12be11390dfbff4e5bd2b99f5e963ccb16e75085a47235fd9e8da9af",
+              "org.opencontainers.image.revision": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "386",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01@sha256:7f6f4153293effb2a88058113d801f5854a9bf19c2b3c1526c5bf3b55a6c38af"
+        }
+      },
+      "sourceId": "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e",
+      "arch": "i386",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e",
+      "reproducibleGitChecksum": "6e88131ed46179b9091c6d411dcf1cd97908ccab721106885823a24c40d09841",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-i386",
+        "GitCommit": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+        "Directory": "latest/musl/i386",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "i386": {
+          "archTags": [
+            "i386/busybox:1.36.1-musl",
+            "i386/busybox:1.36-musl",
+            "i386/busybox:1-musl",
+            "i386/busybox:stable-musl",
+            "i386/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/386",
+          "platform": {
+            "architecture": "386",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c": {
+    "buildId": "956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c",
+    "build": {
+      "img": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:88416441befa2b06d32ee1a179f57d57ec34dc21e063d3f7ce56a99e3b3ec053",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "ppc64le",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c@sha256:88416441befa2b06d32ee1a179f57d57ec34dc21e063d3f7ce56a99e3b3ec053",
+              "org.opencontainers.image.revision": "97dad737e59de0698f74b81a7dac4ce4d834e36c",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "ppc64le",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c@sha256:d8d56d0e87ad56ef012bd802694c9607f96a6ff09302b8fcfd014598cc93c7f3"
+        }
+      },
+      "sourceId": "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0",
+      "arch": "ppc64le",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0",
+      "reproducibleGitChecksum": "0edf4a03cf0abab4dc3ddb643ea2557011441c94756fcb4219fd0accdbd15087",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-ppc64le",
+        "GitCommit": "97dad737e59de0698f74b81a7dac4ce4d834e36c",
+        "Directory": "latest/musl/ppc64le",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "ppc64le": {
+          "archTags": [
+            "ppc64le/busybox:1.36.1-musl",
+            "ppc64le/busybox:1.36-musl",
+            "ppc64le/busybox:1-musl",
+            "ppc64le/busybox:stable-musl",
+            "ppc64le/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/ppc64le",
+          "platform": {
+            "architecture": "ppc64le",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9": {
+    "buildId": "386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9",
+    "build": {
+      "img": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:f638eb4a10524613247a40178e0d7566518ceed9713e537c99faeb5e3ae23a05",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9@sha256:f638eb4a10524613247a40178e0d7566518ceed9713e537c99faeb5e3ae23a05",
+              "org.opencontainers.image.revision": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "riscv64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9@sha256:35b61ce417a3a546c4a3f4775f0baa277d903cd083274c4b026c3d9bad3feee7"
+        }
+      },
+      "sourceId": "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f",
+      "arch": "riscv64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f",
+      "reproducibleGitChecksum": "184229820dec5f0ec79b8dff338a57b5753b86d0deb662c77dc4b4e1a4e191d2",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-riscv64",
+        "GitCommit": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+        "Directory": "latest/musl/riscv64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "riscv64": {
+          "archTags": [
+            "riscv64/busybox:1.36.1-musl",
+            "riscv64/busybox:1.36-musl",
+            "riscv64/busybox:1-musl",
+            "riscv64/busybox:stable-musl",
+            "riscv64/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/riscv64",
+          "platform": {
+            "architecture": "riscv64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190": {
+    "buildId": "f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190",
+    "build": {
+      "img": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:d791415167d4c090869f79a02622437901217be5cbb2177a80dc2e62d0d3718a",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "s390x",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190@sha256:d791415167d4c090869f79a02622437901217be5cbb2177a80dc2e62d0d3718a",
+              "org.opencontainers.image.revision": "ecf31f814875084a2bc85a162b78f512ea2df0c9",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "s390x",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190@sha256:6e1924b040b597a723526d477e5495db9b057b5cc8268548318c1a2eefa9adea"
+        }
+      },
+      "sourceId": "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4",
+      "arch": "s390x",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4",
+      "reproducibleGitChecksum": "f1eec923f99f36025636a3c1ae130aedfed7779c3764e20ff863d2cc6d04ac07",
+      "tags": [
+        "busybox:1.36.1-musl",
+        "busybox:1.36-musl",
+        "busybox:1-musl",
+        "busybox:stable-musl",
+        "busybox:musl"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-s390x",
+        "GitCommit": "ecf31f814875084a2bc85a162b78f512ea2df0c9",
+        "Directory": "latest/musl/s390x",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "s390x": {
+          "archTags": [
+            "s390x/busybox:1.36.1-musl",
+            "s390x/busybox:1.36-musl",
+            "s390x/busybox:1-musl",
+            "s390x/busybox:stable-musl",
+            "s390x/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/s390x",
+          "platform": {
+            "architecture": "s390x",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4": {
+    "buildId": "3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4",
+    "build": {
+      "img": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:478851d8396007d974a545c934638e208c2e83f20c413323d373ff87f2a4bce0",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4@sha256:478851d8396007d974a545c934638e208c2e83f20c413323d373ff87f2a4bce0",
+              "org.opencontainers.image.revision": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4@sha256:3240ed87037ce790a3a7d77e1de6b5ccb1959da690fdfcc22132c0bee538e02f"
+        }
+      },
+      "sourceId": "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a",
+      "arch": "amd64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a",
+      "reproducibleGitChecksum": "27d63f8ad18605a011ba51ad8d751137ced48cda3bf7b0d57d0b703a5a758d1b",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-amd64",
+        "GitCommit": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+        "Directory": "latest/uclibc/amd64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "amd64": {
+          "archTags": [
+            "amd64/busybox:1.36.1-uclibc",
+            "amd64/busybox:1.36-uclibc",
+            "amd64/busybox:1-uclibc",
+            "amd64/busybox:stable-uclibc",
+            "amd64/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/amd64",
+          "platform": {
+            "architecture": "amd64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8": {
+    "buildId": "486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8",
+    "build": {
+      "img": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:2e2d13aea845763e5152bb8116738d5179f67b79fc6fde83bf813896829d4bf3",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v5",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8@sha256:2e2d13aea845763e5152bb8116738d5179f67b79fc6fde83bf813896829d4bf3",
+              "org.opencontainers.image.revision": "7044abc7ee26712d998311b402b975124786e0cf",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v5"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8@sha256:d9e3bb1528e44624c7aae67f4286b634ce0a8449451b868637443c9f5d2f5e16"
+        }
+      },
+      "sourceId": "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714",
+      "arch": "arm32v5",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714",
+      "reproducibleGitChecksum": "53b36cefd44161ae6ac336e26d895b7de646814e3e09d05554e91d982740f744",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v5",
+        "GitCommit": "7044abc7ee26712d998311b402b975124786e0cf",
+        "Directory": "latest/uclibc/arm32v5",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v5": {
+          "archTags": [
+            "arm32v5/busybox:1.36.1-uclibc",
+            "arm32v5/busybox:1.36-uclibc",
+            "arm32v5/busybox:1-uclibc",
+            "arm32v5/busybox:stable-uclibc",
+            "arm32v5/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v5",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v5"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067": {
+    "buildId": "6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067",
+    "build": {
+      "img": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b87edd76d8d0b9e848a0059a3014d87dabf763bc6cfcb9df52d13f4523a3d371",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067@sha256:b87edd76d8d0b9e848a0059a3014d87dabf763bc6cfcb9df52d13f4523a3d371",
+              "org.opencontainers.image.revision": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067@sha256:6ecc13c32dfcc06a1d9f30ef31f51c7684fe13c87fe2bbf22dca2e60ddc21138"
+        }
+      },
+      "sourceId": "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11",
+      "arch": "arm32v7",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11",
+      "reproducibleGitChecksum": "ece85a849af3c4b2468de15350257970aa7bd36e23607a0aab3f58b4d6e6e659",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v7",
+        "GitCommit": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+        "Directory": "latest/uclibc/arm32v7",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v7": {
+          "archTags": [
+            "arm32v7/busybox:1.36.1-uclibc",
+            "arm32v7/busybox:1.36-uclibc",
+            "arm32v7/busybox:1-uclibc",
+            "arm32v7/busybox:stable-uclibc",
+            "arm32v7/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v7",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v7"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365": {
+    "buildId": "f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365",
+    "build": {
+      "img": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:7f8fa07ac90d44a4aa221085baaa1b20cc6c0562cd3d9841061a6e9aac68b538",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365@sha256:7f8fa07ac90d44a4aa221085baaa1b20cc6c0562cd3d9841061a6e9aac68b538",
+              "org.opencontainers.image.revision": "a8344687869ba9f95e140a62a915a30822ff2147",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365@sha256:471716f1e3e669cbc04f60db2be61c735a2f69d7e7f40871e03930b434faad08"
+        }
+      },
+      "sourceId": "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0",
+      "arch": "arm64v8",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0",
+      "reproducibleGitChecksum": "a9ff0eba05d9c907b2fdf3bbc9eb397e67dcc0944063cbfae5be30b60440f116",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm64v8",
+        "GitCommit": "a8344687869ba9f95e140a62a915a30822ff2147",
+        "Directory": "latest/uclibc/arm64v8",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm64v8": {
+          "archTags": [
+            "arm64v8/busybox:1.36.1-uclibc",
+            "arm64v8/busybox:1.36-uclibc",
+            "arm64v8/busybox:1-uclibc",
+            "arm64v8/busybox:stable-uclibc",
+            "arm64v8/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm64/v8",
+          "platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25": {
+    "buildId": "7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25",
+    "build": {
+      "img": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:e6eb21d11edb8b30d689d9c6d7c0860cefa4f022f2bb439b3da4a0f39e3a344f",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25@sha256:e6eb21d11edb8b30d689d9c6d7c0860cefa4f022f2bb439b3da4a0f39e3a344f",
+              "org.opencontainers.image.revision": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "386",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25@sha256:d4c67299e126b80850ccfb49583cccddbb339b78d668e42bcc3e8c7c58ecb3f0"
+        }
+      },
+      "sourceId": "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6",
+      "arch": "i386",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6",
+      "reproducibleGitChecksum": "882db5aa14620ea7decded765d64f05700feb25b1770a5a4817e4d8e08fec920",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-i386",
+        "GitCommit": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+        "Directory": "latest/uclibc/i386",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "i386": {
+          "archTags": [
+            "i386/busybox:1.36.1-uclibc",
+            "i386/busybox:1.36-uclibc",
+            "i386/busybox:1-uclibc",
+            "i386/busybox:stable-uclibc",
+            "i386/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/386",
+          "platform": {
+            "architecture": "386",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1": {
+    "buildId": "768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1",
+    "build": {
+      "img": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:388eed10bf5614e88ae1e2b2c1d237cbef877a07858125415556e3d9edff526d",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "mips64le",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1@sha256:388eed10bf5614e88ae1e2b2c1d237cbef877a07858125415556e3d9edff526d",
+              "org.opencontainers.image.revision": "ea5639e7af6b21b81230ccaba4c05ccb2d80b9e3",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "mips64le",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1@sha256:8250f61862e1d6ea51f35f443b15491e707c1cb3cbef76219ad1a2de424b22b2"
+        }
+      },
+      "sourceId": "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447",
+      "arch": "mips64le",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447",
+      "reproducibleGitChecksum": "acfeadf772789a80427f642691efcb0daeeabe73ce4753318f25760c3ead6e18",
+      "tags": [
+        "busybox:1.36.1-uclibc",
+        "busybox:1.36-uclibc",
+        "busybox:1-uclibc",
+        "busybox:stable-uclibc",
+        "busybox:uclibc"
+      ],
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-mips64le",
+        "GitCommit": "ea5639e7af6b21b81230ccaba4c05ccb2d80b9e3",
+        "Directory": "latest/uclibc/mips64le",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "mips64le": {
+          "archTags": [
+            "mips64le/busybox:1.36.1-uclibc",
+            "mips64le/busybox:1.36-uclibc",
+            "mips64le/busybox:1-uclibc",
+            "mips64le/busybox:stable-uclibc",
+            "mips64le/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/mips64le",
+          "platform": {
+            "architecture": "mips64le",
             "os": "linux"
           },
           "parents": {
