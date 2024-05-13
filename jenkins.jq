@@ -26,7 +26,7 @@ def gha_payload:
 			{
 				buildId: .buildId,
 				bashbrewArch: .build.arch,
-				firstTag: .source.tags[0],
+				firstTag: .source.arches[.build.arch].tags[0],
 			} + (
 				[ .build.resolvedParents[].manifests[].platform? | select(has("os.version")) | ."os.version" ][0] // ""
 				| if . != "" then

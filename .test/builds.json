@@ -77,13 +77,6 @@
     "source": {
       "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
       "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
-      "tags": [
-        "docker:24.0.7-cli",
-        "docker:24.0-cli",
-        "docker:24-cli",
-        "docker:cli",
-        "docker:24.0.7-cli-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -95,6 +88,13 @@
       },
       "arches": {
         "amd64": {
+          "tags": [
+            "docker:24.0.7-cli",
+            "docker:24.0-cli",
+            "docker:24-cli",
+            "docker:cli",
+            "docker:24.0.7-cli-alpine3.18"
+          ],
           "archTags": [
             "amd64/docker:24.0.7-cli",
             "amd64/docker:24.0-cli",
@@ -182,13 +182,6 @@
     "source": {
       "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
       "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
-      "tags": [
-        "docker:24.0.7-cli",
-        "docker:24.0-cli",
-        "docker:24-cli",
-        "docker:cli",
-        "docker:24.0.7-cli-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -200,6 +193,13 @@
       },
       "arches": {
         "arm32v6": {
+          "tags": [
+            "docker:24.0.7-cli",
+            "docker:24.0-cli",
+            "docker:24-cli",
+            "docker:cli",
+            "docker:24.0.7-cli-alpine3.18"
+          ],
           "archTags": [
             "arm32v6/docker:24.0.7-cli",
             "arm32v6/docker:24.0-cli",
@@ -307,13 +307,6 @@
     "source": {
       "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
       "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
-      "tags": [
-        "docker:24.0.7-cli",
-        "docker:24.0-cli",
-        "docker:24-cli",
-        "docker:cli",
-        "docker:24.0.7-cli-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -325,6 +318,13 @@
       },
       "arches": {
         "arm32v7": {
+          "tags": [
+            "docker:24.0.7-cli",
+            "docker:24.0-cli",
+            "docker:24-cli",
+            "docker:cli",
+            "docker:24.0.7-cli-alpine3.18"
+          ],
           "archTags": [
             "arm32v7/docker:24.0.7-cli",
             "arm32v7/docker:24.0-cli",
@@ -432,13 +432,6 @@
     "source": {
       "sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
       "reproducibleGitChecksum": "52d3d61b1e9d12310646ec3935698a5825bf568cecc5b5fbbf4e4c4a59e53e8b",
-      "tags": [
-        "docker:24.0.7-cli",
-        "docker:24.0-cli",
-        "docker:24-cli",
-        "docker:cli",
-        "docker:24.0.7-cli-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -450,6 +443,13 @@
       },
       "arches": {
         "arm64v8": {
+          "tags": [
+            "docker:24.0.7-cli",
+            "docker:24.0-cli",
+            "docker:24-cli",
+            "docker:cli",
+            "docker:24.0.7-cli-alpine3.18"
+          ],
           "archTags": [
             "arm64v8/docker:24.0.7-cli",
             "arm64v8/docker:24.0-cli",
@@ -574,18 +574,6 @@
     "source": {
       "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
       "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
-      "tags": [
-        "docker:24.0.7-dind",
-        "docker:24.0-dind",
-        "docker:24-dind",
-        "docker:dind",
-        "docker:24.0.7-dind-alpine3.18",
-        "docker:24.0.7",
-        "docker:24.0",
-        "docker:24",
-        "docker:latest",
-        "docker:24.0.7-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -597,6 +585,18 @@
       },
       "arches": {
         "amd64": {
+          "tags": [
+            "docker:24.0.7-dind",
+            "docker:24.0-dind",
+            "docker:24-dind",
+            "docker:dind",
+            "docker:24.0.7-dind-alpine3.18",
+            "docker:24.0.7",
+            "docker:24.0",
+            "docker:24",
+            "docker:latest",
+            "docker:24.0.7-alpine3.18"
+          ],
           "archTags": [
             "amd64/docker:24.0.7-dind",
             "amd64/docker:24.0-dind",
@@ -689,18 +689,6 @@
     "source": {
       "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
       "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
-      "tags": [
-        "docker:24.0.7-dind",
-        "docker:24.0-dind",
-        "docker:24-dind",
-        "docker:dind",
-        "docker:24.0.7-dind-alpine3.18",
-        "docker:24.0.7",
-        "docker:24.0",
-        "docker:24",
-        "docker:latest",
-        "docker:24.0.7-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -712,6 +700,18 @@
       },
       "arches": {
         "arm32v6": {
+          "tags": [
+            "docker:24.0.7-dind",
+            "docker:24.0-dind",
+            "docker:24-dind",
+            "docker:dind",
+            "docker:24.0.7-dind-alpine3.18",
+            "docker:24.0.7",
+            "docker:24.0",
+            "docker:24",
+            "docker:latest",
+            "docker:24.0.7-alpine3.18"
+          ],
           "archTags": [
             "arm32v6/docker:24.0.7-dind",
             "arm32v6/docker:24.0-dind",
@@ -843,18 +843,6 @@
     "source": {
       "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
       "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
-      "tags": [
-        "docker:24.0.7-dind",
-        "docker:24.0-dind",
-        "docker:24-dind",
-        "docker:dind",
-        "docker:24.0.7-dind-alpine3.18",
-        "docker:24.0.7",
-        "docker:24.0",
-        "docker:24",
-        "docker:latest",
-        "docker:24.0.7-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -866,6 +854,18 @@
       },
       "arches": {
         "arm32v7": {
+          "tags": [
+            "docker:24.0.7-dind",
+            "docker:24.0-dind",
+            "docker:24-dind",
+            "docker:dind",
+            "docker:24.0.7-dind-alpine3.18",
+            "docker:24.0.7",
+            "docker:24.0",
+            "docker:24",
+            "docker:latest",
+            "docker:24.0.7-alpine3.18"
+          ],
           "archTags": [
             "arm32v7/docker:24.0.7-dind",
             "arm32v7/docker:24.0-dind",
@@ -997,18 +997,6 @@
     "source": {
       "sourceId": "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3",
       "reproducibleGitChecksum": "e3ba9d8210082fcd33d20c53d99fc72f7a44d0d0a8abb5a4d6f54710b91f4c46",
-      "tags": [
-        "docker:24.0.7-dind",
-        "docker:24.0-dind",
-        "docker:24-dind",
-        "docker:dind",
-        "docker:24.0.7-dind-alpine3.18",
-        "docker:24.0.7",
-        "docker:24.0",
-        "docker:24",
-        "docker:latest",
-        "docker:24.0.7-alpine3.18"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -1020,6 +1008,18 @@
       },
       "arches": {
         "arm64v8": {
+          "tags": [
+            "docker:24.0.7-dind",
+            "docker:24.0-dind",
+            "docker:24-dind",
+            "docker:dind",
+            "docker:24.0.7-dind-alpine3.18",
+            "docker:24.0.7",
+            "docker:24.0",
+            "docker:24",
+            "docker:latest",
+            "docker:24.0.7-alpine3.18"
+          ],
           "archTags": [
             "arm64v8/docker:24.0.7-dind",
             "arm64v8/docker:24.0-dind",
@@ -1116,16 +1116,6 @@
     "source": {
       "sourceId": "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984",
       "reproducibleGitChecksum": "1711f6dcb5def8e2e6ce88e3a12c24e2dd37bf967a79ae86128c4d45429c0a2c",
-      "tags": [
-        "docker:24.0.7-windowsservercore-ltsc2022",
-        "docker:24.0-windowsservercore-ltsc2022",
-        "docker:24-windowsservercore-ltsc2022",
-        "docker:windowsservercore-ltsc2022",
-        "docker:24.0.7-windowsservercore",
-        "docker:24.0-windowsservercore",
-        "docker:24-windowsservercore",
-        "docker:windowsservercore"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -1137,6 +1127,16 @@
       },
       "arches": {
         "windows-amd64": {
+          "tags": [
+            "docker:24.0.7-windowsservercore-ltsc2022",
+            "docker:24.0-windowsservercore-ltsc2022",
+            "docker:24-windowsservercore-ltsc2022",
+            "docker:windowsservercore-ltsc2022",
+            "docker:24.0.7-windowsservercore",
+            "docker:24.0-windowsservercore",
+            "docker:24-windowsservercore",
+            "docker:windowsservercore"
+          ],
           "archTags": [
             "winamd64/docker:24.0.7-windowsservercore-ltsc2022",
             "winamd64/docker:24.0-windowsservercore-ltsc2022",
@@ -1230,16 +1230,6 @@
     "source": {
       "sourceId": "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a",
       "reproducibleGitChecksum": "40dcbc9e7a451cfc7f2bd12400074f3f21bc6c0331e249019623aeb617d18747",
-      "tags": [
-        "docker:24.0.7-windowsservercore-1809",
-        "docker:24.0-windowsservercore-1809",
-        "docker:24-windowsservercore-1809",
-        "docker:windowsservercore-1809",
-        "docker:24.0.7-windowsservercore",
-        "docker:24.0-windowsservercore",
-        "docker:24-windowsservercore",
-        "docker:windowsservercore"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/docker.git",
         "GitFetch": "refs/heads/master",
@@ -1251,6 +1241,16 @@
       },
       "arches": {
         "windows-amd64": {
+          "tags": [
+            "docker:24.0.7-windowsservercore-1809",
+            "docker:24.0-windowsservercore-1809",
+            "docker:24-windowsservercore-1809",
+            "docker:windowsservercore-1809",
+            "docker:24.0.7-windowsservercore",
+            "docker:24.0-windowsservercore",
+            "docker:24-windowsservercore",
+            "docker:windowsservercore"
+          ],
           "archTags": [
             "winamd64/docker:24.0.7-windowsservercore-1809",
             "winamd64/docker:24.0-windowsservercore-1809",
@@ -1381,10 +1381,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -1396,6 +1392,10 @@
       },
       "arches": {
         "amd64": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "amd64/notary:server-0.7.0",
             "amd64/notary:server"
@@ -1510,10 +1510,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -1525,6 +1521,10 @@
       },
       "arches": {
         "arm32v6": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "arm32v6/notary:server-0.7.0",
             "arm32v6/notary:server"
@@ -1659,10 +1659,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -1674,6 +1670,10 @@
       },
       "arches": {
         "arm64v8": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "arm64v8/notary:server-0.7.0",
             "arm64v8/notary:server"
@@ -1805,10 +1805,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -1820,6 +1816,10 @@
       },
       "arches": {
         "i386": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "i386/notary:server-0.7.0",
             "i386/notary:server"
@@ -1950,10 +1950,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -1965,6 +1961,10 @@
       },
       "arches": {
         "ppc64le": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "ppc64le/notary:server-0.7.0",
             "ppc64le/notary:server"
@@ -2095,10 +2095,6 @@
     "source": {
       "sourceId": "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4",
       "reproducibleGitChecksum": "63f1341601bbdd5930b9ce39f12c2a8c176d581e2687f9997444287b469409b0",
-      "tags": [
-        "notary:server-0.7.0",
-        "notary:server"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2110,6 +2106,10 @@
       },
       "arches": {
         "s390x": {
+          "tags": [
+            "notary:server-0.7.0",
+            "notary:server"
+          ],
           "archTags": [
             "s390x/notary:server-0.7.0",
             "s390x/notary:server"
@@ -2240,10 +2240,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2255,6 +2251,10 @@
       },
       "arches": {
         "amd64": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "amd64/notary:signer-0.7.0",
             "amd64/notary:signer"
@@ -2369,10 +2369,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2384,6 +2380,10 @@
       },
       "arches": {
         "arm32v6": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "arm32v6/notary:signer-0.7.0",
             "arm32v6/notary:signer"
@@ -2518,10 +2518,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2533,6 +2529,10 @@
       },
       "arches": {
         "arm64v8": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "arm64v8/notary:signer-0.7.0",
             "arm64v8/notary:signer"
@@ -2664,10 +2664,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2679,6 +2675,10 @@
       },
       "arches": {
         "i386": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "i386/notary:signer-0.7.0",
             "i386/notary:signer"
@@ -2809,10 +2809,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2824,6 +2820,10 @@
       },
       "arches": {
         "ppc64le": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "ppc64le/notary:signer-0.7.0",
             "ppc64le/notary:signer"
@@ -2954,10 +2954,6 @@
     "source": {
       "sourceId": "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8",
       "reproducibleGitChecksum": "1af0a47c1f09f04f907156b2c6ee9df1eb2a71185bcddb9880ecf38b1fd69956",
-      "tags": [
-        "notary:signer-0.7.0",
-        "notary:signer"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker/notary-official-images.git",
         "GitFetch": "refs/heads/master",
@@ -2969,6 +2965,10 @@
       },
       "arches": {
         "s390x": {
+          "tags": [
+            "notary:signer-0.7.0",
+            "notary:signer"
+          ],
           "archTags": [
             "s390x/notary:signer-0.7.0",
             "s390x/notary:signer"
@@ -3038,13 +3038,6 @@
     "source": {
       "sourceId": "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2",
       "reproducibleGitChecksum": "17e76ce3a5b47357c5724738db231ed2477c94d43df69ce34ae0871c99f7de78",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-amd64",
@@ -3056,12 +3049,29 @@
       },
       "arches": {
         "amd64": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "amd64/busybox:1.36.1",
             "amd64/busybox:1.36",
             "amd64/busybox:1",
             "amd64/busybox:stable",
-            "amd64/busybox:latest"
+            "amd64/busybox:latest",
+            "amd64/busybox:1.36.1-glibc",
+            "amd64/busybox:1.36-glibc",
+            "amd64/busybox:1-glibc",
+            "amd64/busybox:stable-glibc",
+            "amd64/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3123,13 +3133,6 @@
     "source": {
       "sourceId": "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e",
       "reproducibleGitChecksum": "b9cd3fd9104af7427dd8328524fcdf0bc72a5f37da5e803d1e4f5eacf09a5089",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-arm32v5",
@@ -3141,12 +3144,29 @@
       },
       "arches": {
         "arm32v5": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "arm32v5/busybox:1.36.1",
             "arm32v5/busybox:1.36",
             "arm32v5/busybox:1",
             "arm32v5/busybox:stable",
-            "arm32v5/busybox:latest"
+            "arm32v5/busybox:latest",
+            "arm32v5/busybox:1.36.1-glibc",
+            "arm32v5/busybox:1.36-glibc",
+            "arm32v5/busybox:1-glibc",
+            "arm32v5/busybox:stable-glibc",
+            "arm32v5/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3209,13 +3229,6 @@
     "source": {
       "sourceId": "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42",
       "reproducibleGitChecksum": "87d20b767462df91b125a3f1e79239da0bfc4c9da8ebd0f83648714d905029d0",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-arm32v6",
@@ -3227,12 +3240,29 @@
       },
       "arches": {
         "arm32v6": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
           "archTags": [
             "arm32v6/busybox:1.36.1",
             "arm32v6/busybox:1.36",
             "arm32v6/busybox:1",
             "arm32v6/busybox:stable",
-            "arm32v6/busybox:latest"
+            "arm32v6/busybox:latest",
+            "arm32v6/busybox:1.36.1-musl",
+            "arm32v6/busybox:1.36-musl",
+            "arm32v6/busybox:1-musl",
+            "arm32v6/busybox:stable-musl",
+            "arm32v6/busybox:musl"
           ],
           "froms": [
             "scratch"
@@ -3295,13 +3325,6 @@
     "source": {
       "sourceId": "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222",
       "reproducibleGitChecksum": "af0ae1b14b8f4948eddffa8793791a267870f343fd072e0304834ee800f9732e",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-arm32v7",
@@ -3313,12 +3336,29 @@
       },
       "arches": {
         "arm32v7": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "arm32v7/busybox:1.36.1",
             "arm32v7/busybox:1.36",
             "arm32v7/busybox:1",
             "arm32v7/busybox:stable",
-            "arm32v7/busybox:latest"
+            "arm32v7/busybox:latest",
+            "arm32v7/busybox:1.36.1-glibc",
+            "arm32v7/busybox:1.36-glibc",
+            "arm32v7/busybox:1-glibc",
+            "arm32v7/busybox:stable-glibc",
+            "arm32v7/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3381,13 +3421,6 @@
     "source": {
       "sourceId": "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd",
       "reproducibleGitChecksum": "54bcd95fc260d3d478b097eaf7541c24f70ff8d6d8d09a132033789349acfcca",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-arm64v8",
@@ -3399,12 +3432,29 @@
       },
       "arches": {
         "arm64v8": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "arm64v8/busybox:1.36.1",
             "arm64v8/busybox:1.36",
             "arm64v8/busybox:1",
             "arm64v8/busybox:stable",
-            "arm64v8/busybox:latest"
+            "arm64v8/busybox:latest",
+            "arm64v8/busybox:1.36.1-glibc",
+            "arm64v8/busybox:1.36-glibc",
+            "arm64v8/busybox:1-glibc",
+            "arm64v8/busybox:stable-glibc",
+            "arm64v8/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3466,13 +3516,6 @@
     "source": {
       "sourceId": "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524",
       "reproducibleGitChecksum": "ebaf8389e11a5ed571a2d934b59ab02d0f7e9181f338d960a98e69ca5ae0a020",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-i386",
@@ -3484,12 +3527,29 @@
       },
       "arches": {
         "i386": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "i386/busybox:1.36.1",
             "i386/busybox:1.36",
             "i386/busybox:1",
             "i386/busybox:stable",
-            "i386/busybox:latest"
+            "i386/busybox:latest",
+            "i386/busybox:1.36.1-glibc",
+            "i386/busybox:1.36-glibc",
+            "i386/busybox:1-glibc",
+            "i386/busybox:stable-glibc",
+            "i386/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3550,13 +3610,6 @@
     "source": {
       "sourceId": "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4",
       "reproducibleGitChecksum": "b07cede4baa85b37cac67e2e3a9c2644d7cc8599fbbe7d440bd1965371d7c16f",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-mips64le",
@@ -3568,12 +3621,29 @@
       },
       "arches": {
         "mips64le": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "mips64le/busybox:1.36.1",
             "mips64le/busybox:1.36",
             "mips64le/busybox:1",
             "mips64le/busybox:stable",
-            "mips64le/busybox:latest"
+            "mips64le/busybox:latest",
+            "mips64le/busybox:1.36.1-glibc",
+            "mips64le/busybox:1.36-glibc",
+            "mips64le/busybox:1-glibc",
+            "mips64le/busybox:stable-glibc",
+            "mips64le/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3634,13 +3704,6 @@
     "source": {
       "sourceId": "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db",
       "reproducibleGitChecksum": "f9cd472cc7b1228b9c2318c547fb3a954d2cbe1fb0bc04c5e871b0158b5d5adb",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-ppc64le",
@@ -3652,12 +3715,29 @@
       },
       "arches": {
         "ppc64le": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "ppc64le/busybox:1.36.1",
             "ppc64le/busybox:1.36",
             "ppc64le/busybox:1",
             "ppc64le/busybox:stable",
-            "ppc64le/busybox:latest"
+            "ppc64le/busybox:latest",
+            "ppc64le/busybox:1.36.1-glibc",
+            "ppc64le/busybox:1.36-glibc",
+            "ppc64le/busybox:1-glibc",
+            "ppc64le/busybox:stable-glibc",
+            "ppc64le/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3718,13 +3798,6 @@
     "source": {
       "sourceId": "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a",
       "reproducibleGitChecksum": "e6549a760e04114ed4fb344ad095430c0b07657e8d9cdcc737181273c071981e",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-riscv64",
@@ -3736,12 +3809,29 @@
       },
       "arches": {
         "riscv64": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
           "archTags": [
             "riscv64/busybox:1.36.1",
             "riscv64/busybox:1.36",
             "riscv64/busybox:1",
             "riscv64/busybox:stable",
-            "riscv64/busybox:latest"
+            "riscv64/busybox:latest",
+            "riscv64/busybox:1.36.1-uclibc",
+            "riscv64/busybox:1.36-uclibc",
+            "riscv64/busybox:1-uclibc",
+            "riscv64/busybox:stable-uclibc",
+            "riscv64/busybox:uclibc"
           ],
           "froms": [
             "scratch"
@@ -3802,13 +3892,6 @@
     "source": {
       "sourceId": "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b",
       "reproducibleGitChecksum": "6269faba1236ba6494bffcc94c9b3cc262a7efabd9e9f65e5dc9df1e40339c30",
-      "tags": [
-        "busybox:1.36.1",
-        "busybox:1.36",
-        "busybox:1",
-        "busybox:stable",
-        "busybox:latest"
-      ],
       "entry": {
         "GitRepo": "https://github.com/docker-library/busybox.git",
         "GitFetch": "refs/heads/dist-s390x",
@@ -3820,12 +3903,29 @@
       },
       "arches": {
         "s390x": {
+          "tags": [
+            "busybox:1.36.1",
+            "busybox:1.36",
+            "busybox:1",
+            "busybox:stable",
+            "busybox:latest",
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
           "archTags": [
             "s390x/busybox:1.36.1",
             "s390x/busybox:1.36",
             "s390x/busybox:1",
             "s390x/busybox:stable",
-            "s390x/busybox:latest"
+            "s390x/busybox:latest",
+            "s390x/busybox:1.36.1-glibc",
+            "s390x/busybox:1.36-glibc",
+            "s390x/busybox:1-glibc",
+            "s390x/busybox:stable-glibc",
+            "s390x/busybox:glibc"
           ],
           "froms": [
             "scratch"
@@ -3840,6 +3940,2272 @@
             "scratch": {
               "sourceId": null,
               "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4": {
+    "buildId": "49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4",
+    "build": {
+      "img": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:0655efce797564e516aa59453e5b70fa42c72a09b7ada5536f0cd3a35bad1581",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4@sha256:0655efce797564e516aa59453e5b70fa42c72a09b7ada5536f0cd3a35bad1581",
+              "org.opencontainers.image.revision": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-glibc"
+            },
+            "platform": {
+              "architecture": "riscv64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:49ee4825c8bd9f98daf6753e4575ae75b6aa809a733d41b3f1223a207a58e4d4@sha256:33df35e48df34f08add4627e8d9d3fb7ac4997b7fcad4ff1414fa32e300e9914"
+        }
+      },
+      "sourceId": "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299",
+      "arch": "riscv64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299",
+      "reproducibleGitChecksum": "daf1f21d9740e773d1dc6bdb8e0fdae08ffade5f69617abd4f615aa39df06ab5",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-riscv64",
+        "GitCommit": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+        "Directory": "latest/glibc/riscv64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "riscv64": {
+          "tags": [
+            "busybox:1.36.1-glibc",
+            "busybox:1.36-glibc",
+            "busybox:1-glibc",
+            "busybox:stable-glibc",
+            "busybox:glibc"
+          ],
+          "archTags": [
+            "riscv64/busybox:1.36.1-glibc",
+            "riscv64/busybox:1.36-glibc",
+            "riscv64/busybox:1-glibc",
+            "riscv64/busybox:stable-glibc",
+            "riscv64/busybox:glibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/riscv64",
+          "platform": {
+            "architecture": "riscv64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513": {
+    "buildId": "1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513",
+    "build": {
+      "img": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b9d056b83bb6446fee29e89a7fcf10203c562c1f59586a6e2f39c903597bda34",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513@sha256:b9d056b83bb6446fee29e89a7fcf10203c562c1f59586a6e2f39c903597bda34",
+              "org.opencontainers.image.revision": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-amd64:1019fbd64f243522130484fc95e044917f2e1a8c4e54eac5cff5395dc5fed513@sha256:452fd31732fd0b9006e2b4063b7cec8b56531ed2d6e2963b431dd30e616b7ae2"
+        }
+      },
+      "sourceId": "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126",
+      "arch": "amd64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126",
+      "reproducibleGitChecksum": "a3e7286345afcef13f3ddba0d34e7e9de2a490ee1983d193d2c9d7524404195a",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-amd64",
+        "GitCommit": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+        "Directory": "latest/musl/amd64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "amd64": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "amd64/busybox:1.36.1-musl",
+            "amd64/busybox:1.36-musl",
+            "amd64/busybox:1-musl",
+            "amd64/busybox:stable-musl",
+            "amd64/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/amd64",
+          "platform": {
+            "architecture": "amd64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa": {
+    "buildId": "81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa",
+    "build": {
+      "img": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:f2939eb0b529af5706172c10db02a0894949c461b81ed4282ff4df5bf18c14d0",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa@sha256:f2939eb0b529af5706172c10db02a0894949c461b81ed4282ff4df5bf18c14d0",
+              "org.opencontainers.image.revision": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:81ba419d3e4a6011431d56b3e81d020469b0d6af0d07a44fefefd60ae20b84fa@sha256:16b98a23c57f61af71de3517197c2155f42e97a6342a3219f4da6c29ee1e0f41"
+        }
+      },
+      "sourceId": "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0",
+      "arch": "arm32v7",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0",
+      "reproducibleGitChecksum": "c28d23b61a78f989ecfd9a4887e818b4d29c96bdf54783f4c90935843e8c00a4",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v7",
+        "GitCommit": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+        "Directory": "latest/musl/arm32v7",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v7": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "arm32v7/busybox:1.36.1-musl",
+            "arm32v7/busybox:1.36-musl",
+            "arm32v7/busybox:1-musl",
+            "arm32v7/busybox:stable-musl",
+            "arm32v7/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v7",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v7"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e": {
+    "buildId": "faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e",
+    "build": {
+      "img": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:648143a312f16e5b5a6f64dfa4024a281fb4a30467500ca8b0091a9984f1c751",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e@sha256:648143a312f16e5b5a6f64dfa4024a281fb4a30467500ca8b0091a9984f1c751",
+              "org.opencontainers.image.revision": "a8344687869ba9f95e140a62a915a30822ff2147",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:faf7f3bd993fb43549a1263ff6cf5917966b99f1cdfcb3f8b5f74990c20a5b3e@sha256:16adba09c9dbecdc868d03b4e56dc2857cc38ea7cb7ebbccb2b3ec1d4336c669"
+        }
+      },
+      "sourceId": "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124",
+      "arch": "arm64v8",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124",
+      "reproducibleGitChecksum": "99149604120ea53fce493cd15e2d46dcc4a0c95fca2cc42b80fff27cc7c29033",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm64v8",
+        "GitCommit": "a8344687869ba9f95e140a62a915a30822ff2147",
+        "Directory": "latest/musl/arm64v8",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm64v8": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "arm64v8/busybox:1.36.1-musl",
+            "arm64v8/busybox:1.36-musl",
+            "arm64v8/busybox:1-musl",
+            "arm64v8/busybox:stable-musl",
+            "arm64v8/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm64/v8",
+          "platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01": {
+    "buildId": "94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01",
+    "build": {
+      "img": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:9820f2dc12be11390dfbff4e5bd2b99f5e963ccb16e75085a47235fd9e8da9af",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01@sha256:9820f2dc12be11390dfbff4e5bd2b99f5e963ccb16e75085a47235fd9e8da9af",
+              "org.opencontainers.image.revision": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "386",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-i386:94ca8e9346eb96f9ac358f5a015e83ea22f6a5771fad17318b899dbc3605ca01@sha256:7f6f4153293effb2a88058113d801f5854a9bf19c2b3c1526c5bf3b55a6c38af"
+        }
+      },
+      "sourceId": "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e",
+      "arch": "i386",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e",
+      "reproducibleGitChecksum": "6e88131ed46179b9091c6d411dcf1cd97908ccab721106885823a24c40d09841",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-i386",
+        "GitCommit": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+        "Directory": "latest/musl/i386",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "i386": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "i386/busybox:1.36.1-musl",
+            "i386/busybox:1.36-musl",
+            "i386/busybox:1-musl",
+            "i386/busybox:stable-musl",
+            "i386/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/386",
+          "platform": {
+            "architecture": "386",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c": {
+    "buildId": "956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c",
+    "build": {
+      "img": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:88416441befa2b06d32ee1a179f57d57ec34dc21e063d3f7ce56a99e3b3ec053",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "ppc64le",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c@sha256:88416441befa2b06d32ee1a179f57d57ec34dc21e063d3f7ce56a99e3b3ec053",
+              "org.opencontainers.image.revision": "97dad737e59de0698f74b81a7dac4ce4d834e36c",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "ppc64le",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-ppc64le:956349ab0e355d75dbf8d6128f9c9e63bf547974776d5865d9ce464369d8506c@sha256:d8d56d0e87ad56ef012bd802694c9607f96a6ff09302b8fcfd014598cc93c7f3"
+        }
+      },
+      "sourceId": "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0",
+      "arch": "ppc64le",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0",
+      "reproducibleGitChecksum": "0edf4a03cf0abab4dc3ddb643ea2557011441c94756fcb4219fd0accdbd15087",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-ppc64le",
+        "GitCommit": "97dad737e59de0698f74b81a7dac4ce4d834e36c",
+        "Directory": "latest/musl/ppc64le",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "ppc64le": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "ppc64le/busybox:1.36.1-musl",
+            "ppc64le/busybox:1.36-musl",
+            "ppc64le/busybox:1-musl",
+            "ppc64le/busybox:stable-musl",
+            "ppc64le/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/ppc64le",
+          "platform": {
+            "architecture": "ppc64le",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9": {
+    "buildId": "386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9",
+    "build": {
+      "img": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:f638eb4a10524613247a40178e0d7566518ceed9713e537c99faeb5e3ae23a05",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9@sha256:f638eb4a10524613247a40178e0d7566518ceed9713e537c99faeb5e3ae23a05",
+              "org.opencontainers.image.revision": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "riscv64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-riscv64:386fecf39284fa7f3360b6456503e45f4af52630b1a80111182c52985ced2df9@sha256:35b61ce417a3a546c4a3f4775f0baa277d903cd083274c4b026c3d9bad3feee7"
+        }
+      },
+      "sourceId": "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f",
+      "arch": "riscv64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f",
+      "reproducibleGitChecksum": "184229820dec5f0ec79b8dff338a57b5753b86d0deb662c77dc4b4e1a4e191d2",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-riscv64",
+        "GitCommit": "10a1d6f931c0fd84f31e5b3e464fed9773a9fdaa",
+        "Directory": "latest/musl/riscv64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "riscv64": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "riscv64/busybox:1.36.1-musl",
+            "riscv64/busybox:1.36-musl",
+            "riscv64/busybox:1-musl",
+            "riscv64/busybox:stable-musl",
+            "riscv64/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/riscv64",
+          "platform": {
+            "architecture": "riscv64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190": {
+    "buildId": "f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190",
+    "build": {
+      "img": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:d791415167d4c090869f79a02622437901217be5cbb2177a80dc2e62d0d3718a",
+            "size": 608,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "s390x",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190@sha256:d791415167d4c090869f79a02622437901217be5cbb2177a80dc2e62d0d3718a",
+              "org.opencontainers.image.revision": "ecf31f814875084a2bc85a162b78f512ea2df0c9",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-musl"
+            },
+            "platform": {
+              "architecture": "s390x",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-s390x:f7c4348271535ce60d517761e2bf59a523902f9d7dcafcf2d61783a6dc5f8190@sha256:6e1924b040b597a723526d477e5495db9b057b5cc8268548318c1a2eefa9adea"
+        }
+      },
+      "sourceId": "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4",
+      "arch": "s390x",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4",
+      "reproducibleGitChecksum": "f1eec923f99f36025636a3c1ae130aedfed7779c3764e20ff863d2cc6d04ac07",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-s390x",
+        "GitCommit": "ecf31f814875084a2bc85a162b78f512ea2df0c9",
+        "Directory": "latest/musl/s390x",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "s390x": {
+          "tags": [
+            "busybox:1.36.1-musl",
+            "busybox:1.36-musl",
+            "busybox:1-musl",
+            "busybox:stable-musl",
+            "busybox:musl"
+          ],
+          "archTags": [
+            "s390x/busybox:1.36.1-musl",
+            "s390x/busybox:1.36-musl",
+            "s390x/busybox:1-musl",
+            "s390x/busybox:stable-musl",
+            "s390x/busybox:musl"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/s390x",
+          "platform": {
+            "architecture": "s390x",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4": {
+    "buildId": "3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4",
+    "build": {
+      "img": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:478851d8396007d974a545c934638e208c2e83f20c413323d373ff87f2a4bce0",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4@sha256:478851d8396007d974a545c934638e208c2e83f20c413323d373ff87f2a4bce0",
+              "org.opencontainers.image.revision": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-amd64:3757191dfdc7a5b6d4de38c0fdd6e9fc1740a367c0bc8a4184bcee3117d648b4@sha256:3240ed87037ce790a3a7d77e1de6b5ccb1959da690fdfcc22132c0bee538e02f"
+        }
+      },
+      "sourceId": "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a",
+      "arch": "amd64",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a",
+      "reproducibleGitChecksum": "27d63f8ad18605a011ba51ad8d751137ced48cda3bf7b0d57d0b703a5a758d1b",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-amd64",
+        "GitCommit": "d0b7d566eb4f1fa9933984e6fc04ab11f08f4592",
+        "Directory": "latest/uclibc/amd64",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "amd64": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "amd64/busybox:1.36.1-uclibc",
+            "amd64/busybox:1.36-uclibc",
+            "amd64/busybox:1-uclibc",
+            "amd64/busybox:stable-uclibc",
+            "amd64/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/amd64",
+          "platform": {
+            "architecture": "amd64",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8": {
+    "buildId": "486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8",
+    "build": {
+      "img": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:2e2d13aea845763e5152bb8116738d5179f67b79fc6fde83bf813896829d4bf3",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v5",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8@sha256:2e2d13aea845763e5152bb8116738d5179f67b79fc6fde83bf813896829d4bf3",
+              "org.opencontainers.image.revision": "7044abc7ee26712d998311b402b975124786e0cf",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v5"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v5:486aecdee760968387cde68c290cb6f71567c433092d7e925ad87dece9cb9dc8@sha256:d9e3bb1528e44624c7aae67f4286b634ce0a8449451b868637443c9f5d2f5e16"
+        }
+      },
+      "sourceId": "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714",
+      "arch": "arm32v5",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714",
+      "reproducibleGitChecksum": "53b36cefd44161ae6ac336e26d895b7de646814e3e09d05554e91d982740f744",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v5",
+        "GitCommit": "7044abc7ee26712d998311b402b975124786e0cf",
+        "Directory": "latest/uclibc/arm32v5",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v5": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "arm32v5/busybox:1.36.1-uclibc",
+            "arm32v5/busybox:1.36-uclibc",
+            "arm32v5/busybox:1-uclibc",
+            "arm32v5/busybox:stable-uclibc",
+            "arm32v5/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v5",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v5"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067": {
+    "buildId": "6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067",
+    "build": {
+      "img": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b87edd76d8d0b9e848a0059a3014d87dabf763bc6cfcb9df52d13f4523a3d371",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067@sha256:b87edd76d8d0b9e848a0059a3014d87dabf763bc6cfcb9df52d13f4523a3d371",
+              "org.opencontainers.image.revision": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm32v7:6e669b92230b833e316c4258c22ecb005c6f9560ae0dddd22d24c9087efb9067@sha256:6ecc13c32dfcc06a1d9f30ef31f51c7684fe13c87fe2bbf22dca2e60ddc21138"
+        }
+      },
+      "sourceId": "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11",
+      "arch": "arm32v7",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11",
+      "reproducibleGitChecksum": "ece85a849af3c4b2468de15350257970aa7bd36e23607a0aab3f58b4d6e6e659",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm32v7",
+        "GitCommit": "185a3f7f21c307b15ef99b7088b228f004ff5f11",
+        "Directory": "latest/uclibc/arm32v7",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm32v7": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "arm32v7/busybox:1.36.1-uclibc",
+            "arm32v7/busybox:1.36-uclibc",
+            "arm32v7/busybox:1-uclibc",
+            "arm32v7/busybox:stable-uclibc",
+            "arm32v7/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm/v7",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v7"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365": {
+    "buildId": "f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365",
+    "build": {
+      "img": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:7f8fa07ac90d44a4aa221085baaa1b20cc6c0562cd3d9841061a6e9aac68b538",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365@sha256:7f8fa07ac90d44a4aa221085baaa1b20cc6c0562cd3d9841061a6e9aac68b538",
+              "org.opencontainers.image.revision": "a8344687869ba9f95e140a62a915a30822ff2147",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-arm64v8:f5f7b7ba7d8e05746ab7c252b3edf81be5507fe6a28e77909e6d117f26e0a365@sha256:471716f1e3e669cbc04f60db2be61c735a2f69d7e7f40871e03930b434faad08"
+        }
+      },
+      "sourceId": "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0",
+      "arch": "arm64v8",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0",
+      "reproducibleGitChecksum": "a9ff0eba05d9c907b2fdf3bbc9eb397e67dcc0944063cbfae5be30b60440f116",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-arm64v8",
+        "GitCommit": "a8344687869ba9f95e140a62a915a30822ff2147",
+        "Directory": "latest/uclibc/arm64v8",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "arm64v8": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "arm64v8/busybox:1.36.1-uclibc",
+            "arm64v8/busybox:1.36-uclibc",
+            "arm64v8/busybox:1-uclibc",
+            "arm64v8/busybox:stable-uclibc",
+            "arm64v8/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/arm64/v8",
+          "platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25": {
+    "buildId": "7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25",
+    "build": {
+      "img": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:e6eb21d11edb8b30d689d9c6d7c0860cefa4f022f2bb439b3da4a0f39e3a344f",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25@sha256:e6eb21d11edb8b30d689d9c6d7c0860cefa4f022f2bb439b3da4a0f39e3a344f",
+              "org.opencontainers.image.revision": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "386",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-i386:7840bcafab72335992623cee38e7619d1ad93892b7b914de6e176a9462f15d25@sha256:d4c67299e126b80850ccfb49583cccddbb339b78d668e42bcc3e8c7c58ecb3f0"
+        }
+      },
+      "sourceId": "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6",
+      "arch": "i386",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6",
+      "reproducibleGitChecksum": "882db5aa14620ea7decded765d64f05700feb25b1770a5a4817e4d8e08fec920",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-i386",
+        "GitCommit": "64e761e756e3281bc9a49235ee200dfc1f5a525e",
+        "Directory": "latest/uclibc/i386",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "i386": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "i386/busybox:1.36.1-uclibc",
+            "i386/busybox:1.36-uclibc",
+            "i386/busybox:1-uclibc",
+            "i386/busybox:stable-uclibc",
+            "i386/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/386",
+          "platform": {
+            "architecture": "386",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1": {
+    "buildId": "768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1",
+    "build": {
+      "img": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:388eed10bf5614e88ae1e2b2c1d237cbef877a07858125415556e3d9edff526d",
+            "size": 610,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "mips64le",
+              "org.opencontainers.image.base.name": "scratch",
+              "org.opencontainers.image.created": "2024-02-28T00:44:18Z",
+              "org.opencontainers.image.ref.name": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1@sha256:388eed10bf5614e88ae1e2b2c1d237cbef877a07858125415556e3d9edff526d",
+              "org.opencontainers.image.revision": "ea5639e7af6b21b81230ccaba4c05ccb2d80b9e3",
+              "org.opencontainers.image.source": "https://github.com/docker-library/busybox.git",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/busybox",
+              "org.opencontainers.image.version": "1.36.1-uclibc"
+            },
+            "platform": {
+              "architecture": "mips64le",
+              "os": "linux"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "oisupport/staging-mips64le:768f1edc30be691acf862ef51ac671aea25b9cd46242ab8b30f04715991dffa1@sha256:8250f61862e1d6ea51f35f443b15491e707c1cb3cbef76219ad1a2de424b22b2"
+        }
+      },
+      "sourceId": "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447",
+      "arch": "mips64le",
+      "parents": {},
+      "resolvedParents": {}
+    },
+    "source": {
+      "sourceId": "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447",
+      "reproducibleGitChecksum": "acfeadf772789a80427f642691efcb0daeeabe73ce4753318f25760c3ead6e18",
+      "entry": {
+        "GitRepo": "https://github.com/docker-library/busybox.git",
+        "GitFetch": "refs/heads/dist-mips64le",
+        "GitCommit": "ea5639e7af6b21b81230ccaba4c05ccb2d80b9e3",
+        "Directory": "latest/uclibc/mips64le",
+        "File": "index.json",
+        "Builder": "oci-import",
+        "SOURCE_DATE_EPOCH": 1709081058
+      },
+      "arches": {
+        "mips64le": {
+          "tags": [
+            "busybox:1.36.1-uclibc",
+            "busybox:1.36-uclibc",
+            "busybox:1-uclibc",
+            "busybox:stable-uclibc",
+            "busybox:uclibc"
+          ],
+          "archTags": [
+            "mips64le/busybox:1.36.1-uclibc",
+            "mips64le/busybox:1.36-uclibc",
+            "mips64le/busybox:1-uclibc",
+            "mips64le/busybox:stable-uclibc",
+            "mips64le/busybox:uclibc"
+          ],
+          "froms": [
+            "scratch"
+          ],
+          "lastStageFrom": "scratch",
+          "platformString": "linux/mips64le",
+          "platform": {
+            "architecture": "mips64le",
+            "os": "linux"
+          },
+          "parents": {
+            "scratch": {
+              "sourceId": null,
+              "pin": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d": {
+    "buildId": "832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d",
+    "build": {
+      "img": "oisupport/staging-amd64:832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:7af28eafdd20518cbe9d6253a0cae17c7e83568bdd1d7b8df4cd3b1b6b000a19",
+            "size": 3064,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.digest": "sha256:18838d7b60723ec1548a85ae57195bd84a887b65d249f4a74698f1ab7cae4ca3",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T17:55:29Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:amd64-832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d@sha256:7af28eafdd20518cbe9d6253a0cae17c7e83568bdd1d7b8df4cd3b1b6b000a19",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:5cd264d4f8c03ec5daada39b78ad2c0abdfdf78dd7caae35176acbe86dc56413",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:amd64-832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d@sha256:5cd264d4f8c03ec5daada39b78ad2c0abdfdf78dd7caae35176acbe86dc56413",
+              "vnd.docker.reference.digest": "sha256:7af28eafdd20518cbe9d6253a0cae17c7e83568bdd1d7b8df4cd3b1b6b000a19",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:amd64-832e7b439b1315d060e59f544e86d3531aa402f4256715bce5f19d558a7c6d3d@sha256:cc1d4bd40e22e15d2753faba25c591a67b5aa5f00db32914628382e7379c4b70"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "amd64",
+      "parents": {
+        "debian:bookworm-slim": "sha256:18838d7b60723ec1548a85ae57195bd84a887b65d249f4a74698f1ab7cae4ca3"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:18838d7b60723ec1548a85ae57195bd84a887b65d249f4a74698f1ab7cae4ca3",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "amd64",
+                "org.opencontainers.image.ref.name": "debian@sha256:18838d7b60723ec1548a85ae57195bd84a887b65d249f4a74698f1ab7cae4ca3"
+              },
+              "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "amd64": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:amd64"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/amd64",
+          "platform": {
+            "architecture": "amd64",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2": {
+    "buildId": "cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2",
+    "build": {
+      "img": "oisupport/staging-arm32v5:cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:694867d4aece77c28cbe72313343e346e5ec762483fbf037bed6e6ccbd3b367e",
+            "size": 3066,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v5",
+              "org.opencontainers.image.base.digest": "sha256:5b30a01a3debd3ba42412ab8cd9d428a7ce6b0f2a4f394e41718fe745d19c4a8",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T19:21:08Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v5-cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2@sha256:694867d4aece77c28cbe72313343e346e5ec762483fbf037bed6e6ccbd3b367e",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v5"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b71ab193645a131e7a7bebadc7531faaeb3a232c570133a3dc6a2bc1224b5c52",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v5",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v5-cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2@sha256:b71ab193645a131e7a7bebadc7531faaeb3a232c570133a3dc6a2bc1224b5c52",
+              "vnd.docker.reference.digest": "sha256:694867d4aece77c28cbe72313343e346e5ec762483fbf037bed6e6ccbd3b367e",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v5-cf4cd2cb112dbfb8530aa41fc7f8485239cf192586bf98637eb0706ccfba6bd2@sha256:93a7072988e6d9068dd9e3dff7c8fbb0557543375dd9f71f91fd84b622585be2"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "arm32v5",
+      "parents": {
+        "debian:bookworm-slim": "sha256:5b30a01a3debd3ba42412ab8cd9d428a7ce6b0f2a4f394e41718fe745d19c4a8"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:5b30a01a3debd3ba42412ab8cd9d428a7ce6b0f2a4f394e41718fe745d19c4a8",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "arm32v5",
+                "org.opencontainers.image.ref.name": "debian@sha256:5b30a01a3debd3ba42412ab8cd9d428a7ce6b0f2a4f394e41718fe745d19c4a8"
+              },
+              "platform": {
+                "architecture": "arm",
+                "os": "linux",
+                "variant": "v5"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "arm32v5": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:arm32v5"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/arm/v5",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v5"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d": {
+    "buildId": "554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d",
+    "build": {
+      "img": "oisupport/staging-arm32v7:554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:2c1b8a8521dadc4d8e7294ee6aaeb307ee42852563a790f26fec8ed525e47257",
+            "size": 3066,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.base.digest": "sha256:58bbbc80aacc494a9b606eeb17d43a0bf5aa678637758234156530341e99face",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T19:04:17Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v7-554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d@sha256:2c1b8a8521dadc4d8e7294ee6aaeb307ee42852563a790f26fec8ed525e47257",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "arm",
+              "os": "linux",
+              "variant": "v7"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:0ead03ca9c32808f3360603d5f71f8fff36b2e6bdef68c4481aa99dae2c0d9ae",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm32v7",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v7-554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d@sha256:0ead03ca9c32808f3360603d5f71f8fff36b2e6bdef68c4481aa99dae2c0d9ae",
+              "vnd.docker.reference.digest": "sha256:2c1b8a8521dadc4d8e7294ee6aaeb307ee42852563a790f26fec8ed525e47257",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:arm32v7-554b13b7c3abf3430aab1b5b63a90fa00359b6366f165a7a58951ecd182e347d@sha256:0d91500a0852272fdf8561fd8a50575717809bb543b85ca0800011cb0722cb57"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "arm32v7",
+      "parents": {
+        "debian:bookworm-slim": "sha256:58bbbc80aacc494a9b606eeb17d43a0bf5aa678637758234156530341e99face"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:58bbbc80aacc494a9b606eeb17d43a0bf5aa678637758234156530341e99face",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "arm32v7",
+                "org.opencontainers.image.ref.name": "debian@sha256:58bbbc80aacc494a9b606eeb17d43a0bf5aa678637758234156530341e99face"
+              },
+              "platform": {
+                "architecture": "arm",
+                "os": "linux",
+                "variant": "v7"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "arm32v7": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:arm32v7"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/arm/v7",
+          "platform": {
+            "architecture": "arm",
+            "os": "linux",
+            "variant": "v7"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05": {
+    "buildId": "323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05",
+    "build": {
+      "img": "oisupport/staging-arm64v8:323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:4961bc7c42a75d6a177a5b71529cde4904c599fc1ca2866daa1dbb78e3e2a1db",
+            "size": 3066,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.digest": "sha256:c75bd6810361193340244d757f53b44d13bb9055772959a2f02e89efa2ad9bd2",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T18:48:28Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm64v8-323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05@sha256:4961bc7c42a75d6a177a5b71529cde4904c599fc1ca2866daa1dbb78e3e2a1db",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:ecff6c3fb819222c56f309deed6535ffaddd634dceb80f1bfc70de889fad48e6",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:arm64v8-323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05@sha256:ecff6c3fb819222c56f309deed6535ffaddd634dceb80f1bfc70de889fad48e6",
+              "vnd.docker.reference.digest": "sha256:4961bc7c42a75d6a177a5b71529cde4904c599fc1ca2866daa1dbb78e3e2a1db",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:arm64v8-323677c434c4feb757c4f39c8c6cd20ce8a5fa79dae2aa9ec8c9178473753c05@sha256:de2b93ede67b1b23609d4b6db1656c5bfa2f2c6a733344cac6fea861a8ae69bb"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "arm64v8",
+      "parents": {
+        "debian:bookworm-slim": "sha256:c75bd6810361193340244d757f53b44d13bb9055772959a2f02e89efa2ad9bd2"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:c75bd6810361193340244d757f53b44d13bb9055772959a2f02e89efa2ad9bd2",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "arm64v8",
+                "org.opencontainers.image.ref.name": "debian@sha256:c75bd6810361193340244d757f53b44d13bb9055772959a2f02e89efa2ad9bd2"
+              },
+              "platform": {
+                "architecture": "arm64",
+                "os": "linux",
+                "variant": "v8"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "arm64v8": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:arm64v8"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/arm64/v8",
+          "platform": {
+            "architecture": "arm64",
+            "os": "linux",
+            "variant": "v8"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c": {
+    "buildId": "f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c",
+    "build": {
+      "img": "oisupport/staging-i386:f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b612eb1c4d819df519f98a3a0656f8e973a43e59eda1272f897353401fe4f6eb",
+            "size": 3063,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.base.digest": "sha256:c6593c53249497333f3c846caf2a7d9adc6cdd192ee094365932b836eaef1b5f",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T18:44:21Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:i386-f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c@sha256:b612eb1c4d819df519f98a3a0656f8e973a43e59eda1272f897353401fe4f6eb",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "386",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:8258deefabb3e5082a34224a17ea1c7b5de4878e64d38e216e8669111e486672",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "i386",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:i386-f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c@sha256:8258deefabb3e5082a34224a17ea1c7b5de4878e64d38e216e8669111e486672",
+              "vnd.docker.reference.digest": "sha256:b612eb1c4d819df519f98a3a0656f8e973a43e59eda1272f897353401fe4f6eb",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:i386-f5114eee4ef1b758002698cf9115c7955a234a0e232c16919196631959b12d1c@sha256:0ea06ff7d61b5f27faf0406345483b2c696ee90f9cf3af043b382b8f084a212e"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "i386",
+      "parents": {
+        "debian:bookworm-slim": "sha256:c6593c53249497333f3c846caf2a7d9adc6cdd192ee094365932b836eaef1b5f"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:c6593c53249497333f3c846caf2a7d9adc6cdd192ee094365932b836eaef1b5f",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "i386",
+                "org.opencontainers.image.ref.name": "debian@sha256:c6593c53249497333f3c846caf2a7d9adc6cdd192ee094365932b836eaef1b5f"
+              },
+              "platform": {
+                "architecture": "386",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "i386": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:i386"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/386",
+          "platform": {
+            "architecture": "386",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38": {
+    "buildId": "7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38",
+    "build": {
+      "img": "oisupport/staging-mips64le:7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:6eac5e462f6a2dc6cab2904c290773ac9eac96d5ef355c222b08e153c29b7962",
+            "size": 3067,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "mips64le",
+              "org.opencontainers.image.base.digest": "sha256:a3ae20edcdf2ebf57efa92922df3e5882b97ce339e0b1d53e5fb6e08d77245bb",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T19:35:45Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:mips64le-7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38@sha256:6eac5e462f6a2dc6cab2904c290773ac9eac96d5ef355c222b08e153c29b7962",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "mips64le",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:f3c44119625fc4fe52f26ca221d50653ea2eefa754819bea220a1552855f0257",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "mips64le",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:mips64le-7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38@sha256:f3c44119625fc4fe52f26ca221d50653ea2eefa754819bea220a1552855f0257",
+              "vnd.docker.reference.digest": "sha256:6eac5e462f6a2dc6cab2904c290773ac9eac96d5ef355c222b08e153c29b7962",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:mips64le-7e6b7842631fe080baa28f7a9674510ae85b24e28f8172e1f28530954abf0b38@sha256:2ea3d7f21bd8ad73cdd836ed861ceb7d8d3d4175f3d12a319a7c875d9db624b6"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "mips64le",
+      "parents": {
+        "debian:bookworm-slim": "sha256:a3ae20edcdf2ebf57efa92922df3e5882b97ce339e0b1d53e5fb6e08d77245bb"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:a3ae20edcdf2ebf57efa92922df3e5882b97ce339e0b1d53e5fb6e08d77245bb",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "mips64le",
+                "org.opencontainers.image.ref.name": "debian@sha256:a3ae20edcdf2ebf57efa92922df3e5882b97ce339e0b1d53e5fb6e08d77245bb"
+              },
+              "platform": {
+                "architecture": "mips64le",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "mips64le": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:mips64le"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/mips64le",
+          "platform": {
+            "architecture": "mips64le",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821": {
+    "buildId": "9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821",
+    "build": {
+      "img": "oisupport/staging-ppc64le:9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:d6302d4fcf140157e1f4c030c31d47ab8a9a3ae8345d52b53f21b20a456e57b0",
+            "size": 3066,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "ppc64le",
+              "org.opencontainers.image.base.digest": "sha256:5da2b4c5343cd413120a23df5279fb59e3fa869bcd5b1963a3ae120aa3278113",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T19:45:52Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:ppc64le-9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821@sha256:d6302d4fcf140157e1f4c030c31d47ab8a9a3ae8345d52b53f21b20a456e57b0",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "ppc64le",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:4ac84cd5f3825ab472c20e0290389837a2c13520b891b5f869c3eac50c6703f6",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "ppc64le",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:ppc64le-9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821@sha256:4ac84cd5f3825ab472c20e0290389837a2c13520b891b5f869c3eac50c6703f6",
+              "vnd.docker.reference.digest": "sha256:d6302d4fcf140157e1f4c030c31d47ab8a9a3ae8345d52b53f21b20a456e57b0",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:ppc64le-9eb5890731424a5d555b71eada5e307f0fceedb6a9faf4765a06c79ee8c5c821@sha256:34f678f5c030c26c9e70386ee7f0d43dcb142b16354d4e481a15368e4652488d"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "ppc64le",
+      "parents": {
+        "debian:bookworm-slim": "sha256:5da2b4c5343cd413120a23df5279fb59e3fa869bcd5b1963a3ae120aa3278113"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:5da2b4c5343cd413120a23df5279fb59e3fa869bcd5b1963a3ae120aa3278113",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "ppc64le",
+                "org.opencontainers.image.ref.name": "debian@sha256:5da2b4c5343cd413120a23df5279fb59e3fa869bcd5b1963a3ae120aa3278113"
+              },
+              "platform": {
+                "architecture": "ppc64le",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "ppc64le": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:ppc64le"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/ppc64le",
+          "platform": {
+            "architecture": "ppc64le",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73": {
+    "buildId": "207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73",
+    "build": {
+      "img": "oisupport/staging-s390x:207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:d80e9ced7a3067a80ec74ca445dd4a26845224c8a418f311a60804dfa053c970",
+            "size": 3064,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "s390x",
+              "org.opencontainers.image.base.digest": "sha256:482146dfc5d9932d59f79987351b293ee88e7d1024a27da23a6a2312b785b848",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2024-04-24T20:01:22Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:s390x-207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73@sha256:d80e9ced7a3067a80ec74ca445dd4a26845224c8a418f311a60804dfa053c970",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "s390x",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:fa062b27d61e18241b28cc914114f01d51e79f94402300efecd2c6b1aaa0f68b",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "s390x",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:s390x-207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73@sha256:fa062b27d61e18241b28cc914114f01d51e79f94402300efecd2c6b1aaa0f68b",
+              "vnd.docker.reference.digest": "sha256:d80e9ced7a3067a80ec74ca445dd4a26845224c8a418f311a60804dfa053c970",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:s390x-207edf2a84adfa56bf981597eafebd49a5c1f7ab5e95928c8d62a9e70b4a0b73@sha256:db14055ecee7a2577df37ecda8fd9f2d49f9bf6d4f7ea135ffcdfb6d8ffa28a4"
+        }
+      },
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "arch": "s390x",
+      "parents": {
+        "debian:bookworm-slim": "sha256:482146dfc5d9932d59f79987351b293ee88e7d1024a27da23a6a2312b785b848"
+      },
+      "resolvedParents": {
+        "debian:bookworm-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:482146dfc5d9932d59f79987351b293ee88e7d1024a27da23a6a2312b785b848",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "s390x",
+                "org.opencontainers.image.ref.name": "debian@sha256:482146dfc5d9932d59f79987351b293ee88e7d1024a27da23a6a2312b785b848"
+              },
+              "platform": {
+                "architecture": "s390x",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "s390x": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:s390x"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:bookworm-slim"
+          ],
+          "lastStageFrom": "debian:bookworm-slim",
+          "platformString": "linux/s390x",
+          "platform": {
+            "architecture": "s390x",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:bookworm-slim": {
+              "sourceId": null,
+              "pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b": {
+    "buildId": "808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b",
+    "build": {
+      "img": "oisupport/staging-riscv64:808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b",
+      "resolved": {
+        "schemaVersion": 2,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "manifests": [
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:9e7c90e846bf9e81d3316240274b56e96d1d52651239c2f61d6efb6020efb5cb",
+            "size": 3066,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.base.digest": "sha256:22e99e120c74ec1378df4c6aa58a6249ad4a3e0ade6246ba3b2601e560e5c055",
+              "org.opencontainers.image.base.name": "debian:unstable-slim",
+              "org.opencontainers.image.created": "2024-04-24T19:19:35Z",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:riscv64-808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b@sha256:9e7c90e846bf9e81d3316240274b56e96d1d52651239c2f61d6efb6020efb5cb",
+              "org.opencontainers.image.revision": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+              "org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#37f1b58c0dc59e6589a0f55849f73d6ef0988cd8:infosiftr-moby",
+              "org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+              "org.opencontainers.image.version": "20.10.27"
+            },
+            "platform": {
+              "architecture": "riscv64",
+              "os": "linux"
+            }
+          },
+          {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:7eced71cb343f3314fc370025f6749db51c2bb31bdd9a852586bbcbb1690d2fa",
+            "size": 567,
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "riscv64",
+              "org.opencontainers.image.ref.name": "tianon/zz-staging:riscv64-808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b@sha256:7eced71cb343f3314fc370025f6749db51c2bb31bdd9a852586bbcbb1690d2fa",
+              "vnd.docker.reference.digest": "sha256:9e7c90e846bf9e81d3316240274b56e96d1d52651239c2f61d6efb6020efb5cb",
+              "vnd.docker.reference.type": "attestation-manifest"
+            },
+            "platform": {
+              "architecture": "unknown",
+              "os": "unknown"
+            }
+          }
+        ],
+        "annotations": {
+          "org.opencontainers.image.ref.name": "tianon/zz-staging:riscv64-808ef927432591cc810ec35dd96b5ef90b74c23f9b47dd4e1fd007d2dd59ea4b@sha256:1264e8e3ec1dc12f895e878f6caeffcae56ca86540606868ab7c6c978556ee6b"
+        }
+      },
+      "sourceId": "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633",
+      "arch": "riscv64",
+      "parents": {
+        "debian:unstable-slim": "sha256:22e99e120c74ec1378df4c6aa58a6249ad4a3e0ade6246ba3b2601e560e5c055"
+      },
+      "resolvedParents": {
+        "debian:unstable-slim": {
+          "schemaVersion": 2,
+          "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+          "manifests": [
+            {
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "digest": "sha256:22e99e120c74ec1378df4c6aa58a6249ad4a3e0ade6246ba3b2601e560e5c055",
+              "size": 529,
+              "annotations": {
+                "com.docker.official-images.bashbrew.arch": "riscv64",
+                "org.opencontainers.image.ref.name": "debian@sha256:22e99e120c74ec1378df4c6aa58a6249ad4a3e0ade6246ba3b2601e560e5c055"
+              },
+              "platform": {
+                "architecture": "riscv64",
+                "os": "linux"
+              }
+            }
+          ],
+          "annotations": {
+            "org.opencontainers.image.ref.name": "debian@sha256:8ab93b5dec6c19b4a45fbfdebc55c5d08ce7d39a90dc66cc273440ba3a1a5af0"
+          }
+        }
+      }
+    },
+    "source": {
+      "sourceId": "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633",
+      "reproducibleGitChecksum": "739b58d3d99cf37800d665f9b11772182af81f3501e7f6ad143f74ffa202b32b",
+      "entry": {
+        "GitRepo": "https://github.com/tianon/dockerfiles.git",
+        "GitFetch": "refs/heads/master",
+        "GitCommit": "37f1b58c0dc59e6589a0f55849f73d6ef0988cd8",
+        "Directory": "infosiftr-moby",
+        "File": "Dockerfile.unstable",
+        "Builder": "",
+        "SOURCE_DATE_EPOCH": 1709705469
+      },
+      "arches": {
+        "riscv64": {
+          "tags": [
+            "infosiftr-moby:20.10.27",
+            "infosiftr-moby:20.10",
+            "infosiftr-moby:20",
+            "infosiftr-moby:latest",
+            "infosiftr-moby:riscv64"
+          ],
+          "archTags": [],
+          "froms": [
+            "debian:unstable-slim"
+          ],
+          "lastStageFrom": "debian:unstable-slim",
+          "platformString": "linux/riscv64",
+          "platform": {
+            "architecture": "riscv64",
+            "os": "linux"
+          },
+          "parents": {
+            "debian:unstable-slim": {
+              "sourceId": null,
+              "pin": "sha256:8ab93b5dec6c19b4a45fbfdebc55c5d08ce7d39a90dc66cc273440ba3a1a5af0"
             }
           }
         }

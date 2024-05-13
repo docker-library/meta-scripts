@@ -50,7 +50,6 @@ bashbrew cat --build-order --format '
 				{
 					"sourceId": {{ join "\n" $sum $file $builder "" | sha256sum | json }},
 					"reproducibleGitChecksum": {{ $sum | json }},
-					"tags": {{ $.Tags namespace false . | json }},
 					"entry": {
 						"GitRepo": {{ .ArchGitRepo $a | json }},
 						"GitFetch": {{ .ArchGitFetch $a | json }},
@@ -62,6 +61,7 @@ bashbrew cat --build-order --format '
 					},
 					"arches": {
 						{{ $a | json }}: {
+							"tags": {{ $.Tags namespace false . | json }},
 							"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
 							"froms": {{ $.ArchDockerFroms $a . | json }},
 							"lastStageFrom": {{ if eq $builder "oci-import" -}}
@@ -82,8 +82,8 @@ bashbrew cat --build-order --format '
 ' "$@" | jq 3>&1 1>&2 2>&3- -r '
 	# https://github.com/jqlang/jq/issues/2063 - "stderr" cannot functionally output a string correctly until jq 1.7+ (which is very very recent), so we hack around it to get some progress output by using Bash to swap stdout and stderr so we can output our objects to stderr and our progress text to stdout and "fix it in post"
 	# TODO balk / error at multiple arches entries
-	.tags[0] as $tag
-	| first(.arches | keys_unsorted[]) as $arch
+	first(.arches | keys_unsorted[]) as $arch
+	| .arches[$arch].tags[0] as $tag
 	| stderr
 	| "\($tag) (\($arch)): \(.sourceId)"
 	# TODO if we could get jq 1.7+ for sure, we can drop this entire "jq" invocation and instead have the reduce loop of the following invocation print status strings directly to "stderr"
@@ -97,14 +97,14 @@ bashbrew cat --build-order --format '
 			if . == null then
 				$in
 			else
-				.tags |= (. + $in.tags | unique_unsorted)
-				| .arches |= (
+				.arches |= (
 					reduce ($in.arches | to_entries[]) as {$key, $value} (.;
 						if has($key) then
 							# if we already have this architecture, this must be a weird edge case (same sourceId, but different Architectures: lists, for example), so we should validate that the metadata is the same and then do a smart combination of the tags
-							if (.[$key] | del(.archTags)) != ($value | del(.archTags)) then
+							if (.[$key] | del(.tags, .archTags)) != ($value | del(.tags, .archTags)) then
 								error("duplicate architecture \($key) for \($in.sourceId), but mismatched objects: \(.[$key]) vs \($value)")
 							else . end
+							| .[$key].tags |= (. + $value.tags | unique_unsorted)
 							| .[$key].archTags |= (. + $value.archTags | unique_unsorted)
 						else
 							.[$key] = $value
@@ -122,7 +122,7 @@ bashbrew cat --build-order --format '
 	| (
 		reduce to_entries[] as $e ({};
 			$e.key as $sourceId
-			| .[ $e.value.tags[], $e.value.arches[].archTags[] ] |= (
+			| .[ $e.value.arches[] | .tags[], .archTags[] ] |= (
 				.[$e.value.arches | keys[]] |= (
 					. + [$sourceId] | unique_unsorted
 				)

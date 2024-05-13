@@ -1,0 +1,1247 @@
+{
+  "docker:24.0.7-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "docker:24.0-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "docker:24-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "docker:cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "docker:24.0.7-cli-alpine3.18": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7",
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "amd64/docker:24.0.7-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64"
+  ],
+  "amd64/docker:24.0-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64"
+  ],
+  "amd64/docker:24-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64"
+  ],
+  "amd64/docker:cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64"
+  ],
+  "amd64/docker:24.0.7-cli-alpine3.18": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-amd64"
+  ],
+  "arm32v6/docker:24.0.7-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6"
+  ],
+  "arm32v6/docker:24.0-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6"
+  ],
+  "arm32v6/docker:24-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6"
+  ],
+  "arm32v6/docker:cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6"
+  ],
+  "arm32v6/docker:24.0.7-cli-alpine3.18": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v6"
+  ],
+  "arm32v7/docker:24.0.7-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7"
+  ],
+  "arm32v7/docker:24.0-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7"
+  ],
+  "arm32v7/docker:24-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7"
+  ],
+  "arm32v7/docker:cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7"
+  ],
+  "arm32v7/docker:24.0.7-cli-alpine3.18": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm32v7"
+  ],
+  "arm64v8/docker:24.0.7-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "arm64v8/docker:24.0-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "arm64v8/docker:24-cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "arm64v8/docker:cli": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "arm64v8/docker:24.0.7-cli-alpine3.18": [
+    "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b-arm64v8"
+  ],
+  "docker:24.0.7-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0.7-dind-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0.7": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:latest": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0.7-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7",
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "amd64/docker:24.0.7-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24.0-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24.0.7-dind-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24.0.7": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24.0": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:latest": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "amd64/docker:24.0.7-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-amd64"
+  ],
+  "arm32v6/docker:24.0.7-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24.0-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24.0.7-dind-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24.0.7": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24.0": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:latest": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v6/docker:24.0.7-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v6"
+  ],
+  "arm32v7/docker:24.0.7-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24.0-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24.0.7-dind-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24.0.7": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24.0": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:latest": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm32v7/docker:24.0.7-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm32v7"
+  ],
+  "arm64v8/docker:24.0.7-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24.0-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24-dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:dind": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24.0.7-dind-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24.0.7": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24.0": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:latest": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "arm64v8/docker:24.0.7-alpine3.18": [
+    "1f55272eded1ab37d8303492366ef26e8757c8210b24a4cb08f4fe2d63c692e3-arm64v8"
+  ],
+  "docker:24.0.7-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "docker:24.0-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "docker:24-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "docker:windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "docker:24.0.7-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:24.0-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:24-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24.0.7-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "winamd64/docker:24.0-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "winamd64/docker:24-windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "winamd64/docker:windowsservercore-ltsc2022": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64"
+  ],
+  "winamd64/docker:24.0.7-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24.0-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24-windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:windowsservercore": [
+    "fc50de1b0dedf55655271fc22721b7d94e09a12d0e6ff6b76871ba6b808f5984-windows-amd64",
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:24.0.7-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:24.0-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:24-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "docker:windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24.0.7-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24.0-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:24-windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "winamd64/docker:windowsservercore-1809": [
+    "10083d7e3bfbe4f9bdb3e38e4846b88d0bea1896caca9ef70de6478b3c20fe9a-windows-amd64"
+  ],
+  "notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-amd64",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm32v6",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm64v8",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-i386",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-ppc64le",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-s390x"
+  ],
+  "notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-amd64",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm32v6",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm64v8",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-i386",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-ppc64le",
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-s390x"
+  ],
+  "amd64/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-amd64"
+  ],
+  "amd64/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-amd64"
+  ],
+  "arm32v6/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm32v6"
+  ],
+  "arm32v6/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm32v6"
+  ],
+  "arm64v8/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm64v8"
+  ],
+  "arm64v8/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-arm64v8"
+  ],
+  "i386/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-i386"
+  ],
+  "i386/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-i386"
+  ],
+  "ppc64le/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-ppc64le"
+  ],
+  "ppc64le/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-ppc64le"
+  ],
+  "s390x/notary:server-0.7.0": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-s390x"
+  ],
+  "s390x/notary:server": [
+    "a9f3e362f7d26c466c22529d0a01d527e8900cbd9e0fabd2cc0ce342868768c4-s390x"
+  ],
+  "notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-amd64",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm32v6",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm64v8",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-i386",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-ppc64le",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-s390x"
+  ],
+  "notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-amd64",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm32v6",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm64v8",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-i386",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-ppc64le",
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-s390x"
+  ],
+  "amd64/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-amd64"
+  ],
+  "amd64/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-amd64"
+  ],
+  "arm32v6/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm32v6"
+  ],
+  "arm32v6/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm32v6"
+  ],
+  "arm64v8/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm64v8"
+  ],
+  "arm64v8/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-arm64v8"
+  ],
+  "i386/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-i386"
+  ],
+  "i386/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-i386"
+  ],
+  "ppc64le/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-ppc64le"
+  ],
+  "ppc64le/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-ppc64le"
+  ],
+  "s390x/notary:signer-0.7.0": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-s390x"
+  ],
+  "s390x/notary:signer": [
+    "ae57bf4b8a7a08916ab01ec22da5d389716f39e9040d2c6f711283d7f8600da8-s390x"
+  ],
+  "busybox:1.36.1": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "busybox:1.36": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "busybox:1": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "busybox:stable": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "busybox:latest": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "busybox:1.36.1-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x",
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "busybox:1.36-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x",
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "busybox:1-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x",
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "busybox:stable-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x",
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "busybox:glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64",
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5",
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7",
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8",
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386",
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le",
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le",
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x",
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "amd64/busybox:1.36.1": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:1.36": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:1": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:stable": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:latest": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:1.36.1-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:1.36-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:1-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:stable-glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "amd64/busybox:glibc": [
+    "df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2-amd64"
+  ],
+  "arm32v5/busybox:1.36.1": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:1.36": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:1": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:stable": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:latest": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:1.36.1-glibc": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:1.36-glibc": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:1-glibc": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:stable-glibc": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "arm32v5/busybox:glibc": [
+    "b3980edf950afc2ae7180a73ac06ddc9bcaab81cd114aae7df8392f1f35f892e-arm32v5"
+  ],
+  "busybox:1.36.1-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64",
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7",
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8",
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386",
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le",
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64",
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "busybox:1.36-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64",
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7",
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8",
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386",
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le",
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64",
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "busybox:1-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64",
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7",
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8",
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386",
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le",
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64",
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "busybox:stable-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64",
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7",
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8",
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386",
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le",
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64",
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "busybox:musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6",
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64",
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7",
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8",
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386",
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le",
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64",
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "arm32v6/busybox:1.36.1": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:1.36": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:1": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:stable": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:latest": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:1.36.1-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:1.36-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:1-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:stable-musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v6/busybox:musl": [
+    "421c676ba4e46b3e8aea52d35c8f7abb90ac02f2c21620b163368a5ffd61ca42-arm32v6"
+  ],
+  "arm32v7/busybox:1.36.1": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:1.36": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:1": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:stable": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:latest": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:1.36.1-glibc": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:1.36-glibc": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:1-glibc": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:stable-glibc": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm32v7/busybox:glibc": [
+    "c994e7d0aa868570e8ee977e2872d1e6ab51c475718e3fa6840a063df3b2d222-arm32v7"
+  ],
+  "arm64v8/busybox:1.36.1": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:1.36": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:1": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:stable": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:latest": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:1.36.1-glibc": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:1.36-glibc": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:1-glibc": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:stable-glibc": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "arm64v8/busybox:glibc": [
+    "6df3b92e1fb8d579399af7a60ab66f16c8af07edef1fd92b19bb0f1e1272bacd-arm64v8"
+  ],
+  "i386/busybox:1.36.1": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:1.36": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:1": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:stable": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:latest": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:1.36.1-glibc": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:1.36-glibc": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:1-glibc": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:stable-glibc": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "i386/busybox:glibc": [
+    "47078b58d39eb8284b41386f288be91f7cb7b0a99e2789cedf10e2a8dffdd524-i386"
+  ],
+  "mips64le/busybox:1.36.1": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:1.36": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:1": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:stable": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:latest": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:1.36.1-glibc": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:1.36-glibc": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:1-glibc": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:stable-glibc": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "mips64le/busybox:glibc": [
+    "8b56ef1cfc9211b77472a7e939aa15422dcc6d87e02772731cbb318f799dbba4-mips64le"
+  ],
+  "ppc64le/busybox:1.36.1": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:1.36": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:1": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:stable": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:latest": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:1.36.1-glibc": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:1.36-glibc": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:1-glibc": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:stable-glibc": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "ppc64le/busybox:glibc": [
+    "c11a0df72b00371fc02029c12d79cb82dd7f906da3890a64e14cfe47e92e68db-ppc64le"
+  ],
+  "busybox:1.36.1-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64",
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5",
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7",
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8",
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386",
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "busybox:1.36-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64",
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5",
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7",
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8",
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386",
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "busybox:1-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64",
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5",
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7",
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8",
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386",
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "busybox:stable-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64",
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5",
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7",
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8",
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386",
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "busybox:uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64",
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64",
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5",
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7",
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8",
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386",
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "riscv64/busybox:1.36.1": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:1.36": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:1": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:stable": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:latest": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:1.36.1-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:1.36-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:1-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:stable-uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "riscv64/busybox:uclibc": [
+    "45b99857330b33443792583e07608a201820afa4b04b916b84682af97d16000a-riscv64"
+  ],
+  "s390x/busybox:1.36.1": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:1.36": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:1": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:stable": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:latest": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:1.36.1-glibc": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:1.36-glibc": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:1-glibc": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:stable-glibc": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "s390x/busybox:glibc": [
+    "84e209ff3d62b1b76bc238e61391935039b8543e2b6777c792ec52df2ebde99b-s390x"
+  ],
+  "riscv64/busybox:1.36.1-glibc": [
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "riscv64/busybox:1.36-glibc": [
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "riscv64/busybox:1-glibc": [
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "riscv64/busybox:stable-glibc": [
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "riscv64/busybox:glibc": [
+    "129f2d1a13eb71a56af0e06fea1b4d505c1c035b84dad96676693248ebe60299-riscv64"
+  ],
+  "amd64/busybox:1.36.1-musl": [
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64"
+  ],
+  "amd64/busybox:1.36-musl": [
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64"
+  ],
+  "amd64/busybox:1-musl": [
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64"
+  ],
+  "amd64/busybox:stable-musl": [
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64"
+  ],
+  "amd64/busybox:musl": [
+    "525c761d1a8e96f9ec1c499b0dce0ff4f1ed7a8c568f86fcf9f5d3c51e870126-amd64"
+  ],
+  "arm32v7/busybox:1.36.1-musl": [
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7"
+  ],
+  "arm32v7/busybox:1.36-musl": [
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7"
+  ],
+  "arm32v7/busybox:1-musl": [
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7"
+  ],
+  "arm32v7/busybox:stable-musl": [
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7"
+  ],
+  "arm32v7/busybox:musl": [
+    "9753cb67f1598fd7aa426d1cdfed398fa81e5619075ee5df5aefe46cb7417df0-arm32v7"
+  ],
+  "arm64v8/busybox:1.36.1-musl": [
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8"
+  ],
+  "arm64v8/busybox:1.36-musl": [
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8"
+  ],
+  "arm64v8/busybox:1-musl": [
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8"
+  ],
+  "arm64v8/busybox:stable-musl": [
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8"
+  ],
+  "arm64v8/busybox:musl": [
+    "b81a79eee6c6d37be4b867dad59b9fefbb36e0eedf879cf1c2cf8ea5d05e3124-arm64v8"
+  ],
+  "i386/busybox:1.36.1-musl": [
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386"
+  ],
+  "i386/busybox:1.36-musl": [
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386"
+  ],
+  "i386/busybox:1-musl": [
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386"
+  ],
+  "i386/busybox:stable-musl": [
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386"
+  ],
+  "i386/busybox:musl": [
+    "51e5747cd366107e1a7cca46a2e099925813974ce63b9078d9626b50b48fae5e-i386"
+  ],
+  "ppc64le/busybox:1.36.1-musl": [
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le"
+  ],
+  "ppc64le/busybox:1.36-musl": [
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le"
+  ],
+  "ppc64le/busybox:1-musl": [
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le"
+  ],
+  "ppc64le/busybox:stable-musl": [
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le"
+  ],
+  "ppc64le/busybox:musl": [
+    "28ef7af06435ce6e9bd92c7fb07fa1930ef08299aea37b9b71875a6c71d2a5e0-ppc64le"
+  ],
+  "riscv64/busybox:1.36.1-musl": [
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64"
+  ],
+  "riscv64/busybox:1.36-musl": [
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64"
+  ],
+  "riscv64/busybox:1-musl": [
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64"
+  ],
+  "riscv64/busybox:stable-musl": [
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64"
+  ],
+  "riscv64/busybox:musl": [
+    "23d7aabdd6ac37efd6230bb6e3d07d0b0019a90f71915ec053e2cbec8647939f-riscv64"
+  ],
+  "s390x/busybox:1.36.1-musl": [
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "s390x/busybox:1.36-musl": [
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "s390x/busybox:1-musl": [
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "s390x/busybox:stable-musl": [
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "s390x/busybox:musl": [
+    "937ba89cafe61fe48b4e7b167307a40a5060630417cc5bbb35f2557aae5e6de4-s390x"
+  ],
+  "amd64/busybox:1.36.1-uclibc": [
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64"
+  ],
+  "amd64/busybox:1.36-uclibc": [
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64"
+  ],
+  "amd64/busybox:1-uclibc": [
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64"
+  ],
+  "amd64/busybox:stable-uclibc": [
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64"
+  ],
+  "amd64/busybox:uclibc": [
+    "6a18227ecb1f42bd4755b0843ab3d0752a23b193efb5e9a969b0760ddd19cf8a-amd64"
+  ],
+  "arm32v5/busybox:1.36.1-uclibc": [
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5"
+  ],
+  "arm32v5/busybox:1.36-uclibc": [
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5"
+  ],
+  "arm32v5/busybox:1-uclibc": [
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5"
+  ],
+  "arm32v5/busybox:stable-uclibc": [
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5"
+  ],
+  "arm32v5/busybox:uclibc": [
+    "db872cd091599cf2e7122035b6695f91e0da175083da118d84ed3fad9fac5714-arm32v5"
+  ],
+  "arm32v7/busybox:1.36.1-uclibc": [
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7"
+  ],
+  "arm32v7/busybox:1.36-uclibc": [
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7"
+  ],
+  "arm32v7/busybox:1-uclibc": [
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7"
+  ],
+  "arm32v7/busybox:stable-uclibc": [
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7"
+  ],
+  "arm32v7/busybox:uclibc": [
+    "1ca52688d8766979871c1959cb49752aea3b61f526e94155bec9c2781eacdf11-arm32v7"
+  ],
+  "arm64v8/busybox:1.36.1-uclibc": [
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8"
+  ],
+  "arm64v8/busybox:1.36-uclibc": [
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8"
+  ],
+  "arm64v8/busybox:1-uclibc": [
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8"
+  ],
+  "arm64v8/busybox:stable-uclibc": [
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8"
+  ],
+  "arm64v8/busybox:uclibc": [
+    "3987c80147f7aef388ae723a6bce970fa724a17b3cb74a2e4f4a058204caa7d0-arm64v8"
+  ],
+  "i386/busybox:1.36.1-uclibc": [
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386"
+  ],
+  "i386/busybox:1.36-uclibc": [
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386"
+  ],
+  "i386/busybox:1-uclibc": [
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386"
+  ],
+  "i386/busybox:stable-uclibc": [
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386"
+  ],
+  "i386/busybox:uclibc": [
+    "5d3c7f5271e2c2f8c25fd7583e20946c9756be806d554837f4aff3247438cdc6-i386"
+  ],
+  "mips64le/busybox:1.36.1-uclibc": [
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "mips64le/busybox:1.36-uclibc": [
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "mips64le/busybox:1-uclibc": [
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "mips64le/busybox:stable-uclibc": [
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "mips64le/busybox:uclibc": [
+    "b0bb94feb28087aee21e4a4c0b9cd51b0ba4737c166033e34fa245433b0f7447-mips64le"
+  ],
+  "infosiftr-moby:20.10.27": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-amd64",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v5",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v7",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm64v8",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-i386",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-mips64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-ppc64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-s390x",
+    "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633-riscv64"
+  ],
+  "infosiftr-moby:20.10": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-amd64",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v5",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v7",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm64v8",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-i386",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-mips64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-ppc64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-s390x",
+    "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633-riscv64"
+  ],
+  "infosiftr-moby:20": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-amd64",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v5",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v7",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm64v8",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-i386",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-mips64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-ppc64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-s390x",
+    "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633-riscv64"
+  ],
+  "infosiftr-moby:latest": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-amd64",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v5",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v7",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm64v8",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-i386",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-mips64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-ppc64le",
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-s390x",
+    "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633-riscv64"
+  ],
+  "infosiftr-moby:amd64": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-amd64"
+  ],
+  "infosiftr-moby:arm32v5": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v5"
+  ],
+  "infosiftr-moby:arm32v7": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm32v7"
+  ],
+  "infosiftr-moby:arm64v8": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-arm64v8"
+  ],
+  "infosiftr-moby:i386": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-i386"
+  ],
+  "infosiftr-moby:mips64le": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-mips64le"
+  ],
+  "infosiftr-moby:ppc64le": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-ppc64le"
+  ],
+  "infosiftr-moby:s390x": [
+    "248a27866206a7cffd2764f528bf60c98d80e22d8855e3e47b5ba997b0270a62-s390x"
+  ],
+  "infosiftr-moby:riscv64": [
+    "e141d79c2a22ece4486416cbea97b88bf7595236e866e396d42353cb0d3e1633-riscv64"
+  ]
+}

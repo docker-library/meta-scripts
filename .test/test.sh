@@ -25,13 +25,40 @@ if [ "${1:-}" = '--deploy' ]; then
 	doDeploy=1
 fi
 
-set -- docker:cli docker:dind docker:windowsservercore notary busybox:latest # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import
+set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,glibc,musl,uclibc} # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import (and a little bit of cursed busybox)
 # (see "library/" and ".external-pins/" for where these come from / are hard-coded for consistent testing purposes)
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
 
 time bashbrew fetch "$@"
 
-time "$dir/../sources.sh" "$@" > "$dir/sources.json"
+time "$dir/../sources.sh" "$@" > "$dir/sources-doi.json"
+
+# also fetch/include Tianon's more cursed "infosiftr/moby" example (a valid manifest with arch-specific non-archTags that end up mapping to the same sourceId)
+bashbrew fetch infosiftr-moby
+( BASHBREW_ARCH_NAMESPACES= "$dir/../sources.sh" infosiftr-moby > "$dir/sources-moby.json" )
+# technically, this *also* needs BASHBREW_STAGING_TEMPLATE='tianon/zz-staging:ARCH-BUILD', but that's a "builds.sh" flag and separating that would complicate including this even more, so Tianon has run the following one-liner to "inject" those builds as if they lived in 'oisupport/staging-ARCH:BUILD' instead:
+#   jq -r '[ .[] | select(any(.source.arches[].tags[]; startswith("infosiftr-moby:"))) | "tianon/zz-staging:\(.build.arch)-\(.buildId)" as $tianon | @sh "../bin/lookup \($tianon) | jq --arg img \(.build.img) \("{ indexes: { ($img): . } }")" ] | "{ " + join(" && ") + @sh " && cat cache-builds.json; } | jq -s --tab \("reduce .[] as $i ({ indexes: { } }; .indexes += $i.indexes)") > cache-builds.json.new && mv cache-builds.json.new cache-builds.json"' builds.json | bash -Eeuo pipefail -x
+# (and then re-run the tests to canonicalize the file ordering)
+jq -s 'add' "$dir/sources-doi.json" "$dir/sources-moby.json" > "$dir/sources.json"
+rm -f "$dir/sources-doi.json" "$dir/sources-moby.json"
+
+# an attempt to highlight tag mapping bugs in the future
+jq '
+	to_entries
+	| map(
+		# emulate builds.json (poorly)
+		(.value.arches | keys[]) as $arch
+		| .key += "-" + $arch
+		| .value.arches = { ($arch): .value.arches[$arch] }
+
+		# filter to just the list of canonical tags per "build"
+		| .value |= [ .arches[$arch] | .tags[], .archTags[] ]
+	)
+	# combine our new pseudo-buildIds into overlapping lists of tags (see also "deploy.jq" and "tagged_manifests" which this is emulating)
+	| reduce .[] as $i ({};
+		.[ $i.value[] ] += [ $i.key ]
+	)
+' "$dir/sources.json" > "$dir/all-tags.json"
 
 coverage="$dir/.coverage"
 rm -rf "$coverage/GOCOVERDIR" "$coverage/bin"
