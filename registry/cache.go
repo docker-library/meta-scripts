@@ -7,6 +7,7 @@ import (
 
 	"cuelabs.dev/go/oci/ociregistry"
 	"cuelabs.dev/go/oci/ociregistry/ocimem"
+	godigest "github.com/opencontainers/go-digest"
 )
 
 // https://github.com/opencontainers/distribution-spec/pull/293#issuecomment-1452780554
@@ -30,6 +31,10 @@ type registryCache struct {
 
 	registry ociregistry.Interface
 
+	// a map of "repo@digest" or "repo:tag" to *sync.Mutex to ensure we don't double up on upstream lookups
+	refMutexes sync.Map
+	// (see "refMutex" function)
+
 	// https://github.com/cue-labs/oci/issues/24
 	mu   sync.Mutex                                    // TODO some kind of per-object/name/digest mutex so we don't request the same object from the upstream registry concurrently (on *top* of our maps mutex)?
 	has  map[string]bool                               // "repo/name@digest" => true (whether a given repo has the given digest)
@@ -45,12 +50,25 @@ func cacheKeyTag(repo, tag string) string {
 	return repo + ":" + tag
 }
 
+func (rc *registryCache) refMutex(ref string) *sync.Mutex {
+	refMu, _ := rc.refMutexes.LoadOrStore(ref, &sync.Mutex{})
+	return refMu.(*sync.Mutex)
+}
+
 // a helper that implements GetBlob and GetManifest generically (since they're the same function signature and it doesn't really help *us* to treat those object types differently here)
 func (rc *registryCache) getBlob(ctx context.Context, repo string, digest ociregistry.Digest, f func(ctx context.Context, repo string, digest ociregistry.Digest) (ociregistry.BlobReader, error)) (ociregistry.BlobReader, error) {
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
+	digestKey := cacheKeyDigest(repo, digest)
 
-	if desc, ok := rc.data[digest]; ok && desc.Data != nil && rc.has[cacheKeyDigest(repo, digest)] {
+	refMu := rc.refMutex(digestKey)
+	refMu.Lock()
+	defer refMu.Unlock()
+
+	rc.mu.Lock()
+	desc, ok := rc.data[digest]
+	haveValidCache := ok && desc.Data != nil && rc.has[digestKey]
+	rc.mu.Unlock()
+
+	if haveValidCache {
 		return ocimem.NewBytesReader(desc.Data, desc), nil
 	}
 
@@ -60,13 +78,15 @@ func (rc *registryCache) getBlob(ctx context.Context, repo string, digest ocireg
 	}
 	// defer r.Close() happens later when we know we aren't making Close the caller's responsibility
 
-	desc := r.Descriptor()
+	desc = r.Descriptor()
 	digest = desc.Digest // if this isn't a no-op, we've got a naughty registry
 
-	rc.has[cacheKeyDigest(repo, digest)] = true
+	rc.mu.Lock()
+	rc.has[digestKey] = true
+	rc.data[digest] = desc
+	rc.mu.Unlock()
 
 	if desc.Size > manifestSizeLimit {
-		rc.data[digest] = desc
 		return r, nil
 	}
 	defer r.Close()
@@ -79,7 +99,9 @@ func (rc *registryCache) getBlob(ctx context.Context, repo string, digest ocireg
 		return nil, err
 	}
 
+	rc.mu.Lock()
 	rc.data[digest] = desc
+	rc.mu.Unlock()
 
 	return ocimem.NewBytesReader(desc.Data, desc), nil
 }
@@ -93,15 +115,26 @@ func (rc *registryCache) GetManifest(ctx context.Context, repo string, digest oc
 }
 
 func (rc *registryCache) GetTag(ctx context.Context, repo string, tag string) (ociregistry.BlobReader, error) {
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
-
 	tagKey := cacheKeyTag(repo, tag)
 
-	if digest, ok := rc.tags[tagKey]; ok {
-		if desc, ok := rc.data[digest]; ok && desc.Data != nil {
-			return ocimem.NewBytesReader(desc.Data, desc), nil
-		}
+	refMu := rc.refMutex(tagKey)
+	refMu.Lock()
+	defer refMu.Unlock()
+
+	rc.mu.Lock()
+	digest, ok := rc.tags[tagKey]
+	var (
+		haveValidCache bool
+		desc           ociregistry.Descriptor
+	)
+	if ok {
+		desc, ok = rc.data[digest]
+		haveValidCache = ok && desc.Data != nil
+	}
+	rc.mu.Unlock()
+
+	if haveValidCache {
+		return ocimem.NewBytesReader(desc.Data, desc), nil
 	}
 
 	r, err := rc.registry.GetTag(ctx, repo, tag)
@@ -110,13 +143,15 @@ func (rc *registryCache) GetTag(ctx context.Context, repo string, tag string) (o
 	}
 	// defer r.Close() happens later when we know we aren't making Close the caller's responsibility
 
-	desc := r.Descriptor()
+	desc = r.Descriptor()
 
+	rc.mu.Lock()
 	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
 	rc.tags[tagKey] = desc.Digest
+	rc.data[desc.Digest] = desc
+	rc.mu.Unlock()
 
 	if desc.Size > manifestSizeLimit {
-		rc.data[desc.Digest] = desc
 		return r, nil
 	}
 	defer r.Close()
@@ -129,16 +164,26 @@ func (rc *registryCache) GetTag(ctx context.Context, repo string, tag string) (o
 		return nil, err
 	}
 
+	rc.mu.Lock()
 	rc.data[desc.Digest] = desc
+	rc.mu.Unlock()
 
 	return ocimem.NewBytesReader(desc.Data, desc), nil
 }
 
 func (rc *registryCache) resolveBlob(ctx context.Context, repo string, digest ociregistry.Digest, f func(ctx context.Context, repo string, digest ociregistry.Digest) (ociregistry.Descriptor, error)) (ociregistry.Descriptor, error) {
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
+	digestKey := cacheKeyDigest(repo, digest)
 
-	if desc, ok := rc.data[digest]; ok && rc.has[cacheKeyDigest(repo, digest)] {
+	refMu := rc.refMutex(digestKey)
+	refMu.Lock()
+	defer refMu.Unlock()
+
+	rc.mu.Lock()
+	desc, ok := rc.data[digest]
+	haveValidCache := ok && rc.has[digestKey]
+	rc.mu.Unlock()
+
+	if haveValidCache {
 		return desc, nil
 	}
 
@@ -149,9 +194,12 @@ func (rc *registryCache) resolveBlob(ctx context.Context, repo string, digest oc
 
 	digest = desc.Digest // if this isn't a no-op, we've got a naughty registry
 
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
 	rc.has[cacheKeyDigest(repo, digest)] = true
 
-	// carefully copy only valid Resolve* fields such that any other existing fields are kept (this matters more if we ever make our mutexes better/less aggressive 👀)
+	// carefully copy only valid Resolve* fields such that any other existing fields are kept
 	if d, ok := rc.data[digest]; ok {
 		d.MediaType = desc.MediaType
 		d.Digest = desc.Digest
@@ -172,15 +220,25 @@ func (rc *registryCache) ResolveBlob(ctx context.Context, repo string, digest oc
 }
 
 func (rc *registryCache) ResolveTag(ctx context.Context, repo string, tag string) (ociregistry.Descriptor, error) {
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
-
 	tagKey := cacheKeyTag(repo, tag)
 
-	if digest, ok := rc.tags[tagKey]; ok {
-		if desc, ok := rc.data[digest]; ok {
-			return desc, nil
-		}
+	refMu := rc.refMutex(tagKey)
+	refMu.Lock()
+	defer refMu.Unlock()
+
+	rc.mu.Lock()
+	digest, ok := rc.tags[tagKey]
+	var (
+		haveValidCache bool
+		desc           ociregistry.Descriptor
+	)
+	if ok {
+		desc, haveValidCache = rc.data[digest]
+	}
+	rc.mu.Unlock()
+
+	if haveValidCache {
+		return desc, nil
 	}
 
 	desc, err := rc.registry.ResolveTag(ctx, repo, tag)
@@ -188,10 +246,13 @@ func (rc *registryCache) ResolveTag(ctx context.Context, repo string, tag string
 		return desc, err
 	}
 
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
 	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
 	rc.tags[tagKey] = desc.Digest
 
-	// carefully copy only valid Resolve* fields such that any other existing fields are kept (this matters more if we ever make our mutexes better/less aggressive 👀)
+	// carefully copy only valid Resolve* fields such that any other existing fields are kept
 	if d, ok := rc.data[desc.Digest]; ok {
 		d.MediaType = desc.MediaType
 		d.Digest = desc.Digest
@@ -204,18 +265,33 @@ func (rc *registryCache) ResolveTag(ctx context.Context, repo string, tag string
 }
 
 func (rc *registryCache) PushManifest(ctx context.Context, repo string, tag string, contents []byte, mediaType string) (ociregistry.Descriptor, error) {
-	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific tag)
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
+	digest := godigest.FromBytes(contents)
+	digestKey := cacheKeyDigest(repo, digest)
+
+	digMu := rc.refMutex(digestKey)
+	digMu.Lock()
+	defer digMu.Unlock()
+
+	var tagKey string
+	if tag != "" {
+		tagKey = cacheKeyTag(repo, tag)
+
+		tagMu := rc.refMutex(tagKey)
+		tagMu.Lock()
+		defer tagMu.Unlock()
+	}
 
 	desc, err := rc.registry.PushManifest(ctx, repo, tag, contents, mediaType)
 	if err != nil {
 		return ociregistry.Descriptor{}, err
 	}
 
-	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	rc.has[digestKey] = true
 	if tag != "" {
-		rc.tags[cacheKeyTag(repo, tag)] = desc.Digest
+		rc.tags[tagKey] = desc.Digest
 	}
 	if desc.Size <= manifestSizeLimit {
 		desc.Data = contents
@@ -226,18 +302,24 @@ func (rc *registryCache) PushManifest(ctx context.Context, repo string, tag stri
 }
 
 func (rc *registryCache) PushBlob(ctx context.Context, repo string, desc ociregistry.Descriptor, r io.Reader) (ociregistry.Descriptor, error) {
-	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific digest)
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
+	digest := desc.Digest
+	digestKey := cacheKeyDigest(repo, digest)
 
-	// TODO if desc.Size <= manifestSizeLimit, we should technically wrap up the Reader we're given and cache the result so we can shove it directly into the cache, but we currently don't read back blobs we pushed in (and I don't think that's a common use case), so I'm taking the simpler answer of just using this event as a cache bust intead
+	refMu := rc.refMutex(digestKey)
+	refMu.Lock()
+	defer refMu.Unlock()
+
+	// TODO if desc.Size <= manifestSizeLimit, we should technically wrap up the Reader we're given and cache the result so we can shove it directly into the cache, but we currently don't read back blobs we pushed in (and I don't think that's a common use case), so I'm taking the simpler answer of just using this event as a cache bust instead
 
 	desc, err := rc.registry.PushBlob(ctx, repo, desc, r)
 	if err != nil {
 		return ociregistry.Descriptor{}, err
 	}
 
-	rc.has[cacheKeyDigest(repo, desc.Digest)] = true
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	rc.has[digestKey] = true
 
 	// carefully copy only some fields such that any other existing fields are kept (if we resolve the TODO above about desc.Data, this matters a lot less and we should just assign directly 👀)
 	if d, ok := rc.data[desc.Digest]; ok {
@@ -252,16 +334,22 @@ func (rc *registryCache) PushBlob(ctx context.Context, repo string, desc ociregi
 }
 
 func (rc *registryCache) MountBlob(ctx context.Context, fromRepo, toRepo string, digest ociregistry.Digest) (ociregistry.Descriptor, error) {
-	// TODO this does *not* need to lock the entire cache during the upstream push (but it *would* be good to block pushing to this specific digest)
-	rc.mu.Lock()
-	defer rc.mu.Unlock()
+	// TODO technically we should also be able to safely imply that "fromRepo" has digest here too (assuming MountBlob success), but need to double check whether the contract of the MountBlob API in OCI is such that it's legal for it to return success if "toRepo" already has "digest" (even if "fromRepo" doesn't)
+	toDigestKey := cacheKeyDigest(toRepo, digest)
+
+	refMu := rc.refMutex(toDigestKey)
+	refMu.Lock()
+	defer refMu.Unlock()
 
 	desc, err := rc.registry.MountBlob(ctx, fromRepo, toRepo, digest)
 	if err != nil {
 		return ociregistry.Descriptor{}, err
 	}
 
-	rc.has[cacheKeyDigest(toRepo, desc.Digest)] = true // TODO technically we should also be able to safely imply that "fromRepo" has digest here too, but need to double check whether the contract of the MountBlob API in OCI is such that it's legal for it to return success if "toRepo" already has "digest" (even if "fromRepo" doesn't)
+	rc.mu.Lock()
+	defer rc.mu.Unlock()
+
+	rc.has[toDigestKey] = true
 
 	// carefully copy only some fields such that any other existing fields are kept (esp. desc.Data)
 	if d, ok := rc.data[digest]; ok {
