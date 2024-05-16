@@ -38,7 +38,6 @@ def repos_anti_subset:
 		"phpmyadmin",
 		"postfixadmin",
 		"r-base",
-		"rethinkdb",
 		"rocket.chat",
 		"rockylinux",
 		"sl",
@@ -60,10 +59,8 @@ def repos_anti_subset:
 		"dart",
 		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
 		"erlang", # direct children: elixir
-		"flink",
 		"friendica",
 		"gazebo",
-		"gradle",
 		"groovy",
 		"haskell",
 		"haxe",
@@ -71,7 +68,6 @@ def repos_anti_subset:
 		"ibmjava", # direct children: maven websphere-liberty
 		"jetty", # direct children: geonetwork
 		"joomla",
-		"jruby",
 		"kong",
 		"lightstreamer",
 		"liquibase",
@@ -96,12 +92,10 @@ def repos_anti_subset:
 		"tomcat", # direct children: convertigo geonetwork xwiki
 		"tomee",
 		"websphere-liberty",
-		"zookeeper",
 		"clojure",
 		"convertigo",
 		"geonetwork",
 		"maven",
-		"mongo-express",
 		"plone",
 
 		empty
@@ -122,13 +116,16 @@ def _sbom_subset:
 		"drupal",
 		"eclipse-temurin",
 		"elasticsearch",
+		"flink",
 		"fluentd",
 		"gcc",
 		"ghost",
+		"gradle",
 		"haproxy",
 		"httpd",
 		"hylang",
 		"influxdb",
+		"jruby",
 		"julia",
 		"kapacitor",
 		"kibana",
@@ -136,6 +133,7 @@ def _sbom_subset:
 		"mariadb",
 		"memcached",
 		"mongo",
+		"mongo-express",
 		"mysql",
 		"neo4j",
 		"nginx",
@@ -148,6 +146,7 @@ def _sbom_subset:
 		"rabbitmq",
 		"redis",
 		"registry",
+		"rethinkdb",
 		"ruby",
 		"rust",
 		"solr",
@@ -156,6 +155,7 @@ def _sbom_subset:
 		"tomcat",
 		"wordpress",
 		"xwiki",
+		"zookeeper",
 		empty
 	]
 ;
