@@ -40,6 +40,17 @@ node {
 			sh '''
 				git submodule update --remote --merge .doi
 				git submodule update --remote --merge .scripts
+
+				# TODO once "repos_anti_subset" in "doi.jq" is empty, we can remove this (and all associated usages of "subset.txt" can just be "--all" or go away completely)
+				# in all the places we need to interact with our "subset" it's a lot easier to have an explicit list of what's included, so we'll continue to generate "subset.txt" until it contains the full set
+				bashbrew list --all --repos | jq -L.scripts -rsR '
+					include "doi";
+					rtrimstr("\n")
+					| split("\n")
+					| . - repos_anti_subset
+					| join("\n")
+				' > subset.txt
+				git add subset.txt
 			'''
 		}
 

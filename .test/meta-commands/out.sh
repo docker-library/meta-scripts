@@ -6,7 +6,6 @@
 SOURCE_DATE_EPOCH=1700741054 \
 	docker buildx build --progress=plain \
 	--provenance=mode=max \
-	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
 	--output '"type=oci","dest=temp.tar"' \
 	--annotation 'org.opencontainers.image.source=https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli' \
 	--annotation 'org.opencontainers.image.revision=6d541d27b5dd12639e5a33a675ebca04d3837d74' \
