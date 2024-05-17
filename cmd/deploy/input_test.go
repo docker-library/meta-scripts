@@ -2,8 +2,271 @@ package main
 
 import (
 	"encoding/json"
+	"maps"
+	"slices"
+	"strings"
 	"testing"
+
+	"cuelabs.dev/go/oci/ociregistry"
+	"github.com/docker-library/meta-scripts/registry"
 )
+
+func TestNormalizeInputRefs(t *testing.T) {
+	for _, x := range []struct {
+		name       string
+		deployType deployType
+		rawRefs    []string
+		wantRefs   []registry.Reference
+		wantDigest ociregistry.Digest
+		wantErr    string
+	}{
+		{
+			name:       "happy path",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"localhost:5000/foo@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+				"localhost:5000/bar:some-tag",
+				"localhost:5000/baz",
+			},
+			wantRefs: []registry.Reference{
+				{
+					Host:       "localhost:5000",
+					Repository: "foo",
+					Digest:     "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+				},
+				{
+					Host:       "localhost:5000",
+					Repository: "bar",
+					Tag:        "some-tag",
+				},
+				{
+					Host:       "localhost:5000",
+					Repository: "baz",
+				},
+			},
+			wantDigest: "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+			wantErr:    "",
+		},
+		{
+			name:       "invalid digest",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"localhost:5000/foo@bad_digest",
+			},
+			wantErr: "failed to parse ref:",
+		},
+		{
+			name:       "invalid host",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"...",
+			},
+			wantErr: "failed to parse ref:",
+		},
+		{
+			name:       "invalid tag",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"localhost:5000/foo:#",
+			},
+			wantErr: "failed to parse ref:",
+		},
+		{
+			name:       "invalid reference url",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"localhost:5000/foo?test",
+			},
+			wantErr: "failed to parse ref:",
+		},
+		{
+			name:       "mismatch digest",
+			deployType: typeManifest,
+			rawRefs: []string{
+				"localhost:5000/foo@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+				"localhost:5000/foo@sha256:00042f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+			},
+			wantErr: "refs digest mismatch in ",
+		},
+		{
+			name:       "can't push blob to tag",
+			deployType: typeBlob,
+			rawRefs: []string{
+				"localhost:5000/foo:tag",
+			},
+			wantErr: "cannot push blobs to a tag:",
+		},
+	} {
+		t.Run(x.name, func(t *testing.T) {
+			refs, refsDigest, err := normalizeInputRefs(x.deployType, x.rawRefs)
+
+			if x.wantErr != "" {
+				if err == nil {
+					t.Fatalf("Expected error not returned: %s", x.wantErr)
+				}
+
+				if !strings.Contains(err.Error(), x.wantErr) {
+					t.Fatalf("Expected error doesn't match.\ngot:\n%q,\n\nexpected to contain:\n%q", err, x.wantErr)
+				}
+			}
+
+			if refsDigest != x.wantDigest {
+				t.Errorf("Digest doesn't match\ngot:\n%s\n\nexpected:\n%s", refsDigest, x.wantDigest)
+			}
+
+			if !slices.Equal(refs, x.wantRefs) {
+				t.Errorf("References doesn't match.\ngot: \n%#v,\n\nexpected:\n%#v", refs, x.wantRefs)
+			}
+		})
+	}
+}
+
+func TestNormalizeInputLookup(t *testing.T) {
+	for _, x := range []struct {
+		name       string
+		rawLookup  map[string]string
+		wantLookup map[ociregistry.Digest]registry.Reference
+		wantDigest string
+		wantErr    string
+	}{
+		{
+			name: "single digest",
+			rawLookup: map[string]string{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": "example:foo",
+			},
+			wantLookup: map[ociregistry.Digest]registry.Reference{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": {
+					Host:       "docker.io",
+					Repository: "library/example",
+					Tag:        "foo",
+					Digest:     "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+				},
+			},
+			wantDigest: "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+			wantErr:    "",
+		},
+		{
+			name: "multiple digests",
+			rawLookup: map[string]string{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": "example:foo",
+				"sha256:0cb474919526d040392883b84e5babb65a149cc605b89b117781ab94e88a5e86": "foo/bar:baz",
+				"sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e": "localhost:5000/example:bar",
+			},
+			wantLookup: map[ociregistry.Digest]registry.Reference{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": {
+					Host:       "docker.io",
+					Repository: "library/example",
+					Tag:        "foo",
+					Digest:     "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+				},
+				"sha256:0cb474919526d040392883b84e5babb65a149cc605b89b117781ab94e88a5e86": {
+					Host:       "docker.io",
+					Repository: "foo/bar",
+					Tag:        "baz",
+					Digest:     "sha256:0cb474919526d040392883b84e5babb65a149cc605b89b117781ab94e88a5e86",
+				},
+				"sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e": {
+					Host:       "localhost:5000",
+					Repository: "example",
+					Tag:        "bar",
+					Digest:     "sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e",
+				},
+			},
+			wantDigest: "nil",
+			wantErr:    "",
+		},
+		{
+			name: "basic fallback",
+			rawLookup: map[string]string{
+				"": "example",
+			},
+			wantLookup: map[ociregistry.Digest]registry.Reference{
+				"": {
+					Host:       "docker.io",
+					Repository: "library/example",
+				},
+			},
+			wantDigest: "nil",
+			wantErr:    "",
+		},
+		{
+			name: "digest fallback",
+			rawLookup: map[string]string{
+				"": "example@sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e",
+			},
+			wantLookup: map[ociregistry.Digest]registry.Reference{
+				"": {
+					Host:       "docker.io",
+					Repository: "library/example",
+					Digest:     "sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e",
+				},
+			},
+			wantDigest: "",
+			wantErr:    "",
+		},
+		{
+			name: "tag fallback",
+			rawLookup: map[string]string{
+				"": "example:tag",
+			},
+			wantLookup: map[ociregistry.Digest]registry.Reference{
+				"": {
+					Host:       "docker.io",
+					Repository: "library/example",
+					Tag:        "tag",
+				},
+			},
+			wantDigest: "",
+			wantErr:    "",
+		},
+		{
+			name: "bad digest",
+			rawLookup: map[string]string{
+				"invalid digest": "example:foo",
+			},
+			wantErr: `lookup key "invalid digest" invalid:`,
+		},
+		{
+			name: "bad reference",
+			rawLookup: map[string]string{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": "://#",
+			},
+			wantErr: "failed to parse lookup ref",
+		},
+		{
+			name: "digest mistmatch",
+			rawLookup: map[string]string{
+				"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": "example:foo@sha256:00f42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d",
+			},
+			wantErr: "digest on lookup ref should either be omitted or match key:",
+		},
+	} {
+		t.Run(x.name, func(t *testing.T) {
+			lookup, lookupDigest, err := normalizeInputLookup(x.rawLookup)
+
+			if x.wantErr != "" {
+				if err == nil {
+					t.Fatalf("Expected error not returned: %s", x.wantErr)
+				}
+
+				if !strings.Contains(err.Error(), x.wantErr) {
+					t.Fatalf("Expected error doesn't match.\ngot:\n%q,\n\nexpected to contain:\n%q", err, x.wantErr)
+				}
+				return
+			}
+
+			if (lookupDigest == nil && x.wantDigest != "nil") ||
+				(lookupDigest != nil && x.wantDigest == "nil") ||
+				(lookupDigest != nil && string(*lookupDigest) != x.wantDigest) {
+				t.Errorf("Unexpected digest.\ngot:\n%q\n\nexpected:\n%q", lookupDigest, x.wantDigest)
+			}
+
+			if !maps.Equal(lookup, x.wantLookup) {
+				t.Errorf("Lookups don't match.\ngot\n%#v\n\nexpected\n%#v", lookup, x.wantLookup)
+			}
+		})
+	}
+}
 
 func TestNormalizeInput(t *testing.T) {
 	for _, x := range []struct {

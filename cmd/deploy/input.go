@@ -49,6 +49,73 @@ type inputNormalized struct {
 	Do func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) `json:"-"`
 }
 
+func normalizeInputRefs(deployType deployType, rawRefs []string) ([]registry.Reference, ociregistry.Digest, error) {
+	refs := make([]registry.Reference, len(rawRefs))
+	var commonDigest ociregistry.Digest // if any ref has a digest, they all have to have the same digest (and our data has to match)
+	for i, refString := range rawRefs {
+		ref, err := registry.ParseRef(refString)
+		if err != nil {
+			return nil, "", fmt.Errorf("%s: failed to parse ref: %w", refString, err)
+		}
+
+		if ref.Digest != "" {
+			if commonDigest == "" {
+				commonDigest = ref.Digest
+			} else if ref.Digest != commonDigest {
+				return nil, "", fmt.Errorf("refs digest mismatch in %s: %s", ref, commonDigest)
+			}
+		}
+
+		if deployType == typeBlob && ref.Tag != "" {
+			return nil, "", fmt.Errorf("cannot push blobs to a tag: %s", ref)
+		}
+
+		refs[i] = ref
+	}
+
+	return refs, commonDigest, nil
+}
+
+func normalizeInputLookup(rawLookup map[string]string) (map[ociregistry.Digest]registry.Reference, *ociregistry.Digest, error) {
+	lookup := make(map[ociregistry.Digest]registry.Reference, len(rawLookup))
+	var digest ociregistry.Digest // if we store this out here, we can abuse it later to get the "last" lookup digest (for getting the single key in the case of len(lookup) == 1 without a new loop)
+	for d, refString := range rawLookup {
+		digest = ociregistry.Digest(d)
+		if digest != "" {
+			// normal.Lookup[""] is a special case for fallback (where to look for any child object that isn't explicitly referenced)
+			if err := digest.Validate(); err != nil {
+				return nil, nil, fmt.Errorf("lookup key %q invalid: %w", digest, err)
+			}
+		}
+		if ref, err := registry.ParseRef(refString); err != nil {
+			return nil, nil, fmt.Errorf("failed to parse lookup ref %q: %v", refString, err)
+		} else {
+			if ref.Tag != "" && digest != "" {
+				//return normal, fmt.Errorf("%s: tag on by-digest lookup ref makes no sense: %s (%s)", debugId, ref, d)
+			}
+
+			if ref.Digest == "" && digest != "" {
+				ref.Digest = digest
+			}
+			if digest != "" && ref.Digest != digest {
+				return nil, nil, fmt.Errorf("digest on lookup ref should either be omitted or match key: %s vs %s", ref, d)
+			}
+
+			lookup[digest] = ref
+		}
+	}
+
+	// see notes on "digest" definition
+	if len(lookup) != 1 {
+		return lookup, nil, nil
+	}
+	if digest == "" && (lookup[""].Digest == "" && lookup[""].Tag == "") {
+		// if it was a fallback, it needs at least Tag or Digest (or our refs need Digest, so we can infer)
+		return lookup, nil, nil
+	}
+	return lookup, &digest, nil
+}
+
 func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 	var normal inputNormalized
 
@@ -70,85 +137,44 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 	if len(raw.Refs) == 0 {
 		return normal, fmt.Errorf("zero refs specified for pushing (need at least one)")
 	}
-	normal.Refs = make([]registry.Reference, len(raw.Refs))
-	var refsDigest ociregistry.Digest // if any ref has a digest, they all have to have the same digest (and our data has to match)
-	for i, refString := range raw.Refs {
-		ref, err := registry.ParseRef(refString)
-		if err != nil {
-			return normal, fmt.Errorf("%s: failed to parse ref: %w", refString, err)
-		}
-
-		if ref.Digest != "" {
-			if refsDigest == "" {
-				refsDigest = ref.Digest
-			} else if ref.Digest != refsDigest {
-				return normal, fmt.Errorf("refs digest mismatch in %s: %s", ref, refsDigest)
-			}
-		}
-
-		if normal.Type == typeBlob && ref.Tag != "" {
-			return normal, fmt.Errorf("cannot push blobs to a tag: %s", ref)
-		}
-
-		normal.Refs[i] = ref
+	var (
+		refsDigest ociregistry.Digest
+		err        error
+	)
+	normal.Refs, refsDigest, err = normalizeInputRefs(normal.Type, raw.Refs)
+	if err != nil {
+		return normal, err
 	}
-	debugId := normal.Refs[0]
 
-	normal.Lookup = make(map[ociregistry.Digest]registry.Reference, len(raw.Lookup))
-	var lookupDigest ociregistry.Digest // if we store this out here, we can abuse it later to get the "last" lookup digest (for getting the single key in the case of len(lookup) == 1 without a new loop)
-	for d, refString := range raw.Lookup {
-		lookupDigest = ociregistry.Digest(d)
-		if lookupDigest != "" {
-			// normal.Lookup[""] is a special case for fallback (where to look for any child object that isn't explicitly referenced)
-			if err := lookupDigest.Validate(); err != nil {
-				return normal, fmt.Errorf("%s: lookup key %q invalid: %w", debugId, lookupDigest, err)
-			}
-		}
-		if ref, err := registry.ParseRef(refString); err != nil {
-			return normal, fmt.Errorf("%s: failed to parse lookup ref %q: %v", debugId, refString, err)
-		} else {
-			if ref.Tag != "" && lookupDigest != "" {
-				//return normal, fmt.Errorf("%s: tag on by-digest lookup ref makes no sense: %s (%s)", debugId, ref, d)
-			}
-
-			if ref.Digest == "" && lookupDigest != "" {
-				ref.Digest = lookupDigest
-			}
-			if ref.Digest != lookupDigest && lookupDigest != "" {
-				return normal, fmt.Errorf("%s: digest on lookup ref should either be omitted or match key: %s vs %s", debugId, ref, d)
-			}
-
-			normal.Lookup[lookupDigest] = ref
-		}
+	debugId := normal.Refs[0] // used for annotating errors from here out
+	var lookupDigest *ociregistry.Digest
+	normal.Lookup, lookupDigest, err = normalizeInputLookup(raw.Lookup)
+	if err != nil {
+		return normal, fmt.Errorf("%s: %w", debugId, err)
 	}
 
 	if raw.Data == nil || bytes.Equal(raw.Data, []byte("null")) {
 		// if we have no Data, let's see if we have enough information to infer an object to copy
 		if lookupRef, ok := normal.Lookup[refsDigest]; refsDigest != "" && ok {
 			// if any of our Refs had a digest, *and* we have a way to Lookup that digest, that's the one
-			lookupDigest = refsDigest
+			lookupDigest = &refsDigest
 			normal.CopyFrom = &lookupRef
-		} else if lookupRef, ok := normal.Lookup[lookupDigest]; len(normal.Lookup) == 1 && ok {
+		} else if lookupDigest != nil {
 			// if we only had one Lookup entry, that's the one
-			if lookupDigest == "" {
-				// if it was a fallback, it needs at least Tag or Digest (or our refs need Digest, so we can infer)
-				if lookupRef.Digest == "" && lookupRef.Tag == "" {
-					if refsDigest != "" {
-						lookupRef.Digest = refsDigest
-					} else {
-						return normal, fmt.Errorf("%s: (single) fallback needs digest or tag: %s", debugId, lookupRef)
-					}
-				}
-			}
+			lookupRef := normal.Lookup[*lookupDigest]
+			normal.CopyFrom = &lookupRef
+		} else if lookupRef, ok := normal.Lookup[""]; refsDigest != "" && ok {
+			lookupDigest = &refsDigest
+			lookupRef.Digest = refsDigest
 			normal.CopyFrom = &lookupRef
 		} else {
 			// if Lookup has only a single entry, that's the one (but that's our last chance for inferring intent)
-			return normal, fmt.Errorf("%s: missing data (and lookup is not a single item)", debugId)
+			return normal, fmt.Errorf("%s: missing data (and lookup is not a single item or fallback with digest or tag)", debugId)
 			// TODO *technically* it would be fair to have lookup have two items if one of them is the fallback reference, but it doesn't really make much sense to copy an object from one namespace, but to get all its children from somewhere else
 		}
 
-		if lookupDigest == "" && normal.CopyFrom.Digest != "" {
-			lookupDigest = normal.CopyFrom.Digest
+		if *lookupDigest == "" && normal.CopyFrom.Digest != "" {
+			lookupDigest = &normal.CopyFrom.Digest
 		}
 
 		if _, ok := normal.Lookup[""]; !ok {
@@ -157,8 +183,8 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 		}
 
 		if refsDigest == "" {
-			refsDigest = lookupDigest
-		} else if lookupDigest != "" && refsDigest != lookupDigest {
+			refsDigest = *lookupDigest
+		} else if *lookupDigest != "" && refsDigest != *lookupDigest {
 			return normal, fmt.Errorf("%s: copy-by-digest mismatch: %s vs %s", debugId, refsDigest, normal.CopyFrom)
 		}
 	} else {
