@@ -20,9 +20,15 @@ type rateLimitedRetryingRoundTripper struct {
 }
 
 func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	requestRetryLimiter := rate.NewLimiter(rate.Every(time.Second), 1) // cap request retries at once per second
-	firstTry := true
-	ctx := req.Context()
+	var (
+		// cap request retries at once per second
+		requestRetryLimiter = rate.NewLimiter(rate.Every(time.Second), 1)
+
+		// if we see 3x 503 during retry, we should bail
+		maxTry503 = 3
+
+		ctx = req.Context()
+	)
 	for {
 		if err := requestRetryLimiter.Wait(ctx); err != nil {
 			return nil, err
@@ -31,7 +37,35 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 			return nil, err
 		}
 
-		if !firstTry {
+		// in theory, this RoundTripper we're invoking should close req.Body (per the RoundTripper contract), so we shouldn't have to 🤞
+		res, err := d.roundTripper.RoundTrip(req)
+		if err != nil {
+			return nil, err
+		}
+
+		doRetry := false
+
+		if res.StatusCode == 429 {
+			// just eat all available tokens and starve out the rate limiter (any 429 means we need to slow down, so our whole "bucket" is shot)
+			for i := d.limiter.Tokens(); i > 0; i-- {
+				_ = d.limiter.Allow()
+			}
+			doRetry = true // TODO maximum number of retries? (perhaps a deadline instead?  req.WithContext to inject a deadline?  👀)
+		}
+
+		// 503 should result in a few auto-retries (especially with the automatic retry delay this injects), but up to a limit so we don't contribute to the "thundering herd" too much in a serious outage
+		if res.StatusCode == 503 && maxTry503 > 1 {
+			maxTry503--
+			doRetry = true
+			// no need to eat up the rate limiter tokens as we do for 429 because this is not a rate limiting error (and we have the "requestRetryLimiter" that separately limits our retries of *this* request)
+		}
+
+		if doRetry {
+			// satisfy the big scary warnings on https://pkg.go.dev/net/http#RoundTripper and https://pkg.go.dev/net/http#Client.Do about the downsides of failing to Close the response body
+			if err := res.Body.Close(); err != nil {
+				return nil, err
+			}
+
 			// https://pkg.go.dev/net/http#RoundTripper
 			// "RoundTrip should not modify the request, except for consuming and closing the Request's Body."
 			if req.Body != nil {
@@ -45,30 +79,9 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 					return nil, err
 				}
 			}
-		}
-		firstTry = false
-
-		// in theory, this RoundTripper we're invoking should close req.Body (per the RoundTripper contract), so we shouldn't have to 🤞
-		res, err := d.roundTripper.RoundTrip(req)
-		if err != nil {
-			return nil, err
-		}
-
-		// TODO 503 should probably result in at least one or two auto-retries (especially with the automatic retry delay this injects)
-		if res.StatusCode == 429 {
-			// satisfy the big scary warnings on https://pkg.go.dev/net/http#RoundTripper and https://pkg.go.dev/net/http#Client.Do about the downsides of failing to Close the response body
-			if err := res.Body.Close(); err != nil {
-				return nil, err
-			}
-
-			// just eat all available tokens and starve out the rate limiter (any 429 means we need to slow down, so our whole "bucket" is shot)
-			for i := d.limiter.Tokens(); i > 0; i-- {
-				_ = d.limiter.Allow()
-			}
 
 			// TODO some way to notify upwards that we retried?
-			// TODO maximum number of retries? (perhaps a deadline instead?  req.WithContext to inject a deadline?  👀)
-			// TODO implement more backoff logic than just one retry per second + docker hub rate limit?
+			// TODO implement more backoff logic than just one retry per second + docker hub rate limit (+ limited 503 retry)?
 			continue
 		}
 
