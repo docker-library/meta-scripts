@@ -12,7 +12,6 @@ def repos_anti_subset:
 		"amazonlinux", # direct children: amazoncorretto swift
 		"api-firewall",
 		"arangodb",
-		"archlinux",
 		"bonita",
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
@@ -32,14 +31,12 @@ def repos_anti_subset:
 		"nats-streaming",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
-		"photon",
 		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
 		"php-zendserver",
 		"phpmyadmin",
 		"postfixadmin",
 		"r-base",
 		"rocket.chat",
-		"rockylinux",
 		"sl",
 		"spiped",
 		"teamspeak",
@@ -61,7 +58,6 @@ def repos_anti_subset:
 		"erlang", # direct children: elixir
 		"friendica",
 		"gazebo",
-		"groovy",
 		"haskell",
 		"haxe",
 		"ibm-semeru-runtimes", # direct children: maven open-liberty tomee websphere-liberty
@@ -77,7 +73,6 @@ def repos_anti_subset:
 		"neurodebian",
 		"nextcloud",
 		"node", # direct children: express-gateway ghost mongo-express unit
-		"odoo",
 		"open-liberty",
 		"orientdb",
 		"python", # direct children: hylang plone satosa unit
@@ -90,9 +85,7 @@ def repos_anti_subset:
 		"storm",
 		"swift",
 		"tomcat", # direct children: convertigo geonetwork xwiki
-		"tomee",
 		"websphere-liberty",
-		"clojure",
 		"convertigo",
 		"geonetwork",
 		"maven",
@@ -106,21 +99,25 @@ def repos_anti_subset:
 def _sbom_subset:
 	[
 		# only repositories we have explicitly verified
+		"archlinux",
 		"bash",
 		"buildpack-deps",
 		"busybox",
 		"caddy",
 		"cassandra",
 		"chronograf",
+		"clojure",
 		"couchdb",
 		"drupal",
 		"eclipse-temurin",
 		"elasticsearch",
+		"fedora",
 		"flink",
 		"fluentd",
 		"gcc",
 		"ghost",
 		"gradle",
+		"groovy",
 		"haproxy",
 		"httpd",
 		"hylang",
@@ -137,8 +134,10 @@ def _sbom_subset:
 		"mysql",
 		"neo4j",
 		"nginx",
+		"odoo",
 		"openjdk",
 		"perl",
+		"photon",
 		"php",
 		"postgres",
 		"pypy",
@@ -147,12 +146,14 @@ def _sbom_subset:
 		"redis",
 		"registry",
 		"rethinkdb",
+		"rockylinux",
 		"ruby",
 		"rust",
 		"solr",
 		"sonarqube",
 		"telegraf",
 		"tomcat",
+		"tomee",
 		"wordpress",
 		"xwiki",
 		"zookeeper",
