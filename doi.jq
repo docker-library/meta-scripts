@@ -11,8 +11,6 @@ def repos_anti_subset:
 		"alt",
 		"amazonlinux", # direct children: amazoncorretto swift
 		"api-firewall",
-		"arangodb",
-		"bonita",
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
 		"clefos",
@@ -35,7 +33,6 @@ def repos_anti_subset:
 		"php-zendserver",
 		"phpmyadmin",
 		"postfixadmin",
-		"r-base",
 		"rocket.chat",
 		"sl",
 		"spiped",
@@ -47,7 +44,6 @@ def repos_anti_subset:
 		"yourls",
 		"znc",
 		"adminer",
-		"aerospike",
 		"amazoncorretto", # direct children: jetty maven tomcat
 		"backdrop",
 		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
@@ -55,7 +51,6 @@ def repos_anti_subset:
 		"couchbase",
 		"dart",
 		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
-		"erlang", # direct children: elixir
 		"friendica",
 		"gazebo",
 		"haskell",
@@ -70,7 +65,6 @@ def repos_anti_subset:
 		"matomo",
 		"mediawiki",
 		"monica",
-		"neurodebian",
 		"nextcloud",
 		"node", # direct children: express-gateway ghost mongo-express unit
 		"open-liberty",
@@ -82,7 +76,6 @@ def repos_anti_subset:
 		"satosa",
 		"silverpeas",
 		"spark",
-		"storm",
 		"swift",
 		"tomcat", # direct children: convertigo geonetwork xwiki
 		"websphere-liberty",
@@ -99,8 +92,11 @@ def repos_anti_subset:
 def _sbom_subset:
 	[
 		# only repositories we have explicitly verified
+		"aerospike",
+		"arangodb",
 		"archlinux",
 		"bash",
+		"bonita",
 		"buildpack-deps",
 		"busybox",
 		"caddy",
@@ -111,6 +107,8 @@ def _sbom_subset:
 		"drupal",
 		"eclipse-temurin",
 		"elasticsearch",
+		"elixir",
+		"erlang",
 		"fedora",
 		"flink",
 		"fluentd",
@@ -133,6 +131,7 @@ def _sbom_subset:
 		"mongo-express",
 		"mysql",
 		"neo4j",
+		"neurodebian",
 		"nginx",
 		"odoo",
 		"openjdk",
@@ -142,6 +141,7 @@ def _sbom_subset:
 		"postgres",
 		"pypy",
 		"python",
+		"r-base",
 		"rabbitmq",
 		"redis",
 		"registry",
@@ -151,6 +151,7 @@ def _sbom_subset:
 		"rust",
 		"solr",
 		"sonarqube",
+		"storm",
 		"telegraf",
 		"tomcat",
 		"tomee",
