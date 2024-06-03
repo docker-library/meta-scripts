@@ -37,6 +37,7 @@ SOURCE_DATE_EPOCH=1700741054 \
 	--platform 'linux/amd64' \
 	--build-context 'alpine:3.18=docker-image://alpine@sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0' \
 	--build-arg BUILDKIT_SYNTAX="$BASHBREW_BUILDKIT_SYNTAX" \
+	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all \
 	--file 'Dockerfile' \
 	'https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli'
 mkdir temp
