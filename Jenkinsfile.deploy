@@ -16,7 +16,7 @@ properties([
 
 env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('deploy-') // "windows-amd64", "arm64v8", etc
 
-node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
+node('put-shared') { ansiColor('xterm') {
 	stage('Checkout') {
 		checkout(scmGit(
 			userRemoteConfigs: [[
@@ -35,6 +35,25 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
 			],
 		))
+	}
+
+	// make sure "docker login" is localized to this workspace
+	env.DOCKER_CONFIG = workspace + '/.docker'
+	dir(env.DOCKER_CONFIG) { deleteDir() }
+
+	stage('Login') {
+		withCredentials([
+			usernamePassword(
+				credentialsId: 'docker-hub-' + env.BASHBREW_ARCH,
+				usernameVariable: 'DOCKER_USERNAME',
+				passwordVariable: 'DOCKER_PASSWORD',
+			),
+		]) {
+			sh '''#!/usr/bin/env bash
+				set -Eeuo pipefail # no -x
+				docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
+			'''
+		}
 	}
 
 	dir('meta') {
@@ -70,4 +89,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			}
 		}
 	}
+
+	// "docker logout"
+	dir(env.DOCKER_CONFIG) { deleteDir() }
 } }
