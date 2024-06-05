@@ -197,6 +197,7 @@ def build_command:
 						| "--build-context " + @sh
 					),
 					"--build-arg BUILDKIT_SYNTAX=\"$BASHBREW_BUILDKIT_SYNTAX\"", # TODO .doi/.bin/bashbrew-buildkit-env-setup.sh
+					"--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all", # disable linting (https://github.com/moby/buildkit/pull/4962)
 					@sh "--file \(.source.entry.File)",
 					($buildUrl | @sh),
 					empty
