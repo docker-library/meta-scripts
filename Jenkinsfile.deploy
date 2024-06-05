@@ -3,7 +3,7 @@ properties([
 	disableConcurrentBuilds(),
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
-	rateLimitBuilds([
+	rateLimitBuilds(throttle: [
 		count: 1,
 		durationName: 'hour',
 		userBoost: true,
