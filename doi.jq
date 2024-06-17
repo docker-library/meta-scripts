@@ -14,14 +14,12 @@ def repos_anti_subset:
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
 		"clefos",
-		"crate",
 		"debian", # direct children: adminer aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"eclipse-mosquitto",
 		"eggdrop",
 		"emqx",
 		"hitch",
 		"mageia",
-		"mono",
 		"nats",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
@@ -40,9 +38,7 @@ def repos_anti_subset:
 		"znc",
 		"adminer",
 		"amazoncorretto", # direct children: jetty maven tomcat
-		"backdrop",
 		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
-		"composer", # direct children: drupal
 		"couchbase",
 		"dart",
 		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
@@ -54,16 +50,12 @@ def repos_anti_subset:
 		"ibmjava", # direct children: maven websphere-liberty
 		"jetty", # direct children: geonetwork
 		"joomla",
-		"kong",
 		"lightstreamer",
 		"liquibase",
 		"matomo",
 		"mediawiki",
 		"monica",
 		"nextcloud",
-		"node", # direct children: ghost mongo-express unit
-		"open-liberty",
-		"orientdb",
 		"python", # direct children: hylang plone satosa unit
 		"rakudo-star",
 		"ros",
@@ -76,8 +68,6 @@ def repos_anti_subset:
 		"websphere-liberty",
 		"convertigo",
 		"geonetwork",
-		"maven",
-		"plone",
 
 		empty
 	]
@@ -90,6 +80,7 @@ def _sbom_subset:
 		"aerospike",
 		"arangodb",
 		"archlinux",
+		"backdrop",
 		"bash",
 		"bonita",
 		"buildpack-deps",
@@ -98,7 +89,9 @@ def _sbom_subset:
 		"cassandra",
 		"chronograf",
 		"clojure",
+		"composer",
 		"couchdb",
+		"crate",
 		"drupal",
 		"eclipse-temurin",
 		"elasticsearch",
@@ -119,20 +112,27 @@ def _sbom_subset:
 		"julia",
 		"kapacitor",
 		"kibana",
+		"kong",
 		"logstash",
 		"mariadb",
+		"maven",
 		"memcached",
 		"mongo",
 		"mongo-express",
+		"mono",
 		"mysql",
 		"neo4j",
 		"neurodebian",
 		"nginx",
+		"node",
 		"odoo",
 		"openjdk",
+		"open-liberty",
+		"orientdb",
 		"perl",
 		"photon",
 		"php",
+		"plone",
 		"postgres",
 		"pypy",
 		"python",
