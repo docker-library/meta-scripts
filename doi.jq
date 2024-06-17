@@ -7,26 +7,22 @@ def repos_anti_subset:
 		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
 
 		"almalinux", # direct children: crate
-		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf consul docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi jobber julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish vault znc
+		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
 		"alt",
 		"amazonlinux", # direct children: amazoncorretto swift
 		"api-firewall",
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
 		"clefos",
-		"consul",
 		"crate",
 		"debian", # direct children: adminer aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"eclipse-mosquitto",
 		"eggdrop",
 		"emqx",
-		"express-gateway",
 		"hitch",
-		"jobber",
 		"mageia",
 		"mono",
 		"nats",
-		"nats-streaming",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
 		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
@@ -40,7 +36,6 @@ def repos_anti_subset:
 		"traefik",
 		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo php-zendserver rabbitmq ros sapmachine silverpeas swift
 		"varnish",
-		"vault",
 		"yourls",
 		"znc",
 		"adminer",
@@ -66,7 +61,7 @@ def repos_anti_subset:
 		"mediawiki",
 		"monica",
 		"nextcloud",
-		"node", # direct children: express-gateway ghost mongo-express unit
+		"node", # direct children: ghost mongo-express unit
 		"open-liberty",
 		"orientdb",
 		"python", # direct children: hylang plone satosa unit
