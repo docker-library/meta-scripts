@@ -46,8 +46,6 @@ def repos_anti_subset:
 		"gazebo",
 		"haskell",
 		"haxe",
-		"ibm-semeru-runtimes", # direct children: maven open-liberty tomee websphere-liberty
-		"ibmjava", # direct children: maven websphere-liberty
 		"jetty", # direct children: geonetwork
 		"joomla",
 		"lightstreamer",
@@ -59,13 +57,11 @@ def repos_anti_subset:
 		"python", # direct children: hylang plone satosa unit
 		"rakudo-star",
 		"ros",
-		"sapmachine", # direct children: maven
 		"satosa",
 		"silverpeas",
 		"spark",
 		"swift",
 		"tomcat", # direct children: convertigo geonetwork xwiki
-		"websphere-liberty",
 		"convertigo",
 		"geonetwork",
 
@@ -107,6 +103,8 @@ def _sbom_subset:
 		"haproxy",
 		"httpd",
 		"hylang",
+		"ibm-semeru-runtimes",
+		"ibmjava",
 		"influxdb",
 		"jruby",
 		"julia",
@@ -144,12 +142,14 @@ def _sbom_subset:
 		"rockylinux",
 		"ruby",
 		"rust",
+		"sapmachine",
 		"solr",
 		"sonarqube",
 		"storm",
 		"telegraf",
 		"tomcat",
 		"tomee",
+		"websphere-liberty",
 		"wordpress",
 		"xwiki",
 		"zookeeper",
