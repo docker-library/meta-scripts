@@ -6,7 +6,6 @@ def repos_anti_subset:
 		# as we remove items from this list, we need to be careful that none of their *children* are still in the list
 		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
 
-		"almalinux", # direct children: crate
 		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
 		"alt",
 		"amazonlinux", # direct children: amazoncorretto swift
@@ -74,6 +73,7 @@ def _sbom_subset:
 	[
 		# only repositories we have explicitly verified
 		"aerospike",
+		"almalinux",
 		"arangodb",
 		"archlinux",
 		"backdrop",
