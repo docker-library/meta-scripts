@@ -45,7 +45,12 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 
 	// try HEAD request before pushing
 	// if it matches, then we can assume child objects exist as well
-	r, err := Lookup(ctx, ref, &LookupOptions{Head: true})
+	headRef := ref
+	if headRef.Tag != "" {
+		// if this function is called with *both* tag *and* digest, the code below works correctly and pushes by tag and then validates by digest, but this lookup specifically will prefer the digest instead and skip when it shouldn't
+		headRef.Digest = ""
+	}
+	r, err := Lookup(ctx, headRef, &LookupOptions{Head: true})
 	if err != nil {
 		return desc, fmt.Errorf("%s: failed HEAD: %w", ref, err)
 	}
