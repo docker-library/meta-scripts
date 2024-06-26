@@ -106,6 +106,7 @@ def _sbom_subset:
 		"ibm-semeru-runtimes",
 		"ibmjava",
 		"influxdb",
+		"irssi",
 		"jruby",
 		"julia",
 		"kapacitor",
