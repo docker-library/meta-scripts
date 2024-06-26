@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	// if a blob is more than this many bytes, we'll do a pre-flight HEAD request to verify whether we need to even bother pushing it before we do so (65535 is the theoretical maximum size of a single TCP packet, although MTU means it's usually closer to 1448 bytes, but this seemed like a sane place to draw a line to where a second request that might fail is worth our time)
+	// if a manifest or blob is more than this many bytes, we'll do a pre-flight HEAD request to verify whether we need to even bother pushing it before we do so (65535 is the theoretical maximum size of a single TCP packet, although MTU means it's usually closer to 1448 bytes, but this seemed like a sane place to draw a line to where a second request that might fail is worth our time)
 	BlobSizeWorthHEAD = int64(65535)
 )
 
@@ -43,23 +43,25 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 		return desc, fmt.Errorf("%s: failed getting client: %w", ref, err)
 	}
 
-	// try HEAD request before pushing
-	// if it matches, then we can assume child objects exist as well
-	headRef := ref
-	if headRef.Tag != "" {
-		// if this function is called with *both* tag *and* digest, the code below works correctly and pushes by tag and then validates by digest, but this lookup specifically will prefer the digest instead and skip when it shouldn't
-		headRef.Digest = ""
-	}
-	r, err := Lookup(ctx, headRef, &LookupOptions{Head: true})
-	if err != nil {
-		return desc, fmt.Errorf("%s: failed HEAD: %w", ref, err)
-	}
-	// TODO if we had some kind of progress interface, this would be a great place for some kind of debug log of head's contents
-	if r != nil {
-		head := r.Descriptor()
-		r.Close()
-		if head.Digest == desc.Digest && head.Size == desc.Size {
-			return head, nil
+	if desc.Size > BlobSizeWorthHEAD {
+		// try HEAD request before pushing
+		// if it matches, then we can assume child objects exist as well
+		headRef := ref
+		if headRef.Tag != "" {
+			// if this function is called with *both* tag *and* digest, the code below works correctly and pushes by tag and then validates by digest, but this lookup specifically will prefer the digest instead and skip when it shouldn't
+			headRef.Digest = ""
+		}
+		r, err := Lookup(ctx, headRef, &LookupOptions{Head: true})
+		if err != nil {
+			return desc, fmt.Errorf("%s: failed HEAD: %w", ref, err)
+		}
+		// TODO if we had some kind of progress interface, this would be a great place for some kind of debug log of head's contents
+		if r != nil {
+			head := r.Descriptor()
+			r.Close()
+			if head.Digest == desc.Digest && head.Size == desc.Size {
+				return head, nil
+			}
 		}
 	}
 
