@@ -53,10 +53,8 @@ def repos_anti_subset:
 		"mediawiki",
 		"monica",
 		"nextcloud",
-		"python", # direct children: hylang plone satosa unit
 		"rakudo-star",
 		"ros",
-		"satosa",
 		"silverpeas",
 		"spark",
 		"swift",
@@ -144,6 +142,7 @@ def _sbom_subset:
 		"ruby",
 		"rust",
 		"sapmachine",
+		"satosa",
 		"solr",
 		"sonarqube",
 		"storm",
