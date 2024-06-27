@@ -45,7 +45,6 @@ def repos_anti_subset:
 		"gazebo",
 		"haskell",
 		"haxe",
-		"jetty", # direct children: geonetwork
 		"joomla",
 		"lightstreamer",
 		"liquibase",
@@ -58,9 +57,6 @@ def repos_anti_subset:
 		"silverpeas",
 		"spark",
 		"swift",
-		"tomcat", # direct children: convertigo geonetwork xwiki
-		"convertigo",
-		"geonetwork",
 
 		empty
 	]
@@ -84,6 +80,7 @@ def _sbom_subset:
 		"chronograf",
 		"clojure",
 		"composer",
+		"convertigo",
 		"couchdb",
 		"crate",
 		"drupal",
@@ -95,6 +92,7 @@ def _sbom_subset:
 		"flink",
 		"fluentd",
 		"gcc",
+		"geonetwork",
 		"ghost",
 		"gradle",
 		"groovy",
@@ -105,6 +103,7 @@ def _sbom_subset:
 		"ibmjava",
 		"influxdb",
 		"irssi",
+		"jetty",
 		"jruby",
 		"julia",
 		"kapacitor",
