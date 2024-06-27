@@ -139,7 +139,7 @@ def build_command:
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
-					"--provenance=mode=max",
+					@sh "--provenance=mode=max,builder-id=\(buildkit_provenance_builder_id)",
 					if build_should_sbom then
 						# see "bashbrew remote arches docker/scout-sbom-indexer:1" (we need the SBOM scanner to be runnable on the host architecture)
 						# bashbrew remote arches --json docker/scout-sbom-indexer:1 | jq '.arches | keys_unsorted' -c
