@@ -138,6 +138,42 @@ jq -s '
 	)
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
+# SBOM
+originalImageManifest="$(jq -r '.manifests[0].digest' temp/index.json)"
+SOURCE_DATE_EPOCH=1709081058 \
+	docker buildx build --progress=plain \
+	--load=false \
+	--provenance=false \
+	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all \
+	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
+	--output 'type=oci,tar=false,dest=sbom' \
+	--platform 'linux/amd64' \
+	--build-context "fake=oci-layout://$PWD/temp@$originalImageManifest" \
+	- <<<'FROM fake'
+sbomIndex="$(jq -r '.manifests[0].digest' sbom/index.json)"
+shell="$(jq -r --arg originalImageManifest "$originalImageManifest" '
+	first(
+		.manifests[]
+		| select(.annotations["vnd.docker.reference.type"] == "attestation-manifest")
+	) as $attDesc
+	| @sh "sbomManifest=\($attDesc.digest)",
+		@sh "sbomManifestDesc=\(
+			$attDesc
+			| .annotations["vnd.docker.reference.digest"] = $originalImageManifest
+			| tojson
+		)"
+' "sbom/blobs/${sbomIndex/://}")"
+eval "$shell"
+shell="$(jq -r '
+	"copyBlobs=( \([ .config.digest, .layers[].digest | @sh ] | join(" ")) )"
+' "sbom/blobs/${sbomManifest/://}")"
+eval "$shell"
+copyBlobs+=( "$sbomManifest" )
+for blob in "${copyBlobs[@]}"; do
+	cp "sbom/blobs/${blob/://}" "temp/blobs/${blob/://}"
+done
+jq -r --argjson sbomManifestDesc "$sbomManifestDesc" '.manifests += [ $sbomManifestDesc ]' temp/index.json > temp/index.json.new
+mv temp/index.json.new temp/index.json
 # </build>
 # <push>
 crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
