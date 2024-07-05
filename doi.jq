@@ -36,13 +36,11 @@ def repos_anti_subset:
 		"yourls",
 		"znc",
 		"adminer",
-		"amazoncorretto", # direct children: jetty maven tomcat
 		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
 		"couchbase",
 		"dart",
 		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
 		"friendica",
-		"gazebo",
 		"haskell",
 		"haxe",
 		"joomla",
@@ -53,7 +51,6 @@ def repos_anti_subset:
 		"monica",
 		"nextcloud",
 		"rakudo-star",
-		"ros",
 		"silverpeas",
 		"spark",
 		"swift",
@@ -68,6 +65,7 @@ def _sbom_subset:
 		# only repositories we have explicitly verified
 		"aerospike",
 		"almalinux",
+		"amazoncorretto",
 		"arangodb",
 		"archlinux",
 		"backdrop",
@@ -91,6 +89,7 @@ def _sbom_subset:
 		"fedora",
 		"flink",
 		"fluentd",
+		"gazebo",
 		"gcc",
 		"geonetwork",
 		"ghost",
@@ -138,6 +137,7 @@ def _sbom_subset:
 		"registry",
 		"rethinkdb",
 		"rockylinux",
+		"ros",
 		"ruby",
 		"rust",
 		"sapmachine",
