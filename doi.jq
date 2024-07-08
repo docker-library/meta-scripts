@@ -7,7 +7,6 @@ def repos_anti_subset:
 		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
 
 		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
-		"alt",
 		"amazonlinux", # direct children: amazoncorretto swift
 		"api-firewall",
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
@@ -16,9 +15,6 @@ def repos_anti_subset:
 		"debian", # direct children: adminer aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"eclipse-mosquitto",
 		"eggdrop",
-		"emqx",
-		"hitch",
-		"mageia",
 		"nats",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
@@ -52,7 +48,6 @@ def repos_anti_subset:
 		"nextcloud",
 		"rakudo-star",
 		"silverpeas",
-		"spark",
 		"swift",
 
 		empty
@@ -65,6 +60,7 @@ def _sbom_subset:
 		# only repositories we have explicitly verified
 		"aerospike",
 		"almalinux",
+		"alt",
 		"amazoncorretto",
 		"arangodb",
 		"archlinux",
@@ -85,6 +81,7 @@ def _sbom_subset:
 		"eclipse-temurin",
 		"elasticsearch",
 		"elixir",
+		"emqx",
 		"erlang",
 		"fedora",
 		"flink",
@@ -96,6 +93,7 @@ def _sbom_subset:
 		"gradle",
 		"groovy",
 		"haproxy",
+		"hitch",
 		"httpd",
 		"hylang",
 		"ibm-semeru-runtimes",
@@ -109,6 +107,7 @@ def _sbom_subset:
 		"kibana",
 		"kong",
 		"logstash",
+		"mageia",
 		"mariadb",
 		"maven",
 		"memcached",
@@ -144,6 +143,7 @@ def _sbom_subset:
 		"satosa",
 		"solr",
 		"sonarqube",
+		"spark",
 		"storm",
 		"telegraf",
 		"tomcat",
