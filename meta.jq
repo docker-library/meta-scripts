@@ -36,7 +36,9 @@ def pull_command:
 				.build.resolvedParents
 				| to_entries[]
 				| (
-					.value.annotations["org.opencontainers.image.ref.name"] // error("parent \(.key) missing ref")
+					.value.manifests[0].annotations["org.opencontainers.image.ref.name"]
+					// .value.annotations["org.opencontainers.image.ref.name"]
+					// error("parent \(.key) missing ref")
 					| normalize_ref_to_docker
 				) as $ref
 				| @sh "docker pull \($ref)",
@@ -191,7 +193,9 @@ def build_command:
 						.build.resolvedParents
 						| to_entries[]
 						| .key + "=docker-image://" + (
-							.value.annotations["org.opencontainers.image.ref.name"] // error("parent \(.key) missing ref")
+							.value.manifests[0].annotations["org.opencontainers.image.ref.name"]
+							// .value.annotations["org.opencontainers.image.ref.name"]
+							// error("parent \(.key) missing ref")
 							| normalize_ref_to_docker
 						)
 						| "--build-context " + @sh
