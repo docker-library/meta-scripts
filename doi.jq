@@ -7,13 +7,11 @@ def repos_anti_subset:
 		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
 
 		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
-		"amazonlinux", # direct children: amazoncorretto swift
 		"api-firewall",
 		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
 		"clefos",
 		"debian", # direct children: adminer aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
-		"eclipse-mosquitto",
 		"eggdrop",
 		"nats",
 		"oraclelinux", # direct children: mysql openjdk percona
@@ -24,13 +22,11 @@ def repos_anti_subset:
 		"postfixadmin",
 		"rocket.chat",
 		"sl",
-		"spiped",
 		"teamspeak",
 		"traefik",
 		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo php-zendserver rabbitmq ros sapmachine silverpeas swift
 		"varnish",
 		"yourls",
-		"znc",
 		"adminer",
 		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
 		"couchbase",
@@ -48,7 +44,6 @@ def repos_anti_subset:
 		"nextcloud",
 		"rakudo-star",
 		"silverpeas",
-		"swift",
 
 		empty
 	]
@@ -62,6 +57,7 @@ def _sbom_subset:
 		"almalinux",
 		"alt",
 		"amazoncorretto",
+		"amazonlinux",
 		"arangodb",
 		"archlinux",
 		"backdrop",
@@ -78,6 +74,7 @@ def _sbom_subset:
 		"couchdb",
 		"crate",
 		"drupal",
+		"eclipse-mosquitto",
 		"eclipse-temurin",
 		"elasticsearch",
 		"elixir",
@@ -144,13 +141,16 @@ def _sbom_subset:
 		"solr",
 		"sonarqube",
 		"spark",
+		"spiped",
 		"storm",
+		"swift",
 		"telegraf",
 		"tomcat",
 		"tomee",
 		"websphere-liberty",
 		"wordpress",
 		"xwiki",
+		"znc",
 		"zookeeper",
 		empty
 	]
