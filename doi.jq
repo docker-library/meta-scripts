@@ -87,6 +87,7 @@ def _sbom_subset:
 		"gcc",
 		"geonetwork",
 		"ghost",
+		"golang",
 		"gradle",
 		"groovy",
 		"haproxy",
