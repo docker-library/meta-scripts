@@ -8,26 +8,21 @@ def repos_anti_subset:
 
 		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
 		"api-firewall",
-		"centos", # direct children: eclipse-temurin ibm-semeru-runtimes percona swift
 		"clearlinux",
-		"clefos",
-		"debian", # direct children: adminer aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
+		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"eggdrop",
 		"nats",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
 		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
-		"php-zendserver",
 		"phpmyadmin",
 		"postfixadmin",
 		"rocket.chat",
-		"sl",
 		"teamspeak",
 		"traefik",
-		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo php-zendserver rabbitmq ros sapmachine silverpeas swift
+		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo rabbitmq ros sapmachine silverpeas swift
 		"varnish",
 		"yourls",
-		"adminer",
 		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
 		"couchbase",
 		"dart",
