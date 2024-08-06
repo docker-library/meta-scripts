@@ -39,7 +39,7 @@ node {
 		pastFailedJobsJson = sh(returnStdout: true, script: '''#!/usr/bin/env bash
 			set -Eeuo pipefail -x
 
-			if ! json="$(wget -qO- "$JOB_URL/lastSuccessfulBuild/artifact/pastFailedJobs.json")"; then
+			if ! json="$(wget --timeout=5 -qO- "$JOB_URL/lastSuccessfulBuild/artifact/pastFailedJobs.json")"; then
 				echo >&2 'failed to get pastFailedJobs.json'
 				json='{}'
 			fi
