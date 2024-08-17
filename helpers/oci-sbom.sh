@@ -76,7 +76,7 @@ args=(
 	--load=false --provenance=false # explicitly disable a few features we want to avoid
 	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all # disable linting (https://github.com/moby/buildkit/pull/4962)
 	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR"
-	--output "type=oci,tar=false,dest=."
+	--output "type=oci,tar=false,dest=.,rewrite-timestamps=true"
 	# TODO also add appropriate "--tag" lines (which would give us a mostly correct "subject" block in the generated SBOM, but we'd then need to replace instances of $sbomImageManifest with $imageManifest for their values to be correct)
 	--platform "$platform"
 	--build-context "fake=oci-layout://$input@$imageManifest"
