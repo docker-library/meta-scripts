@@ -72,7 +72,7 @@ time "$coverage/builds.sh" --cache "$dir/cache-builds.json" "$dir/sources.json" 
 time "$coverage/builds.sh" --cache="$dir/cache-builds.json" "$dir/sources.json" > "$dir/builds.json"
 
 # test "lookup" code for more edge cases
-"$dir/../.go-env.sh" go build -cover -trimpath -o "$coverage/bin/lookup" ./cmd/lookup
+"$dir/../.go-env.sh" go build -coverpkg=./... -trimpath -o "$coverage/bin/lookup" ./cmd/lookup
 lookup=(
 	# force a config blob lookup for platform object creation (and top-level Docker media type!)
 	'tianon/test@sha256:2f19ce27632e6baf4ebb1b582960d68948e52902c8cfac10133da0058f1dab23'
@@ -130,7 +130,7 @@ lookup=(
 if [ -n "$doDeploy" ]; then
 	# also test "deploy" (optional, disabled by default, because it's a much heavier test)
 
-	"$dir/../.go-env.sh" go build -cover -trimpath -o "$coverage/bin/deploy" ./cmd/deploy
+	"$dir/../.go-env.sh" go build -coverpkg=./... -trimpath -o "$coverage/bin/deploy" ./cmd/deploy
 
 	docker rm -vf meta-scripts-test-registry &> /dev/null || :
 	trap 'docker rm -vf meta-scripts-test-registry &> /dev/null || :' EXIT
@@ -220,7 +220,7 @@ if [ -n "$doDeploy" ]; then
 fi
 
 # Go tests
-"$dir/../.go-env.sh" go test -cover ./... -args -test.gocoverdir="$GOCOVERDIR"
+"$dir/../.go-env.sh" go test -coverpkg=./... ./... -args -test.gocoverdir="$GOCOVERDIR"
 
 # combine the coverage data into the "legacy" coverage format (understood by "go tool cover") and pre-generate HTML for easier digestion of the data
 "$dir/../.go-env.sh" go tool covdata textfmt -i "$GOCOVERDIR" -o "$coverage/coverage.txt"
