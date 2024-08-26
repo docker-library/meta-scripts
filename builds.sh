@@ -17,7 +17,7 @@ dir="$(dirname "$dir")"
 if ( cd "$dir" && ./.any-go-nt.sh "$bin" ); then
 	{
 		echo "building '$bin'"
-		"$dir/.go-env.sh" go build ${GOCOVERDIR:+-cover} -v -trimpath -o "$bin" ./cmd/builds
+		"$dir/.go-env.sh" go build ${GOCOVERDIR:+-coverpkg=./...} -v -trimpath -o "$bin" ./cmd/builds
 		ls -l "$bin"
 	} >&2
 fi
