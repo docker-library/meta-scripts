@@ -24,8 +24,8 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 		// cap request retries at once per second
 		requestRetryLimiter = rate.NewLimiter(rate.Every(time.Second), 1)
 
-		// if we see 3x 503 during retry, we should bail
-		maxTry503 = 3
+		// if we see 3x (503 or 502 or 500) during retry, we should bail
+		maxTry50X = 3
 
 		ctx = req.Context()
 	)
@@ -53,9 +53,9 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 			doRetry = true // TODO maximum number of retries? (perhaps a deadline instead?  req.WithContext to inject a deadline?  👀)
 		}
 
-		// 503 should result in a few auto-retries (especially with the automatic retry delay this injects), but up to a limit so we don't contribute to the "thundering herd" too much in a serious outage
-		if res.StatusCode == 503 && maxTry503 > 1 {
-			maxTry503--
+		// certain status codes should result in a few auto-retries (especially with the automatic retry delay this injects), but up to a limit so we don't contribute to the "thundering herd" too much in a serious outage
+		if (res.StatusCode == 503 || res.StatusCode == 502 || res.StatusCode == 500) && maxTry50X > 1 {
+			maxTry50X--
 			doRetry = true
 			// no need to eat up the rate limiter tokens as we do for 429 because this is not a rate limiting error (and we have the "requestRetryLimiter" that separately limits our retries of *this* request)
 		}
@@ -81,7 +81,7 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 			}
 
 			// TODO some way to notify upwards that we retried?
-			// TODO implement more backoff logic than just one retry per second + docker hub rate limit (+ limited 503 retry)?
+			// TODO implement more backoff logic than just one retry per second + docker hub rate limit (+ limited 50X retry)?
 			continue
 		}
 
