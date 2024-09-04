@@ -155,14 +155,20 @@ def _sbom_subset:
 # input: "build" object (with "buildId" top level key)
 # output: boolean
 def build_should_sbom:
-	.source.arches[.build.arch].tags
-	| map(split(":")[0])
-	| unique
-	| _sbom_subset as $subset
-	| any(.[];
-		. as $i
-		| $subset
-		| index($i)
+	# see "bashbrew remote arches docker/scout-sbom-indexer:1" (we need the SBOM scanner to be runnable on the host architecture)
+	# bashbrew remote arches --json docker/scout-sbom-indexer:1 | jq '.arches | keys_unsorted' -c
+	(
+		.build.arch as $arch | ["amd64","arm32v5","arm32v7","arm64v8","i386","ppc64le","riscv64","s390x"] | index($arch)
+	) and (
+		.source.arches[.build.arch].tags
+		| map(split(":")[0])
+		| unique
+		| _sbom_subset as $subset
+		| any(.[];
+			. as $i
+			| $subset
+			| index($i)
+		)
 	)
 ;
 

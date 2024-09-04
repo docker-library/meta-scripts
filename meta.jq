@@ -143,12 +143,7 @@ def build_command:
 					"docker buildx build --progress=plain",
 					"--provenance=mode=max",
 					if build_should_sbom then
-						# see "bashbrew remote arches docker/scout-sbom-indexer:1" (we need the SBOM scanner to be runnable on the host architecture)
-						# bashbrew remote arches --json docker/scout-sbom-indexer:1 | jq '.arches | keys_unsorted' -c
-						if .build.arch as $arch | ["amd64","arm32v5","arm32v7","arm64v8","i386","ppc64le","riscv64","s390x"] | index($arch) then
-							# TODO this needs to be based on the *host* architecture, not the *target* architecture (amd64 vs i386)
-							"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
-						else empty end
+						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
 					else empty end,
 					"--output " + (
 						[
