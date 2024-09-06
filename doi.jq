@@ -10,7 +10,6 @@ def repos_anti_subset:
 		"api-firewall",
 		"clearlinux",
 		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
-		"eggdrop",
 		"nats",
 		"oraclelinux", # direct children: mysql openjdk percona
 		"percona",
@@ -19,7 +18,6 @@ def repos_anti_subset:
 		"postfixadmin",
 		"rocket.chat",
 		"teamspeak",
-		"traefik",
 		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo rabbitmq ros sapmachine silverpeas swift
 		"varnish",
 		"yourls",
@@ -71,6 +69,7 @@ def _sbom_subset:
 		"drupal",
 		"eclipse-mosquitto",
 		"eclipse-temurin",
+		"eggdrop",
 		"elasticsearch",
 		"elixir",
 		"emqx",
@@ -143,6 +142,7 @@ def _sbom_subset:
 		"telegraf",
 		"tomcat",
 		"tomee",
+		"traefik",
 		"websphere-liberty",
 		"wordpress",
 		"xwiki",
