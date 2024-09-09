@@ -11,8 +11,6 @@ def repos_anti_subset:
 		"clearlinux",
 		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"nats",
-		"oraclelinux", # direct children: mysql openjdk percona
-		"percona",
 		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
 		"phpmyadmin",
 		"postfixadmin",
@@ -27,9 +25,7 @@ def repos_anti_subset:
 		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
 		"friendica",
 		"haskell",
-		"haxe",
 		"joomla",
-		"lightstreamer",
 		"liquibase",
 		"matomo",
 		"mediawiki",
@@ -114,6 +110,7 @@ def _sbom_subset:
 		"odoo",
 		"openjdk",
 		"open-liberty",
+		"oraclelinux",
 		"orientdb",
 		"perl",
 		"photon",
