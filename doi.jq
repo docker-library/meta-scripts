@@ -136,6 +136,7 @@ def _sbom_subset:
 		"spiped",
 		"storm",
 		"swift",
+		"swipl",
 		"telegraf",
 		"tomcat",
 		"tomee",
