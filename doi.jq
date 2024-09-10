@@ -5,34 +5,29 @@ def repos_anti_subset:
 	[
 		# as we remove items from this list, we need to be careful that none of their *children* are still in the list
 		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
+		"clearlinux",
+		"couchbase",
 
 		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
 		"api-firewall",
-		"clearlinux",
-		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"nats",
-		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
-		"phpmyadmin",
-		"postfixadmin",
-		"rocket.chat",
 		"teamspeak",
-		"ubuntu", # direct children: buildpack-deps couchbase eclipse-temurin elasticsearch gazebo gradle ibmjava ibm-semeru-runtimes kibana kong logstash mariadb mongo neurodebian odoo rabbitmq ros sapmachine silverpeas swift
-		"varnish",
-		"yourls",
-		"buildpack-deps", # direct children: erlang gcc golang haskell haxe influxdb kapacitor node openjdk perl pypy python rakudo-star ruby rust telegraf
-		"couchbase",
+
+		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
 		"dart",
-		"eclipse-temurin", # direct children: cassandra clojure flink gradle groovy jetty jruby lightstreamer liquibase maven neo4j orientdb solr sonarqube spark storm tomcat tomee unit zookeeper
+		"rocket.chat",
+		"varnish",
+
+		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
 		"friendica",
-		"haskell",
 		"joomla",
-		"liquibase",
 		"matomo",
 		"mediawiki",
 		"monica",
 		"nextcloud",
-		"rakudo-star",
-		"silverpeas",
+		"phpmyadmin",
+		"postfixadmin",
+		"yourls",
 
 		empty
 	]
@@ -81,6 +76,7 @@ def _sbom_subset:
 		"gradle",
 		"groovy",
 		"haproxy",
+		"haskell",
 		"hitch",
 		"httpd",
 		"hylang",
@@ -94,6 +90,7 @@ def _sbom_subset:
 		"kapacitor",
 		"kibana",
 		"kong",
+		"liquibase",
 		"logstash",
 		"mageia",
 		"mariadb",
@@ -121,6 +118,7 @@ def _sbom_subset:
 		"python",
 		"r-base",
 		"rabbitmq",
+		"rakudo-star",
 		"redis",
 		"registry",
 		"rethinkdb",
@@ -130,6 +128,7 @@ def _sbom_subset:
 		"rust",
 		"sapmachine",
 		"satosa",
+		"silverpeas",
 		"solr",
 		"sonarqube",
 		"spark",
@@ -141,6 +140,7 @@ def _sbom_subset:
 		"tomcat",
 		"tomee",
 		"traefik",
+		"ubuntu",
 		"websphere-liberty",
 		"wordpress",
 		"xwiki",
