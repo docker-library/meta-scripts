@@ -45,10 +45,9 @@ tar -xvf temp.tar -C temp
 rm temp.tar
 jq '
 	.manifests |= (
-		del(.[].annotations)
-		| unique
+		unique_by([ .digest, .size, .mediaType ])
 		| if length != 1 then
-			error("unexpected number of manifests: " + length)
+			error("unexpected number of manifests: \(length)")
 		else . end
 	)
 ' temp/index.json > temp/index.json.new

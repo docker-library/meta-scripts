@@ -209,10 +209,9 @@ def build_command:
 			# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
 			@sh "jq \("
 				.manifests |= (
-					del(.[].annotations)
-					| unique
+					unique_by([ .digest, .size, .mediaType ])
 					| if length != 1 then
-						error(\"unexpected number of manifests: \" + length)
+						error(\"unexpected number of manifests: \\(length)\")
 					else . end
 				)
 			" | unindent_and_decomment_jq(3)) temp/index.json > temp/index.json.new",
