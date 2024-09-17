@@ -1,80 +1,77 @@
 # input: "build" object (with "buildId" top level key)
-# output: array of image tags
+# output: list of image tags
 def tags:
-  .source.arches[].tags[],
-  .source.arches[].archTags[],
-  .build.img
-;
-
-# input: "build" object (with "buildId" top level key)
-# output: purl platform query string
-def platform_string:
-  .source.arches[].platformString | gsub("/"; "%2F")
+	[
+		.source.arches[].tags[],
+		.source.arches[].archTags[],
+		.build.img
+	]
 ;
 
 # input: "tags" object with image digest and platform arguments
 # output: json object for in-toto provenance subject field
 def subjects($platform; $digest):
-  {
-      "name": ("pkg:docker/" + . + "?platform=" + $platform),
-      "digest": {
-        "sha256": $digest
-      }
-  }
+	($digest | split(":")) as $splitDigest
+	| {
+		"name": "pkg:docker/\(.)?platform=\($platform)",
+		"digest": {
+			($splitDigest[0]): $splitDigest[1],
+		}
+	}
 ;
 
-# input: GITHUB context argument
+# input: GITHUB context
 # output: json object for in-toto provenance external parameters field
-def github_external_parameters($context):
-($context.workflow_ref | gsub( $context.repository + "/"; "")) as $workflowPathRef |
-{
-  inputs: $context.event.inputs,
-  workflow: {
-    ref: ($workflowPathRef | split("@")[1]),
-    repository: ($context.server_url + "/" + $context.repository),
-    path: ($workflowPathRef | split("@")[0]),
-    digest: {sha256: $context.workflow_sha}
-  }
-}
+def github_external_parameters($github):
+	($github.workflow_ref | ltrimstr($github.repository + "/") | split("@")) as $workflowRefSplit
+	| {
+		inputs: $github.event.inputs,
+		workflow: {
+			ref: $workflowRefSplit[1],
+			repository: ($github.server_url + "/" + $github.repository),
+			path: $workflowRefSplit[0],
+			digest: { gitCommit: $github.workflow_sha },
+		}
+	}
 ;
 
-# input: GITHUB context argument
-# output: json object for in-toto provenance internal parameters field
-def github_internal_parameters($context):
-{
-  github: {
-    event_name: $context.event_name,
-    repository_id: $context.repository_id,
-    repository_owner_id: $context.repository_owner_id,
-  }
-}
-;
-
-# input: "tags" object with platform, image digest and GITHUB context arguments
+# input: "build" object with platform and image digest
 # output: json object for in-toto provenance statement
-def github_actions_provenance($platform; $digest; $context):
-{
-  _type: "https://in-toto.io/Statement/v1",
-  subject: . | map(subjects($platform; $digest)),
-  predicateType: "https://slsa.dev/provenance/v1",
-  predicate: {
-        buildDefinition: {
-            buildType: "https://slsa-framework.github.io/github-actions-buildtypes/workflow/v1",
-            externalParameters: github_external_parameters($context),
-            internalParameters: github_internal_parameters($context),
-            resolvedDependencies: [{
-                uri: ("git+"+$context.server_url+"/"+$context.repository+"@"+$context.ref),
-                digest: { "gitCommit": $context.sha }
-            }]
-        },
-        runDetails: {
-            builder: {
-                id: ($context.server_url+"/"+$context.workflow_ref),
-            },
-            metadata: {
-                invocationId: ($context.server_url+"/"+$context.repository+"/actions/runs/"+$context.run_id+"/attempts/"+$context.run_attempt),
-            }
-        }
-    }
-}
+def github_actions_provenance:
+	(env.GITHUB_CONTEXT | fromjson) as $github |
+	(.source.arches[].platformString | @uri) as $platform |
+	{
+		_type: "https://in-toto.io/Statement/v1",
+		subject: . | tags | map(subjects($platform; $digest)),
+		predicateType: "https://slsa.dev/provenance/v1",
+		predicate: {
+			buildDefinition: {
+				buildType: "https://actions.github.io/buildtypes/workflow/v1",
+				externalParameters: github_external_parameters($github),
+				internalParameters: {
+					github: {
+						event_name: $github.event_name,
+						repository_id: $github.repository_id,
+						repository_owner_id: $github.repository_owner_id,
+						runner_environment: "github-hosted"
+					}
+				},
+				resolvedDependencies: [{
+					uri: ("git+"+$github.server_url+"/"+$github.repository+"@"+$github.ref),
+					digest: { "gitCommit": $github.sha }
+				}]
+			},
+			runDetails: {
+				# builder.id identifies the transitive closure of the trusted build platform evalution.
+				# any changes that alter security properties or build level must update this ID and rotate the signing key.
+				# https://slsa.dev/spec/v1.0/provenance#builder
+				builder: {
+					id: ($github.server_url+"/"+$github.workflow_ref),
+				},
+				metadata: {
+					invocationId: ($github.server_url+"/"+$github.repository+"/actions/runs/"+$github.run_id+"/attempts/"+$github.run_attempt),
+				}
+			}
+		}
+	}
 ;
