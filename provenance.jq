@@ -70,7 +70,7 @@ def github_actions_provenance($github; $runner; $digest):
 						id: ($github.server_url + "/" + $github.workflow_ref),
 					},
 					metadata: {
-						invocationId: "\($github.server_url)/\($github.repository)/actions/runs/\($github.run_id)/attempts/\($github.run_attempt)",
+						invocationId: ($github.server_url + "/" + $github.repository + "/actions/runs/" + $github.run_id + "/attempts/" + $github.run_attempt)
 					},
 				},
 			},
