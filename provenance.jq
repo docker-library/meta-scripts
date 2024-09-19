@@ -1,10 +1,11 @@
 # input: "build" object with platform and image digest
 #   $github: "github" context; CONTAINS SENSITIVE INFORMATION (https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#github-context)
+#   $runner: "runner" context; https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#runner-context
 #   $digest: the OCI image digest for the just-built image (normally in .build.resolved.annotations["org.opencontainers.image.ref.name"] but only post-push/regeneration and we haven't pushed yet)
 #
 # output: in-toto provenance statement (https://slsa.dev/spec/v1.0/provenance)
 #   see also: https://github.com/actions/buildtypes/tree/main/workflow/v1
-def github_actions_provenance($github; $digest):
+def github_actions_provenance($github; $runner; $digest):
 	if $github.event_name != "workflow_dispatch" then error("error: '\($github.event_name)' is not a supported event type for provenance generation") else
 		{
 			_type: "https://in-toto.io/Statement/v1",
@@ -48,7 +49,7 @@ def github_actions_provenance($github; $digest):
 							event_name: $github.event_name,
 							repository_id: $github.repository_id,
 							repository_owner_id: $github.repository_owner_id,
-							runner_environment: "github-hosted",
+							runner_environment: $runner.environment,
 						},
 					},
 					resolvedDependencies: [

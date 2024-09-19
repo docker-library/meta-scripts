@@ -24,6 +24,9 @@ include "jenkins";
 		workflow_ref: "docker-library/meta/.github/workflows/build.yml@refs/heads/\($payload.ref)",
 		workflow_sha: "0123456789abcdef0123456789abcdef01234567",
 	} as $github
+	| {
+		environment: "github-hosted",
+	} as $runner
 
-	| github_actions_provenance($github; $digest)
+	| github_actions_provenance($github; $runner; $digest)
 ]
