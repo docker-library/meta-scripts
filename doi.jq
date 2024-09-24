@@ -168,6 +168,8 @@ def build_should_sbom:
 			| index($i)
 		)
 	)
+	# TODO once we solve the issues with GHA and SBOM generation ("docker/scout-sbom-indexer" returning zero results), remove this added constraint
+	and (.build.arch as $arch | ["amd64","i386","windows-amd64"] | index($arch) | not) # see also GHA arches in Jenkinsfile.trigger
 ;
 
 # input: "build" object (with "buildId" top level key)

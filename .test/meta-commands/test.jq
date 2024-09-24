@@ -1,8 +1,10 @@
 include "meta";
+include "doi"; # TODO remove this
 [
 	first(.[] | select(normalized_builder == "buildkit")),
 	first(.[] | select(normalized_builder == "classic")),
 	first(.[] | select(normalized_builder == "oci-import")),
+	first(.[] | select(normalized_builder == "oci-import" and build_should_sbom)), # TODO remove this
 	empty
 ]
 | map(
