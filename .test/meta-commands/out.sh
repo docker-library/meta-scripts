@@ -137,57 +137,6 @@ jq -s '
 	)
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
-# </build>
-# <push>
-crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
-rm -rf temp
-# </push>
-
-# busybox:1.36.1 [arm32v5]
-# <pull>
-
-# </pull>
-# <build>
-export BASHBREW_CACHE="${BASHBREW_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/bashbrew}"
-gitCache="$BASHBREW_CACHE/git"
-git init --bare "$gitCache"
-_git() { git -C "$gitCache" "$@"; }
-_git config gc.auto 0
-_commit() { _git rev-parse '7044abc7ee26712d998311b402b975124786e0cf^{commit}'; }
-if ! _commit &> /dev/null; then _git fetch 'https://github.com/docker-library/busybox.git' '7044abc7ee26712d998311b402b975124786e0cf:' || _git fetch 'refs/heads/dist-arm32v5:'; fi
-_commit
-mkdir temp
-_git archive --format=tar '7044abc7ee26712d998311b402b975124786e0cf:latest/glibc/arm32v5/' | tar -xvC temp
-jq -s '
-	if length != 1 then
-		error("unexpected '\''oci-layout'\'' document count: " + length)
-	else .[0] end
-	| if .imageLayoutVersion != "1.0.0" then
-		error("unsupported imageLayoutVersion: " + .imageLayoutVersion)
-	else . end
-' temp/oci-layout > /dev/null
-jq -s '
-	if length != 1 then
-		error("unexpected '\''index.json'\'' document count: " + length)
-	else .[0] end
-	| if .schemaVersion != 2 then
-		error("unsupported schemaVersion: " + .schemaVersion)
-	else . end
-	| if .manifests | length != 1 then
-		error("expected only one manifests entry, not " + (.manifests | length))
-	else . end
-	| .manifests[0] |= (
-		if .mediaType != "application/vnd.oci.image.manifest.v1+json" then
-			error("unsupported descriptor mediaType: " + .mediaType)
-		else . end
-		| if .size < 0 then
-			error("invalid descriptor size: " + .size)
-		else . end
-		| del(.annotations, .urls)
-		| .annotations = {"org.opencontainers.image.source":"https://github.com/docker-library/busybox.git","org.opencontainers.image.revision":"7044abc7ee26712d998311b402b975124786e0cf","org.opencontainers.image.created":"2024-02-28T00:44:18Z","org.opencontainers.image.version":"1.36.1","org.opencontainers.image.url":"https://hub.docker.com/_/busybox","com.docker.official-images.bashbrew.arch":"arm32v5","org.opencontainers.image.base.name":"scratch"}
-	)
-' temp/index.json > temp/index.json.new
-mv temp/index.json.new temp/index.json
 # SBOM
 originalImageManifest="$(jq -r '.manifests[0].digest' temp/index.json)"
 SOURCE_DATE_EPOCH=1709081058 \
@@ -197,7 +146,7 @@ SOURCE_DATE_EPOCH=1709081058 \
 	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all \
 	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
 	--output 'type=oci,tar=false,dest=sbom' \
-	--platform 'linux/arm/v5' \
+	--platform 'linux/amd64' \
 	--build-context "fake=oci-layout://$PWD/temp@$originalImageManifest" \
 	- <<<'FROM fake'
 sbomIndex="$(jq -r '.manifests[0].digest' sbom/index.json)"
@@ -226,6 +175,6 @@ jq -r --argjson sbomManifestDesc "$sbomManifestDesc" '.manifests += [ $sbomManif
 mv temp/index.json.new temp/index.json
 # </build>
 # <push>
-crane push --index temp 'oisupport/staging-arm32v5:6dad189d12c5b50de48dab19c13869fdf25219dc430fc1d4c8a8dcc7bc893e69'
+crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
 rm -rf temp
 # </push>
