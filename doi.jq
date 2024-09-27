@@ -57,6 +57,7 @@ def _sbom_subset:
 		"caddy",
 		"cassandra",
 		"chronograf",
+		"cirros",
 		"clojure",
 		"composer",
 		"convertigo",
