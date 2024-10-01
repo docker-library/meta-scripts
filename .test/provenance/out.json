@@ -75,7 +75,7 @@
 				"buildType": "https://actions.github.io/buildtypes/workflow/v1",
 				"externalParameters": {
 					"workflow": {
-						"ref": "refs/heads/subset",
+						"ref": "refs/heads/main",
 						"repository": "https://github.com/docker-library/meta",
 						"path": ".github/workflows/build.yml",
 						"digest": {
@@ -98,7 +98,7 @@
 				},
 				"resolvedDependencies": [
 					{
-						"uri": "git+https://github.com/docker-library/meta@refs/heads/subset",
+						"uri": "git+https://github.com/docker-library/meta@refs/heads/main",
 						"digest": {
 							"gitCommit": "0123456789abcdef0123456789abcdef01234567"
 						}
@@ -107,7 +107,7 @@
 			},
 			"runDetails": {
 				"builder": {
-					"id": "https://github.com/docker-library/meta/.github/workflows/build.yml@refs/heads/subset"
+					"id": "https://github.com/docker-library/meta/.github/workflows/build.yml@refs/heads/main"
 				},
 				"metadata": {
 					"invocationId": "https://github.com/docker-library/meta/actions/runs/9001/attempts/2"
@@ -227,7 +227,7 @@
 				"buildType": "https://actions.github.io/buildtypes/workflow/v1",
 				"externalParameters": {
 					"workflow": {
-						"ref": "refs/heads/subset",
+						"ref": "refs/heads/main",
 						"repository": "https://github.com/docker-library/meta",
 						"path": ".github/workflows/build.yml",
 						"digest": {
@@ -251,7 +251,7 @@
 				},
 				"resolvedDependencies": [
 					{
-						"uri": "git+https://github.com/docker-library/meta@refs/heads/subset",
+						"uri": "git+https://github.com/docker-library/meta@refs/heads/main",
 						"digest": {
 							"gitCommit": "0123456789abcdef0123456789abcdef01234567"
 						}
@@ -260,7 +260,7 @@
 			},
 			"runDetails": {
 				"builder": {
-					"id": "https://github.com/docker-library/meta/.github/workflows/build.yml@refs/heads/subset"
+					"id": "https://github.com/docker-library/meta/.github/workflows/build.yml@refs/heads/main"
 				},
 				"metadata": {
 					"invocationId": "https://github.com/docker-library/meta/actions/runs/9001/attempts/2"
