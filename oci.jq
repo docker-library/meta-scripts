@@ -87,3 +87,53 @@ def sort_manifests:
 	sort_by(.platform | sort_split_platform)
 	| sort_attestations
 ;
+
+# https://github.com/opencontainers/image-spec/blob/v1.1.0/image-index.md
+
+def validate_oci_index_media_type:
+	if . != "application/vnd.oci.image.index.v1+json" then
+		error("unsupported index mediaType: \(.)")
+	else . end
+;
+
+def validate_oci_index:
+	if .schemaVersion != 2 then
+		error("unsupported index schemaVersion: \(.schemaVersion)")
+	else . end
+	| .mediaType |= if . then # TODO drop this conditional (BuildKit 0.14+): https://github.com/moby/buildkit/issues/4595
+		validate_oci_index_media_type
+	else . end
+;
+
+# https://github.com/opencontainers/image-spec/blob/v1.1.0/image-layout.md#oci-layout-file
+def validate_oci_layout_file:
+	if .imageLayoutVersion != "1.0.0" then
+		error("unsupported imageLayoutVersion: \(.imageLayoutVersion)")
+	else . end
+;
+
+# https://github.com/opencontainers/image-spec/blob/v1.1.0/image-layout.md#indexjson-file
+def validate_oci_layout_index:
+	validate_oci_index
+	| .manifests |= (
+		if length != 1 then
+			error("expected only one manifests entry, not \(length)")
+		else . end
+		| .[0] |= (
+			if .size < 0 then
+				error("invalid descriptor size: \(.size)")
+			else . end
+			# TODO validate .digest somehow (`crane validate`?) - would also be good to validate all descriptors recursively
+			| .mediaType |= validate_oci_index_media_type
+		)
+	)
+;
+
+# input: array of 'oci-layout' file contents followed by 'index.json' file contents (`jq -s 'validate_oci_layout' dir/oci-layout dir/index.json`)
+def validate_oci_layout:
+	if length != 2 then
+		error("unexpected input: expecting single-document 'oci-layout' and 'index.json'")
+	else . end
+	| .[0] |= validate_oci_layout_file
+	| .[1] |= validate_oci_layout_index
+;
