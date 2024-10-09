@@ -143,7 +143,7 @@ def build_command:
 					"docker buildx build --progress=plain",
 					"--provenance=mode=max",
 					if build_should_sbom then
-						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
+						"--sbom=\"generator=$BASHBREW_BUILDKIT_SBOM_GENERATOR\",\"EXTRA_SCANNERS=$BASHBREW_BUILDKIT_EXTRA_SCANNERS"
 					else empty end,
 					"--output " + (
 						[
@@ -328,7 +328,7 @@ def build_command:
 						"docker buildx build --progress=plain",
 						"--load=false", "--provenance=false", # explicitly disable a few features we want to avoid
 						"--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all", # disable linting (https://github.com/moby/buildkit/pull/4962)
-						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"",
+						"--sbom=\"generator=$BASHBREW_BUILDKIT_SBOM_GENERATOR\",\"EXTRA_SCANNERS=$BASHBREW_BUILDKIT_EXTRA_SCANNERS",
 						"--output 'type=oci,tar=false,dest=sbom'",
 						# TODO also add appropriate "--tag" lines (which would give us a mostly correct "subject" block in the generated SBOM, but we'd then need to replace instances of ${sbomImageManifest#*:} with ${originalImageManifest#*:} for their values to be correct)
 						@sh "--platform \(.source.arches[.build.arch].platformString)",

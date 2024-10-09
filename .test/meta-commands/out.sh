@@ -144,7 +144,7 @@ SOURCE_DATE_EPOCH=1709081058 \
 	--load=false \
 	--provenance=false \
 	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all \
-	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
+	--sbom="generator=$BASHBREW_BUILDKIT_SBOM_GENERATOR","EXTRA_SCANNERS=$BASHBREW_BUILDKIT_EXTRA_SCANNERS" \
 	--output 'type=oci,tar=false,dest=sbom' \
 	--platform 'linux/amd64' \
 	--build-context "fake=oci-layout://$PWD/temp@$originalImageManifest" \
