@@ -151,6 +151,12 @@ def _sbom_subset:
 	]
 ;
 
+# https://github.com/docker-library/meta-scripts/pull/61 (for lack of better documentation for setting this in buildkit)
+# https://slsa.dev/provenance/v0.2#builder.id
+def buildkit_provenance_builder_id:
+	"https://github.com/docker-library"
+;
+
 # input: "build" object (with "buildId" top level key)
 # output: boolean
 def build_should_sbom:

@@ -141,7 +141,7 @@ def build_command:
 					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
-					"--provenance=mode=max",
+					@sh "--provenance=mode=max,builder-id=\(buildkit_provenance_builder_id)",
 					if build_should_sbom then
 						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\""
 					else empty end,
