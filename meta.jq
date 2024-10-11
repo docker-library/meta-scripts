@@ -369,6 +369,60 @@ def build_command:
 		error("unknown/unimplemented Builder: \($builder)")
 	end
 ;
+
+# input: "build" object (with "buildId" top level key)
+def image_digest:
+	.build.resolved.manifests[0].digest
+;
+
+# input: "build" object (with "buildId" top level key)
+def image_ref:
+	"\(.build.img)@\(image_digest)"
+;
+
+# input: "build" object (with "buildId" top level key)
+# output: string "command for generating an SBOM from an OCI layout", may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
+def sbom_command:
+	[
+		(
+			[
+				"docker buildx build --progress=plain",
+				"--provenance=false",
+				"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"",
+				(
+					(
+						.source.arches[.build.arch]
+						| .tags[], .archTags[]
+					),
+					.build.img
+					| "--tag " + @sh
+				),
+				"--output " + (
+					[
+						"type=oci",
+						"tar=false",
+						"dest=sbom",
+						empty
+					]
+					| @csv
+					| @sh
+				),
+				"- <<<" + (
+					[
+						"FROM ",
+						image_ref,
+						empty
+					]
+					| join("")
+					| @sh
+				),
+				empty
+			] | join(" \\\n\t")
+		),
+		empty
+	] | join("\n")
+;
+
 # input: "build" object (with "buildId" top level key)
 # output: string "push command" ("docker push ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def push_command:
@@ -398,6 +452,7 @@ def commands:
 	{
 		pull: pull_command,
 		build: build_command,
+		sbom_scan: sbom_command,
 		push: push_command,
 	}
 ;
