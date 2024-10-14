@@ -21,7 +21,7 @@ def crane_deploy_commands:
 # output: json object (to trigger the build on GitHub Actions)
 def gha_payload:
 	{
-		ref: "subset", # TODO back to main
+		ref: "main",
 		inputs: (
 			{
 				buildId: .buildId,

@@ -15,7 +15,7 @@ node {
 				credentialsId: 'docker-library-bot',
 				name: 'origin',
 			]],
-			branches: [[name: '*/subset']], // TODO back to main
+			branches: [[name: '*/main']],
 			extensions: [
 				submodule(
 					recursiveSubmodules: true,
@@ -101,7 +101,7 @@ node {
 		}
 		sshagent(['docker-library-bot']) {
 			stage('Push') {
-				sh 'git push origin HEAD:subset' // TODO back to main
+				sh 'git push origin HEAD:main'
 			}
 		}
 	}
