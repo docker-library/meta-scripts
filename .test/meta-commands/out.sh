@@ -54,7 +54,8 @@ jq '
 mv temp/index.json.new temp/index.json
 # </build>
 # <sbom_scan>
-docker buildx build --progress=plain \
+build_output=$(
+	docker buildx build --progress=rawjson \
 	--provenance=false \
 	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
 	--tag 'docker:24.0.7-cli' \
@@ -69,7 +70,24 @@ docker buildx build --progress=plain \
 	--tag 'amd64/docker:24.0.7-cli-alpine3.18' \
 	--tag 'oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43' \
 	--output '"type=oci","tar=false","dest=sbom"' \
-	- <<<'FROM oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43@sha256:0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401'
+	- <<<'FROM oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43@sha256:0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401' 2>&1
+)
+attest_manifest_digest=$(
+	echo "$build_output" | jq -rs '
+		.[]
+		| select(.statuses).statuses[]
+		| select((.completed != null) and (.id | startswith("exporting attestation manifest"))).id
+		| sub("exporting attestation manifest "; "")
+	'
+)
+sbom_digest=$(
+	jq -r '
+		.layers[] | select(.annotations["in-toto.io/predicate-type"] == "https://spdx.dev/Document").digest
+	' "sbom/blobs/${attest_manifest_digest//://}"
+)
+jq -c --arg digest "sha256:0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401" '
+	.subject[].digest |= ($digest | split(":") | {(.[0]): .[1]})
+' "sbom/blobs/${sbom_digest//://}" > sbom.json
 # </sbom_scan>
 # <push>
 crane push temp 'oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43'
@@ -107,7 +125,8 @@ SOURCE_DATE_EPOCH=1700741054 \
 	'https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/windows/windowsservercore-ltsc2022'
 # </build>
 # <sbom_scan>
-docker buildx build --progress=plain \
+build_output=$(
+	docker buildx build --progress=rawjson \
 	--provenance=false \
 	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
 	--tag 'docker:24.0.7-windowsservercore-ltsc2022' \
@@ -128,7 +147,24 @@ docker buildx build --progress=plain \
 	--tag 'winamd64/docker:windowsservercore' \
 	--tag 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e' \
 	--output '"type=oci","tar=false","dest=sbom"' \
-	- <<<'FROM oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e@sha256:69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce'
+	- <<<'FROM oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e@sha256:69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce' 2>&1
+)
+attest_manifest_digest=$(
+	echo "$build_output" | jq -rs '
+		.[]
+		| select(.statuses).statuses[]
+		| select((.completed != null) and (.id | startswith("exporting attestation manifest"))).id
+		| sub("exporting attestation manifest "; "")
+	'
+)
+sbom_digest=$(
+	jq -r '
+		.layers[] | select(.annotations["in-toto.io/predicate-type"] == "https://spdx.dev/Document").digest
+	' "sbom/blobs/${attest_manifest_digest//://}"
+)
+jq -c --arg digest "sha256:69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce" '
+	.subject[].digest |= ($digest | split(":") | {(.[0]): .[1]})
+' "sbom/blobs/${sbom_digest//://}" > sbom.json
 # </sbom_scan>
 # <push>
 docker push 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e'
@@ -217,7 +253,8 @@ jq -r --argjson sbomManifestDesc "$sbomManifestDesc" '.manifests += [ $sbomManif
 mv temp/index.json.new temp/index.json
 # </build>
 # <sbom_scan>
-docker buildx build --progress=plain \
+build_output=$(
+	docker buildx build --progress=rawjson \
 	--provenance=false \
 	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
 	--tag 'busybox:1.36.1' \
@@ -242,7 +279,24 @@ docker buildx build --progress=plain \
 	--tag 'amd64/busybox:glibc' \
 	--tag 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f' \
 	--output '"type=oci","tar=false","dest=sbom"' \
-	- <<<'FROM oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f@sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0'
+	- <<<'FROM oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f@sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0' 2>&1
+)
+attest_manifest_digest=$(
+	echo "$build_output" | jq -rs '
+		.[]
+		| select(.statuses).statuses[]
+		| select((.completed != null) and (.id | startswith("exporting attestation manifest"))).id
+		| sub("exporting attestation manifest "; "")
+	'
+)
+sbom_digest=$(
+	jq -r '
+		.layers[] | select(.annotations["in-toto.io/predicate-type"] == "https://spdx.dev/Document").digest
+	' "sbom/blobs/${attest_manifest_digest//://}"
+)
+jq -c --arg digest "sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0" '
+	.subject[].digest |= ($digest | split(":") | {(.[0]): .[1]})
+' "sbom/blobs/${sbom_digest//://}" > sbom.json
 # </sbom_scan>
 # <push>
 crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'

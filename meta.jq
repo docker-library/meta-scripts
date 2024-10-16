@@ -384,9 +384,10 @@ def image_ref:
 # output: string "command for generating an SBOM from an OCI layout", may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def sbom_command:
 	[
+		"build_output=$(",
 		(
 			[
-				"docker buildx build --progress=plain",
+				"\tdocker buildx build --progress=rawjson",
 				"--provenance=false",
 				"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"",
 				(
@@ -415,10 +416,56 @@ def sbom_command:
 					]
 					| join("")
 					| @sh
-				),
+				) + " 2>&1",
 				empty
 			] | join(" \\\n\t")
 		),
+		")",
+		# Using the method above assigns the wrong image digest in the SBOM subjects. This replaces it with the correct one
+		# Get the digest of the attestation manifest provided by BuildKit
+		"attest_manifest_digest=$(",
+		(
+			[
+				"\techo \"$build_output\" | jq -rs '",
+				(
+					[
+						"\t.[]",
+						"| select(.statuses).statuses[]",
+						"| select((.completed != null) and (.id | startswith(\"exporting attestation manifest\"))).id",
+						"| sub(\"exporting attestation manifest \"; \"\")",
+						empty
+					] | join("\n\t\t")
+				),
+				"'",
+				empty
+			] | join("\n\t")
+		),
+		")",
+		# Find the SBOM digest from the attestation manifest
+		"sbom_digest=$(",
+		(
+			[
+				"\tjq -r '",
+				(
+					[
+						"\t.layers[] | select(.annotations[\"in-toto.io/predicate-type\"] == \"https://spdx.dev/Document\").digest",
+						empty
+					] | join("\n\t\t")
+				),
+				"' \"sbom/blobs/${attest_manifest_digest//://}\"",
+				empty
+			] | join("\n\t")
+		),
+		")",
+		# Replace the subjects digests
+		"jq -c --arg digest \"\(image_digest)\" '",
+		(
+			[
+				"\t.subject[].digest |= ($digest | split(\":\") | {(.[0]): .[1]})",
+				empty
+			] | join("\n\t")
+		),
+		"' \"sbom/blobs/${sbom_digest//://}\" > sbom.json",
 		empty
 	] | join("\n")
 ;
