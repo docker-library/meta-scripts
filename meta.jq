@@ -369,6 +369,61 @@ def build_command:
 		error("unknown/unimplemented Builder: \($builder)")
 	end
 ;
+
+def subjects($digest):
+	[
+		($digest | split(":")) as $splitDigest
+		| (.source.arches[.build.arch].platformString) as $platform
+		| (
+			.source.arches[.build.arch].tags[],
+			.source.arches[.build.arch].archTags[],
+			.build.img,
+			empty # trailing comma
+		)
+		| {
+			# https://github.com/package-url/purl-spec/blob/b33dda1cf4515efa8eabbbe8e9b140950805f845/PURL-TYPES.rst#docker (this matches what BuildKit generates as of 2024-09-18; "oci" would also be a reasonable choice, but would require signer and policy changes to support, and be more complex to generate accurately)
+			name: "pkg:docker/\(.)?platform=\($platform | @uri)",
+			digest: { ($splitDigest[0]): $splitDigest[1] },
+		}
+	]
+;
+
+# input: "build" object (with "buildId" top level key)
+def image_digest:
+	.build.resolved.manifests[0].digest
+;
+
+# input: "build" object (with "buildId" top level key)
+def image_ref:
+	"\(.build.img)@\(image_digest)"
+;
+
+# input: "build" object (with "buildId" top level key)
+# output: string "command for generating an SBOM from an OCI layout", may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
+def sbom_command:
+	[
+		"docker create --name img \(image_ref)",
+		"docker export img > img.tar",
+		"mkdir img",
+		"mkdir sbom",
+		"tar -xf img.tar -C img/",
+		(
+			[
+				"docker run",
+				"-u root",
+				"--mount type=bind,source=\"$(pwd)/img\",target=/run/src/core/sbom,readonly",
+				"-v ./sbom:/out",
+				"-e BUILDKIT_SCAN_SOURCE=/run/src/core/sbom",
+				"-e BUILDKIT_SCAN_DESTINATION=/out",
+				"$BASHBREW_BUILDKIT_SBOM_GENERATOR",
+				empty
+			] | join(" \\\n\t")
+		),
+		"jq '.subject |= \(subjects(image_digest))' sbom/sbom.spdx.json > sbom.json",
+		empty
+	] | join("\n")
+;
+
 # input: "build" object (with "buildId" top level key)
 # output: string "push command" ("docker push ..."), may be multiple lines, expects to run in Bash with "set -Eeuo pipefail"
 def push_command:
@@ -398,6 +453,7 @@ def commands:
 	{
 		pull: pull_command,
 		build: build_command,
+		sbom_scan: sbom_command,
 		push: push_command,
 	}
 ;
