@@ -18,17 +18,6 @@ def repos_anti_subset:
 		"rocket.chat",
 		"varnish",
 
-		"php", # direct children: backdrop composer drupal friendica joomla matomo mediawiki monica nextcloud phpmyadmin postfixadmin unit wordpress yourls
-		"friendica",
-		"joomla",
-		"matomo",
-		"mediawiki",
-		"monica",
-		"nextcloud",
-		"phpmyadmin",
-		"postfixadmin",
-		"yourls",
-
 		empty
 	]
 ;
@@ -147,6 +136,18 @@ def _sbom_subset:
 		"xwiki",
 		"znc",
 		"zookeeper",
+
+		# TODO: add these when PHP extensions and PECL packages are supported in Syft
+		# "friendica",
+		# "joomla",
+		# "matomo",
+		# "mediawiki",
+		# "monica",
+		# "nextcloud",
+		# "phpmyadmin",
+		# "postfixadmin",
+		# "yourls",
+
 		empty
 	]
 ;
