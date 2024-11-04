@@ -1,3 +1,5 @@
+include "meta";
+
 # input: list of build objects i.e., builds.json
 # output: stream of crane copy command strings
 def crane_deploy_commands:
@@ -46,4 +48,54 @@ def gha_payload:
 			)
 		)
 	}
+;
+
+# input: full "build" object list (with "buildId" top level key)
+# output: filtered build list { "buildId value": { build object } }
+def get_arch_queue($arch):
+	map_values(
+		select(
+			needs_build
+			and .build.arch == $arch
+		)
+		|  if .build.arch | IN("amd64", "i386", "windows-amd64") then
+			# "GHA" architectures (anything we add a "gha_payload" to will be run on GHA in the queue)
+			.gha_payload = (gha_payload | @json)
+		else . end
+		| .identifier = .source.arches[.build.arch].tags[0]
+	)
+;
+def get_arch_queue:
+	get_arch_queue(env.BASHBREW_ARCH)
+;
+
+# input: filtered "needs_build" build object list, like from get_raw_queue
+# output: simplified list of builds with record of (build/trigger) count and number of current skips
+def jobs_record($pastJobs):
+	map_values(
+		.identifier as $identifier
+		| $pastJobs[.buildId] // { count: 0, skips: 0 }
+		| .identifier = $identifier
+		# start skipping after 24 attempts, try once every 24 skips
+		| if .count > 24 and .skips < 24 then
+			.skips += 1
+		else
+			# these ones shold be built
+			.skips = 0
+			| .count += 1
+		end
+	)
+;
+
+# input: filtered "needs_build" build object list, like from get_raw_queue
+#        newJobs list, output of jobs_record: used for filtering and sorting the queue
+# ouput: sorted build queue with skipped items removed
+def filter_skips_queue($newJobs):
+	map(
+		select(
+			$newJobs[.buildId].skips == 0
+		)
+	)
+	# this Jenkins job exports a JSON file that includes the number of attempts so far per failing buildId so that this can sort by attempts which means failing builds always live at the bottom of the queue (sorted by the number of times they have failed, so the most failing is always last)
+	| sort_by($newJobs[.buildId].count)
 ;
