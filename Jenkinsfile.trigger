@@ -57,6 +57,7 @@ node {
 				queueJson = sh(returnStdout: true, script: '''
 					jq -L.scripts '
 						include "meta";
+						include "jenkins";
 						(env.pastFailedJobsJson | fromjson) as $pastFailedJobs
 						| [
 							.[]
@@ -70,6 +71,9 @@ node {
 									| index($arch)
 								)
 							)
+							| if env.BASHBREW_ARCH == "gha" then
+								.gha_payload = (gha_payload | @json)
+							else . end
 						]
 						# this Jenkins job exports a JSON file that includes the number of attempts so far per failing buildId so that this can sort by attempts which means failing builds always live at the bottom of the queue (sorted by the number of times they have failed, so the most failing is always last)
 						| sort_by($pastFailedJobs[.buildId].count // 0)
@@ -85,52 +89,6 @@ node {
 			breakEarly = true
 			return
 		}
-
-		// for GHA builds, we still need a node (to curl GHA API), so we'll handle those here
-		if (env.BASHBREW_ARCH == 'gha') {
-			withCredentials([
-				string(
-					variable: 'GH_TOKEN',
-					credentialsId: 'github-access-token-docker-library-bot-meta',
-				),
-			]) {
-				for (buildObj in queue) {
-					def identifier = buildObj.source.arches[buildObj.build.arch].tags[0] + ' (' + buildObj.build.arch + ')'
-					def json = writeJSON(json: buildObj, returnText: true)
-					withEnv([
-						'json=' + json,
-					]) {
-						stage(identifier) {
-							echo(json) // for debugging/data purposes
-
-							sh '''#!/usr/bin/env bash
-								set -Eeuo pipefail -x
-
-								# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
-								payload="$(
-									jq <<<"$json" -L.scripts '
-										include "jenkins";
-										gha_payload
-									'
-								)"
-
-								set +x
-								curl -fL \
-									-X POST \
-									-H 'Accept: application/vnd.github+json' \
-									-H "Authorization: Bearer $GH_TOKEN" \
-									-H 'X-GitHub-Api-Version: 2022-11-28' \
-									https://api.github.com/repos/docker-library/meta/actions/workflows/build.yml/dispatches \
-									-d "$payload"
-							'''
-						}
-					}
-				}
-			}
-			// we're done triggering GHA, so we're completely done with this job
-			breakEarly = true
-			return
-		}
 	}
 }
 
@@ -142,39 +100,65 @@ def newFailedJobs = [:]
 
 for (buildObj in queue) {
 	def identifier = buildObj.source.arches[buildObj.build.arch].tags[0]
-	def json = writeJSON(json: buildObj, returnText: true)
-	withEnv([
-		'json=' + json,
-	]) {
-		stage(identifier) {
-			echo(json) // for debugging/data purposes
+	if (buildObj.build.arch != env.BASHBREW_ARCH) {
+		identifier += ' (' + buildObj.build.arch + ')'
+	}
+	stage(identifier) {
+		def json = writeJSON(json: buildObj, returnText: true)
+		echo(json) // for debugging/data purposes
 
-			def res = build(
-				job: 'build-' + env.BASHBREW_ARCH,
-				parameters: [
-					string(name: 'buildId', value: buildObj.buildId),
-				],
-				propagate: false,
-				quietPeriod: 5, // seconds
-			)
-			// TODO do something useful with "res.result" (especially "res.result != 'SUCCESS'")
-			echo(res.result)
-			if (res.result != 'SUCCESS') {
-				def c = 1
-				if (pastFailedJobs[buildObj.buildId]) {
-					// TODO more defensive access of .count? (it is created just below, so it should be safe)
-					c += pastFailedJobs[buildObj.buildId].count
+		// "catchError" to set "stageResult" :(
+		catchError(message: 'Build of "' + identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+			if (buildObj.gha_payload) {
+				node {
+					withEnv([
+						'payload=' + buildObj.gha_payload,
+					]) {
+						withCredentials([
+							string(
+								variable: 'GH_TOKEN',
+								credentialsId: 'github-access-token-docker-library-bot-meta',
+							),
+						]) {
+							sh '''
+								set -u +x
+
+								# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
+								curl -fL \
+									-X POST \
+									-H 'Accept: application/vnd.github+json' \
+									-H "Authorization: Bearer $GH_TOKEN" \
+									-H 'X-GitHub-Api-Version: 2022-11-28' \
+									https://api.github.com/repos/docker-library/meta/actions/workflows/build.yml/dispatches \
+									-d "$payload"
+							'''
+						}
+					}
 				}
-				// TODO maybe implement some amount of backoff? keep first url/endTime?
-				newFailedJobs[buildObj.buildId] = [
-					count: c,
-					identifier: identifier,
-					url: res.absoluteUrl,
-					endTime: (res.startTimeInMillis + res.duration) / 1000.0, // convert to seconds
-				]
-
-				// "catchError" is the only way to set "stageResult" :(
-				catchError(message: 'Build of "' + identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') { error() }
+			} else {
+				def res = build(
+					job: 'build-' + env.BASHBREW_ARCH,
+					parameters: [
+						string(name: 'buildId', value: buildObj.buildId),
+					],
+					propagate: false,
+					quietPeriod: 5, // seconds
+				)
+				if (res.result != 'SUCCESS') {
+					def c = 1
+					if (pastFailedJobs[buildObj.buildId]) {
+						// TODO more defensive access of .count? (it is created just below, so it should be safe)
+						c += pastFailedJobs[buildObj.buildId].count
+					}
+					// TODO maybe implement some amount of backoff? keep first url/endTime?
+					newFailedJobs[buildObj.buildId] = [
+						count: c,
+						identifier: identifier,
+						url: res.absoluteUrl,
+						endTime: (res.startTimeInMillis + res.duration) / 1000.0, // convert to seconds
+					]
+					error(res.result)
+				}
 			}
 		}
 	}
