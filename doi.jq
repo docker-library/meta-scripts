@@ -3,21 +3,6 @@
 # see "Jenkinsfile.meta" for how/why this turns into "subset.txt"
 def repos_anti_subset:
 	[
-		# as we remove items from this list, we need to be careful that none of their *children* are still in the list
-		# (which is why this is sorted in rough "build order" -- that means we can ~safely "pop" off the bottom)
-		"clearlinux",
-		"couchbase",
-
-		"alpine", # direct children: amazoncorretto amazonlinux api-firewall arangodb archlinux bash bonita caddy chronograf docker eclipse-mosquitto eclipse-temurin eggdrop erlang fluentd golang haproxy haxe httpd influxdb irssi julia kapacitor kong liquibase memcached nats nats-streaming nginx node notary php postgres python rabbitmq rakudo-star redis registry ruby rust spiped teamspeak telegraf traefik varnish znc
-		"api-firewall",
-		"nats",
-		"teamspeak",
-
-		"debian", # direct children: aerospike buildpack-deps chronograf clojure couchdb dart emqx erlang haproxy haskell hitch httpd influxdb irssi julia maven memcached mono mysql neo4j neurodebian nginx node odoo openjdk perl php postgres pypy python r-base redis rethinkdb rocket.chat ruby rust spiped swipl unit varnish
-		"dart",
-		"rocket.chat",
-		"varnish",
-
 		empty
 	]
 ;
@@ -28,6 +13,7 @@ def _sbom_subset:
 		# only repositories we have explicitly verified
 		"aerospike",
 		"almalinux",
+		"alpine",
 		"alt",
 		"amazoncorretto",
 		"amazonlinux",
@@ -47,6 +33,7 @@ def _sbom_subset:
 		"convertigo",
 		"couchdb",
 		"crate",
+		"debian",
 		"drupal",
 		"eclipse-mosquitto",
 		"eclipse-temurin",
@@ -147,6 +134,18 @@ def _sbom_subset:
 		# "phpmyadmin",
 		# "postfixadmin",
 		# "yourls",
+
+		# TODO: add these when the golang dependencies are fixed
+		# "api-firewall",
+		# "nats",
+		# "couchbase",
+
+		# TODO: add these when sbom scanning issues fixed
+		# "dart",
+		# "clearlinux",
+		# "rocket.chat",
+		# "teamspeak",
+		# "varnish",
 
 		empty
 	]
