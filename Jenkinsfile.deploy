@@ -9,12 +9,12 @@ properties([
 		userBoost: true,
 	]),
 	pipelineTriggers([
-		upstream('meta'),
+		upstream('../meta'),
 		cron('H H/6 * * *'), // run every few hours whether we "need" it or not
 	]),
 ])
 
-env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('deploy-') // "windows-amd64", "arm64v8", etc
+env.BASHBREW_ARCH = env.JOB_NAME.minus('/deploy').split('/')[-1] // "windows-amd64", "arm64v8", etc
 
 node('put-shared') { ansiColor('xterm') {
 	stage('Checkout') {

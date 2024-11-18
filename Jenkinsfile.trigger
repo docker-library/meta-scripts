@@ -8,7 +8,7 @@ properties([
 	]),
 ])
 
-env.BASHBREW_ARCH = env.JOB_NAME.split('/')[-1].minus('trigger-') // "windows-amd64", "arm64v8", etc
+env.BASHBREW_ARCH = env.JOB_NAME.minus('/trigger').split('/')[-1] // "windows-amd64", "arm64v8", etc
 
 def queue = []
 def breakEarly = false // thanks Jenkins...
@@ -63,15 +63,10 @@ node {
 							.[]
 							| select(
 								needs_build
-								and (
-									.build.arch as $arch
-									| if env.BASHBREW_ARCH == "gha" then
-										[ "amd64", "i386", "windows-amd64" ]
-									else [ env.BASHBREW_ARCH ] end
-									| index($arch)
-								)
+								and .build.arch == env.BASHBREW_ARCH
 							)
-							| if env.BASHBREW_ARCH == "gha" then
+							| if .build.arch | IN("amd64", "i386", "windows-amd64") then
+								# "GHA" architectures (anything we add a "gha_payload" to will be run on GHA in the queue)
 								.gha_payload = (gha_payload | @json)
 							else . end
 						]
@@ -137,7 +132,7 @@ for (buildObj in queue) {
 				}
 			} else {
 				def res = build(
-					job: 'build-' + env.BASHBREW_ARCH,
+					job: 'build',
 					parameters: [
 						string(name: 'buildId', value: buildObj.buildId),
 					],
