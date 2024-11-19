@@ -1,0 +1,246 @@
+{
+	"pastJobs": {
+		"amd64-null-1-0": {
+			"count": 1,
+			"skips": 0
+		},
+		"arm32v7-null-1-0": {
+			"count": 1,
+			"skips": 0
+		},
+		"amd64-null-23-0": {
+			"count": 23,
+			"skips": 0
+		},
+		"arm32v7-null-23-0": {
+			"count": 23,
+			"skips": 0
+		},
+		"amd64-null-24-0": {
+			"count": 24,
+			"skips": 0
+		},
+		"arm32v7-null-24-0": {
+			"count": 24,
+			"skips": 0
+		},
+		"amd64-null-25-23": {
+			"count": 25,
+			"skips": 23
+		},
+		"arm32v7-null-25-23": {
+			"count": 25,
+			"skips": 23
+		},
+		"amd64-null-25-24": {
+			"count": 25,
+			"skips": 24
+		},
+		"arm32v7-null-25-24": {
+			"count": 25,
+			"skips": 24
+		},
+		"amd64-{}-3-0": {
+			"count": 3,
+			"skips": 0
+		},
+		"arm32v7-{}-3-0": {
+			"count": 3,
+			"skips": 0
+		}
+	},
+	"builds": {
+		"amd64-null-1-0": {
+			"buildId": "amd64-null-1-0",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-1-0"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-1-0": {
+			"buildId": "arm32v7-null-1-0",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-1-0"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-23-0": {
+			"buildId": "amd64-null-23-0",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-23-0"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-23-0": {
+			"buildId": "arm32v7-null-23-0",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-23-0"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-24-0": {
+			"buildId": "amd64-null-24-0",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-24-0"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-24-0": {
+			"buildId": "arm32v7-null-24-0",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-24-0"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-25-23": {
+			"buildId": "amd64-null-25-23",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-25-23"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-25-23": {
+			"buildId": "arm32v7-null-25-23",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-25-23"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-25-24": {
+			"buildId": "amd64-null-25-24",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-25-24"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-25-24": {
+			"buildId": "arm32v7-null-25-24",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-25-24"
+						]
+					}
+				}
+			}
+		},
+		"amd64-{}-3-0": {
+			"buildId": "amd64-{}-3-0",
+			"build": {
+				"arch": "amd64",
+				"resolved": {}
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-{}-3-0"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-{}-3-0": {
+			"buildId": "arm32v7-{}-3-0",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": {}
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-{}-3-0"
+						]
+					}
+				}
+			}
+		}
+	}
+}

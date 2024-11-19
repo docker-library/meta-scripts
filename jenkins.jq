@@ -77,7 +77,7 @@ def jobs_record($pastJobs):
 		| $pastJobs[.buildId] // { count: 0, skips: 0 }
 		| .identifier = $identifier
 		# start skipping after 24 attempts, try once every 24 skips
-		| if .count > 24 and .skips < 24 then
+		| if .count >= 24 and .skips < 24 then
 			.skips += 1
 		else
 			# these ones shold be built
