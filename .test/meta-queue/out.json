@@ -1,0 +1,81 @@
+[
+	{
+		"buildId": "arm32v7-null-1-0",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-1-0"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-1-0"
+	},
+	{
+		"buildId": "arm32v7-null-23-0",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-23-0"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-23-0"
+	},
+	{
+		"buildId": "arm32v7-null-25-24",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-25-24"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-25-24"
+	}
+]
+{
+	"arm32v7-null-1-0": {
+		"count": 2,
+		"skips": 0,
+		"identifier": "fake:arm32v7-null-1-0"
+	},
+	"arm32v7-null-23-0": {
+		"count": 24,
+		"skips": 0,
+		"identifier": "fake:arm32v7-null-23-0"
+	},
+	"arm32v7-null-24-0": {
+		"count": 24,
+		"skips": 1,
+		"identifier": "fake:arm32v7-null-24-0"
+	},
+	"arm32v7-null-25-23": {
+		"count": 25,
+		"skips": 24,
+		"identifier": "fake:arm32v7-null-25-23"
+	},
+	"arm32v7-null-25-24": {
+		"count": 26,
+		"skips": 0,
+		"identifier": "fake:arm32v7-null-25-24"
+	}
+}
+2

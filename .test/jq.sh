@@ -13,7 +13,11 @@ for t in "$dir/"*"/test.jq"; do
 	td="$(dirname "$t")"
 	echo -n 'test: '
 	basename "$td"
-	args=( --tab -L "$dir/.." -f "$t" )
+	args=( --tab -L "$dir/.." )
+	if [ -s "$td/in.jq" ]; then
+		jq "${args[@]}" -n -f "$td/in.jq" > "$td/in.json"
+	fi
+	args+=( -f "$t" )
 	if [ -s "$td/in.json" ]; then
 		args+=( "$td/in.json" )
 	else
