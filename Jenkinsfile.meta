@@ -45,17 +45,6 @@ node {
 			sh '''
 				git submodule update --remote --merge .doi
 				git submodule update --remote --merge .scripts
-
-				# TODO once "repos_anti_subset" in "doi.jq" is empty, we can remove this (and all associated usages of "subset.txt" can just be "--all" or go away completely)
-				# in all the places we need to interact with our "subset" it's a lot easier to have an explicit list of what's included, so we'll continue to generate "subset.txt" until it contains the full set
-				bashbrew list --all --repos | jq -L.scripts -rsR '
-					include "doi";
-					rtrimstr("\n")
-					| split("\n")
-					| . - repos_anti_subset
-					| join("\n")
-				' > subset.txt
-				git add subset.txt
 			'''
 		}
 
@@ -65,11 +54,11 @@ node {
 			string(credentialsId: 'dockerhub-public-proxy-host', variable: 'DOCKERHUB_PUBLIC_PROXY_HOST'),
 		]) {
 			stage('Fetch') {
-				sh 'bashbrew --library .doi/library fetch $(cat subset.txt)' // TODO --all
+				sh 'bashbrew --library .doi/library fetch --all'
 			}
 			stage('Sources') {
 				sh '''
-					# we only need to regenerate "sources.json" if ".doi", ".scripts", or "subset.txt" have changed since we last generated it
+					# we only need to regenerate "sources.json" if ".doi" or ".scripts" have changed since we last generated it
 
 					needsBuild=
 					if [ ! -s commits.json ] || [ ! -s sources.json ]; then
@@ -78,17 +67,14 @@ node {
 
 					doi="$(git -C .doi log -1 --format='format:%H')"
 					scripts="$(git -C .scripts log -1 --format='format:%H')"
-					subset="$(sha256sum subset.txt | cut -d' ' -f1)"
-					export doi scripts subset
-					jq -n '{ doi: env.doi, scripts: env.scripts, subset: env.subset }' | tee commits.json
+					export doi scripts
+					jq -n '{ doi: env.doi, scripts: env.scripts }' | tee commits.json
 					if [ -z "$needsBuild" ] && ! git diff --exit-code commits.json; then
 						needsBuild=1
 					fi
 
 					if [ -n "$needsBuild" ]; then
-						images="$(cat subset.txt)"
-						[ -n "$images" ]
-						.scripts/sources.sh $images > sources.json
+						.scripts/sources.sh --all > sources.json
 					fi
 				'''
 			}
