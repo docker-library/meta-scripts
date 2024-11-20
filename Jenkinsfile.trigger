@@ -72,7 +72,7 @@ node {
 
 			def queueJson = queueAndFailsJson[0]
 			currentJobsJson = queueAndFailsJson[1]
-			def skips = queueAndFailsJson[2]
+			def skips = queueAndFailsJson[2].toInteger()
 			//echo(queueJson)
 
 			def jobName = ''
