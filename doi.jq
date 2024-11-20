@@ -1,12 +1,3 @@
-# our old "subset.txt", but inverted
-# this way, we can "fail open" correctly (new images should be part of meta by default)
-# see "Jenkinsfile.meta" for how/why this turns into "subset.txt"
-def repos_anti_subset:
-	[
-		empty
-	]
-;
-
 # a helper for "build_should_sbom"
 def _sbom_subset:
 	[
