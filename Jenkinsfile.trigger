@@ -83,8 +83,12 @@ node {
 				jobName += 'queue: 0'
 				breakEarly = true
 			}
-			if (skips > 0 ) {
+			if (skips > 0) {
 				jobName += ' skip: ' + skips
+				if (breakEarly) {
+					// if we're skipping some builds but the effective queue is empty, we want to set the job as "unstable" instead of successful (so we know there's still *something* that needs to build but it isn't being built right now)
+					currentBuild.result = 'UNSTABLE'
+				}
 				// queue to build might be empty, be we still need to record these skipped builds
 				breakEarly = false
 			}
