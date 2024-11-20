@@ -17,6 +17,11 @@ node {
 			]],
 			branches: [[name: '*/main']],
 			extensions: [
+				cloneOption(
+					noTags: true,
+					shallow: true,
+					depth: 1,
+				),
 				submodule(
 					recursiveSubmodules: true,
 					parentCredentials: true,
