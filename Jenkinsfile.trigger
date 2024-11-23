@@ -102,57 +102,20 @@ if (breakEarly) { return } // thanks Jenkins...
 
 // new data to be added to the past-jobs.json
 // { lastTime: unixTimestamp, url: "" }
-def buildCompletionData = [:]
+buildCompletionData = [:]
 
-for (buildObj in queue) {
-	stage(buildObj.identifier) {
-		//def json = writeJSON(json: buildObj, returnText: true)
-		//echo(json) // for debugging/data purposes
-
-		// "catchError" to set "stageResult" :(
-		catchError(message: 'Build of "' + buildObj.identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-			if (buildObj.gha_payload) {
-				node {
-					withEnv([
-						'payload=' + buildObj.gha_payload,
-					]) {
-						withCredentials([
-							string(
-								variable: 'GH_TOKEN',
-								credentialsId: 'github-access-token-docker-library-bot-meta',
-							),
-						]) {
-							sh '''
-								set -u +x
-
-								# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
-								curl -fL \
-									-X POST \
-									-H 'Accept: application/vnd.github+json' \
-									-H "Authorization: Bearer $GH_TOKEN" \
-									-H 'X-GitHub-Api-Version: 2022-11-28' \
-									https://api.github.com/repos/docker-library/meta/actions/workflows/build.yml/dispatches \
-									-d "$payload"
-							'''
-						}
-					}
-					// record that GHA was triggered (for tracking continued triggers that fail to push an image)
-					buildCompletionData[buildObj.buildId] = [
-						lastTime: System.currentTimeMillis() / 1000, // convert to seconds
-						url: currentBuild.absoluteUrl,
-					]
-				}
-			} else {
-				def res = build(
-					job: 'build',
-					parameters: [
-						string(name: 'buildId', value: buildObj.buildId),
-					],
-					propagate: false,
-					quietPeriod: 5, // seconds
+// list of closures that we can use to wait for the jobs on.
+def waitQueue = [:]
+def waitQueueClosure(identifier, buildId, externalizableId) {
+	return {
+		stage(identifier) {
+			// "catchError" to set "stageResult" :(
+			catchError(message: 'Build of "' + identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+				def res = waitForBuild(
+					runId: externalizableId,
+					propagateAbort: true, // allow cancelling this job to cancel all the triggered jobs
 				)
-				// record the job failure
-				buildCompletionData[buildObj.buildId] = [
+				buildCompletionData[buildId] = [
 					lastTime: (res.startTimeInMillis + res.duration) / 1000, // convert to seconds
 					url: res.absoluteUrl,
 				]
@@ -163,6 +126,74 @@ for (buildObj in queue) {
 			}
 		}
 	}
+}
+
+// stage to wrap up all the build job triggers that get waited on later
+stage('trigger') {
+	for (buildObj in queue) {
+		if (buildObj.gha_payload) {
+			stage(buildObj.identifier) {
+				// "catchError" to set "stageResult" :(
+				catchError(message: 'Build of "' + buildObj.identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+					node {
+						withEnv([
+							'payload=' + buildObj.gha_payload,
+						]) {
+							withCredentials([
+								string(
+									variable: 'GH_TOKEN',
+									credentialsId: 'github-access-token-docker-library-bot-meta',
+								),
+							]) {
+								sh '''
+									set -u +x
+
+									# https://docs.github.com/en/free-pro-team@latest/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
+									curl -fL \
+										-X POST \
+										-H 'Accept: application/vnd.github+json' \
+										-H "Authorization: Bearer $GH_TOKEN" \
+										-H 'X-GitHub-Api-Version: 2022-11-28' \
+										https://api.github.com/repos/docker-library/meta/actions/workflows/build.yml/dispatches \
+										-d "$payload"
+								'''
+							}
+						}
+						// record that GHA was triggered (for tracking continued triggers that fail to push an image)
+						buildCompletionData[buildObj.buildId] = [
+							lastTime: System.currentTimeMillis() / 1000, // convert to seconds
+							url: currentBuild.absoluteUrl,
+						]
+					}
+				}
+			}
+		} else {
+			// "catchError" to set "stageResult" :(
+			catchError(message: 'Build of "' + buildObj.identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+
+				// why not parallel these build() invocations?
+				// jenkins parallel closures get started in a randomish order, ruining our sorted queue
+				def res = build(
+					job: 'build',
+					parameters: [
+						string(name: 'buildId', value: buildObj.buildId),
+						string(name: 'identifier', value: buildObj.identifier),
+					],
+					propagate: false,
+					// trigger these quickly so they all get added to Jenkins queue in "queue" order (also using "waitForStart" means we have to wait for the entire "quietPeriod" before we get to move on and schedule more)
+					quietPeriod: 0, // seconds
+					// we'll wait on the builds in parallel after they are all queued (so our sorted order is the queue order)
+					waitForStart: true,
+				)
+				waitQueue[buildObj.identifier] = waitQueueClosure(buildObj.identifier, buildObj.buildId, res.externalizableId)
+			}
+		}
+	}
+}
+
+// wait on all the 'build' jobs that were queued
+if (waitQueue.size() > 0) {
+	parallel waitQueue
 }
 
 // save currentJobs so we can use it next run as pastJobs
