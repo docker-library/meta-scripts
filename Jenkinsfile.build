@@ -1,15 +1,25 @@
-// one job per arch (for now) that just builds "the top thing" (triggered by the meta-update job)
+// any number of jobs per arch that build the specified buildId (triggered by the respective trigger job)
 properties([
-	disableConcurrentBuilds(),
+	// limited by one job per buildId so that the same build cannot run concurrently
+	throttleJobProperty(
+		limitOneJobWithMatchingParams: true,
+		paramsToUseForLimit: 'buildId',
+		throttleEnabled: true,
+		throttleOption: 'project',
+	),
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	parameters([
 		string(name: 'buildId', trim: true),
+		string(name: 'identifier', trim: true, description: '(optional) used to set <code>currentBuild.displayName</code> to a meaningful value earlier'),
 	]),
 ])
 
 env.BASHBREW_ARCH = env.JOB_NAME.minus('/build').split('/')[-1] // "windows-amd64", "arm64v8", etc
 env.BUILD_ID = params.buildId
+if (params.identifier) {
+	currentBuild.displayName = params.identifier + ' (#' + currentBuild.number + ')'
+}
 
 node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 	stage('Checkout') {
