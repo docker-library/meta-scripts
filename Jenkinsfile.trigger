@@ -207,8 +207,10 @@ node {
 					set -Eeuo pipefail -x
 
 					jq <<<"$currentJobsJson" '
+						# save firstTime if it is not set yet
+						map_values(.firstTime //= .lastTime)
 						# merge the two objects recursively, preferring data from "buildCompletionDataJson"
-						. * ( env.buildCompletionDataJson | fromjson )
+						| . * ( env.buildCompletionDataJson | fromjson )
 					' | tee past-jobs.json
 				'''
 				archiveArtifacts(
