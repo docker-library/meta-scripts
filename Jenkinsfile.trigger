@@ -52,10 +52,7 @@ node {
 					! wget --timeout=5 -qO past-jobs.json "$JOB_URL/lastSuccessfulBuild/artifact/past-jobs.json" \\
 					|| ! jq 'empty' past-jobs.json \\
 				; then
-					# temporary migration of old data
-					if ! wget --timeout=5 -qO past-jobs.json "$JOB_URL/lastSuccessfulBuild/artifact/pastFailedJobs.json" || ! jq 'empty' past-jobs.json; then
-						echo '{}' > past-jobs.json
-					fi
+					echo '{}' > past-jobs.json
 				fi
 				jq -c -L.scripts --slurpfile pastJobs past-jobs.json '
 					include "jenkins";
@@ -210,8 +207,10 @@ node {
 					set -Eeuo pipefail -x
 
 					jq <<<"$currentJobsJson" '
+						# save firstTime if it is not set yet
+						map_values(.firstTime //= .lastTime)
 						# merge the two objects recursively, preferring data from "buildCompletionDataJson"
-						. * ( env.buildCompletionDataJson | fromjson )
+						| . * ( env.buildCompletionDataJson | fromjson )
 					' | tee past-jobs.json
 				'''
 				archiveArtifacts(
