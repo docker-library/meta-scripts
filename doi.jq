@@ -8,6 +8,7 @@ def _sbom_subset:
 		"alt",
 		"amazoncorretto",
 		"amazonlinux",
+		"api-firewall",
 		"arangodb",
 		"archlinux",
 		"backdrop",
@@ -127,7 +128,6 @@ def _sbom_subset:
 		# "yourls",
 
 		# TODO: add these when the golang dependencies are fixed
-		# "api-firewall",
 		# "nats",
 		# "couchbase",
 
