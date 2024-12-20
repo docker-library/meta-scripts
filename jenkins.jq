@@ -34,13 +34,14 @@ def gha_payload:
 				| if . != "" then
 					{ windowsVersion: (
 						# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-						# https://github.com/microsoft/hcsshim/blob/e8208853ff0f7f23fa5d2e018deddff2249d35c8/osversion/windowsbuilds.go
+						# https://github.com/microsoft/hcsshim/blob/d9a4231b9d7a03dffdabb6019318fc43eb6ba996/osversion/windowsbuilds.go
 						capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
 						| {
 							# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
 							# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-							"20348": "2022",
-							"17763": "2019",
+							"26100": "2025", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2025
+							"20348": "2022", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2022
+							"17763": "2019", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2019
 							"": "",
 						}[.build] // "unknown"
 					) }
