@@ -2,6 +2,7 @@ package registry
 
 import (
 	"net/http"
+	"slices"
 	"time"
 
 	"golang.org/x/time/rate"
@@ -24,7 +25,7 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 		// cap request retries at once per second
 		requestRetryLimiter = rate.NewLimiter(rate.Every(time.Second), 1)
 
-		// if we see 3x (503 or 502 or 500) during retry, we should bail
+		// if we see 50x three times during retry, we should bail
 		maxTry50X = 3
 
 		ctx = req.Context()
@@ -54,7 +55,7 @@ func (d *rateLimitedRetryingRoundTripper) RoundTrip(req *http.Request) (*http.Re
 		}
 
 		// certain status codes should result in a few auto-retries (especially with the automatic retry delay this injects), but up to a limit so we don't contribute to the "thundering herd" too much in a serious outage
-		if (res.StatusCode == 503 || res.StatusCode == 502 || res.StatusCode == 500) && maxTry50X > 1 {
+		if maxTry50X > 1 && slices.Contains([]int{500, 502, 503, 504}, res.StatusCode) {
 			maxTry50X--
 			doRetry = true
 			// no need to eat up the rate limiter tokens as we do for 429 because this is not a rate limiting error (and we have the "requestRetryLimiter" that separately limits our retries of *this* request)
