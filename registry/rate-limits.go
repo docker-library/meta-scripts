@@ -10,7 +10,7 @@ import (
 
 var (
 	registryRateLimiters = map[string]*rate.Limiter{
-		dockerHubCanonical: rate.NewLimiter(200/rate.Limit((1*time.Minute).Seconds()), 200), // stick to at most 200/min in registry/Hub requests (and allow an immediate burst of 200)
+		dockerHubCanonical: rate.NewLimiter(300/rate.Limit((1*time.Minute).Seconds()), 300), // stick to at most 300/min in registry/Hub requests (and allow an immediate burst of 300)
 	}
 )
 
