@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 
 	"github.com/docker-library/meta-scripts/registry"
 
@@ -46,7 +47,14 @@ type inputNormalized struct {
 	Data     []byte              `json:"data"`
 	CopyFrom *registry.Reference `json:"copyFrom"`
 
-	Do func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) `json:"-"`
+	// if CopyFrom is nil and Type is manifest, this will be set (used by "do")
+	MediaType string `json:"mediaType,omitempty"`
+}
+
+func (normal inputNormalized) clone() inputNormalized {
+	// normal.Lookup is the only thing we have concurrency issues with, so it's the only thing we'll explicitly clone 😇
+	normal.Lookup = maps.Clone(normal.Lookup)
+	return normal
 }
 
 func normalizeInputRefs(deployType deployType, rawRefs []string) ([]registry.Reference, ociregistry.Digest, error) {
@@ -222,6 +230,7 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 		normal.Lookup[d] = ref
 	}
 
+	// front-load some validation / data extraction for "normal.do" to work
 	switch normal.Type {
 	case typeManifest:
 		if normal.CopyFrom == nil {
@@ -240,27 +249,12 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 				// and our logic for pushing children needs to know the mediaType (see the GHSAs referenced above)
 				return normal, fmt.Errorf("%s: pushing manifest but missing 'mediaType'", debugId)
 			}
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.EnsureManifest(ctx, dstRef, normal.Data, mediaTypeHaver.MediaType, normal.Lookup)
-			}
-		} else {
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.CopyManifest(ctx, *normal.CopyFrom, dstRef, normal.Lookup)
-			}
+			normal.MediaType = mediaTypeHaver.MediaType
 		}
 
 	case typeBlob:
-		if normal.CopyFrom == nil {
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.EnsureBlob(ctx, dstRef, int64(len(normal.Data)), bytes.NewReader(normal.Data))
-			}
-		} else {
-			if normal.CopyFrom.Digest == "" {
-				return normal, fmt.Errorf("%s: blobs are always by-digest, and thus need a digest: %s", debugId, normal.CopyFrom)
-			}
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.CopyBlob(ctx, *normal.CopyFrom, dstRef)
-			}
+		if normal.CopyFrom != nil && normal.CopyFrom.Digest == "" {
+			return normal, fmt.Errorf("%s: blobs are always by-digest, and thus need a digest: %s", debugId, normal.CopyFrom)
 		}
 
 	default:
@@ -269,4 +263,28 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 	}
 
 	return normal, nil
+}
+
+// WARNING: many of these codepaths will end up writing to "normal.Lookup", which because it's a map is passed by reference, so this method is *not* safe for concurrent invocation on a single "normal" object!  see "normal.clone" (above)
+func (normal inputNormalized) do(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
+	switch normal.Type {
+	case typeManifest:
+		if normal.CopyFrom == nil {
+			// TODO panic on bad data, like MediaType being empty?
+			return registry.EnsureManifest(ctx, dstRef, normal.Data, normal.MediaType, normal.Lookup)
+		} else {
+			return registry.CopyManifest(ctx, *normal.CopyFrom, dstRef, normal.Lookup)
+		}
+
+	case typeBlob:
+		if normal.CopyFrom == nil {
+			return registry.EnsureBlob(ctx, dstRef, int64(len(normal.Data)), bytes.NewReader(normal.Data))
+		} else {
+			return registry.CopyBlob(ctx, *normal.CopyFrom, dstRef)
+		}
+
+	default:
+		panic("unknown type: " + string(normal.Type))
+		// panic instead of error because this should've already been handled/normalized above (so this is a coding error, not a runtime error)
+	}
 }
