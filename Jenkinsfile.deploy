@@ -70,8 +70,26 @@ node('put-shared') { ansiColor('xterm') {
 					include "deploy";
 					arch_tagged_manifests(env.BASHBREW_ARCH)
 					| deploy_objects[]
-				' builds.json | tee deploy.json
+				' builds.json > deploy.json
 			'''
+		}
+		stage('Filter') {
+			// using the previous successful deploy.json, filter the current deploy.json with items already pushed last time
+			sh'''
+				wget --timeout=5 -qO past-deploy.json "$JOB_URL/lastSuccessfulBuild/artifact/deploy.json"
+				# swap to this touch instead of the wget above to (re)bootstrap
+				#touch past-deploy.json
+				jq --slurpfile past ./past-deploy.json 'select( IN($past[]) | not )' ./deploy.json > filtered-deploy.json
+			'''
+		}
+		stage('Archive') {
+			archiveArtifacts(
+				artifacts: [
+					'deploy.json',
+					'filtered-deploy.json',
+				].join(','),
+				fingerprint: true,
+			)
 		}
 
 		withCredentials([
@@ -89,7 +107,7 @@ node('put-shared') { ansiColor('xterm') {
 							./.go-env.sh go build -trimpath -o bin/deploy ./cmd/deploy
 						fi
 					)
-					.scripts/bin/deploy < deploy.json
+					.scripts/bin/deploy < filtered-deploy.json
 				'''
 			}
 		}
