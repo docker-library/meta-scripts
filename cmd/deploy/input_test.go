@@ -281,7 +281,7 @@ func TestNormalizeInput(t *testing.T) {
 					"refs": [ "localhost:5000/example:test" ],
 					"data": {"mediaType": "application/vnd.oci.image.index.v1+json"}
 			}`,
-			`{"type":"manifest","refs":["localhost:5000/example:test@sha256:0ae6b7b9d0bc73ee36c1adef005deb431e94cf009c6a947718b31da3d668032d"],"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIn0=","copyFrom":null,"mediaType":"application/vnd.oci.image.index.v1+json"}`,
+			`{"type":"manifest","refs":["localhost:5000/example:test@sha256:0ae6b7b9d0bc73ee36c1adef005deb431e94cf009c6a947718b31da3d668032d"],"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIn0=","copyFrom":null}`,
 		},
 		{
 			"manifest raw",
@@ -290,7 +290,7 @@ func TestNormalizeInput(t *testing.T) {
 					"refs": [ "localhost:5000/example" ],
 					"data": "eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIn0="
 			}`,
-			`{"type":"manifest","refs":["localhost:5000/example@sha256:0ae6b7b9d0bc73ee36c1adef005deb431e94cf009c6a947718b31da3d668032d"],"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIn0=","copyFrom":null,"mediaType":"application/vnd.oci.image.index.v1+json"}`,
+			`{"type":"manifest","refs":["localhost:5000/example@sha256:0ae6b7b9d0bc73ee36c1adef005deb431e94cf009c6a947718b31da3d668032d"],"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIn0=","copyFrom":null}`,
 		},
 
 		{
@@ -301,7 +301,7 @@ func TestNormalizeInput(t *testing.T) {
 					"lookup": { "sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d": "tianon/true" },
 					"data": {"mediaType": "application/vnd.oci.image.index.v1+json","manifests":[{"mediaType":"application/vnd.oci.image.manifest.v1+json","digest":"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d","size":1165}],"schemaVersion":2}
 			}`,
-			`{"type":"manifest","refs":["localhost:5000/example:test@sha256:0cb474919526d040392883b84e5babb65a149cc605b89b117781ab94e88a5e86"],"lookup":{"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d":"tianon/true"},"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIiwibWFuaWZlc3RzIjpbeyJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLm1hbmlmZXN0LnYxK2pzb24iLCJkaWdlc3QiOiJzaGEyNTY6OWVmNDJmMWQ2MDJmYjQyM2ZhZDkzNWFhYzFjYWEwY2ZkYmNlMWFkN2VkY2U2NGQwODBhNGViN2IxM2Y3Y2Q5ZCIsInNpemUiOjExNjV9XSwic2NoZW1hVmVyc2lvbiI6Mn0=","copyFrom":null,"mediaType":"application/vnd.oci.image.index.v1+json"}`,
+			`{"type":"manifest","refs":["localhost:5000/example:test@sha256:0cb474919526d040392883b84e5babb65a149cc605b89b117781ab94e88a5e86"],"lookup":{"sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d":"tianon/true"},"data":"eyJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIiwibWFuaWZlc3RzIjpbeyJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLm1hbmlmZXN0LnYxK2pzb24iLCJkaWdlc3QiOiJzaGEyNTY6OWVmNDJmMWQ2MDJmYjQyM2ZhZDkzNWFhYzFjYWEwY2ZkYmNlMWFkN2VkY2U2NGQwODBhNGViN2IxM2Y3Y2Q5ZCIsInNpemUiOjExNjV9XSwic2NoZW1hVmVyc2lvbiI6Mn0=","copyFrom":null}`,
 		},
 		{
 			"image",
@@ -311,7 +311,7 @@ func TestNormalizeInput(t *testing.T) {
 					"lookup": { "": "tianon/true" },
 					"data": {"schemaVersion":2,"mediaType":"application/vnd.docker.distribution.manifest.v2+json","config":{"mediaType":"application/vnd.docker.container.image.v1+json","size":1471,"digest":"sha256:690912094c0165c489f874c72cee4ba208c28992c0699fa6e10d8cc59f93fec9"},"layers":[{"mediaType":"application/vnd.docker.image.rootfs.diff.tar.gzip","size":129,"digest":"sha256:4c74d744397d4bcbd3079d9c82a87b80d43da376313772978134d1288f20518c"}]}
 			}`,
-			`{"type":"manifest","refs":["localhost:5000/example@sha256:1c70f9d471b83100c45d5a218d45bbf7e073e11ea5043758a020379a7c78f878"],"lookup":{"":"tianon/true"},"data":"eyJzY2hlbWFWZXJzaW9uIjoyLCJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQuZG9ja2VyLmRpc3RyaWJ1dGlvbi5tYW5pZmVzdC52Mitqc29uIiwiY29uZmlnIjp7Im1lZGlhVHlwZSI6ImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuY29udGFpbmVyLmltYWdlLnYxK2pzb24iLCJzaXplIjoxNDcxLCJkaWdlc3QiOiJzaGEyNTY6NjkwOTEyMDk0YzAxNjVjNDg5Zjg3NGM3MmNlZTRiYTIwOGMyODk5MmMwNjk5ZmE2ZTEwZDhjYzU5ZjkzZmVjOSJ9LCJsYXllcnMiOlt7Im1lZGlhVHlwZSI6ImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuaW1hZ2Uucm9vdGZzLmRpZmYudGFyLmd6aXAiLCJzaXplIjoxMjksImRpZ2VzdCI6InNoYTI1Njo0Yzc0ZDc0NDM5N2Q0YmNiZDMwNzlkOWM4MmE4N2I4MGQ0M2RhMzc2MzEzNzcyOTc4MTM0ZDEyODhmMjA1MThjIn1dfQ==","copyFrom":null,"mediaType":"application/vnd.docker.distribution.manifest.v2+json"}`,
+			`{"type":"manifest","refs":["localhost:5000/example@sha256:1c70f9d471b83100c45d5a218d45bbf7e073e11ea5043758a020379a7c78f878"],"lookup":{"":"tianon/true"},"data":"eyJzY2hlbWFWZXJzaW9uIjoyLCJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQuZG9ja2VyLmRpc3RyaWJ1dGlvbi5tYW5pZmVzdC52Mitqc29uIiwiY29uZmlnIjp7Im1lZGlhVHlwZSI6ImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuY29udGFpbmVyLmltYWdlLnYxK2pzb24iLCJzaXplIjoxNDcxLCJkaWdlc3QiOiJzaGEyNTY6NjkwOTEyMDk0YzAxNjVjNDg5Zjg3NGM3MmNlZTRiYTIwOGMyODk5MmMwNjk5ZmE2ZTEwZDhjYzU5ZjkzZmVjOSJ9LCJsYXllcnMiOlt7Im1lZGlhVHlwZSI6ImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuaW1hZ2Uucm9vdGZzLmRpZmYudGFyLmd6aXAiLCJzaXplIjoxMjksImRpZ2VzdCI6InNoYTI1Njo0Yzc0ZDc0NDM5N2Q0YmNiZDMwNzlkOWM4MmE4N2I4MGQ0M2RhMzc2MzEzNzcyOTc4MTM0ZDEyODhmMjA1MThjIn1dfQ==","copyFrom":null}`,
 		},
 
 		{
