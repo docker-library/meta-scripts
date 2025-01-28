@@ -168,6 +168,43 @@ if [ -n "$doDeploy" ]; then
 			data: ("json string" | @json + "\n" | @base64),
 		},
 
+		# test pushing a full, actual image (tianon/true:oci@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d), all parts
+		{
+			# config blob
+			type: "blob",
+			refs: [$reg+"/true"],
+			data: "ewoJImFyY2hpdGVjdHVyZSI6ICJhbWQ2NCIsCgkiY29uZmlnIjogewoJCSJDbWQiOiBbCgkJCSIvdHJ1ZSIKCQldCgl9LAoJImNyZWF0ZWQiOiAiMjAyMy0wMi0wMVQwNjo1MToxMVoiLAoJImhpc3RvcnkiOiBbCgkJewoJCQkiY3JlYXRlZCI6ICIyMDIzLTAyLTAxVDA2OjUxOjExWiIsCgkJCSJjcmVhdGVkX2J5IjogImh0dHBzOi8vZ2l0aHViLmNvbS90aWFub24vZG9ja2VyZmlsZXMvdHJlZS9tYXN0ZXIvdHJ1ZSIKCQl9CgldLAoJIm9zIjogImxpbnV4IiwKCSJyb290ZnMiOiB7CgkJImRpZmZfaWRzIjogWwoJCQkic2hhMjU2OjY1YjVhNDU5M2NjNjFkM2VhNmQzNTVmYjk3YzA0MzBkODIwZWUyMWFhODUzNWY1ZGU0NWU3NWMzMTk1NGI3NDMiCgkJXSwKCQkidHlwZSI6ICJsYXllcnMiCgl9Cn0K",
+		},
+		{
+			# layer blob
+			type: "blob",
+			refs: [$reg+"/true"],
+			data: "H4sIAAAAAAACAyspKk1loDEwAAJTU1MwDQTotIGhuQmcDRE3MzM0YlAwYKADKC0uSSxSUGAYoaDe1ceNiZERzmdisGMA8SoYHMB8Byx6HBgsGGA6QDQrmiwyXQPl1cDlIUG9wYaflWEUDDgAAIAGdJIABAAA",
+		},
+		{
+			type: "manifest",
+			refs: [ "oci", "latest", (range(0; 10)) | $reg+"/true:\(.)", $reg+"/foo/true:\(.)" ], # test pushing a whole bunch of tags in multiple repos
+			lookup: {
+				# a few explicit lookup entries for better code coverage (dep calculation during parallelization)
+				"sha256:1c51fc286aa95d9413226599576bafa38490b1e292375c90de095855b64caea6": ($reg+"/true"),
+				"": ($reg+"/true"),
+			},
+			data: {
+				schemaVersion: 2,
+				mediaType: "application/vnd.oci.image.manifest.v1+json",
+				config: {
+					mediaType: "application/vnd.oci.image.config.v1+json",
+					digest: "sha256:25be82253336f0b8c4347bc4ecbbcdc85d0e0f118ccf8dc2e119c0a47a0a486e",
+					size: 396,
+				},
+				layers: [ {
+					mediaType: "application/vnd.oci.image.layer.v1.tar+gzip",
+					digest: "sha256:1c51fc286aa95d9413226599576bafa38490b1e292375c90de095855b64caea6",
+					size: 117,
+				} ],
+			},
+		},
+
 		# test blob mounting between repositories
 		{
 			type: "blob",
@@ -213,7 +250,7 @@ if [ -n "$doDeploy" ]; then
 		empty
 	')" # stored in a variable for easier debugging ("bash -x")
 
-	"$coverage/bin/deploy" <<<"$json"
+	time "$coverage/bin/deploy" <<<"$json"
 
 	docker rm -vf meta-scripts-test-registry
 	trap - EXIT
