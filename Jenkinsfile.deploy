@@ -76,7 +76,6 @@ node('put-shared') { ansiColor('xterm') {
 
 		withCredentials([
 			string(credentialsId: 'dockerhub-public-proxy', variable: 'DOCKERHUB_PUBLIC_PROXY'),
-			string(credentialsId: 'dockerhub-public-proxy-host', variable: 'DOCKERHUB_PUBLIC_PROXY_HOST'),
 		]) {
 			stage('Deploy') {
 				sh '''#!/usr/bin/env bash

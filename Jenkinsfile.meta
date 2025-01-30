@@ -51,7 +51,6 @@ node {
 		withCredentials([
 			// thanks to rate limits, we either have to "docker login" or look things up via our proxy
 			string(credentialsId: 'dockerhub-public-proxy', variable: 'DOCKERHUB_PUBLIC_PROXY'),
-			string(credentialsId: 'dockerhub-public-proxy-host', variable: 'DOCKERHUB_PUBLIC_PROXY_HOST'),
 		]) {
 			stage('Fetch') {
 				sh 'bashbrew --library .doi/library fetch --all'
