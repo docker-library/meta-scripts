@@ -75,7 +75,7 @@ node('put-shared') { ansiColor('xterm') {
 		}
 		stage('Filter') {
 			// using the previous successful deploy.json, filter the current deploy.json with items already pushed last time
-			sh'''
+			sh '''
 				wget --timeout=5 -qO past-deploy.json "$JOB_URL/lastSuccessfulBuild/artifact/deploy.json"
 				# swap to this touch instead of the wget above to (re)bootstrap
 				#touch past-deploy.json
