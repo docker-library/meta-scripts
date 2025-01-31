@@ -30,6 +30,13 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 			clientOptions.Transport = http.DefaultTransport
 		}
 
+		// make sure we set User-Agent explicitly; this is first so that everything else has an explicit layer at the bottom setting User-Agent so we don't miss any requests
+		// IMPORTANT: this wrapper stays first! (https://github.com/cue-labs/oci/issues/37#issuecomment-2628321222)
+		clientOptions.Transport = &userAgentRoundTripper{
+			roundTripper: clientOptions.Transport,
+			userAgent:    "https://github.com/docker-library/meta-scripts", // TODO allow this to be modified via environment variable
+		}
+
 		// if we have a rate limiter configured for this registry, shim it in
 		if limiter, ok := registryRateLimiters[host]; ok {
 			clientOptions.Transport = &rateLimitedRetryingRoundTripper{
