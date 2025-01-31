@@ -3,11 +3,6 @@ properties([
 	disableConcurrentBuilds(),
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
-	rateLimitBuilds(throttle: [
-		count: 1,
-		durationName: 'hour',
-		userBoost: true,
-	]),
 	pipelineTriggers([
 		upstream('../meta'),
 		cron('H H/6 * * *'), // run every few hours whether we "need" it or not
