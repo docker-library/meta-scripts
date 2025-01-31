@@ -21,6 +21,10 @@ func main() {
 	var (
 		args = os.Args[1:]
 
+		// --dry-run
+		dryRun     bool
+		dryRunOuts chan chan []byte
+
 		// --parallel
 		parallel bool
 	)
@@ -28,8 +32,12 @@ func main() {
 		arg := args[0]
 		args = args[1:]
 
-		// TODO --dry-run
 		switch arg {
+		case "--dry-run":
+			dryRun = true
+			// we want to allow parallel, but want the output to be in-order so we resynchronize output with a channel of channels (technically this also limits parallelization, but hopefully this limit is generous enough that it doesn't matter)
+			dryRunOuts = make(chan chan []byte, 1000)
+
 		case "--parallel":
 			parallel = true
 
@@ -120,6 +128,12 @@ func main() {
 			// make a (deep) copy of "normal" so that we can use it in a goroutine ("normal.do" is not safe for concurrent invocation)
 			normal := normal.clone()
 
+			var dryRunOut chan []byte
+			if dryRun {
+				dryRunOut = make(chan []byte, 1)
+				dryRunOuts <- dryRunOut
+			}
+
 			wg.Add(1)
 			// (making a function instead of direct "go func() ..." so we can support the --parallel toggle)
 			f := func() {
@@ -127,6 +141,10 @@ func main() {
 
 				if mutex != nil {
 					defer mutex.Unlock()
+				}
+
+				if dryRun {
+					defer close(dryRunOut)
 				}
 
 				// before we start this job (parallelized), if it's a raw data job we need to parse the raw data and see if any of the "children" are objects we're still in the process of pushing (from a previously parallel job)
@@ -185,23 +203,52 @@ func main() {
 					defer lock.(*sync.RWMutex).RUnlock()
 				}
 
-				logText := ref.StringWithKnownDigest(refsDigest) + logSuffix
-				fmt.Println(startedPrefix + logText)
-				desc, err := normal.do(ctx, ref)
-				if err != nil {
-					fmt.Fprintf(os.Stderr, "%s%s -- ERROR: %v\n", failurePrefix, logText, err)
-					panic(err) // TODO exit in a more clean way (we can't use "os.Exit" because that causes *more* errors 😭)
+				if dryRun {
+					needsDeploy, err := normal.dryRun(ctx, ref)
+					if err != nil {
+						fmt.Fprintf(os.Stderr, "%s -- ERROR: %v\n", failurePrefix+ref.String()+logSuffix, err)
+						panic(err) // TODO exit in a more clean way (we can't use "os.Exit" because that causes *more* errors 😭)
+					}
+					if needsDeploy {
+						normal.Refs = []registry.Reference{ref}
+						j, err := json.MarshalIndent(normal, "", "\t")
+						if err != nil {
+							fmt.Fprintf(os.Stderr, "%s -- JSON ERROR: %v\n", failurePrefix+ref.String()+logSuffix, err)
+							panic(err) // TODO exit in a more clean way (we can't use "os.Exit" because that causes *more* errors 😭)
+						}
+						dryRunOut <- j
+					}
+				} else {
+					logText := ref.StringWithKnownDigest(refsDigest) + logSuffix
+					fmt.Println(startedPrefix + logText)
+					desc, err := normal.do(ctx, ref)
+					if err != nil {
+						fmt.Fprintf(os.Stderr, "%s%s -- ERROR: %v\n", failurePrefix, logText, err)
+						panic(err) // TODO exit in a more clean way (we can't use "os.Exit" because that causes *more* errors 😭)
+					}
+					if ref.Digest == "" && refsDigest == "" {
+						logText += "@" + string(desc.Digest)
+					}
+					fmt.Println(successPrefix + logText)
 				}
-				if ref.Digest == "" && refsDigest == "" {
-					logText += "@" + string(desc.Digest)
-				}
-				fmt.Println(successPrefix + logText)
 			}
 			if parallel {
 				go f()
 			} else {
 				f()
 			}
+		}
+	}
+
+	if dryRun {
+		close(dryRunOuts)
+		for dryRunOut := range dryRunOuts {
+			j, ok := <-dryRunOut
+			if !ok {
+				// (I think) this means we didn't output anything, so this should be all our "skips"
+				continue
+			}
+			fmt.Printf("%s\n", j)
 		}
 	}
 

@@ -44,8 +44,8 @@ type inputNormalized struct {
 	Lookup map[ociregistry.Digest]registry.Reference `json:"lookup,omitempty"`
 
 	// Data and CopyFrom are mutually exclusive
-	Data     []byte              `json:"data"`
-	CopyFrom *registry.Reference `json:"copyFrom"`
+	Data     []byte              `json:"data,omitempty"`
+	CopyFrom *registry.Reference `json:"copyFrom,omitempty"`
 
 	// if CopyFrom is nil and Type is manifest, this will be set (used by "do")
 	MediaType string `json:"mediaType,omitempty"`
@@ -287,4 +287,60 @@ func (normal inputNormalized) do(ctx context.Context, dstRef registry.Reference)
 		panic("unknown type: " + string(normal.Type))
 		// panic instead of error because this should've already been handled/normalized above (so this is a coding error, not a runtime error)
 	}
+}
+
+// "do", but doesn't mutate state at all (just tells us whether "do" would've done anything)
+func (normal inputNormalized) dryRun(ctx context.Context, dstRef registry.Reference) (bool, error) {
+	targetDigest := dstRef.Digest
+	var lookupType registry.LookupType
+	switch normal.Type {
+	case typeManifest:
+		lookupType = registry.LookupTypeManifest
+		if targetDigest == "" {
+			// if we don't have a digest here, it must be because we're copying from tag to tag, so we'll just assume normal.CopyFrom is non-nil and let the runtime panic for us if the normalization above doesn't have our back
+			r, err := registry.Lookup(ctx, *normal.CopyFrom, &registry.LookupOptions{
+				Type: lookupType,
+				Head: true,
+			})
+			if err != nil {
+				return true, err
+			}
+			if r == nil {
+				return true, fmt.Errorf("%s: manifest-to-copy (%s) is 404", dstRef.String(), normal.CopyFrom.String())
+			}
+			targetDigest = r.Descriptor().Digest
+			r.Close()
+			if targetDigest == "" {
+				return true, fmt.Errorf("%s: manifest-to-copy (%s) is missing digest!", dstRef.String(), normal.CopyFrom.String())
+			}
+			if dstRef.Tag == "" {
+				// if we don't have an explicit destination tag, this is considered a request to copy-manifest-from-tag-but-push-by-digest, which is weird, but valid, so we need to copy up that digest into what we look for on the destination side
+				dstRef.Digest = targetDigest
+			}
+		}
+	case typeBlob:
+		lookupType = registry.LookupTypeBlob
+		if targetDigest == "" {
+			// see validation above in normalization
+			panic("blob ref missing digest, this should never happen: " + dstRef.String())
+		}
+	default:
+		panic("unknown type: " + string(normal.Type))
+		// panic instead of error because this should've already been handled/normalized above (so this is a coding error, not a runtime error)
+	}
+
+	r, err := registry.Lookup(ctx, dstRef, &registry.LookupOptions{
+		Type: lookupType,
+		Head: true,
+	})
+	if err != nil {
+		return true, err
+	}
+	if r == nil {
+		// 404!
+		return true, nil
+	}
+	dstDigest := r.Descriptor().Digest
+	r.Close()
+	return targetDigest != dstDigest, nil
 }
