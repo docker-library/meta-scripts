@@ -250,7 +250,15 @@ if [ -n "$doDeploy" ]; then
 		empty
 	')" # stored in a variable for easier debugging ("bash -x")
 
-	time "$coverage/bin/deploy" <<<"$json"
+	time "$coverage/bin/deploy" --dry-run --parallel <<<"$json" > "$dir/deploy-dry-run-test.json"
+	# port is random, so let's de-randomize it:
+	sed -i -e "s/localhost:$registryPort/localhost:3000/g" "$dir/deploy-dry-run-test.json"
+
+	time "$coverage/bin/deploy" --parallel <<<"$json"
+
+	# now that we're done with deploying, a second dry-run should come back empty (this time without parallel to test other codepaths)
+	time empty="$("$coverage/bin/deploy" --dry-run <<<"$json")"
+	( set -x; test -z "$empty" )
 
 	docker rm -vf meta-scripts-test-registry
 	trap - EXIT

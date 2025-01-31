@@ -101,7 +101,7 @@ node('put-shared') { ansiColor('xterm') {
 							./.go-env.sh go build -trimpath -o bin/deploy ./cmd/deploy
 						fi
 					)
-					.scripts/bin/deploy < filtered-deploy.json
+					.scripts/bin/deploy --parallel < filtered-deploy.json
 				'''
 			}
 		}
