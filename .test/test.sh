@@ -250,7 +250,7 @@ if [ -n "$doDeploy" ]; then
 		empty
 	')" # stored in a variable for easier debugging ("bash -x")
 
-	time "$coverage/bin/deploy" <<<"$json"
+	time "$coverage/bin/deploy" --parallel <<<"$json"
 
 	docker rm -vf meta-scripts-test-registry
 	trap - EXIT

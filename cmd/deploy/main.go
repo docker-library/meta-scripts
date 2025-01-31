@@ -18,7 +18,25 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	// TODO --dry-run ?
+	var (
+		args = os.Args[1:]
+
+		// --parallel
+		parallel bool
+	)
+	for len(args) > 0 {
+		arg := args[0]
+		args = args[1:]
+
+		// TODO --dry-run
+		switch arg {
+		case "--parallel":
+			parallel = true
+
+		default:
+			panic("unknown argument: " + arg)
+		}
+	}
 
 	// TODO the best we can do on whether or not this actually updated tags is "yes, definitely (we had to copy some children)" and "maybe (we didn't have to copy any children)", but we should maybe still output those so we can trigger put-shared based on them (~immediately on "definitely" and with some medium delay on "maybe")
 
@@ -103,7 +121,8 @@ func main() {
 			normal := normal.clone()
 
 			wg.Add(1)
-			go func() {
+			// (making a function instead of direct "go func() ..." so we can support the --parallel toggle)
+			f := func() {
 				defer wg.Done()
 
 				if mutex != nil {
@@ -177,7 +196,12 @@ func main() {
 					logText += "@" + string(desc.Digest)
 				}
 				fmt.Println(successPrefix + logText)
-			}()
+			}
+			if parallel {
+				go f()
+			} else {
+				f()
+			}
 		}
 	}
 
