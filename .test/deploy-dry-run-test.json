@@ -347,7 +347,7 @@
 		"localhost:3000/cirros"
 	],
 	"lookup": {
-		"": "oisupport/staging-amd64"
+		"": "oisupport/staging-amd64:34bb44c7d8b6fb7a337fcee0afa7c3a84148e35db6ab83041714c3e6d4c6238b"
 	},
 	"copyFrom": "oisupport/staging-amd64:34bb44c7d8b6fb7a337fcee0afa7c3a84148e35db6ab83041714c3e6d4c6238b"
 }
@@ -381,5 +381,5 @@
 	"lookup": {
 		"": "tianon/test"
 	},
-	"copyFrom": "tianon/test:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee@sha256:73614cc99c500aa4fa061368ed349df24a81844e3c2e6d0c31f290a7c8d73c22"
+	"copyFrom": "tianon/test@sha256:73614cc99c500aa4fa061368ed349df24a81844e3c2e6d0c31f290a7c8d73c22"
 }

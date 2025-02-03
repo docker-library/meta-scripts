@@ -368,7 +368,16 @@ func TestNormalizeInput(t *testing.T) {
 				"refs": [ "localhost:5000/example:test" ],
 				"lookup": { "": "tianon/true:oci" }
 			}`,
-			`{"type":"manifest","refs":["localhost:5000/example:test"],"lookup":{"":"tianon/true"},"copyFrom":"tianon/true:oci"}`,
+			`{"type":"manifest","refs":["localhost:5000/example:test"],"lookup":{"":"tianon/true:oci"},"copyFrom":"tianon/true:oci"}`,
+		},
+		{
+			"copy manifest (tag and digest)",
+			`{
+				"type": "manifest",
+				"refs": [ "localhost:5000/example:test" ],
+				"lookup": { "": "tianon/true:oci@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d" }
+			}`,
+			`{"type":"manifest","refs":["localhost:5000/example:test@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d"],"lookup":{"":"tianon/true"},"copyFrom":"tianon/true@sha256:9ef42f1d602fb423fad935aac1caa0cfdbce1ad7edce64d080a4eb7b13f7cd9d"}`,
 		},
 
 		{
@@ -431,19 +440,41 @@ func TestNormalizeInput(t *testing.T) {
 	} {
 		x := x // https://github.com/golang/go/issues/60078
 		t.Run(x.name, func(t *testing.T) {
-			var raw inputRaw
-			if err := json.Unmarshal([]byte(x.raw), &raw); err != nil {
-				t.Fatalf("JSON parse error: %v", err)
+			var b []byte // this will hold the final "normalized" JSON (so we can test round-trip afterwards)
+
+			{ // start a sub-block to ensure variable scoping is clean and roundtrip has to error if there's a typo
+				var raw inputRaw
+				if err := json.Unmarshal([]byte(x.raw), &raw); err != nil {
+					t.Fatalf("JSON parse error: %v", err)
+				}
+				normal, err := NormalizeInput(raw)
+				if err != nil {
+					t.Fatalf("normalize error: %v", err)
+				}
+				b, err = json.Marshal(normal)
+				if err != nil {
+					t.Fatalf("JSON generate error: %v", err)
+				} else if string(b) != x.normal {
+					t.Fatalf("got:\n%s\n\nexpected:\n%s\n", string(b), x.normal)
+				}
 			}
-			normal, err := NormalizeInput(raw)
-			if err != nil {
-				t.Fatalf("normalize error: %v", err)
-			}
-			if b, err := json.Marshal(normal); err != nil {
-				t.Fatalf("JSON generate error: %v", err)
-			} else if string(b) != x.normal {
-				t.Fatalf("got:\n%s\n\nexpected:\n%s\n", string(b), x.normal)
-			}
+
+			t.Run("roundtrip", func(t *testing.T) {
+				// now that we've tested that, let's round trip the normalized copy back through the normalizer to make sure it's valid/correctly parsed input too ("deploy --dry-run" leans on that assumption)
+				var raw inputRaw
+				if err := json.Unmarshal(b, &raw); err != nil {
+					t.Fatalf("JSON parse error: %v", err)
+				}
+				normal, err := NormalizeInput(raw)
+				if err != nil {
+					t.Fatalf("normalize error: %v", err)
+				}
+				if roundtripB, err := json.Marshal(normal); err != nil {
+					t.Fatalf("JSON generate error: %v", err)
+				} else if string(roundtripB) != x.normal {
+					t.Fatalf("got:\n%s\n\nexpected:\n%s\n", string(roundtripB), x.normal)
+				}
+			})
 		})
 	}
 }

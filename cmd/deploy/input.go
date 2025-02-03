@@ -223,8 +223,17 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 		normal.Refs[i].Digest = refsDigest
 	}
 
+	// if we have a digest and we're performing a copy, the tag we're copying *from* is no longer relevant information
+	if refsDigest != "" && normal.CopyFrom != nil {
+		normal.CopyFrom.Tag = ""
+	}
+
 	// explicitly clear tag and digest from lookup entries (now that we've inferred any "CopyFrom" out of them, they no longer have any meaning)
 	for d, ref := range normal.Lookup {
+		if d == "" && refsDigest == "" && ref.Tag != "" && normal.CopyFrom != nil && ref.Tag == normal.CopyFrom.Tag {
+			// let the "fallback" ref keep a tag when it's the tag we're copying and there's no known digest (this allows our normalized objects to still be completely valid "raw" inputs)
+			continue
+		}
 		ref.Tag = ""
 		ref.Digest = ""
 		normal.Lookup[d] = ref
