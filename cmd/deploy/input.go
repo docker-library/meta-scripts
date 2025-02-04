@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 
 	"github.com/docker-library/meta-scripts/registry"
 
@@ -43,10 +44,17 @@ type inputNormalized struct {
 	Lookup map[ociregistry.Digest]registry.Reference `json:"lookup,omitempty"`
 
 	// Data and CopyFrom are mutually exclusive
-	Data     []byte              `json:"data"`
-	CopyFrom *registry.Reference `json:"copyFrom"`
+	Data     []byte              `json:"data,omitempty"`
+	CopyFrom *registry.Reference `json:"copyFrom,omitempty"`
 
-	Do func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) `json:"-"`
+	// if CopyFrom is nil and Type is manifest, this will be set (used by "do")
+	MediaType string `json:"mediaType,omitempty"`
+}
+
+func (normal inputNormalized) clone() inputNormalized {
+	// normal.Lookup is the only thing we have concurrency issues with, so it's the only thing we'll explicitly clone 😇
+	normal.Lookup = maps.Clone(normal.Lookup)
+	return normal
 }
 
 func normalizeInputRefs(deployType deployType, rawRefs []string) ([]registry.Reference, ociregistry.Digest, error) {
@@ -215,13 +223,23 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 		normal.Refs[i].Digest = refsDigest
 	}
 
+	// if we have a digest and we're performing a copy, the tag we're copying *from* is no longer relevant information
+	if refsDigest != "" && normal.CopyFrom != nil {
+		normal.CopyFrom.Tag = ""
+	}
+
 	// explicitly clear tag and digest from lookup entries (now that we've inferred any "CopyFrom" out of them, they no longer have any meaning)
 	for d, ref := range normal.Lookup {
+		if d == "" && refsDigest == "" && ref.Tag != "" && normal.CopyFrom != nil && ref.Tag == normal.CopyFrom.Tag {
+			// let the "fallback" ref keep a tag when it's the tag we're copying and there's no known digest (this allows our normalized objects to still be completely valid "raw" inputs)
+			continue
+		}
 		ref.Tag = ""
 		ref.Digest = ""
 		normal.Lookup[d] = ref
 	}
 
+	// front-load some validation / data extraction for "normal.do" to work
 	switch normal.Type {
 	case typeManifest:
 		if normal.CopyFrom == nil {
@@ -240,27 +258,12 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 				// and our logic for pushing children needs to know the mediaType (see the GHSAs referenced above)
 				return normal, fmt.Errorf("%s: pushing manifest but missing 'mediaType'", debugId)
 			}
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.EnsureManifest(ctx, dstRef, normal.Data, mediaTypeHaver.MediaType, normal.Lookup)
-			}
-		} else {
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.CopyManifest(ctx, *normal.CopyFrom, dstRef, normal.Lookup)
-			}
+			normal.MediaType = mediaTypeHaver.MediaType
 		}
 
 	case typeBlob:
-		if normal.CopyFrom == nil {
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.EnsureBlob(ctx, dstRef, int64(len(normal.Data)), bytes.NewReader(normal.Data))
-			}
-		} else {
-			if normal.CopyFrom.Digest == "" {
-				return normal, fmt.Errorf("%s: blobs are always by-digest, and thus need a digest: %s", debugId, normal.CopyFrom)
-			}
-			normal.Do = func(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
-				return registry.CopyBlob(ctx, *normal.CopyFrom, dstRef)
-			}
+		if normal.CopyFrom != nil && normal.CopyFrom.Digest == "" {
+			return normal, fmt.Errorf("%s: blobs are always by-digest, and thus need a digest: %s", debugId, normal.CopyFrom)
 		}
 
 	default:
@@ -269,4 +272,84 @@ func NormalizeInput(raw inputRaw) (inputNormalized, error) {
 	}
 
 	return normal, nil
+}
+
+// WARNING: many of these codepaths will end up writing to "normal.Lookup", which because it's a map is passed by reference, so this method is *not* safe for concurrent invocation on a single "normal" object!  see "normal.clone" (above)
+func (normal inputNormalized) do(ctx context.Context, dstRef registry.Reference) (ociregistry.Descriptor, error) {
+	switch normal.Type {
+	case typeManifest:
+		if normal.CopyFrom == nil {
+			// TODO panic on bad data, like MediaType being empty?
+			return registry.EnsureManifest(ctx, dstRef, normal.Data, normal.MediaType, normal.Lookup)
+		} else {
+			return registry.CopyManifest(ctx, *normal.CopyFrom, dstRef, normal.Lookup)
+		}
+
+	case typeBlob:
+		if normal.CopyFrom == nil {
+			return registry.EnsureBlob(ctx, dstRef, int64(len(normal.Data)), bytes.NewReader(normal.Data))
+		} else {
+			return registry.CopyBlob(ctx, *normal.CopyFrom, dstRef)
+		}
+
+	default:
+		panic("unknown type: " + string(normal.Type))
+		// panic instead of error because this should've already been handled/normalized above (so this is a coding error, not a runtime error)
+	}
+}
+
+// "do", but doesn't mutate state at all (just tells us whether "do" would've done anything)
+func (normal inputNormalized) dryRun(ctx context.Context, dstRef registry.Reference) (bool, error) {
+	targetDigest := dstRef.Digest
+	var lookupType registry.LookupType
+	switch normal.Type {
+	case typeManifest:
+		lookupType = registry.LookupTypeManifest
+		if targetDigest == "" {
+			// if we don't have a digest here, it must be because we're copying from tag to tag, so we'll just assume normal.CopyFrom is non-nil and let the runtime panic for us if the normalization above doesn't have our back
+			r, err := registry.Lookup(ctx, *normal.CopyFrom, &registry.LookupOptions{
+				Type: lookupType,
+				Head: true,
+			})
+			if err != nil {
+				return true, err
+			}
+			if r == nil {
+				return true, fmt.Errorf("%s: manifest-to-copy (%s) is 404", dstRef.String(), normal.CopyFrom.String())
+			}
+			targetDigest = r.Descriptor().Digest
+			r.Close()
+			if targetDigest == "" {
+				return true, fmt.Errorf("%s: manifest-to-copy (%s) is missing digest!", dstRef.String(), normal.CopyFrom.String())
+			}
+			if dstRef.Tag == "" {
+				// if we don't have an explicit destination tag, this is considered a request to copy-manifest-from-tag-but-push-by-digest, which is weird, but valid, so we need to copy up that digest into what we look for on the destination side
+				dstRef.Digest = targetDigest
+			}
+		}
+	case typeBlob:
+		lookupType = registry.LookupTypeBlob
+		if targetDigest == "" {
+			// see validation above in normalization
+			panic("blob ref missing digest, this should never happen: " + dstRef.String())
+		}
+	default:
+		panic("unknown type: " + string(normal.Type))
+		// panic instead of error because this should've already been handled/normalized above (so this is a coding error, not a runtime error)
+	}
+
+	r, err := registry.Lookup(ctx, dstRef, &registry.LookupOptions{
+		Type: lookupType,
+		Head: true,
+	})
+	if err != nil {
+		return true, err
+	}
+	if r == nil {
+		// 404!
+		return true, nil
+	}
+	dstDigest := r.Descriptor().Digest
+	r.Close()
+	return targetDigest != dstDigest, nil
 }
