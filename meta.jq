@@ -10,7 +10,7 @@ def needs_build:
 # output: string ("Builder", but normalized)
 def normalized_builder:
 	.build.arch as $arch
-	| .source.entry.Builder
+	| .source.entries[0].Builder
 	| if . == "" then
 		if $arch | startswith("windows-") then
 			# https://github.com/microsoft/Windows-Containers/issues/34
@@ -57,7 +57,7 @@ def pull_command:
 # input: "build" object (with "buildId" top level key)
 # output: string "giturl" ("https://github.com/docker-library/golang.git#commit:directory), used for "docker buildx build giturl"
 def git_build_url:
-	.source.entry
+	.source.entries[0]
 	| (
 		.GitRepo
 		| if (endswith(".git") | not) then
@@ -78,8 +78,8 @@ def build_annotations($buildUrl):
 	{
 		# https://github.com/opencontainers/image-spec/blob/v1.1.0/annotations.md#pre-defined-annotation-keys
 		"org.opencontainers.image.source": $buildUrl,
-		"org.opencontainers.image.revision": .source.entry.GitCommit,
-		"org.opencontainers.image.created": (.source.entry.SOURCE_DATE_EPOCH | strftime("%FT%TZ")), # see notes below about image index vs image manifest
+		"org.opencontainers.image.revision": .source.entries[0].GitCommit,
+		"org.opencontainers.image.created": (.source.entries[0].SOURCE_DATE_EPOCH | strftime("%FT%TZ")), # see notes below about image index vs image manifest
 
 		# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
 		"org.opencontainers.image.version": ( # value of the first image tag
@@ -138,7 +138,7 @@ def build_command:
 		| [
 			(
 				[
-					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
+					@sh "SOURCE_DATE_EPOCH=\(.source.entries[0].SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
 					@sh "--provenance=mode=max,builder-id=\(buildkit_provenance_builder_id)",
@@ -197,7 +197,7 @@ def build_command:
 					),
 					"--build-arg BUILDKIT_SYNTAX=\"$BASHBREW_BUILDKIT_SYNTAX\"", # TODO .doi/.bin/bashbrew-buildkit-env-setup.sh
 					"--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all", # disable linting (https://github.com/moby/buildkit/pull/4962)
-					@sh "--file \(.source.entry.File)",
+					@sh "--file \(.source.entries[0].File)",
 					($buildUrl | @sh),
 					empty
 				] | join(" \\\n\t")
@@ -228,7 +228,7 @@ def build_command:
 		| [
 			(
 				[
-					@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
+					@sh "SOURCE_DATE_EPOCH=\(.source.entries[0].SOURCE_DATE_EPOCH)",
 					"DOCKER_BUILDKIT=0",
 					"docker build",
 					(
@@ -240,7 +240,7 @@ def build_command:
 						| "--tag " + @sh
 					),
 					@sh "--platform \(.source.arches[.build.arch].platformString)",
-					@sh "--file \(.source.entry.File)",
+					@sh "--file \(.source.entries[0].File)",
 					($buildUrl | @sh),
 					empty
 				]
@@ -259,14 +259,14 @@ def build_command:
 			"_git() { git -C \"$gitCache\" \"$@\"; }",
 			"_git config gc.auto 0",
 			# "bashbrew fetch" but in Bash (because we have bashbrew, but not the library file -- we could synthesize a library file instead, but six of one half a dozen of another)
-			@sh "_commit() { _git rev-parse \(.source.entry.GitCommit + "^{commit}"); }",
-			@sh "if ! _commit &> /dev/null; then _git fetch \(.source.entry.GitRepo) \(.source.entry.GitCommit + ":") || _git fetch \(.source.entry.GitFetch + ":"); fi",
+			@sh "_commit() { _git rev-parse \(.source.entries[0].GitCommit + "^{commit}"); }",
+			@sh "if ! _commit &> /dev/null; then _git fetch \(.source.entries[0].GitRepo) \(.source.entries[0].GitCommit + ":") || _git fetch \(.source.entries[0].GitFetch + ":"); fi",
 			"_commit",
 
 			# TODO figure out a good, safe place to store our temporary build/push directory (maybe this is fine? we do it for buildx build too)
 			"mkdir temp",
 			# https://github.com/docker-library/bashbrew/blob/5152c0df682515cbe7ac62b68bcea4278856429f/cmd/bashbrew/git.go#L140-L147 (TODO "bashbrew context" ?)
-			@sh "_git archive --format=tar \(.source.entry.GitCommit + ":" + (.source.entry.Directory | if . == "." then "" else . + "/" end)) | tar -xvC temp",
+			@sh "_git archive --format=tar \(.source.entries[0].GitCommit + ":" + (.source.entries[0].Directory | if . == "." then "" else . + "/" end)) | tar -xvC temp",
 
 			# validate oci-layout file (https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L104-L112)
 			@sh "jq -s \("
@@ -279,8 +279,8 @@ def build_command:
 			" | unindent_and_decomment_jq(3)) temp/oci-layout > /dev/null",
 
 			# https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L116
-			if .source.entry.File != "index.json" then
-				@sh "jq -s \("{ schemaVersion: 2, manifests: . }") \("./" + .source.entry.File) > temp/index.json"
+			if .source.entries[0].File != "index.json" then
+				@sh "jq -s \("{ schemaVersion: 2, manifests: . }") \("./" + .source.entries[0].File) > temp/index.json"
 			else empty end,
 
 			@sh "jq -s \("
@@ -311,7 +311,7 @@ def build_command:
 					| del(.annotations, .urls)
 
 					# inject our annotations
-					| .annotations = \(build_annotations(.source.entry.GitRepo) | @json)
+					| .annotations = \(build_annotations(.source.entries[0].GitRepo) | @json)
 				)
 			" | unindent_and_decomment_jq(3)) temp/index.json > temp/index.json.new",
 			"mv temp/index.json.new temp/index.json",
@@ -324,7 +324,7 @@ def build_command:
 				"originalImageManifest=\"$(jq -r '.manifests[0].digest' temp/index.json)\"",
 				(
 					[
-						@sh "SOURCE_DATE_EPOCH=\(.source.entry.SOURCE_DATE_EPOCH)",
+						@sh "SOURCE_DATE_EPOCH=\(.source.entries[0].SOURCE_DATE_EPOCH)",
 						"docker buildx build --progress=plain",
 						"--load=false", "--provenance=false", # explicitly disable a few features we want to avoid
 						"--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all", # disable linting (https://github.com/moby/buildkit/pull/4962)

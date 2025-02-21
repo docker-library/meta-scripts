@@ -50,7 +50,7 @@ bashbrew cat --build-order --format '
 				{
 					"sourceId": {{ join "\n" $sum $file $builder "" | sha256sum | json }},
 					"reproducibleGitChecksum": {{ $sum | json }},
-					"entry": {
+					"entries": [ {
 						"GitRepo": {{ .ArchGitRepo $a | json }},
 						"GitFetch": {{ .ArchGitFetch $a | json }},
 						"GitCommit": {{ .ArchGitCommit $a | json }},
@@ -58,7 +58,7 @@ bashbrew cat --build-order --format '
 						"File": {{ $file | json }},
 						"Builder": {{ $builder | json }},
 						"SOURCE_DATE_EPOCH": {{ ($.ArchGitTime $a .).Unix | json }}
-					},
+					} ],
 					"arches": {
 						{{ $a | json }}: {
 							"tags": {{ $.Tags namespace false . | json }},
@@ -111,10 +111,17 @@ bashbrew cat --build-order --format '
 						end
 					)
 				)
-				| if .entry.SOURCE_DATE_EPOCH > $in.entry.SOURCE_DATE_EPOCH then
-					# smallest SOURCE_DATE_EPOCH wins in the face of duplicates for a given sourceId
-					.entry = $in.entry
-				else . end
+				| .entries = (
+					reduce $in.entries[] as $inE (.entries;
+						# "unique" but without losing ordering (ie, only add entries we do not already have)
+						if index($inE) then . else
+							. + [ $inE ]
+						end
+					)
+					# then prefer lower SOURCE_DATE_EPOCH earlier, so .entries[0] is the "preferred" (oldest) commit/entry
+					| sort_by(.SOURCE_DATE_EPOCH)
+					# (this does not lose *significant* ordering because it is a "stable sort", so same SOURCE_DATE_EPOCH gets the same position, unlike "unique_by" which would be destructive, even though it is ultimately what we are emulating with this two-part construction of a new .entries value)
+				)
 			end
 	)
 	# TODO a lot of this could be removed/parsed during the above reduce, since it has to parse things in build order anyhow
