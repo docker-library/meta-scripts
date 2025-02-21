@@ -31,16 +31,21 @@ set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,gl
 
 time bashbrew fetch "$@"
 
-time "$dir/../sources.sh" "$@" > "$dir/sources-doi.json"
+# generate sources, but remove the first item so we can test cache with some missing
+time "$dir/../sources.sh" "$@" | jq 'del(first(.[]))' > "$dir/sources-cache.json"
+# again but with cache
+time "$dir/../sources.sh" --cache-file "$dir/sources-cache.json" "$@" > "$dir/sources-doi.json"
 
 # also fetch/include Tianon's more cursed "infosiftr/moby" example (a valid manifest with arch-specific non-archTags that end up mapping to the same sourceId)
 bashbrew fetch infosiftr-moby
-( BASHBREW_ARCH_NAMESPACES= "$dir/../sources.sh" infosiftr-moby > "$dir/sources-moby.json" )
+( BASHBREW_ARCH_NAMESPACES= "$dir/../sources.sh" infosiftr-moby > "$dir/sources-cache.json" )
+# again but with cache
+( BASHBREW_ARCH_NAMESPACES= "$dir/../sources.sh" --cache-file="$dir/sources-cache.json" infosiftr-moby > "$dir/sources-moby.json" )
 # technically, this *also* needs BASHBREW_STAGING_TEMPLATE='tianon/zz-staging:ARCH-BUILD', but that's a "builds.sh" flag and separating that would complicate including this even more, so Tianon has run the following one-liner to "inject" those builds as if they lived in 'oisupport/staging-ARCH:BUILD' instead:
 #   jq -r '[ .[] | select(any(.source.arches[].tags[]; startswith("infosiftr-moby:"))) | "tianon/zz-staging:\(.build.arch)-\(.buildId)" as $tianon | @sh "../bin/lookup \($tianon) | jq --arg img \(.build.img) \("{ indexes: { ($img): . } }")" ] | "{ " + join(" && ") + @sh " && cat cache-builds.json; } | jq -s --tab \("reduce .[] as $i ({ indexes: { } }; .indexes += $i.indexes)") > cache-builds.json.new && mv cache-builds.json.new cache-builds.json"' builds.json | bash -Eeuo pipefail -x
 # (and then re-run the tests to canonicalize the file ordering)
 jq -s 'add' "$dir/sources-doi.json" "$dir/sources-moby.json" > "$dir/sources.json"
-rm -f "$dir/sources-doi.json" "$dir/sources-moby.json"
+rm -f "$dir/sources-doi.json" "$dir/sources-moby.json" "$dir/sources-cache.json"
 
 # an attempt to highlight tag mapping bugs in the future
 jq '
