@@ -73,7 +73,13 @@ node {
 					fi
 
 					if [ -n "$needsBuild" ]; then
-						.scripts/sources.sh --all > sources.json
+						# use previous run as cache
+						[ -s sources.json ] && cp sources.json sources-copy.json
+
+						.scripts/sources.sh --cache-file sources-copy.json --all > sources.json
+
+						# clean up temporary cache
+						rm -f sources-copy.json
 					fi
 				'''
 			}
