@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+cacheFile=
+if [ "$#" -gt 0 ]; then
+	case "$1" in
+		--cache-file=*)
+			cacheFile="${1#*=}"
+			shift
+			;;
+		--cache-file)
+			shift
+			cacheFile="$1"
+			shift
+			;;
+	esac
+fi
+
 if [ "$#" -eq 0 ]; then
 	set -- --all
 fi
@@ -39,60 +54,145 @@ for tag in $externalPins; do
 	externalPinsJson="$(jq <<<"$externalPinsJson" -c --arg tag "${tag#library/}" --arg digest "$digest" '.[$tag] = $digest')"
 done
 
-bashbrew cat --build-order --format '
-	{{- range $e := .SortedEntries false -}}
-		{{- range $a := $e.Architectures -}}
-			{{- $archNs := archNamespace $a -}}
-			{{- with $e -}}
-				{{- $sum := $.ArchGitChecksum $a . -}}
-				{{- $file := .ArchFile $a -}}
-				{{- $builder := .ArchBuilder $a -}}
-				{
-					"sourceId": {{ join "\n" $sum $file $builder "" | sha256sum | json }},
-					"reproducibleGitChecksum": {{ $sum | json }},
-					"entries": [ {
-						"GitRepo": {{ .ArchGitRepo $a | json }},
-						"GitFetch": {{ .ArchGitFetch $a | json }},
-						"GitCommit": {{ .ArchGitCommit $a | json }},
-						"Directory": {{ .ArchDirectory $a | json }},
-						"File": {{ $file | json }},
-						"Builder": {{ $builder | json }},
-						"SOURCE_DATE_EPOCH": {{ ($.ArchGitTime $a .).Unix | json }}
-					} ],
-					"arches": {
-						{{ $a | json }}: {
-							"tags": {{ $.Tags namespace false . | json }},
-							"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
-							"froms": {{ $.ArchDockerFroms $a . | json }},
-							"lastStageFrom": {{ if eq $builder "oci-import" -}}
-								{{- /* TODO remove this special case: https://github.com/docker-library/bashbrew/pull/92 */ -}}
-								"scratch"
-							{{- else -}}
-								{{ $.ArchLastStageFrom $a . | json }}
-							{{- end }},
-							"platformString": {{ (ociPlatform $a).String | json }},
-							"platform": {{ ociPlatform $a | json }},
-							"parents": { }
+bashbrew_cat() {
+	local doHeavy=''
+	if [ "$1" = '--do-heavy' ]; then
+		shift
+		doHeavy=1
+	fi
+
+	bbCat=( bashbrew cat --build-order --format '
+		{{- range $e := .SortedEntries false -}}
+			{{- range $a := $e.Architectures -}}
+				{{- $archNs := archNamespace $a -}}
+				{{- with $e -}}
+					'"$([ -n "$doHeavy" ] && echo -n '{{- $sum := $.ArchGitChecksum $a . -}}')"'
+					{{- $file := .ArchFile $a -}}
+					{{- $builder := .ArchBuilder $a -}}
+					{
+						"sourceId": '"$([ -n "$doHeavy" ] && echo -n '{{ join "\n" $sum $file $builder "" | sha256sum | json }}' || echo -n 'null')"',
+						"reproducibleGitChecksum": '"$([ -n "$doHeavy" ] && echo -n '{{ $sum | json }}' || echo -n 'null')"',
+						"entries": [ {
+							"GitRepo": {{ .ArchGitRepo $a | json }},
+							"GitFetch": {{ .ArchGitFetch $a | json }},
+							"GitCommit": {{ .ArchGitCommit $a | json }},
+							"Directory": {{ .ArchDirectory $a | json }},
+							"File": {{ $file | json }},
+							"Builder": {{ $builder | json }},
+							"SOURCE_DATE_EPOCH": '"$([ -n "$doHeavy" ] && echo -n '{{ ($.ArchGitTime $a .).Unix | json }}' || echo -n 'null')"'
+						} ],
+						"arches": {
+							{{ $a | json }}: {
+								"tags": {{ $.Tags namespace false . | json }},
+								"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
+								"froms": '"$([ -n "$doHeavy" ] && echo -n '{{ $.ArchDockerFroms $a . | json }}' || echo -n '[]' )"',
+								"lastStageFrom": '"$([ -n "$doHeavy" ] && echo -n '{{ if eq $builder "oci-import" -}}
+									{{- /* TODO remove this special case: https://github.com/docker-library/bashbrew/pull/92 */ -}}
+									"scratch"
+								{{- else -}}
+									{{ $.ArchLastStageFrom $a . | json }}
+								{{- end }}' || echo -n 'null')"',
+								"platformString": {{ (ociPlatform $a).String | json }},
+								"platform": {{ ociPlatform $a | json }},
+								"parents": { }
+							}
 						}
 					}
-				}
+				{{- end -}}
 			{{- end -}}
 		{{- end -}}
-	{{- end -}}
-' "$@" | jq 3>&1 1>&2 2>&3- -r '
-	# https://github.com/jqlang/jq/issues/2063 - "stderr" cannot functionally output a string correctly until jq 1.7+ (which is very very recent), so we hack around it to get some progress output by using Bash to swap stdout and stderr so we can output our objects to stderr and our progress text to stdout and "fix it in post"
-	# TODO balk / error at multiple arches entries
-	first(.arches | keys_unsorted[]) as $arch
-	| .arches[$arch].tags[0] as $tag
-	| stderr
-	| "\($tag) (\($arch)): \(.sourceId)"
-	# TODO if we could get jq 1.7+ for sure, we can drop this entire "jq" invocation and instead have the reduce loop of the following invocation print status strings directly to "stderr"
-' | jq -n --argjson pins "$externalPinsJson" '
+	' "$@" )
+	if [ -n "$doHeavy" ]; then
+		"${bbCat[@]}" | jq 3>&1 1>&2 2>&3- -r '
+			# https://github.com/jqlang/jq/issues/2063 - "stderr" cannot functionally output a string correctly until jq 1.7+ (which is very very recent), so we hack around it to get some progress output by using Bash to swap stdout and stderr so we can output our objects to stderr and our progress text to stdout and "fix it in post"
+			# TODO balk / error at multiple arches entries
+			first(.arches | keys_unsorted[]) as $arch
+			| .arches[$arch].tags[0] as $tag
+			| stderr
+			| "\($tag) (\($arch)): \(.sourceId)"
+			# TODO if we could get jq 1.7+ for sure, we can drop this entire "jq" invocation and instead have the reduce loop of the following invocation print status strings directly to "stderr"
+		' | jq -n '[ inputs ]'
+	else
+		"${bbCat[@]}" | jq -n '[ inputs ]'
+	fi
+}
+
+# merges heavy-to-calculate data from the second json input (list or map of sources) into the first json input (list of sources)
+# uses "mostlyUniqueBitsSum" as a rough analogue for sourceId to correlate data between the input lists
+#  (sourceId, reproducibleGitChecksum, SOURCE_DATE_EPOCH, froms, lastStageFrom)
+# echo '[{}, {},...] [{extraData},...]' | mergeData
+mergeData() {
+	jq --slurp '
+		def mostlyUniqueBitsSum($archKey):
+			.GitCommit
+			+ .Directory
+			+ .File
+			+ .Builder
+			+ $archKey
+			| @base64
+		;
+		(
+			.[1]
+			| map(
+				. as $source
+				| .arches
+				| keys
+				| map(
+					. as $a
+					| $source.entries[]
+					| {
+						(. | mostlyUniqueBitsSum($a)): { entry: ., source: $source }
+					}
+				)
+			) | add | add
+		) as $cacheFile
+		| .[0]
+		| map(
+			. as $it
+			| ($it.arches | keys_unsorted)[0] as $arch
+			| (
+				# match an item by the unique bits that we have
+				$cacheFile[$it.entries[0] | mostlyUniqueBitsSum($arch)] | select(.source.sourceId) | .entry as $entry | .source | $it * {
+					sourceId,
+					reproducibleGitChecksum,
+					arches: {
+						($arch): {
+							froms: .arches[$arch].froms,
+							lastStageFrom: .arches[$arch].lastStageFrom,
+						},
+					},
+				}
+				| .entries[0].SOURCE_DATE_EPOCH = $entry.SOURCE_DATE_EPOCH
+			) // $it
+		)
+	'
+}
+
+sources=
+if [ -s "$cacheFile" ]; then
+	sources="$({ bashbrew_cat "$@"; cat "$cacheFile"; } | mergeData)"
+	heavy=( $(
+		jq -r '
+			map(select(.sourceId | not) | .arches[].tags[0])
+			| unique
+			| join(" ")
+		' <<<"$sources"
+	) )
+
+	# items missing sourceId/reproducibleGitChecksum (i.e. missing from cache) need to use bashbrew cat to sum files from build context
+	if [ "${#heavy[@]}" -gt 0 ]; then
+		sources="$({ cat <<<"$sources"; bashbrew_cat --do-heavy "${heavy[@]}"; } | mergeData)"
+	fi
+else
+	sources="$(bashbrew_cat --do-heavy "$@")"
+fi
+
+jq --argjson pins "$externalPinsJson" <<<"$sources" '
 	def unique_unsorted:
 		# https://unix.stackexchange.com/a/738744/153467
 		reduce .[] as $a ([]; if IN(.[]; $a) then . else . += [$a] end)
 	;
-	reduce inputs as $in ({};
+	reduce .[] as $in ({};
 		.[$in.sourceId] |=
 			if . == null then
 				$in
