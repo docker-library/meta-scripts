@@ -23,8 +23,9 @@ node {
 					depth: 1,
 				),
 				submodule(
-					recursiveSubmodules: true,
 					parentCredentials: true,
+					recursiveSubmodules: true,
+					trackingSubmodules: true,
 				),
 				cleanBeforeCheckout(),
 				cleanAfterCheckout(),
