@@ -3,13 +3,14 @@ properties([
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
-		cron('@hourly'),
+		githubPush(),
+		cron('@daily'), // check periodically, just in case
 	]),
 ])
 
 node {
 	stage('Checkout') {
-		checkout(scmGit(
+		checkout(poll: false, scm: scmGit(
 			userRemoteConfigs: [[
 				url: 'git@github.com:docker-library/meta.git',
 				credentialsId: 'docker-library-bot',
@@ -31,6 +32,30 @@ node {
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
 			],
 		))
+		checkout(poll: true, scm: scmGit(
+			userRemoteConfigs: [[
+				url: 'https://github.com/docker-library/official-images.git',
+				name: 'origin',
+			]],
+			branches: [[name: '*/master']],
+			extensions: [
+				cleanBeforeCheckout(),
+				cleanAfterCheckout(),
+				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta/.doi'],
+			],
+		))
+		checkout(poll: true, scm: scmGit(
+			userRemoteConfigs: [[
+				url: 'https://github.com/docker-library/meta-scripts.git',
+				name: 'origin',
+			]],
+			branches: [[name: '*/main']],
+			extensions: [
+				cleanBeforeCheckout(),
+				cleanAfterCheckout(),
+				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta/.scripts'],
+			],
+		))
 		sh '''
 			git -C meta config user.name 'Docker Library Bot'
 			git -C meta config user.email 'doi+docker-library-bot@docker.com'
@@ -40,14 +65,6 @@ node {
 	env.BASHBREW_LIBRARY = workspace + '/meta/.doi/library'
 
 	dir('meta') {
-		// we *should* update .scripts (since that's where Jenkinsfile.* comes from, so it doesn't really make sense to update our Jenkinsfile and not have it use updated scripts), but it probably should update explicitly to the commit that the Jenkinsfile itself is coming from, if that's possible? ("latest" is probably fine)
-		stage('Update DOI') {
-			sh '''
-				git submodule update --remote --merge .doi
-				git submodule update --remote --merge .scripts
-			'''
-		}
-
 		withCredentials([
 			// thanks to rate limits, we either have to "docker login" or look things up via our proxy
 			string(credentialsId: 'dockerhub-public-proxy', variable: 'DOCKERHUB_PUBLIC_PROXY'),
