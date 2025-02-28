@@ -4,7 +4,7 @@ properties([
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
 		githubPush(),
-		cron('@daily'), // check periodically, just in case
+		cron('@hourly'), // check periodically to bring in new image builds
 	]),
 ])
 
