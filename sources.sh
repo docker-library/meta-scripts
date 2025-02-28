@@ -219,7 +219,42 @@ jq <<<"$sources" --argjson pins "$externalPinsJson" '
 		# https://unix.stackexchange.com/a/738744/153467
 		reduce .[] as $a ([]; if IN(.[]; $a) then . else . += [$a] end)
 	;
-	reduce .[] as $in ({};
+	def meld($o):
+		# recursive merge of objects like "*", but also append lists (uniquely) instead of replace
+		# https://stackoverflow.com/a/53666584, but with lists unique-ified and less work being done
+		if type == "object" and ($o | type) == "object" then
+			reduce ($o | keys_unsorted[]) as $k (.;
+				.[$k] |= meld($o[$k])
+			)
+		elif type == "array" and ($o | type) == "array" then
+			. + $o
+			| unique_unsorted
+		elif $o == null then
+			.
+		else
+			$o
+		end
+	;
+	(
+		# creating a lookup of .[tag][arch] to a list of sourceIds
+		[
+			.[] as $s
+			| ( $s.arches[] | .tags[], .archTags[] )
+			| {
+				key: .,
+				# this happens pre-arches-merge, so it is only one arch
+				value: { ($s.arches | keys[]): [$s.sourceId] },
+			}
+		]
+		# do not try to code golf this to one reduce without from_entries or group_by; doing ".[xxx] |=" on the *full* unordered object gets orders of magnitude slower
+		| group_by(.key)
+		| [
+			# many little reduces based on same key (group_by^), instead of one very big and expensive
+			.[] | reduce .[] as $r ({}; meld($r))
+		]
+		| from_entries
+	) as $tagArches
+	| reduce .[] as $in ({};
 		.[$in.sourceId] |=
 			if . == null then
 				$in
@@ -253,17 +288,6 @@ jq <<<"$sources" --argjson pins "$externalPinsJson" '
 	)
 	# TODO a lot of this could be removed/parsed during the above reduce, since it has to parse things in build order anyhow
 	# TODO actually, instead, this bit should be a totally separate script so the use case of "combine sources.json files together" works better 👀
-	| (
-		# TODO make this faster, this reduce takes the longest time now
-		reduce to_entries[] as $e ({};
-			$e.key as $sourceId
-			| .[ $e.value.arches[] | .tags[], .archTags[] ] |= (
-				.[$e.value.arches | keys[]] |= (
-					. + [$sourceId] | unique_unsorted
-				)
-			)
-		)
-	) as $tagArches
 	| map_values(
 		.arches |= with_entries(
 			.key as $arch
