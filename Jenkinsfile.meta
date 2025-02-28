@@ -30,6 +30,7 @@ node {
 				),
 				cleanBeforeCheckout(),
 				cleanAfterCheckout(),
+				[$class: 'IgnoreNotifyCommit'], // prevent meta from triggering itself
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
 			],
 		))
