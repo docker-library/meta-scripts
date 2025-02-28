@@ -10,7 +10,9 @@ properties([
 
 node {
 	stage('Checkout') {
-		checkout(poll: false, scm: scmGit(
+		// prevent meta from triggering itself
+		// If 'Include in polling' is enabled or 'Include in changelog' is enabled, then when polling occurs, the job will be started if changes are detected from this SCM source.
+		checkout(changelog: false, poll: false, scm: scmGit(
 			userRemoteConfigs: [[
 				url: 'git@github.com:docker-library/meta.git',
 				credentialsId: 'docker-library-bot',
@@ -30,11 +32,10 @@ node {
 				),
 				cleanBeforeCheckout(),
 				cleanAfterCheckout(),
-				[$class: 'IgnoreNotifyCommit'], // prevent meta from triggering itself
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta'],
 			],
 		))
-		checkout(poll: true, scm: scmGit(
+		checkout(scmGit(
 			userRemoteConfigs: [[
 				url: 'https://github.com/docker-library/official-images.git',
 				name: 'origin',
@@ -46,7 +47,7 @@ node {
 				[$class: 'RelativeTargetDirectory', relativeTargetDir: 'meta/.doi'],
 			],
 		))
-		checkout(poll: true, scm: scmGit(
+		checkout(scmGit(
 			userRemoteConfigs: [[
 				url: 'https://github.com/docker-library/meta-scripts.git',
 				name: 'origin',
