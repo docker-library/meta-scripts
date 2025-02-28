@@ -4,7 +4,8 @@ properties([
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
-		upstream(threshold: 'UNSTABLE', upstreamProjects: '../meta'),
+		githubPush(),
+		cron('@hourly'), // run hourly whether we "need" it or not
 	]),
 ])
 

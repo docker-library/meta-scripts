@@ -4,8 +4,8 @@ properties([
 	disableResume(),
 	durabilityHint('PERFORMANCE_OPTIMIZED'),
 	pipelineTriggers([
-		upstream('../meta'),
-		cron('H H/6 * * *'), // run every few hours whether we "need" it or not
+		githubPush(),
+		cron('@daily'), // check periodically, just in case
 	]),
 ])
 
