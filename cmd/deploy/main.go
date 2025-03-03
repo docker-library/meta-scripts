@@ -22,8 +22,7 @@ func main() {
 		args = os.Args[1:]
 
 		// --dry-run
-		dryRun     bool
-		dryRunOuts chan chan []byte
+		dryRun bool
 
 		// --parallel
 		parallel bool
@@ -35,8 +34,6 @@ func main() {
 		switch arg {
 		case "--dry-run":
 			dryRun = true
-			// we want to allow parallel, but want the output to be in-order so we resynchronize output with a channel of channels (technically this also limits parallelization, but hopefully this limit is generous enough that it doesn't matter)
-			dryRunOuts = make(chan chan []byte, 1000)
 
 		case "--parallel":
 			parallel = true
@@ -67,6 +64,27 @@ func main() {
 	// for every RWMutex, it will be *write*-locked during push, and *read*-locked during reading (which means we won't limit the parallelization of multiple parents after a given child is pushed, but we will stop parents from being pushed before their children)
 	childMutexes := sync.Map{}
 	wg := sync.WaitGroup{}
+
+	var dryRunOuts chan chan []byte
+	if dryRun {
+		// we want to allow parallel, but want the output to be in-order so we resynchronize output with a channel of channels (technically this also limits parallelization, but hopefully this limit is generous enough that it doesn't matter)
+		dryRunOuts = make(chan chan []byte, 100000)
+
+		// we also have to start consuming that channel immediately, just in case we *do* hit that parallelization limit 🙈
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+
+			for dryRunOut := range dryRunOuts {
+				j, ok := <-dryRunOut
+				if !ok {
+					// (I think) this means we didn't output anything, so this should be all our "skips"
+					continue
+				}
+				fmt.Printf("%s\n", j)
+			}
+		}()
+	}
 
 	dec := json.NewDecoder(stdout)
 	for dec.More() {
@@ -242,14 +260,6 @@ func main() {
 
 	if dryRun {
 		close(dryRunOuts)
-		for dryRunOut := range dryRunOuts {
-			j, ok := <-dryRunOut
-			if !ok {
-				// (I think) this means we didn't output anything, so this should be all our "skips"
-				continue
-			}
-			fmt.Printf("%s\n", j)
-		}
 	}
 
 	wg.Wait()
