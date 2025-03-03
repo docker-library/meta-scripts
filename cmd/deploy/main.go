@@ -203,6 +203,9 @@ func main() {
 					defer lock.(*sync.RWMutex).RUnlock()
 				}
 
+				logText := ref.StringWithKnownDigest(refsDigest) + logSuffix
+				fmt.Fprintln(os.Stderr, startedPrefix+logText)
+
 				if dryRun {
 					needsDeploy, err := normal.dryRun(ctx, ref)
 					if err != nil {
@@ -217,10 +220,13 @@ func main() {
 							panic(err) // TODO exit in a more clean way (we can't use "os.Exit" because that causes *more* errors 😭)
 						}
 						dryRunOut <- j
+
+						// https://github.com/docker-library/meta-scripts/pull/119#discussion_r1978375608 -- "failure" here because we would've pushed, but the configuration (--dry-run) blocks us from doing so
+						fmt.Fprintln(os.Stderr, failurePrefix+logText)
+					} else {
+						fmt.Fprintln(os.Stderr, successPrefix+logText)
 					}
 				} else {
-					logText := ref.StringWithKnownDigest(refsDigest) + logSuffix
-					fmt.Println(startedPrefix + logText)
 					desc, err := normal.do(ctx, ref)
 					if err != nil {
 						fmt.Fprintf(os.Stderr, "%s%s -- ERROR: %v\n", failurePrefix, logText, err)
@@ -229,7 +235,8 @@ func main() {
 					if ref.Digest == "" && refsDigest == "" {
 						logText += "@" + string(desc.Digest)
 					}
-					fmt.Println(successPrefix + logText)
+
+					fmt.Fprintln(os.Stderr, successPrefix+logText)
 				}
 			}
 			if parallel {
