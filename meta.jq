@@ -149,6 +149,7 @@ def build_command:
 						[
 							"type=oci",
 							"dest=temp.tar", # TODO choose/find a good "safe" place to put this (temporarily)
+							"rewrite-timestamp=true",
 							empty
 						]
 						| @csv
@@ -329,7 +330,7 @@ def build_command:
 						"--load=false", "--provenance=false", # explicitly disable a few features we want to avoid
 						"--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all", # disable linting (https://github.com/moby/buildkit/pull/4962)
 						"--sbom=generator=\"$BASHBREW_BUILDKIT_SBOM_GENERATOR\"",
-						"--output 'type=oci,tar=false,dest=sbom'",
+						"--output 'type=oci,tar=false,dest=sbom,rewrite-timestamp=true'",
 						# TODO also add appropriate "--tag" lines (which would give us a mostly correct "subject" block in the generated SBOM, but we'd then need to replace instances of ${sbomImageManifest#*:} with ${originalImageManifest#*:} for their values to be correct)
 						@sh "--platform \(.source.arches[.build.arch].platformString)",
 						"--build-context \"fake=oci-layout://$PWD/temp@$originalImageManifest\"",
