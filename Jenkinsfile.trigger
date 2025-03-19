@@ -179,7 +179,7 @@ stage('trigger') {
 					],
 					propagate: false,
 					// trigger these quickly so they all get added to Jenkins queue in "queue" order (also using "waitForStart" means we have to wait for the entire "quietPeriod" before we get to move on and schedule more)
-					quietPeriod: 0, // seconds
+					quietPeriod: 1, // seconds
 					// we'll wait on the builds in parallel after they are all queued (so our sorted order is the queue order)
 					waitForStart: true,
 				)
