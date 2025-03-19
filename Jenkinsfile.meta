@@ -114,6 +114,7 @@ node {
 			sh '''
 				rm -rf .jenkins
 				mkdir .jenkins
+				echo 'Jenkinsfile*  linguist-language=groovy' > .jenkins/.gitattributes
 				cp -av .scripts/Jenkinsfile* .jenkins/
 			'''
 		}
