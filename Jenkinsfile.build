@@ -47,6 +47,8 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		))
 	}
 
+	env.BASHBREW_META_SCRIPTS = env.WORKSPACE + '/meta/.scripts'
+
 	dir('.bin') {
 		deleteDir()
 
@@ -80,7 +82,7 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 			obj = sh(returnStdout: true, script: '''
 				[ -n "$BUILD_ID" ]
 				shell="$(
-					jq -L.scripts -r '
+					jq -L"$BASHBREW_META_SCRIPTS" -r '
 						include "meta";
 						.[env.BUILD_ID]
 						| select(needs_build and .build.arch == env.BASHBREW_ARCH) # sanity check

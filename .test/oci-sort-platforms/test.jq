@@ -43,7 +43,7 @@ include "oci";
 	},
 
 	# buildkit attestations
-	# https://github.com/moby/buildkit/blob/5e0fe2793d529209ad52e811129f644d972ea094/docs/attestations/attestation-storage.md#attestation-manifest-descriptor
+	# https://github.com/moby/buildkit/blob/c6145c2423de48f891862ac02f9b2653864d3c9e/docs/attestations/attestation-storage.md#attestation-manifest-descriptor
 	{
 		architecture: "unknown",
 		os: "unknown",

@@ -59,7 +59,7 @@ def get_arch_queue($arch):
 			needs_build
 			and .build.arch == $arch
 		)
-		|  if .build.arch | IN("amd64", "i386", "windows-amd64") then
+		|  if IN(.build.arch; "amd64", "i386", "windows-amd64") then
 			# "GHA" architectures (anything we add a "gha_payload" to will be run on GHA in the queue)
 			.gha_payload = (gha_payload | @json)
 		else . end
