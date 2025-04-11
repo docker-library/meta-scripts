@@ -206,6 +206,7 @@ def build_command:
 			"mkdir temp",
 			"tar -xvf temp.tar -C temp",
 			"rm temp.tar",
+			# TODO munge the image config here to remove any label that doesn't have a "." in the name (https://github.com/docker-library/official-images/pull/18692#issuecomment-2797149554; "thanks UBI/OpenShift/RedHat!")
 			# munge the index to what crane wants ("Error: layout contains 5 entries, consider --index")
 			@sh "jq \("
 				.manifests |= (
