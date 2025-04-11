@@ -115,7 +115,7 @@ jq -s '
 		error("unsupported imageLayoutVersion: " + .imageLayoutVersion)
 	else . end
 ' temp/oci-layout > /dev/null
-jq -s '
+jq -s --tab '
 	if length != 1 then
 		error("unexpected '\''index.json'\'' document count: " + length)
 	else .[0] end

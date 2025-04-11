@@ -284,7 +284,7 @@ def build_command:
 				@sh "jq -s \("{ schemaVersion: 2, manifests: . }") \("./" + .source.entries[0].File) > temp/index.json"
 			else empty end,
 
-			@sh "jq -s \("
+			@sh "jq -s --tab \("
 				if length != 1 then
 					error(\"unexpected 'index.json' document count: \" + length)
 				else .[0] end
