@@ -213,8 +213,8 @@ def validate_oci_descriptor:
 			validate_IN(type; "object")
 			| validate(.architecture; type == "string" and length > 0)
 			| validate(.os; type == "string" and length > 0)
-			| if has("os.string") then
-				validate(."os.string"; type == "string" and length > 0)
+			| if has("os.version") then
+				validate(."os.version"; type == "string" and length > 0)
 			else . end
 			| if has("os.features") then
 				validate(."os.features"; type == "array")
