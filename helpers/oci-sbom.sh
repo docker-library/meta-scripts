@@ -38,7 +38,7 @@ cd "$output"
 imageIndex="$(jq -L"$BASHBREW_META_SCRIPTS" --raw-output '
 	include "oci";
 	include "validate";
-	validate_oci_index
+	validate_oci_index({ indexPlatformsOptional: true })
 	| validate_length(.manifests; 1)
 	| validate_IN(.manifests[0].mediaType; media_types_index)
 	| .manifests[0].digest
@@ -91,7 +91,7 @@ done
 sbomIndex="$(jq -L"$BASHBREW_META_SCRIPTS" --raw-output '
 	include "oci";
 	include "validate";
-	validate_oci_index
+	validate_oci_index({ indexPlatformsOptional: true })
 	| validate_length(.manifests; 1)
 	| validate_IN(.manifests[0].mediaType; media_types_index)
 	| .manifests[0].digest
@@ -146,3 +146,6 @@ jq -L"$BASHBREW_META_SCRIPTS" --null-input --tab '
 	}
 	| normalize_manifest
 ' > index.json
+
+# TODO move this further out
+"$BASHBREW_META_SCRIPTS/helpers/oci-validate.sh" .
