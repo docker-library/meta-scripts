@@ -279,3 +279,10 @@ fi
 
 # also run our "jq" tests (like generating example commands from the "builds.json" we just generated)
 "$dir/jq.sh"
+
+# TODO a new helper to run these by themselves?
+for t in "$dir/"*"/test.sh"; do
+	if [ -x "$t" ]; then
+		"$t"
+	fi
+done

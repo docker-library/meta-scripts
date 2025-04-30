@@ -57,10 +57,10 @@ def deploy_objects:
 					data: {
 						schemaVersion: 2,
 						mediaType: (
-							if $manifests[0]?.mediaType == "application/vnd.docker.distribution.manifest.v2+json" then
-								"application/vnd.docker.distribution.manifest.list.v2+json"
+							if $manifests[0].mediaType == media_type_dockerv2_image then
+								media_type_dockerv2_list
 							else
-								"application/vnd.oci.image.index.v1+json"
+								media_type_oci_index
 							end
 						),
 						manifests: (

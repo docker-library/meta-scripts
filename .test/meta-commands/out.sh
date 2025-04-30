@@ -97,84 +97,14 @@ docker push 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1
 
 # </pull>
 # <build>
-export BASHBREW_CACHE="${BASHBREW_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/bashbrew}"
-gitCache="$BASHBREW_CACHE/git"
-git init --bare "$gitCache"
-_git() { git -C "$gitCache" "$@"; }
-_git config gc.auto 0
-_commit() { _git rev-parse 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592^{commit}'; }
-if ! _commit &> /dev/null; then _git fetch 'https://github.com/docker-library/busybox.git' 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592:' || _git fetch 'refs/heads/dist-amd64:'; fi
-_commit
-mkdir temp
-_git archive --format=tar 'd0b7d566eb4f1fa9933984e6fc04ab11f08f4592:latest/glibc/amd64/' | tar -xvC temp
-jq -s '
-	if length != 1 then
-		error("unexpected '\''oci-layout'\'' document count: " + length)
-	else .[0] end
-	| if .imageLayoutVersion != "1.0.0" then
-		error("unsupported imageLayoutVersion: " + .imageLayoutVersion)
-	else . end
-' temp/oci-layout > /dev/null
-jq -s '
-	if length != 1 then
-		error("unexpected '\''index.json'\'' document count: " + length)
-	else .[0] end
-	| if .schemaVersion != 2 then
-		error("unsupported schemaVersion: " + .schemaVersion)
-	else . end
-	| if .manifests | length != 1 then
-		error("expected only one manifests entry, not " + (.manifests | length))
-	else . end
-	| .manifests[0] |= (
-		if .mediaType != "application/vnd.oci.image.manifest.v1+json" then
-			error("unsupported descriptor mediaType: " + .mediaType)
-		else . end
-		| if .size < 0 then
-			error("invalid descriptor size: " + .size)
-		else . end
-		| del(.annotations, .urls)
-		| .annotations = {"org.opencontainers.image.source":"https://github.com/docker-library/busybox.git","org.opencontainers.image.revision":"d0b7d566eb4f1fa9933984e6fc04ab11f08f4592","org.opencontainers.image.created":"2024-02-28T00:44:18Z","org.opencontainers.image.version":"1.36.1","org.opencontainers.image.url":"https://hub.docker.com/_/busybox","com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch"}
-	)
-' temp/index.json > temp/index.json.new
-mv temp/index.json.new temp/index.json
+build='{"buildId":"191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f","build":{"img":"oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f","resolved":{"schemaVersion":2,"mediaType":"application/vnd.oci.image.index.v1+json","manifests":[{"mediaType":"application/vnd.oci.image.manifest.v1+json","digest":"sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0","size":610,"annotations":{"com.docker.official-images.bashbrew.arch":"amd64","org.opencontainers.image.base.name":"scratch","org.opencontainers.image.created":"2024-02-28T00:44:18Z","org.opencontainers.image.ref.name":"oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f@sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0","org.opencontainers.image.revision":"d0b7d566eb4f1fa9933984e6fc04ab11f08f4592","org.opencontainers.image.source":"https://github.com/docker-library/busybox.git","org.opencontainers.image.url":"https://hub.docker.com/_/busybox","org.opencontainers.image.version":"1.36.1-glibc"},"platform":{"architecture":"amd64","os":"linux"}}],"annotations":{"org.opencontainers.image.ref.name":"oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f@sha256:70a227928672dffb7d24880bad1a705b527fab650f7503c191e48a209c4a0d10"}},"sourceId":"df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2","arch":"amd64","parents":{},"resolvedParents":{}},"source":{"sourceId":"df39fa95e66c7e19e56af0f9dfb8b79b15a0422a9b44eb0f16274d3f1f8939a2","reproducibleGitChecksum":"17e76ce3a5b47357c5724738db231ed2477c94d43df69ce34ae0871c99f7de78","entries":[{"GitRepo":"https://github.com/docker-library/busybox.git","GitFetch":"refs/heads/dist-amd64","GitCommit":"d0b7d566eb4f1fa9933984e6fc04ab11f08f4592","Directory":"latest/glibc/amd64","File":"index.json","Builder":"oci-import","SOURCE_DATE_EPOCH":1709081058}],"arches":{"amd64":{"tags":["busybox:1.36.1","busybox:1.36","busybox:1","busybox:stable","busybox:latest","busybox:1.36.1-glibc","busybox:1.36-glibc","busybox:1-glibc","busybox:stable-glibc","busybox:glibc"],"archTags":["amd64/busybox:1.36.1","amd64/busybox:1.36","amd64/busybox:1","amd64/busybox:stable","amd64/busybox:latest","amd64/busybox:1.36.1-glibc","amd64/busybox:1.36-glibc","amd64/busybox:1-glibc","amd64/busybox:stable-glibc","amd64/busybox:glibc"],"froms":["scratch"],"lastStageFrom":"scratch","platformString":"linux/amd64","platform":{"architecture":"amd64","os":"linux"},"parents":{"scratch":{"sourceId":null,"pin":null}}}}}}'
+"$BASHBREW_META_SCRIPTS/helpers/oci-import.sh" <<<"$build" temp
 # SBOM
-originalImageManifest="$(jq -r '.manifests[0].digest' temp/index.json)"
-SOURCE_DATE_EPOCH=1709081058 \
-	docker buildx build --progress=plain \
-	--load=false \
-	--provenance=false \
-	--build-arg BUILDKIT_DOCKERFILE_CHECK=skip=all \
-	--sbom=generator="$BASHBREW_BUILDKIT_SBOM_GENERATOR" \
-	--output 'type=oci,tar=false,dest=sbom' \
-	--platform 'linux/amd64' \
-	--build-context "fake=oci-layout://$PWD/temp@$originalImageManifest" \
-	- <<<'FROM fake'
-sbomIndex="$(jq -r '.manifests[0].digest' sbom/index.json)"
-shell="$(jq -r --arg originalImageManifest "$originalImageManifest" '
-	first(
-		.manifests[]
-		| select(.annotations["vnd.docker.reference.type"] == "attestation-manifest")
-	) as $attDesc
-	| @sh "sbomManifest=\($attDesc.digest)",
-		@sh "sbomManifestDesc=\(
-			$attDesc
-			| .annotations["vnd.docker.reference.digest"] = $originalImageManifest
-			| tojson
-		)"
-' "sbom/blobs/${sbomIndex/://}")"
-eval "$shell"
-shell="$(jq -r '
-	"copyBlobs=( \([ .config.digest, .layers[].digest | @sh ] | join(" ")) )"
-' "sbom/blobs/${sbomManifest/://}")"
-eval "$shell"
-copyBlobs+=( "$sbomManifest" )
-for blob in "${copyBlobs[@]}"; do
-	cp "sbom/blobs/${blob/://}" "temp/blobs/${blob/://}"
-done
-jq -r --argjson sbomManifestDesc "$sbomManifestDesc" '.manifests += [ $sbomManifestDesc ]' temp/index.json > temp/index.json.new
-mv temp/index.json.new temp/index.json
+mv temp temp.orig
+"$BASHBREW_META_SCRIPTS/helpers/oci-sbom.sh" <<<"$build" temp.orig temp
+rm -rf temp.orig
 # </build>
 # <push>
-crane push --index temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
+crane push temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
 rm -rf temp
 # </push>
