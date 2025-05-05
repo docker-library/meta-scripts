@@ -98,7 +98,7 @@ jq -L"$BASHBREW_META_SCRIPTS" --slurp --tab '
 	else . end
 
 	| .mediaType //= media_type_oci_index # TODO index normalize function?  just force this to be set/valid instead?
-	| validate_oci_index
+	| validate_oci_index({ indexPlatformsOptional: true })
 	| validate_length(.manifests; 1) # TODO allow upstream attestation in the future?
 
 	# purge maintainer-provided URLs / annotations (https://github.com/docker-library/bashbrew/blob/4e0ea8d8aba49d54daf22bd8415fabba65dc83ee/cmd/bashbrew/oci-builder.go#L146-L147)
@@ -123,7 +123,6 @@ jq -L"$BASHBREW_META_SCRIPTS" --slurp --tab '
 		$build
 		| .source.arches[.build.arch].platform
 	)
-	# TODO .manifests[1].platform ?
 
 	# inject our build annotations
 	| .manifests[0].annotations += (
@@ -135,8 +134,6 @@ jq -L"$BASHBREW_META_SCRIPTS" --slurp --tab '
 	| normalize_manifest
 ' "$file" | tee index.json.new
 mv -f index.json.new index.json
-
-# TODO "crane validate" is definitely interesting here -- it essentially validates all the descriptors recursively, including diff_ids, but it only supports "remote" or "tarball" (which refers to the *old* "docker save" tarball format), so isn't useful here, but we need to do basically that exact work
 
 # now that "index.json" represents the exact index we want to push, let's push it down into a blob and make a new appropriate "index.json" for "crane push"
 # TODO we probably want/need some "traverse/manipulate an OCI layout" helpers 😭
@@ -159,3 +156,6 @@ jq -L"$BASHBREW_META_SCRIPTS" --null-input --tab '
 	}
 	| normalize_manifest
 ' > index.json
+
+# TODO move this further out
+"$BASHBREW_META_SCRIPTS/helpers/oci-validate.sh" .
