@@ -123,16 +123,14 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 
 			def buildEnvs = []
 			stage('Prep') {
-				if (obj.commands.build.contains(' buildx ')) {
-					def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
-						set -Eeuo pipefail -x
+				def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
+					set -Eeuo pipefail -x
 
-						.doi/.bin/bashbrew-buildkit-env-setup.sh \\
-							| jq 'to_entries | map(.key + "=" + .value)'
-					''').trim()
-					if (json) {
-						buildEnvs += readJSON(text: json)
-					}
+					.doi/.bin/bashbrew-buildkit-env-setup.sh \\
+						| jq 'to_entries | map(.key + "=" + .value)'
+				''').trim()
+				if (json) {
+					buildEnvs += readJSON(text: json)
 				}
 			}
 
