@@ -149,6 +149,7 @@ def build_command:
 						[
 							"type=oci",
 							"dest=temp.tar",
+							"rewrite-timestamp=true",
 							empty
 						]
 						| @csv
