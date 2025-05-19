@@ -162,12 +162,16 @@ def validate_oci_digest:
 		$
 	") // null) as $dig
 	| validate(.; $dig; "invalid digest syntax")
-	| {
-		"sha256": [ 64 ],
-		"sha512": [ 128 ],
-	} as $lengths
-	| validate_IN($dig.algorithm; $lengths | keys[])
-	| validate_length($dig.encoded; $lengths[$dig.algorithm][])
+	| validate($dig;
+		validate_IN(.algorithm; "sha256", "sha512", "blake3")
+		| if .algorithm == "sha256" then
+			validate(.encoded; test("^[a-f0-9]{64}$"); "the encoded portion MUST match /[a-f0-9]{64}/")
+		elif .algorithm == "sha512" then
+			validate(.encoded; test("^[a-f0-9]{128}$"); "the encoded portion MUST match /[a-f0-9]{128}/")
+		elif .algorithm == "blake3" then # https://github.com/opencontainers/image-spec/pull/1240
+			validate(.encoded; test("^[a-f0-9]{64}$"); "the encoded portion MUST match /[a-f0-9]{64}/")
+		else . end
+	)
 ;
 
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/annotations.md#rules
@@ -175,6 +179,7 @@ def validate_oci_annotations_haver:
 	if has("annotations") then
 		validate(.annotations; type == "object"; "if present, annotations must be an object")
 		| validate(.annotations[]; type == "string"; "annotation values must be strings")
+		# TODO validate that keys are not bare words (reverse DNS or vendor/bar)
 	else . end
 ;
 
@@ -191,7 +196,11 @@ def validate_oci_descriptor:
 	| validate(.size; . == floor; "size must be whole")
 	| validate(.size; . == ceil; "size must be whole")
 
-	# TODO urls?
+	| if has("urls") then
+		validate(.urls; type == "array")
+		| validate(.urls[]; type == "string")
+		| validate_length(.urls; 0) # TODO this intentionally contradicts the above lines -- are there cases where we should allow urls?
+	else . end
 
 	| validate_oci_annotations_haver
 
@@ -205,7 +214,9 @@ def validate_oci_descriptor:
 		# someday, maybe we can validate that .data matches .digest here (needs more jq functionality, including and especially the ability to deal with non-UTF8 binary data from base64 and perform sha256 over it)
 	else . end
 
-	# TODO artifactType?
+	| if has("artifactType") then
+		validate(.artifactType; type == "string")
+	else . end
 
 	# https://github.com/opencontainers/image-spec/blob/v1.1.1/image-index.md#image-index-property-descriptions
 	| if has("platform") then
@@ -240,47 +251,87 @@ def validate_oci_subject_haver:
 ;
 
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/image-index.md
-def validate_oci_index:
+def validate_oci_index($opt):
 	validate_IN(type; "object")
 	| validate_IN(.schemaVersion; 2)
-	| validate_IN(.mediaType; media_types_index) # TODO allow "null" here too? (https://github.com/opencontainers/image-spec/security/advisories/GHSA-77vh-xpmg-72qh)
-	# TODO artifactType?
+	| validate_IN(.mediaType; media_types_index)
+	| if has("artifactType") then
+		validate(.artifactType; type == "string")
+		| validate_IN(.artifactType; null) # TODO acceptable values? (this check intentionally contradicts the one above so artifactType generates an error)
+	else . end
 	| validate(.manifests[];
 		validate_oci_descriptor
 		| validate_IN(.mediaType; media_types_index, media_types_image)
 		| validate(.size; . > 2; "manifest size must be at *least* big enough for {} plus *some* content")
 		# https://github.com/opencontainers/distribution-spec/pull/293#issuecomment-1452780554
 		| validate(.size; . <= 4 * 1024 * 1024; "manifest size must be 4MiB (\(4 * 1024 * 1024)) or less")
+
+		# slightly stricter enforcement than "validate_oci_descriptor" by default
+		| if $opt.indexPlatformsOptional then . else
+			validate(.platform; type == "object")
+		end
+
+		# https://github.com/moby/buildkit/blob/c6145c2423de48f891862ac02f9b2653864d3c9e/docs/attestations/attestation-storage.md
+		| if .annotations | has("vnd.docker.reference.type") or has("vnd.docker.reference.digest") then
+			validate_IN(.mediaType; media_type_oci_image)
+			| validate_IN(.artifactType; null, "application/vnd.docker.attestation.manifest.v1+json") # https://github.com/moby/buildkit/pull/5573/files#r2069525281
+			| validate_IN(.annotations["vnd.docker.reference.type"]; "attestation-manifest")
+			| validate(.annotations["vnd.docker.reference.digest"]; validate_oci_digest)
+			| validate_IN(.platform.os; "unknown")
+			| validate_IN(.platform.architecture; "unknown")
+		else
+			validate_IN(.artifactType; null)
+		end
 	)
-	# TODO if any manifest has "vnd.docker.reference.digest", validate the subject exists in the list
+	| if any(.manifests[].annotations; has("vnd.docker.reference.digest")) then
+		[ .manifests[].digest ] as $digests
+		| validate_IN(.manifests[].annotations["vnd.docker.reference.digest"]; null, $digests[])
+	else . end
 	| validate_oci_subject_haver
 	| validate_oci_annotations_haver
 ;
+def validate_oci_index: validate_oci_index({});
 
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/manifest.md
-def validate_oci_image:
+def validate_oci_image($opt):
 	validate_IN(type; "object")
 	| validate_IN(.schemaVersion; 2)
-	| validate_IN(.mediaType; media_types_image) # TODO allow "null" here too? (https://github.com/opencontainers/image-spec/security/advisories/GHSA-77vh-xpmg-72qh)
-	# TODO artifactType (but only selectively / certain values)
+	| validate_IN(.mediaType; media_types_image)
+	| if has("artifactType") then
+		validate(.artifactType; type == "string")
+		| validate_IN(.artifactType;
+			if $opt.imageAttestation then
+				"application/vnd.docker.attestation.manifest.v1+json" # https://github.com/moby/buildkit/pull/5573/files#r2069525281
+			else null end # (this check intentionally contradicts the one above so artifactType normally generates an error)
+		)
+	else . end
 	| validate(.config;
 		validate_oci_descriptor
 		| validate(.size; . >= 2; "config must be at *least* big enough for {}")
 		| validate_IN(.mediaType; media_types_config)
+		| validate_IN(.artifactType; null)
 	)
 	| validate(.layers[];
 		validate_oci_descriptor
-		| validate_IN(.mediaType; media_types_layer) # TODO allow "application/vnd.in-toto+json" and friends, but selectively 🤔
+		| if $opt.imageAttestation then
+			# https://github.com/moby/buildkit/blob/c6145c2423de48f891862ac02f9b2653864d3c9e/docs/attestations/attestation-storage.md
+			validate_IN(.mediaType; "application/vnd.in-toto+json")
+			| validate_IN(.annotations["in-toto.io/predicate-type"];
+				"https://slsa.dev/provenance/v0.2",
+				"https://spdx.dev/Document",
+				empty # trailing comma
+			)
+		else
+			validate_IN(.mediaType; media_types_layer)
+		end
+		| validate_IN(.artifactType; null)
 	)
 	| validate_oci_subject_haver
 	| validate_oci_annotations_haver
 ;
+def validate_oci_image: validate_oci_image({});
 
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/image-layout.md#oci-layout-file
 def validate_oci_layout_file:
 	validate_IN(.imageLayoutVersion; "1.0.0")
 ;
-
-# TODO validate digest, size of blobs (*somewhere*, probably not here - this is all "cheap" validations / version+ordering+format assumption validations)
-# TODO if .data, validate that somehow too (size, digest); https://github.com/jqlang/jq/issues/1116#issuecomment-2515814615
-# TODO also we should validate that the length of every/any manifest is <= 4MiB (https://github.com/opencontainers/distribution-spec/pull/293#issuecomment-1452780554)
