@@ -133,6 +133,7 @@ def media_type_oci_image: "application/vnd.oci.image.manifest.v1+json";
 def media_type_oci_config: "application/vnd.oci.image.config.v1+json";
 def media_type_oci_layer: "application/vnd.oci.image.layer.v1.tar";
 def media_type_oci_layer_gzip: media_type_oci_layer + "+gzip";
+def media_type_oci_layer_zstd: media_type_oci_layer + "+zstd";
 
 # https://github.com/distribution/distribution/blob/v3.0.0/docs/content/spec/manifest-v2-2.md#media-types
 def media_type_dockerv2_list: "application/vnd.docker.distribution.manifest.list.v2+json";
@@ -144,7 +145,7 @@ def media_type_dockerv2_layer_gzip: media_type_dockerv2_layer + ".gzip";
 def media_types_index: media_type_oci_index, media_type_dockerv2_list;
 def media_types_image: media_type_oci_image, media_type_dockerv2_image;
 def media_types_config: media_type_oci_config, media_type_dockerv2_config;
-def media_types_layer: media_type_oci_layer, media_type_oci_layer_gzip, media_type_dockerv2_layer, media_type_dockerv2_layer_gzip;
+def media_types_layer: media_type_oci_layer, media_type_oci_layer_gzip, media_type_oci_layer_zstd, media_type_dockerv2_layer, media_type_dockerv2_layer_gzip;
 
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/descriptor.md#digests
 def validate_oci_digest:
