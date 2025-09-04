@@ -103,24 +103,6 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 		}
 
 		timeout(time: 3, unit: 'HOURS') {
-			/*
-			// TODO this is currently already done on the worker machines themselves, which is a tradeoff
-			// make sure "docker login" is localized to this workspace
-			env.DOCKER_CONFIG = workspace + '/.docker'
-			dir(env.DOCKER_CONFIG) { deleteDir() }
-
-			withCredentials([usernamePassword(
-				credentialsId: 'docker-hub-' + env.BASHBREW_ARCH, // TODO windows?
-				usernameVariable: 'DOCKER_USERNAME',
-				passwordVariable: 'DOCKER_PASSWORD',
-			)]) {
-				sh '''#!/usr/bin/env bash
-					set -Eeuo pipefail
-					docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
-				'''
-			}
-			*/
-
 			def buildEnvs = []
 			stage('Prep') {
 				def json = sh(returnStdout: true, script: '''#!/usr/bin/env bash
@@ -154,12 +136,31 @@ node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
 						"""
 					}
 
-					stage('Push') {
-						sh """#!/usr/bin/env bash
-							set -Eeuo pipefail -x
+					// make sure "docker login" is localized to this workspace
+					withEnv(['DOCKER_CONFIG=' + workspace + '/.docker']) {
+						dir(env.DOCKER_CONFIG) { deleteDir() }
 
-							${ obj.commands.push }
-						"""
+						withCredentials([usernamePassword(
+							credentialsId: 'docker-hub-' + env.BASHBREW_ARCH,
+							usernameVariable: 'DOCKER_USERNAME',
+							passwordVariable: 'DOCKER_PASSWORD',
+						)]) {
+							sh '''#!/usr/bin/env bash
+								set -Eeuo pipefail
+								docker login --username "$DOCKER_USERNAME" --password-stdin <<<"$DOCKER_PASSWORD"
+							'''
+						}
+
+						stage('Push') {
+							sh """#!/usr/bin/env bash
+								set -Eeuo pipefail -x
+
+								${ obj.commands.push }
+							"""
+						}
+
+						// "docker logout"
+						dir(env.DOCKER_CONFIG) { deleteDir() }
 					}
 				}
 			}
