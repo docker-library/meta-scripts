@@ -20,6 +20,26 @@ def crane_deploy_commands:
 ;
 
 # input: "build" object (with "buildId" top level key)
+# output: json object with windowsVersion: "2022" or "2025" or empty {} if there is no os.version like for Linux
+def windows_version:
+	[ .build.resolvedParents[]?.manifests[]?.platform? | select(has("os.version")) | ."os.version" ][0] // ""
+	| if . != "" then
+		{ windowsVersion: (
+			# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
+			# https://github.com/microsoft/hcsshim/blob/d9a4231b9d7a03dffdabb6019318fc43eb6ba996/osversion/windowsbuilds.go
+			capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
+			| {
+				# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
+				# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+				"26100": "2025", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2025
+				"20348": "2022", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2022
+				"17763": "2019", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2019
+			}[.build] // "unknown"
+		) }
+	else {} end
+;
+
+# input: "build" object (with "buildId" top level key)
 # output: json object (to trigger the build on GitHub Actions)
 def gha_payload:
 	{
@@ -29,24 +49,7 @@ def gha_payload:
 				buildId: .buildId,
 				bashbrewArch: .build.arch,
 				firstTag: .source.arches[.build.arch].tags[0],
-			} + (
-				[ .build.resolvedParents[].manifests[].platform? | select(has("os.version")) | ."os.version" ][0] // ""
-				| if . != "" then
-					{ windowsVersion: (
-						# https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-						# https://github.com/microsoft/hcsshim/blob/d9a4231b9d7a03dffdabb6019318fc43eb6ba996/osversion/windowsbuilds.go
-						capture("^10[.]0[.](?<build>[0-9]+)([.]|$)")
-						| {
-							# since this is specifically for GitHub Actions support, this is limited to the underlying versions they actually support
-							# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-							"26100": "2025", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2025
-							"20348": "2022", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2022
-							"17763": "2019", # https://oci.dag.dev/?image=mcr.microsoft.com/windows/servercore:ltsc2019
-							"": "",
-						}[.build] // "unknown"
-					) }
-				else {} end
-			)
+			} + windows_version
 		)
 	}
 ;
@@ -59,10 +62,13 @@ def get_arch_queue($arch):
 			needs_build
 			and .build.arch == $arch
 		)
-		|  if IN(.build.arch; "amd64", "i386", "windows-amd64") then
+		|  if IN(.build.arch; "amd64", "i386") then
 			# "GHA" architectures (anything we add a "gha_payload" to will be run on GHA in the queue)
 			.gha_payload = (gha_payload | @json)
-		else . end
+		else
+			# add friendly windows os version (2022, 2025)
+			. + windows_version
+		end
 		| .identifier = .source.arches[.build.arch].tags[0]
 	)
 ;
@@ -70,7 +76,7 @@ def get_arch_queue:
 	get_arch_queue(env.BASHBREW_ARCH)
 ;
 
-# input: filtered "needs_build" build object list, like from get_raw_queue
+# input: filtered "needs_build" build object list, like from get_arch_queue
 # output: simplified list of builds with record of (build/trigger) count and number of current skips
 def jobs_record($pastJobs):
 	map_values(
@@ -88,7 +94,7 @@ def jobs_record($pastJobs):
 	)
 ;
 
-# input: filtered "needs_build" build object list, like from get_raw_queue
+# input: filtered "needs_build" build object list, like from get_arch_queue
 #        newJobs list, output of jobs_record: used for filtering and sorting the queue
 # ouput: sorted build queue with skipped items removed
 def filter_skips_queue($newJobs):
