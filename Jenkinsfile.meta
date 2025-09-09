@@ -8,7 +8,7 @@ properties([
 	]),
 ])
 
-node {
+node('doi-meta') { // use the dedicated meta instance
 	stage('Checkout') {
 		// prevent meta from triggering itself
 		// If 'Include in polling' is enabled or 'Include in changelog' is enabled, then when polling occurs, the job will be started if changes are detected from this SCM source.
