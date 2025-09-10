@@ -19,7 +19,11 @@ properties([
 env.BASHBREW_ARCH = env.JOB_NAME.minus('/build').split('/')[-1] // "windows-amd64", "arm64v8", etc
 env.BUILD_ID = params.buildId
 if (params.identifier) {
-	currentBuild.displayName = params.identifier + ' (#' + currentBuild.number + ')'
+	currentBuild.displayName = params.identifier
+	if (params.windowsVersion) {
+		currentBuild.displayName += ' [' + params.windowsVersion + ']'
+	}
+	currentBuild.displayName += ' (#' + currentBuild.number + ')'
 }
 
 def nodeExpression = 'multiarch-' + env.BASHBREW_ARCH
