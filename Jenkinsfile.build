@@ -12,6 +12,7 @@ properties([
 	parameters([
 		string(name: 'buildId', trim: true),
 		string(name: 'identifier', trim: true, description: '(optional) used to set <code>currentBuild.displayName</code> to a meaningful value earlier'),
+		string(name: 'windowsVersion', trim: true, description: '(optional) used to select the Windows node (2025, 2022, etc)'),
 	]),
 ])
 
@@ -21,7 +22,15 @@ if (params.identifier) {
 	currentBuild.displayName = params.identifier + ' (#' + currentBuild.number + ')'
 }
 
-node('multiarch-' + env.BASHBREW_ARCH) { ansiColor('xterm') {
+def nodeExpression = 'multiarch-' + env.BASHBREW_ARCH
+if (params.windowsVersion) {
+	nodeExpression += ' && windows-' + params.windowsVersion
+}
+if (env.BASHBREW_ARCH.startsWith('windows-') && ! params.windowsVersion) {
+	error(env.BASHBREW_ARCH + ' specified, but no Windows OS version (like 2025)')
+}
+
+node(nodeExpression) { ansiColor('xterm') {
 	stage('Checkout') {
 		checkout(scmGit(
 			userRemoteConfigs: [[

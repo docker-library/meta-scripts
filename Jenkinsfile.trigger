@@ -176,6 +176,7 @@ stage('trigger') {
 					parameters: [
 						string(name: 'buildId', value: buildObj.buildId),
 						string(name: 'identifier', value: buildObj.identifier),
+						string(name: 'windowsVersion', value: buildObj.windowsVersion),
 					],
 					propagate: false,
 					// trigger these quickly so they all get added to Jenkins queue in "queue" order (also using "waitForStart" means we have to wait for the entire "quietPeriod" before we get to move on and schedule more)
