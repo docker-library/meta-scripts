@@ -62,13 +62,8 @@ def get_arch_queue($arch):
 			needs_build
 			and .build.arch == $arch
 		)
-		|  if IN(.build.arch; "amd64", "i386") then
-			# "GHA" architectures (anything we add a "gha_payload" to will be run on GHA in the queue)
-			.gha_payload = (gha_payload | @json)
-		else
-			# add friendly windows os version (2022, 2025)
-			. + windows_version
-		end
+		# add friendly windows os version (2022, 2025)
+		| . + windows_version
 		| .identifier = .source.arches[.build.arch].tags[0]
 	)
 ;
