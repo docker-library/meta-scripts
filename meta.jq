@@ -79,7 +79,15 @@ def build_annotations($buildUrl):
 		# https://github.com/opencontainers/image-spec/blob/v1.1.0/annotations.md#pre-defined-annotation-keys
 		"org.opencontainers.image.source": $buildUrl,
 		"org.opencontainers.image.revision": .source.entries[0].GitCommit,
-		"org.opencontainers.image.created": (.source.entries[0].SOURCE_DATE_EPOCH | strftime("%FT%TZ")), # see notes below about image index vs image manifest
+		"org.opencontainers.image.created": (
+			if .source.entries[0].Builder == "oci-import" then
+				.source.entries[0].SOURCE_DATE_EPOCH
+			else
+				env.SOURCE_DATE_EPOCH // now
+				| tonumber
+			end
+			| strftime("%FT%TZ")
+		),
 
 		# TODO come up with less assuming values here? (Docker Hub assumption, tag ordering assumption)
 		"org.opencontainers.image.version": ( # value of the first image tag
@@ -138,7 +146,6 @@ def build_command:
 		| [
 			(
 				[
-					@sh "SOURCE_DATE_EPOCH=\(.source.entries[0].SOURCE_DATE_EPOCH)",
 					# TODO EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=<(jq ...)
 					"docker buildx build --progress=plain",
 					@sh "--provenance=mode=max,builder-id=\(buildkit_provenance_builder_id)",
@@ -156,24 +163,8 @@ def build_command:
 					),
 					(
 						build_annotations($buildUrl)
-						| to_entries
-						# separate loops so that "image manifest" annotations are grouped separate from the index/descriptor annotations (easier to read)
-						| (
-							.[]
-							| @sh "--annotation \(.key + "=" + .value)"
-						),
-						(
-							.[]
-							| @sh "--annotation \(
-								"manifest-descriptor:" + .key + "="
-								+ if .key == "org.opencontainers.image.created" then
-									# the "current" time breaks reproducibility (for the purposes of build verification), so we put "now" in the image index but "SOURCE_DATE_EPOCH" in the image manifest (which is the thing we'd ideally like to have reproducible, eventually)
-									(env.SOURCE_DATE_EPOCH // now) | tonumber | strftime("%FT%TZ")
-									# (this assumes the actual build is going to happen shortly after generating the command)
-								else .value end
-							)",
-							empty
-						)
+						| to_entries[]
+						| @sh "--annotation \("manifest,manifest-descriptor:\(.key + "=" + .value)")"
 					),
 					(
 						(
@@ -229,7 +220,6 @@ def build_command:
 		| [
 			(
 				[
-					@sh "SOURCE_DATE_EPOCH=\(.source.entries[0].SOURCE_DATE_EPOCH)",
 					"DOCKER_BUILDKIT=0",
 					"docker build",
 					(
