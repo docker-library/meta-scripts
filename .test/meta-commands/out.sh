@@ -3,26 +3,17 @@
 
 # </pull>
 # <build>
-SOURCE_DATE_EPOCH=1700741054 \
-	docker buildx build --progress=plain \
+docker buildx build --progress=plain \
 	--provenance=mode=max,builder-id='https://github.com/docker-library' \
 	--output '"type=oci","dest=temp.tar"' \
-	--annotation 'org.opencontainers.image.source=https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli' \
-	--annotation 'org.opencontainers.image.revision=6d541d27b5dd12639e5a33a675ebca04d3837d74' \
-	--annotation 'org.opencontainers.image.created=2023-11-23T12:04:14Z' \
-	--annotation 'org.opencontainers.image.version=24.0.7-cli' \
-	--annotation 'org.opencontainers.image.url=https://hub.docker.com/_/docker' \
-	--annotation 'com.docker.official-images.bashbrew.arch=amd64' \
-	--annotation 'org.opencontainers.image.base.name=alpine:3.18' \
-	--annotation 'org.opencontainers.image.base.digest=sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.source=https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.revision=6d541d27b5dd12639e5a33a675ebca04d3837d74' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.created=1970-01-01T00:00:00Z' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.version=24.0.7-cli' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.url=https://hub.docker.com/_/docker' \
-	--annotation 'manifest-descriptor:com.docker.official-images.bashbrew.arch=amd64' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.base.name=alpine:3.18' \
-	--annotation 'manifest-descriptor:org.opencontainers.image.base.digest=sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.source=https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/cli' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.revision=6d541d27b5dd12639e5a33a675ebca04d3837d74' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.created=1970-01-01T00:00:00Z' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.version=24.0.7-cli' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.url=https://hub.docker.com/_/docker' \
+	--annotation 'manifest,manifest-descriptor:com.docker.official-images.bashbrew.arch=amd64' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.base.name=alpine:3.18' \
+	--annotation 'manifest,manifest-descriptor:org.opencontainers.image.base.digest=sha256:d695c3de6fcd8cfe3a6222b0358425d40adfd129a8a47c3416faff1a8aece389' \
 	--tag 'docker:24.0.7-cli' \
 	--tag 'docker:24.0-cli' \
 	--tag 'docker:24-cli' \
@@ -64,8 +55,7 @@ docker pull 'mcr.microsoft.com/windows/servercore@sha256:d4ab2dd7d3d0fce6edc5df4
 docker tag 'mcr.microsoft.com/windows/servercore@sha256:d4ab2dd7d3d0fce6edc5df459565a4c96bbb1d0148065b215ab5ddcab1e42eb4' 'mcr.microsoft.com/windows/servercore:ltsc2022'
 # </pull>
 # <build>
-SOURCE_DATE_EPOCH=1700741054 \
-	DOCKER_BUILDKIT=0 \
+DOCKER_BUILDKIT=0 \
 	docker build \
 	--tag 'docker:24.0.7-windowsservercore-ltsc2022' \
 	--tag 'docker:24.0-windowsservercore-ltsc2022' \
