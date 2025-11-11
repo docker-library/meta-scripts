@@ -1,6 +1,6 @@
 [
 	{
-		"buildId": "arm32v7-null-1-0",
+		"buildId": "arm32v7-null-0-1970-01-01T00:00:00Z",
 		"build": {
 			"arch": "arm32v7",
 			"resolved": null
@@ -9,15 +9,15 @@
 			"arches": {
 				"arm32v7": {
 					"tags": [
-						"fake:arm32v7-null-1-0"
+						"fake:arm32v7-null-0-1970-01-01T00:00:00Z"
 					]
 				}
 			}
 		},
-		"identifier": "fake:arm32v7-null-1-0"
+		"identifier": "fake:arm32v7-null-0-1970-01-01T00:00:00Z"
 	},
 	{
-		"buildId": "arm32v7-null-23-0",
+		"buildId": "arm32v7-null-1-1970-01-01T00:00:00Z",
 		"build": {
 			"arch": "arm32v7",
 			"resolved": null
@@ -26,15 +26,15 @@
 			"arches": {
 				"arm32v7": {
 					"tags": [
-						"fake:arm32v7-null-23-0"
+						"fake:arm32v7-null-1-1970-01-01T00:00:00Z"
 					]
 				}
 			}
 		},
-		"identifier": "fake:arm32v7-null-23-0"
+		"identifier": "fake:arm32v7-null-1-1970-01-01T00:00:00Z"
 	},
 	{
-		"buildId": "arm32v7-null-25-24",
+		"buildId": "arm32v7-null-2-1969-12-31T23:00:00Z",
 		"build": {
 			"arch": "arm32v7",
 			"resolved": null
@@ -43,39 +43,224 @@
 			"arches": {
 				"arm32v7": {
 					"tags": [
-						"fake:arm32v7-null-25-24"
+						"fake:arm32v7-null-2-1969-12-31T23:00:00Z"
 					]
 				}
 			}
 		},
-		"identifier": "fake:arm32v7-null-25-24"
+		"identifier": "fake:arm32v7-null-2-1969-12-31T23:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-3-1969-12-31T22:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-3-1969-12-31T22:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-3-1969-12-31T22:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-4-1969-12-31T20:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-4-1969-12-31T20:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-4-1969-12-31T20:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-5-1969-12-31T16:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-5-1969-12-31T16:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-5-1969-12-31T16:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-6-1969-12-31T08:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-6-1969-12-31T08:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-6-1969-12-31T08:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-7-1969-12-30T16:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-7-1969-12-30T16:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-7-1969-12-30T16:00:00Z"
+	},
+	{
+		"buildId": "arm32v7-null-8-1969-12-30T16:00:00Z",
+		"build": {
+			"arch": "arm32v7",
+			"resolved": null
+		},
+		"source": {
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"fake:arm32v7-null-8-1969-12-30T16:00:00Z"
+					]
+				}
+			}
+		},
+		"identifier": "fake:arm32v7-null-8-1969-12-30T16:00:00Z"
 	}
 ]
 {
-	"arm32v7-null-1-0": {
+	"arm32v7-null-0-1970-01-01T00:00:00Z": {
+		"count": 1,
+		"lastTime": null,
+		"identifier": "fake:arm32v7-null-0-1970-01-01T00:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-1-1970-01-01T00:00:00Z": {
 		"count": 2,
-		"skips": 0,
-		"identifier": "fake:arm32v7-null-1-0"
+		"lastTime": 0,
+		"identifier": "fake:arm32v7-null-1-1970-01-01T00:00:00Z",
+		"skip": false
 	},
-	"arm32v7-null-23-0": {
-		"count": 24,
-		"skips": 0,
-		"identifier": "fake:arm32v7-null-23-0"
+	"arm32v7-null-2-1970-01-01T00:00:00Z": {
+		"count": 2,
+		"lastTime": 0,
+		"identifier": "fake:arm32v7-null-2-1970-01-01T00:00:00Z",
+		"skip": true
 	},
-	"arm32v7-null-24-0": {
-		"count": 24,
-		"skips": 1,
-		"identifier": "fake:arm32v7-null-24-0"
+	"arm32v7-null-2-1969-12-31T23:00:01Z": {
+		"count": 2,
+		"lastTime": -3599,
+		"identifier": "fake:arm32v7-null-2-1969-12-31T23:00:01Z",
+		"skip": true
 	},
-	"arm32v7-null-25-23": {
-		"count": 25,
-		"skips": 24,
-		"identifier": "fake:arm32v7-null-25-23"
+	"arm32v7-null-2-1969-12-31T23:00:00Z": {
+		"count": 3,
+		"lastTime": -3600,
+		"identifier": "fake:arm32v7-null-2-1969-12-31T23:00:00Z",
+		"skip": false
 	},
-	"arm32v7-null-25-24": {
-		"count": 26,
-		"skips": 0,
-		"identifier": "fake:arm32v7-null-25-24"
+	"arm32v7-null-3-1970-01-01T00:00:00Z": {
+		"count": 3,
+		"lastTime": 0,
+		"identifier": "fake:arm32v7-null-3-1970-01-01T00:00:00Z",
+		"skip": true
+	},
+	"arm32v7-null-3-1969-12-31T22:00:01Z": {
+		"count": 3,
+		"lastTime": -7199,
+		"identifier": "fake:arm32v7-null-3-1969-12-31T22:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-3-1969-12-31T22:00:00Z": {
+		"count": 4,
+		"lastTime": -7200,
+		"identifier": "fake:arm32v7-null-3-1969-12-31T22:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-4-1969-12-31T20:00:01Z": {
+		"count": 4,
+		"lastTime": -14399,
+		"identifier": "fake:arm32v7-null-4-1969-12-31T20:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-4-1969-12-31T20:00:00Z": {
+		"count": 5,
+		"lastTime": -14400,
+		"identifier": "fake:arm32v7-null-4-1969-12-31T20:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-5-1969-12-31T16:00:01Z": {
+		"count": 5,
+		"lastTime": -28799,
+		"identifier": "fake:arm32v7-null-5-1969-12-31T16:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-5-1969-12-31T16:00:00Z": {
+		"count": 6,
+		"lastTime": -28800,
+		"identifier": "fake:arm32v7-null-5-1969-12-31T16:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-6-1969-12-31T08:00:01Z": {
+		"count": 6,
+		"lastTime": -57599,
+		"identifier": "fake:arm32v7-null-6-1969-12-31T08:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-6-1969-12-31T08:00:00Z": {
+		"count": 7,
+		"lastTime": -57600,
+		"identifier": "fake:arm32v7-null-6-1969-12-31T08:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-7-1969-12-30T16:00:01Z": {
+		"count": 7,
+		"lastTime": -115199,
+		"identifier": "fake:arm32v7-null-7-1969-12-30T16:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-7-1969-12-30T16:00:00Z": {
+		"count": 8,
+		"lastTime": -115200,
+		"identifier": "fake:arm32v7-null-7-1969-12-30T16:00:00Z",
+		"skip": false
+	},
+	"arm32v7-null-8-1969-12-30T16:00:01Z": {
+		"count": 8,
+		"lastTime": -115199,
+		"identifier": "fake:arm32v7-null-8-1969-12-30T16:00:01Z",
+		"skip": true
+	},
+	"arm32v7-null-8-1969-12-30T16:00:00Z": {
+		"count": 9,
+		"lastTime": -115200,
+		"identifier": "fake:arm32v7-null-8-1969-12-30T16:00:00Z",
+		"skip": false
 	}
 }
-2
+9

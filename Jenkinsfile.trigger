@@ -57,13 +57,13 @@ node {
 				fi
 				jq -c -L.scripts --slurpfile pastJobs past-jobs.json '
 					include "jenkins";
-					get_arch_queue as $rawQueue
-					| $rawQueue | jobs_record($pastJobs[0]) as $newJobs
-					| $rawQueue | filter_skips_queue($newJobs) as $filteredQueue
+					get_arch_queue
+					| jobs_record($pastJobs[0]; now) as $newJobs
+					| filter_skips_queue($newJobs) as $filteredQueue
 					| (
-						($rawQueue | length) - ($filteredQueue | length)
+						(length) - ($filteredQueue | length)
 					) as $skippedCount
-					# queue, skips/builds record, number of skipped items
+					# queue, builds record (to become past-jobs.json), number of skipped items
 					| $filteredQueue, $newJobs, $skippedCount
 				' builds.json
 			''').tokenize('\r\n')
@@ -209,10 +209,10 @@ node {
 					set -Eeuo pipefail -x
 
 					jq <<<"$currentJobsJson" '
-						# save firstTime if it is not set yet
-						map_values(.firstTime //= .lastTime)
 						# merge the two objects recursively, preferring data from "buildCompletionDataJson"
-						| . * ( env.buildCompletionDataJson | fromjson )
+						. * ( env.buildCompletionDataJson | fromjson )
+						# save firstTime if it is not set yet
+						| map_values(.firstTime //= .lastTime)
 					' | tee past-jobs.json
 				'''
 				archiveArtifacts(
