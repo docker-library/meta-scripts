@@ -1,57 +1,161 @@
 {
 	"pastJobs": {
-		"amd64-null-1-0": {
+		"amd64-null-0-1970-01-01T00:00:00Z": {
+			"count": 0,
+			"lastTime": null
+		},
+		"arm32v7-null-0-1970-01-01T00:00:00Z": {
+			"count": 0,
+			"lastTime": null
+		},
+		"amd64-null-1-1970-01-01T00:00:00Z": {
 			"count": 1,
-			"skips": 0
+			"lastTime": 0
 		},
-		"arm32v7-null-1-0": {
+		"arm32v7-null-1-1970-01-01T00:00:00Z": {
 			"count": 1,
-			"skips": 0
+			"lastTime": 0
 		},
-		"amd64-null-23-0": {
-			"count": 23,
-			"skips": 0
+		"amd64-null-2-1970-01-01T00:00:00Z": {
+			"count": 2,
+			"lastTime": 0
 		},
-		"arm32v7-null-23-0": {
-			"count": 23,
-			"skips": 0
+		"arm32v7-null-2-1970-01-01T00:00:00Z": {
+			"count": 2,
+			"lastTime": 0
 		},
-		"amd64-null-24-0": {
-			"count": 24,
-			"skips": 0
+		"amd64-null-2-1969-12-31T23:00:01Z": {
+			"count": 2,
+			"lastTime": -3599
 		},
-		"arm32v7-null-24-0": {
-			"count": 24,
-			"skips": 0
+		"arm32v7-null-2-1969-12-31T23:00:01Z": {
+			"count": 2,
+			"lastTime": -3599
 		},
-		"amd64-null-25-23": {
-			"count": 25,
-			"skips": 23
+		"amd64-null-2-1969-12-31T23:00:00Z": {
+			"count": 2,
+			"lastTime": -3600
 		},
-		"arm32v7-null-25-23": {
-			"count": 25,
-			"skips": 23
+		"arm32v7-null-2-1969-12-31T23:00:00Z": {
+			"count": 2,
+			"lastTime": -3600
 		},
-		"amd64-null-25-24": {
-			"count": 25,
-			"skips": 24
-		},
-		"arm32v7-null-25-24": {
-			"count": 25,
-			"skips": 24
-		},
-		"amd64-{}-3-0": {
+		"amd64-null-3-1970-01-01T00:00:00Z": {
 			"count": 3,
-			"skips": 0
+			"lastTime": 0
 		},
-		"arm32v7-{}-3-0": {
+		"arm32v7-null-3-1970-01-01T00:00:00Z": {
 			"count": 3,
-			"skips": 0
+			"lastTime": 0
+		},
+		"amd64-null-3-1969-12-31T22:00:01Z": {
+			"count": 3,
+			"lastTime": -7199
+		},
+		"arm32v7-null-3-1969-12-31T22:00:01Z": {
+			"count": 3,
+			"lastTime": -7199
+		},
+		"amd64-null-3-1969-12-31T22:00:00Z": {
+			"count": 3,
+			"lastTime": -7200
+		},
+		"arm32v7-null-3-1969-12-31T22:00:00Z": {
+			"count": 3,
+			"lastTime": -7200
+		},
+		"amd64-null-4-1969-12-31T20:00:01Z": {
+			"count": 4,
+			"lastTime": -14399
+		},
+		"arm32v7-null-4-1969-12-31T20:00:01Z": {
+			"count": 4,
+			"lastTime": -14399
+		},
+		"amd64-null-4-1969-12-31T20:00:00Z": {
+			"count": 4,
+			"lastTime": -14400
+		},
+		"arm32v7-null-4-1969-12-31T20:00:00Z": {
+			"count": 4,
+			"lastTime": -14400
+		},
+		"amd64-null-5-1969-12-31T16:00:01Z": {
+			"count": 5,
+			"lastTime": -28799
+		},
+		"arm32v7-null-5-1969-12-31T16:00:01Z": {
+			"count": 5,
+			"lastTime": -28799
+		},
+		"amd64-null-5-1969-12-31T16:00:00Z": {
+			"count": 5,
+			"lastTime": -28800
+		},
+		"arm32v7-null-5-1969-12-31T16:00:00Z": {
+			"count": 5,
+			"lastTime": -28800
+		},
+		"amd64-null-6-1969-12-31T08:00:01Z": {
+			"count": 6,
+			"lastTime": -57599
+		},
+		"arm32v7-null-6-1969-12-31T08:00:01Z": {
+			"count": 6,
+			"lastTime": -57599
+		},
+		"amd64-null-6-1969-12-31T08:00:00Z": {
+			"count": 6,
+			"lastTime": -57600
+		},
+		"arm32v7-null-6-1969-12-31T08:00:00Z": {
+			"count": 6,
+			"lastTime": -57600
+		},
+		"amd64-null-7-1969-12-30T16:00:01Z": {
+			"count": 7,
+			"lastTime": -115199
+		},
+		"arm32v7-null-7-1969-12-30T16:00:01Z": {
+			"count": 7,
+			"lastTime": -115199
+		},
+		"amd64-null-7-1969-12-30T16:00:00Z": {
+			"count": 7,
+			"lastTime": -115200
+		},
+		"arm32v7-null-7-1969-12-30T16:00:00Z": {
+			"count": 7,
+			"lastTime": -115200
+		},
+		"amd64-null-8-1969-12-30T16:00:01Z": {
+			"count": 8,
+			"lastTime": -115199
+		},
+		"arm32v7-null-8-1969-12-30T16:00:01Z": {
+			"count": 8,
+			"lastTime": -115199
+		},
+		"amd64-null-8-1969-12-30T16:00:00Z": {
+			"count": 8,
+			"lastTime": -115200
+		},
+		"arm32v7-null-8-1969-12-30T16:00:00Z": {
+			"count": 8,
+			"lastTime": -115200
+		},
+		"amd64-{}-3-1970-01-01T00:00:00Z": {
+			"count": 3,
+			"lastTime": 0
+		},
+		"arm32v7-{}-3-1970-01-01T00:00:00Z": {
+			"count": 3,
+			"lastTime": 0
 		}
 	},
 	"builds": {
-		"amd64-null-1-0": {
-			"buildId": "amd64-null-1-0",
+		"amd64-null-0-1970-01-01T00:00:00Z": {
+			"buildId": "amd64-null-0-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": null
@@ -60,14 +164,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-null-1-0"
+							"fake:amd64-null-0-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-null-1-0": {
-			"buildId": "arm32v7-null-1-0",
+		"arm32v7-null-0-1970-01-01T00:00:00Z": {
+			"buildId": "arm32v7-null-0-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": null
@@ -76,14 +180,14 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-null-1-0"
+							"fake:arm32v7-null-0-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"amd64-null-23-0": {
-			"buildId": "amd64-null-23-0",
+		"amd64-null-1-1970-01-01T00:00:00Z": {
+			"buildId": "amd64-null-1-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": null
@@ -92,14 +196,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-null-23-0"
+							"fake:amd64-null-1-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-null-23-0": {
-			"buildId": "arm32v7-null-23-0",
+		"arm32v7-null-1-1970-01-01T00:00:00Z": {
+			"buildId": "arm32v7-null-1-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": null
@@ -108,14 +212,14 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-null-23-0"
+							"fake:arm32v7-null-1-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"amd64-null-24-0": {
-			"buildId": "amd64-null-24-0",
+		"amd64-null-2-1970-01-01T00:00:00Z": {
+			"buildId": "amd64-null-2-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": null
@@ -124,14 +228,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-null-24-0"
+							"fake:amd64-null-2-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-null-24-0": {
-			"buildId": "arm32v7-null-24-0",
+		"arm32v7-null-2-1970-01-01T00:00:00Z": {
+			"buildId": "arm32v7-null-2-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": null
@@ -140,14 +244,14 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-null-24-0"
+							"fake:arm32v7-null-2-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"amd64-null-25-23": {
-			"buildId": "amd64-null-25-23",
+		"amd64-null-2-1969-12-31T23:00:01Z": {
+			"buildId": "amd64-null-2-1969-12-31T23:00:01Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": null
@@ -156,14 +260,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-null-25-23"
+							"fake:amd64-null-2-1969-12-31T23:00:01Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-null-25-23": {
-			"buildId": "arm32v7-null-25-23",
+		"arm32v7-null-2-1969-12-31T23:00:01Z": {
+			"buildId": "arm32v7-null-2-1969-12-31T23:00:01Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": null
@@ -172,14 +276,14 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-null-25-23"
+							"fake:arm32v7-null-2-1969-12-31T23:00:01Z"
 						]
 					}
 				}
 			}
 		},
-		"amd64-null-25-24": {
-			"buildId": "amd64-null-25-24",
+		"amd64-null-2-1969-12-31T23:00:00Z": {
+			"buildId": "amd64-null-2-1969-12-31T23:00:00Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": null
@@ -188,14 +292,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-null-25-24"
+							"fake:amd64-null-2-1969-12-31T23:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-null-25-24": {
-			"buildId": "arm32v7-null-25-24",
+		"arm32v7-null-2-1969-12-31T23:00:00Z": {
+			"buildId": "arm32v7-null-2-1969-12-31T23:00:00Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": null
@@ -204,14 +308,430 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-null-25-24"
+							"fake:arm32v7-null-2-1969-12-31T23:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"amd64-{}-3-0": {
-			"buildId": "amd64-{}-3-0",
+		"amd64-null-3-1970-01-01T00:00:00Z": {
+			"buildId": "amd64-null-3-1970-01-01T00:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-3-1970-01-01T00:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-3-1970-01-01T00:00:00Z": {
+			"buildId": "arm32v7-null-3-1970-01-01T00:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-3-1970-01-01T00:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-3-1969-12-31T22:00:01Z": {
+			"buildId": "amd64-null-3-1969-12-31T22:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-3-1969-12-31T22:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-3-1969-12-31T22:00:01Z": {
+			"buildId": "arm32v7-null-3-1969-12-31T22:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-3-1969-12-31T22:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-3-1969-12-31T22:00:00Z": {
+			"buildId": "amd64-null-3-1969-12-31T22:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-3-1969-12-31T22:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-3-1969-12-31T22:00:00Z": {
+			"buildId": "arm32v7-null-3-1969-12-31T22:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-3-1969-12-31T22:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-4-1969-12-31T20:00:01Z": {
+			"buildId": "amd64-null-4-1969-12-31T20:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-4-1969-12-31T20:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-4-1969-12-31T20:00:01Z": {
+			"buildId": "arm32v7-null-4-1969-12-31T20:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-4-1969-12-31T20:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-4-1969-12-31T20:00:00Z": {
+			"buildId": "amd64-null-4-1969-12-31T20:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-4-1969-12-31T20:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-4-1969-12-31T20:00:00Z": {
+			"buildId": "arm32v7-null-4-1969-12-31T20:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-4-1969-12-31T20:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-5-1969-12-31T16:00:01Z": {
+			"buildId": "amd64-null-5-1969-12-31T16:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-5-1969-12-31T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-5-1969-12-31T16:00:01Z": {
+			"buildId": "arm32v7-null-5-1969-12-31T16:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-5-1969-12-31T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-5-1969-12-31T16:00:00Z": {
+			"buildId": "amd64-null-5-1969-12-31T16:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-5-1969-12-31T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-5-1969-12-31T16:00:00Z": {
+			"buildId": "arm32v7-null-5-1969-12-31T16:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-5-1969-12-31T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-6-1969-12-31T08:00:01Z": {
+			"buildId": "amd64-null-6-1969-12-31T08:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-6-1969-12-31T08:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-6-1969-12-31T08:00:01Z": {
+			"buildId": "arm32v7-null-6-1969-12-31T08:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-6-1969-12-31T08:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-6-1969-12-31T08:00:00Z": {
+			"buildId": "amd64-null-6-1969-12-31T08:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-6-1969-12-31T08:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-6-1969-12-31T08:00:00Z": {
+			"buildId": "arm32v7-null-6-1969-12-31T08:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-6-1969-12-31T08:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-7-1969-12-30T16:00:01Z": {
+			"buildId": "amd64-null-7-1969-12-30T16:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-7-1969-12-30T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-7-1969-12-30T16:00:01Z": {
+			"buildId": "arm32v7-null-7-1969-12-30T16:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-7-1969-12-30T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-7-1969-12-30T16:00:00Z": {
+			"buildId": "amd64-null-7-1969-12-30T16:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-7-1969-12-30T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-7-1969-12-30T16:00:00Z": {
+			"buildId": "arm32v7-null-7-1969-12-30T16:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-7-1969-12-30T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-8-1969-12-30T16:00:01Z": {
+			"buildId": "amd64-null-8-1969-12-30T16:00:01Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-8-1969-12-30T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-8-1969-12-30T16:00:01Z": {
+			"buildId": "arm32v7-null-8-1969-12-30T16:00:01Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-8-1969-12-30T16:00:01Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-null-8-1969-12-30T16:00:00Z": {
+			"buildId": "amd64-null-8-1969-12-30T16:00:00Z",
+			"build": {
+				"arch": "amd64",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"amd64": {
+						"tags": [
+							"fake:amd64-null-8-1969-12-30T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"arm32v7-null-8-1969-12-30T16:00:00Z": {
+			"buildId": "arm32v7-null-8-1969-12-30T16:00:00Z",
+			"build": {
+				"arch": "arm32v7",
+				"resolved": null
+			},
+			"source": {
+				"arches": {
+					"arm32v7": {
+						"tags": [
+							"fake:arm32v7-null-8-1969-12-30T16:00:00Z"
+						]
+					}
+				}
+			}
+		},
+		"amd64-{}-3-1970-01-01T00:00:00Z": {
+			"buildId": "amd64-{}-3-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "amd64",
 				"resolved": {}
@@ -220,14 +740,14 @@
 				"arches": {
 					"amd64": {
 						"tags": [
-							"fake:amd64-{}-3-0"
+							"fake:amd64-{}-3-1970-01-01T00:00:00Z"
 						]
 					}
 				}
 			}
 		},
-		"arm32v7-{}-3-0": {
-			"buildId": "arm32v7-{}-3-0",
+		"arm32v7-{}-3-1970-01-01T00:00:00Z": {
+			"buildId": "arm32v7-{}-3-1970-01-01T00:00:00Z",
 			"build": {
 				"arch": "arm32v7",
 				"resolved": {}
@@ -236,7 +756,7 @@
 				"arches": {
 					"arm32v7": {
 						"tags": [
-							"fake:arm32v7-{}-3-0"
+							"fake:arm32v7-{}-3-1970-01-01T00:00:00Z"
 						]
 					}
 				}

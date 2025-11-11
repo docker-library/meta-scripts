@@ -72,18 +72,34 @@ def get_arch_queue:
 ;
 
 # input: filtered "needs_build" build object list, like from get_arch_queue
-# output: simplified list of builds with record of (build/trigger) count and number of current skips
-def jobs_record($pastJobs):
+# output: simplified list of builds with record of build count and if this build should be skipped
+def jobs_record($pastJobs; $now):
 	map_values(
 		.identifier as $identifier
-		| $pastJobs[.buildId] // { count: 0, skips: 0 }
+		| $pastJobs[.buildId] // { count: 0, skip: false }
 		| .identifier = $identifier
-		# start skipping after 24 attempts, try once every 24 skips
-		| if .count >= 24 and .skips < 24 then
-			.skips += 1
+
+		| (
+			.count as $count
+			| [
+					0, # if we have only tried once or twice, we can try again with no delay
+					0,
+					1, # exponential backoff hours
+					2,
+					4,
+					8,
+					16,
+					32, # max backoff
+					empty
+			]
+			| .[[$count, (length - 1)] | min]
+		) as $interval
+		# skip if not enough time has elpased
+		| if $now < (.lastTime // $now) + ($interval * 60 * 60) then
+			.skip = true
 		else
 			# these ones shold be built
-			.skips = 0
+			.skip = false
 			| .count += 1
 		end
 	)
@@ -95,7 +111,7 @@ def jobs_record($pastJobs):
 def filter_skips_queue($newJobs):
 	map(
 		select(
-			$newJobs[.buildId].skips == 0
+			$newJobs[.buildId].skip | not
 		)
 	)
 	# this Jenkins job exports a JSON file that includes the number of attempts so far per failing buildId so that this can sort by attempts which means failing builds always live at the bottom of the queue (sorted by the number of times they have failed, so the most failing is always last)
