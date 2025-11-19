@@ -128,7 +128,10 @@ def waitQueueClosure(identifier, buildId, externalizableId) {
 
 // stage to wrap up all the build job triggers that get waited on later
 stage('trigger') {
+	def queueLength = queue.size()
+	def i = 0 // count of where in the triggering we are at
 	for (buildObj in queue) {
+		i += 1 // 1 of N ... N of N
 		if (buildObj.gha_payload) {
 			stage(buildObj.identifier) {
 				// "catchError" to set "stageResult" :(
@@ -169,6 +172,8 @@ stage('trigger') {
 			// "catchError" to set "stageResult" :(
 			catchError(message: 'Build of "' + buildObj.identifier + '" failed', buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
 
+				// print image name and position to help with large queues
+				echo("Triggering build $i of $queueLength: '$buildObj.identifier'")
 				// why not parallel these build() invocations?
 				// jenkins parallel closures get started in a randomish order, ruining our sorted queue
 				def res = build(
