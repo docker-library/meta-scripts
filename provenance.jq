@@ -1,3 +1,5 @@
+include "meta";
+
 # input: "build" object with platform and image digest
 #   $github: "github" context; CONTAINS SENSITIVE INFORMATION (https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#github-context)
 #   $runner: "runner" context; https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#runner-context
@@ -9,21 +11,7 @@ def github_actions_provenance($github; $runner; $digest):
 	if $github.event_name != "workflow_dispatch" then error("error: '\($github.event_name)' is not a supported event type for provenance generation") else
 		{
 			_type: "https://in-toto.io/Statement/v1",
-			subject: [
-				($digest | split(":")) as $splitDigest
-				| (.source.arches[.build.arch].platformString) as $platform
-				| (
-					.source.arches[.build.arch].tags[],
-					.source.arches[.build.arch].archTags[],
-					.build.img,
-					empty # trailing comma
-				)
-				| {
-					# https://github.com/package-url/purl-spec/blob/b33dda1cf4515efa8eabbbe8e9b140950805f845/PURL-TYPES.rst#docker (this matches what BuildKit generates as of 2024-09-18; "oci" would also be a reasonable choice, but would require signer and policy changes to support, and be more complex to generate accurately)
-					name: "pkg:docker/\(.)?platform=\($platform | @uri)",
-					digest: { ($splitDigest[0]): $splitDigest[1] },
-				}
-			],
+			subject: subjects($digest),
 			predicateType: "https://slsa.dev/provenance/v1",
 			predicate: {
 				buildDefinition: {
