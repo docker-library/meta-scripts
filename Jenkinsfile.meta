@@ -87,7 +87,7 @@ node('doi-meta') { // use the dedicated meta instance
 					doi="$(git -C .doi log -1 --format='format:%H')"
 					scripts="$(git -C .scripts log -1 --format='format:%H')"
 					export doi scripts
-					jq -n '{ doi: env.doi, scripts: env.scripts }' | tee commits.json
+					jq --null-input '{ doi: env.doi, scripts: env.scripts }' | tee commits.json
 					if [ -z "$needsBuild" ] && ! git diff --exit-code commits.json; then
 						needsBuild=1
 					fi

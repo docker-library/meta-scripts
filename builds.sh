@@ -23,4 +23,4 @@ if ( cd "$dir" && ./.any-go-nt.sh "$bin" ); then
 fi
 [ -x "$bin" ]
 
-"$bin" "$@" | jq .
+"$bin" "$@" | jq --tab .

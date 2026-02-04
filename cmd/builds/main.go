@@ -243,7 +243,7 @@ func main() {
 
 	go func() {
 		// Go does not have ordered maps *and* is complicated to read an object, make a tiny modification, write it back out (without modelling the entire schema), so we'll let a single invocation of jq solve both problems (munging the documents in the way we expect *and* giving us an in-order stream)
-		jq := exec.Command("jq", "-c", ".[] | (.arches | to_entries[]) as $arch | .arches = { ($arch.key): $arch.value }", sourcesJsonFile)
+		jq := exec.Command("jq", "--compact-output", ".[] | (.arches | to_entries[]) as $arch | .arches = { ($arch.key): $arch.value }", sourcesJsonFile)
 		jq.Stderr = os.Stderr
 
 		stdout, err := jq.StdoutPipe()

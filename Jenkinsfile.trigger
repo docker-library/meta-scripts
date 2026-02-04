@@ -55,7 +55,7 @@ node {
 				; then
 					echo '{}' > past-jobs.json
 				fi
-				jq -c -L.scripts --slurpfile pastJobs past-jobs.json '
+				jq --compact-output -L.scripts --slurpfile pastJobs past-jobs.json '
 					include "jenkins";
 					get_arch_queue
 					| jobs_record($pastJobs[0]; now) as $newJobs

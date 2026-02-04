@@ -32,7 +32,7 @@ set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,gl
 time bashbrew fetch "$@"
 
 # generate sources, but remove the first item so we can test cache with some missing
-time "$dir/../sources.sh" "$@" | jq 'del(first(.[]))' > "$dir/sources-cache.json"
+time "$dir/../sources.sh" "$@" | jq --tab 'del(first(.[]))' > "$dir/sources-cache.json"
 # again but with cache
 time "$dir/../sources.sh" --cache-file "$dir/sources-cache.json" "$@" > "$dir/sources-doi.json"
 
@@ -42,13 +42,13 @@ bashbrew fetch infosiftr-moby
 # again but with cache
 ( BASHBREW_ARCH_NAMESPACES= "$dir/../sources.sh" --cache-file="$dir/sources-cache.json" infosiftr-moby > "$dir/sources-moby.json" )
 # technically, this *also* needs BASHBREW_STAGING_TEMPLATE='tianon/zz-staging:ARCH-BUILD', but that's a "builds.sh" flag and separating that would complicate including this even more, so Tianon has run the following one-liner to "inject" those builds as if they lived in 'oisupport/staging-ARCH:BUILD' instead:
-#   jq -r '[ .[] | select(any(.source.arches[].tags[]; startswith("infosiftr-moby:"))) | "tianon/zz-staging:\(.build.arch)-\(.buildId)" as $tianon | @sh "../bin/lookup \($tianon) | jq --arg img \(.build.img) \("{ indexes: { ($img): . } }")" ] | "{ " + join(" && ") + @sh " && cat cache-builds.json; } | jq -s --tab \("reduce .[] as $i ({ indexes: { } }; .indexes += $i.indexes)") > cache-builds.json.new && mv cache-builds.json.new cache-builds.json"' builds.json | bash -Eeuo pipefail -x
+#   jq --raw-output '[ .[] | select(any(.source.arches[].tags[]; startswith("infosiftr-moby:"))) | "tianon/zz-staging:\(.build.arch)-\(.buildId)" as $tianon | @sh "../bin/lookup \($tianon) | jq --arg img \(.build.img) \("{ indexes: { ($img): . } }")" ] | "{ " + join(" && ") + @sh " && cat cache-builds.json; } | jq --slurp --tab \("reduce .[] as $i ({ indexes: { } }; .indexes += $i.indexes)") > cache-builds.json.new && mv cache-builds.json.new cache-builds.json"' builds.json | bash -Eeuo pipefail -x
 # (and then re-run the tests to canonicalize the file ordering)
-jq -s 'add' "$dir/sources-doi.json" "$dir/sources-moby.json" > "$dir/sources.json"
+jq --tab --slurp 'add' "$dir/sources-doi.json" "$dir/sources-moby.json" > "$dir/sources.json"
 rm -f "$dir/sources-doi.json" "$dir/sources-moby.json" "$dir/sources-cache.json"
 
 # an attempt to highlight tag mapping bugs in the future
-jq '
+jq --tab '
 	to_entries
 	| map(
 		# emulate builds.json (poorly)
@@ -111,7 +111,7 @@ lookup=(
 	--head "tianon/this-is-a-repository-that-will-never-ever-exist-$RANDOM-$RANDOM:$RANDOM-$RANDOM"
 	'tianon/test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 )
-"$coverage/bin/lookup" "${lookup[@]}" | jq -s '
+"$coverage/bin/lookup" "${lookup[@]}" | jq --tab --slurp '
 	[
 		reduce (
 			$ARGS.positional[]
@@ -151,7 +151,7 @@ if [ -n "$doDeploy" ]; then
 		sleep 1
 	done
 
-	json="$(jq -n --arg reg "localhost:$registryPort" '
+	json="$(jq --null-input --arg reg "localhost:$registryPort" '
 		# explicit base64 data blob
 		{
 			type: "blob",
