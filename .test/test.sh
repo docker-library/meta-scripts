@@ -162,7 +162,7 @@ if [ -n "$doDeploy" ]; then
 		# JSON data blob
 		{
 			type: "blob",
-			refs: [$reg+"/test@sha256:bdc1ce731138e680ada95089dded3015b8e1570d9a70216867a2a29801a747b3"],
+			refs: [$reg+"/test@sha256:99b2daa0ab651a28400c9fbba7152fd281cc9a71e1b726bdf070ffa5d1387383"],
 			data: { foo: "bar", baz: [ "buzz", "buzz", "buzz" ] },
 		},
 
