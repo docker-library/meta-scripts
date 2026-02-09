@@ -213,7 +213,7 @@ node {
 				sh '''#!/usr/bin/env bash
 					set -Eeuo pipefail -x
 
-					jq <<<"$currentJobsJson" '
+					jq <<<"$currentJobsJson" --tab '
 						# merge the two objects recursively, preferring data from "buildCompletionDataJson"
 						. * ( env.buildCompletionDataJson | fromjson )
 						# save firstTime if it is not set yet

@@ -61,7 +61,7 @@ node('put-shared') { ansiColor('xterm') {
 			sh '''#!/usr/bin/env bash
 				set -Eeuo pipefail -x
 
-				jq -L.scripts '
+				jq -L.scripts --tab '
 					include "deploy";
 					arch_tagged_manifests(env.BASHBREW_ARCH)
 					| deploy_objects[]
@@ -74,7 +74,7 @@ node('put-shared') { ansiColor('xterm') {
 				wget --timeout=5 -qO past-deploy.json "$JOB_URL/lastSuccessfulBuild/artifact/deploy.json"
 				# swap to this touch instead of the wget above to (re)bootstrap
 				#touch past-deploy.json
-				jq --slurpfile past ./past-deploy.json 'select( IN($past[]) | not )' ./deploy.json > filtered-deploy.json
+				jq --tab --slurpfile past ./past-deploy.json 'select( IN($past[]) | not )' ./deploy.json > filtered-deploy.json
 			'''
 		}
 		stage('Archive') {
