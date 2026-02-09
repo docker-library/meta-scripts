@@ -15,20 +15,20 @@ for t in "$dir/"*"/test.jq"; do
 	basename "$td"
 	args=( --tab -L "$dir/.." )
 	if [ -s "$td/in.jq" ]; then
-		jq "${args[@]}" -n -f "$td/in.jq" > "$td/in.json"
+		jq "${args[@]}" --null-input --from-file "$td/in.jq" > "$td/in.json"
 	fi
 	args+=( -f "$t" )
 	if [ -s "$td/in.json" ]; then
 		args+=( "$td/in.json" )
 	else
-		args+=( -n )
+		args+=( --null-input )
 	fi
 	out="$td/out.json"
 	outs=( "$td/out."* )
 	if [ "${#outs[@]}" -eq 1 ]; then
 		out="${outs[0]}"
 		if [[ "$out" != *.json ]]; then
-			args+=( -r )
+			args+=( --raw-output )
 		fi
 	fi
 	jq "${args[@]}" > "$out"

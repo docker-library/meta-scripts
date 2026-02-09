@@ -51,7 +51,7 @@ externalPinsJson='{}'
 for tag in $externalPins; do
 	f="$("$externalPinsDir/file.sh" "$tag")"
 	digest="$(< "$f")"
-	externalPinsJson="$(jq <<<"$externalPinsJson" -c --arg tag "${tag#library/}" --arg digest "$digest" '.[$tag] = $digest')"
+	externalPinsJson="$(jq <<<"$externalPinsJson" --compact-output --arg tag "${tag#library/}" --arg digest "$digest" '.[$tag] = $digest')"
 done
 
 bashbrew_cat() {
@@ -103,7 +103,7 @@ bashbrew_cat() {
 		{{- end -}}
 	' "$@" )
 	if [ -n "$HEAVY_CALC" ]; then
-		HEAVY_CALC="$HEAVY_CALC" "${bbCat[@]}" | jq 3>&1 1>&2 2>&3- -r '
+		HEAVY_CALC="$HEAVY_CALC" "${bbCat[@]}" | jq 3>&1 1>&2 2>&3- --raw-output '
 			# https://github.com/jqlang/jq/issues/2063 - "stderr" cannot functionally output a string correctly until jq 1.7+ (which is very very recent), so we hack around it to get some progress output by using Bash to swap stdout and stderr so we can output our objects to stderr and our progress text to stdout and "fix it in post"
 			# TODO balk / error at multiple arches entries
 			first(.arches | keys_unsorted[]) as $arch
@@ -111,9 +111,9 @@ bashbrew_cat() {
 			| stderr
 			| "\($tag) (\($arch)): \(.sourceId)"
 			# TODO if we could get jq 1.7+ for sure, we can drop this entire "jq" invocation and instead have the reduce loop of the following invocation print status strings directly to "stderr"
-		' | jq -n '[ inputs ]'
+		' | jq --null-input --tab '[ inputs ]'
 	else
-		"${bbCat[@]}" | jq -n '[ inputs ]'
+		"${bbCat[@]}" | jq --null-input --tab '[ inputs ]'
 	fi
 }
 
@@ -122,7 +122,7 @@ bashbrew_cat() {
 #  (sourceId, reproducibleGitChecksum, SOURCE_DATE_EPOCH, froms, lastStageFrom)
 # echo '[{}, {},...] [{extraData},...]' | mergeData
 mergeData() {
-	jq --slurp '
+	jq --tab --slurp '
 		def mostlyUniqueBitsSum($arch):
 			{
 				GitCommit,
@@ -194,7 +194,7 @@ sources=
 if [ -s "$cacheFile" ]; then
 	sources="$({ bashbrew_cat "$@"; cat "$cacheFile"; } | mergeData)"
 	heavy="$(
-		jq <<<"$sources" -r '
+		jq <<<"$sources" --raw-output '
 			map(
 				select(any( ..; type == "null" or (type == "array" and length == 0) ))
 				| first(.arches[].tags[])
@@ -214,7 +214,7 @@ else
 	sources="$(bashbrew_cat --do-heavy "$@")"
 fi
 
-jq <<<"$sources" --argjson pins "$externalPinsJson" '
+jq <<<"$sources" --tab --argjson pins "$externalPinsJson" '
 	def unique_unsorted:
 		# https://unix.stackexchange.com/a/738744/153467
 		reduce .[] as $a ([]; if IN(.[]; $a) then . else . += [$a] end)

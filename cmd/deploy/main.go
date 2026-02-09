@@ -48,7 +48,7 @@ func main() {
 	// see "input.go" and "inputRaw" for details on the expected JSON input format
 
 	// we pass through "jq" to pretty-print any JSON-form data fields with sane whitespace
-	jq := exec.Command("jq", "del(.data), .data")
+	jq := exec.Command("jq", "--tab", "del(.data), .data")
 	jq.Stdin = os.Stdin
 	jq.Stderr = os.Stderr
 

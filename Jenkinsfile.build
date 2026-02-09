@@ -100,7 +100,7 @@ node(nodeExpression) { ansiColor('xterm') {
 			obj = sh(returnStdout: true, script: '''
 				[ -n "$BUILD_ID" ]
 				shell="$(
-					jq -L"$BASHBREW_META_SCRIPTS" -r '
+					jq -L"$BASHBREW_META_SCRIPTS" --raw-output '
 						include "meta";
 						.[env.BUILD_ID]
 						| select(needs_build and .build.arch == env.BASHBREW_ARCH) # sanity check
