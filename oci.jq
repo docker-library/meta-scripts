@@ -250,11 +250,28 @@ def validate_oci_subject_haver:
 	else . end
 ;
 
+# Some objects have .mediaType fields which SHOULD NOT be unset but are still
+# valid if they are missing, so we should emit a warning if they are unset but
+# do not error out.
+# usage: same as validate_IN(.mediaType; options).
+# https://github.com/opencontainers/image-spec/security/advisories/GHSA-77vh-xpmg-72qh (CVE-2021-41190)
+# https://github.com/opencontainers/image-spec/blob/v1.1.1/manifest.md
+# https://github.com/opencontainers/image-spec/blob/v1.1.1/image-index.md
+def validate_optional_mediatype(options):
+	if has("mediaType") then
+		validate_IN(.mediaType; options)
+	else [
+		# Output a warning message.
+		("warning: top-level mediaType field is missing from object (see CVE-2021-41190)\nexpected one of:\n\t\([ options | tojson ] | join("\n\t"))\n" | stderr | empty),
+		.
+	] | last end
+;
+
 # https://github.com/opencontainers/image-spec/blob/v1.1.1/image-index.md
 def validate_oci_index($opt):
 	validate_IN(type; "object")
 	| validate_IN(.schemaVersion; 2)
-	| validate_IN(.mediaType; media_types_index)
+	| validate_optional_mediatype(media_types_index)
 	| if has("artifactType") then
 		validate(.artifactType; type == "string")
 		| validate_IN(.artifactType; null) # TODO acceptable values? (this check intentionally contradicts the one above so artifactType generates an error)
@@ -296,7 +313,7 @@ def validate_oci_index: validate_oci_index({});
 def validate_oci_image($opt):
 	validate_IN(type; "object")
 	| validate_IN(.schemaVersion; 2)
-	| validate_IN(.mediaType; media_types_image)
+	| validate_optional_mediatype(media_types_image)
 	| if has("artifactType") then
 		validate(.artifactType; type == "string")
 		| validate_IN(.artifactType;
