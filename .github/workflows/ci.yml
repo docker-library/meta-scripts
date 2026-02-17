@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install Bashbrew
         run: |
           # not doing "uses: docker-library/bashbrew@xxx" because it'll build which is slow and we don't need more than just bashbrew here
@@ -29,7 +30,22 @@ jobs:
           chmod +x .bin/bashbrew
           .bin/bashbrew --version
           echo "$PWD/.bin" >> "$GITHUB_PATH"
+
+      # deal with Docker's API version nonsense (the whole entire point of API versioning is avoiding breaking changes, so it's rich and ironic for the prior "LTS" version to have breaking changes from this change)
+      # https://www.docker.com/blog/docker-engine-version-29/
+      - run: |
+          sudo mkdir -p /etc/systemd/system/docker.service.d
+          sudo tee /etc/systemd/system/docker.service.d/minimum-api-version.conf <<-'EOF'
+          [Service]
+          Environment=DOCKER_MIN_API_VERSION=1.42
+          # API version 1.42 is Docker 23.x
+          EOF
+          sudo systemctl daemon-reload
+          sudo systemctl restart docker.service
+          docker version
+
       - run: .test/test.sh --deploy
+
       - uses: actions/upload-artifact@v4
         with:
           name: coverage
@@ -38,7 +54,10 @@ jobs:
             .test/.coverage/GOCOVERDIR/
           include-hidden-files: true
           if-no-files-found: error
+
       - name: gofmt
         run: find -name '*.go' -type f -exec ./.go-env.sh gofmt -l -s -w '{}' +
+
       - run: git diff --exit-code
+
       # TODO download latest coverage artifacts from HEAD / PR target to emulate Codecov but without another flaky third-party service that's begging for write-access to all our repositories via a GitHub App? 👀
