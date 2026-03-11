@@ -46,12 +46,28 @@ jobs:
 
       - run: .test/test.sh --deploy
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
-          name: coverage
+          name: coverage-bundle
           path: |
             .test/.coverage/coverage.*
             .test/.coverage/GOCOVERDIR/
+          include-hidden-files: true
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage.html
+          archive: false
+          path: .test/.coverage/coverage.html
+          include-hidden-files: true
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage.txt
+          archive: false
+          path: .test/.coverage/coverage.txt
           include-hidden-files: true
           if-no-files-found: error
 
