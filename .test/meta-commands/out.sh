@@ -44,6 +44,21 @@ jq '
 ' temp/index.json > temp/index.json.new
 mv temp/index.json.new temp/index.json
 # </build>
+# <sbom_scan>
+docker create --name img oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43@sha256:0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401
+docker export img > img.tar
+mkdir img
+mkdir sbom
+tar -xf img.tar -C img/
+docker run \
+	-u root \
+	--mount type=bind,source="$(pwd)/img",target=/run/src/core/sbom,readonly \
+	-v ./sbom:/out \
+	-e BUILDKIT_SCAN_SOURCE=/run/src/core/sbom \
+	-e BUILDKIT_SCAN_DESTINATION=/out \
+	$BASHBREW_BUILDKIT_SBOM_GENERATOR
+jq '.subject |= [{"name":"pkg:docker/docker:24.0.7-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/docker:24.0-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/docker:24-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/docker:cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/docker:24.0.7-cli-alpine3.18?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/amd64/docker:24.0.7-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/amd64/docker:24.0-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/amd64/docker:24-cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/amd64/docker:cli?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/amd64/docker:24.0.7-cli-alpine3.18?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}},{"name":"pkg:docker/oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43?platform=linux%2Famd64","digest":{"sha256":"0432a4d379794811b4a2e01d0d3e67a9bcf95d6c2bf71545f03bce3f1d60f401"}}]' sbom/sbom.spdx.json > sbom.json
+# </sbom_scan>
 # <push>
 crane push temp 'oisupport/staging-amd64:4b199ac326c74b3058a147e14f553af9e8e1659abc29bd3e82c9c9807b66ee43'
 rm -rf temp
@@ -78,6 +93,21 @@ DOCKER_BUILDKIT=0 \
 	--file 'Dockerfile' \
 	'https://github.com/docker-library/docker.git#6d541d27b5dd12639e5a33a675ebca04d3837d74:24/windows/windowsservercore-ltsc2022'
 # </build>
+# <sbom_scan>
+docker create --name img oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e@sha256:69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce
+docker export img > img.tar
+mkdir img
+mkdir sbom
+tar -xf img.tar -C img/
+docker run \
+	-u root \
+	--mount type=bind,source="$(pwd)/img",target=/run/src/core/sbom,readonly \
+	-v ./sbom:/out \
+	-e BUILDKIT_SCAN_SOURCE=/run/src/core/sbom \
+	-e BUILDKIT_SCAN_DESTINATION=/out \
+	$BASHBREW_BUILDKIT_SBOM_GENERATOR
+jq '.subject |= [{"name":"pkg:docker/docker:24.0.7-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:24.0-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:24-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:24.0.7-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:24.0-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:24-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/docker:windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24.0.7-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24.0-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24-windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:windowsservercore-ltsc2022?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24.0.7-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24.0-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:24-windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/winamd64/docker:windowsservercore?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}},{"name":"pkg:docker/oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e?platform=windows%2Famd64","digest":{"sha256":"69aba7120e3f4014bfa80f4eae2cfc9698dcb6b8a5d64daf06de4039a19846ce"}}]' sbom/sbom.spdx.json > sbom.json
+# </sbom_scan>
 # <push>
 docker push 'oisupport/staging-windows-amd64:9b405cfa5b88ba65121aabdb95ae90fd2e1fee7582174de82ae861613ae3072e'
 # </push>
@@ -94,6 +124,21 @@ mv temp temp.orig
 "$BASHBREW_META_SCRIPTS/helpers/oci-sbom.sh" <<<"$build" temp.orig temp
 rm -rf temp.orig
 # </build>
+# <sbom_scan>
+docker create --name img oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f@sha256:4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0
+docker export img > img.tar
+mkdir img
+mkdir sbom
+tar -xf img.tar -C img/
+docker run \
+	-u root \
+	--mount type=bind,source="$(pwd)/img",target=/run/src/core/sbom,readonly \
+	-v ./sbom:/out \
+	-e BUILDKIT_SCAN_SOURCE=/run/src/core/sbom \
+	-e BUILDKIT_SCAN_DESTINATION=/out \
+	$BASHBREW_BUILDKIT_SBOM_GENERATOR
+jq '.subject |= [{"name":"pkg:docker/busybox:1.36.1?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:1.36?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:1?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:stable?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:latest?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:1.36.1-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:1.36-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:1-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:stable-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/busybox:glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1.36.1?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1.36?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:stable?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:latest?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1.36.1-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1.36-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:1-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:stable-glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/amd64/busybox:glibc?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}},{"name":"pkg:docker/oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f?platform=linux%2Famd64","digest":{"sha256":"4be429a5fbb2e71ae7958bfa558bc637cf3a61baf40a708cb8fff532b39e52d0"}}]' sbom/sbom.spdx.json > sbom.json
+# </sbom_scan>
 # <push>
 crane push temp 'oisupport/staging-amd64:191402ad0feacf03daf9d52a492207e73ef08b0bd17265043aea13aa27e2bb3f'
 rm -rf temp
