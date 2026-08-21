@@ -25,7 +25,7 @@ if [ "${1:-}" = '--deploy' ]; then
 	doDeploy=1
 fi
 
-set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,glibc,musl,uclibc} # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import (and a little bit of cursed busybox)
+set -- docker:cli docker:dind docker:windowsservercore notary busybox:{latest,glibc,musl,uclibc} buildkit # a little bit of Windows, a little bit of Linux, a little bit of multi-stage, a little bit of oci-import (and a little bit of cursed busybox), a little bit of cross-building
 # (see "library/" and ".external-pins/" for where these come from / are hard-coded for consistent testing purposes)
 # NOTE: we are explicitly *not* pinning "golang:1.19-alpine3.16" so that this also tests unpinned parent behavior (that image is deprecated so should stay unchanging)
 

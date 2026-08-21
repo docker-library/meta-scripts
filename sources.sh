@@ -90,11 +90,12 @@ bashbrew_cat() {
 							{{ $a | json }}: {
 								"tags": {{ $.Tags namespace false . | json }},
 								"archTags": {{ if $archNs -}} {{ $.Tags $archNs false . | json }} {{- else -}} [] {{- end }},
-								"froms": {{ if getenv "HEAVY_CALC" -}} {{ $.ArchDockerFroms $a . | json }} {{- else -}} [] {{- end }},
-								"lastStageFrom": {{ if getenv "HEAVY_CALC" -}} {{ $.ArchLastStageFrom $a . | json }} {{- else -}} null {{- end }},
+								"dockerfileParents": {{ if getenv "HEAVY_CALC" -}} {{ $.ArchDockerfileParents $a . | json }} {{- else -}} [] {{- end }},
 								"platformString": {{ (ociPlatform $a).String | json }},
 								"platform": {{ ociPlatform $a | json }},
-								"parents": { }
+								"parents": [ ],
+								"hostArch": null,
+								"crossHostArches": null
 							}
 						}
 					}
@@ -119,7 +120,7 @@ bashbrew_cat() {
 
 # merges heavy-to-calculate data from the second json input (list or map of sources) into the first json input (list of sources)
 # uses "mostlyUniqueBitsSum" as a rough analogue for sourceId to correlate data between the input lists
-#  (sourceId, reproducibleGitChecksum, SOURCE_DATE_EPOCH, froms, lastStageFrom)
+#  (sourceId, reproducibleGitChecksum, SOURCE_DATE_EPOCH, dockerfileParents)
 # echo '[{}, {},...] [{extraData},...]' | mergeData
 mergeData() {
 	jq --tab --slurp '
@@ -130,7 +131,7 @@ mergeData() {
 				File,
 				Builder,
 
-				# "sourceId" normally does not include arch, but we have to because of the complexity below in needing to match/extract "froms" and "lastStageFrom" correctly since one or both sides of the `mergeData` input is always the uncombined version and we will otherwise lose/clobber data if our fake sourceId is not as granular as our input data
+				# "sourceId" normally does not include arch, but we have to because of the complexity below in needing to match/extract "dockerfileParents" correctly since one or both sides of the `mergeData` input is always the uncombined version and we will otherwise lose/clobber data if our fake sourceId is not as granular as our input data
 				$arch,
 			} | @json
 		;
@@ -175,8 +176,7 @@ mergeData() {
 					reproducibleGitChecksum,
 					arches: {
 						($arch): {
-							froms: .arches[$arch].froms,
-							lastStageFrom: .arches[$arch].lastStageFrom,
+							dockerfileParents: .arches[$arch].dockerfileParents,
 						},
 					},
 				}
@@ -292,18 +292,46 @@ jq <<<"$sources" --tab --argjson pins "$externalPinsJson" '
 		.arches |= with_entries(
 			.key as $arch
 			| .value.parents = (
-				.value.froms | unique_unsorted | map(
-					{ (.): {
+				.value.dockerfileParents | map(
+					. + {
 						sourceId: (
-							. as $tag
-							| $tagArches[.][$arch]
+							$tagArches[.From][$arch]
 							| if length > 1 then
-								error("too many sourceIds for \($tag) on \($arch): \(.)")
+								error("too many sourceIds for \(.From) on \($arch): \(.)")
 							else .[0] end
 						),
-						pin: $pins[.],
-					} }
-				) | add
+						pin: $pins[.From],
+					}
+				)
+			)
+			| ([ .value.parents[] | select(.Kind == "FROM" and .Platform == "$BUILDPLATFORM") ]) as $buildPinned
+			| .value.crossHostArches = (
+				# null: no $BUILDPLATFORM parents at all, or at least one is not bashbrew-tracked (needs a live registry check, left to cmd/builds)
+				# []: every $BUILDPLATFORM parent *is* tracked but they share no common declared arch -- a real, structural problem, not something a live check would ever fix
+				# otherwise: the actual joint intersection of declared architectures
+				if ($buildPinned | length) == 0 then
+					null
+				else
+					[ $buildPinned[] | ($tagArches[.From] | if . then keys else null end) ] as $declaredSets
+					| if any($declaredSets[]; . == null) then
+						null
+					else
+						reduce $declaredSets[] as $set (null;
+							if . == null then $set else map(select(IN(.; $set[]))) end
+						)
+					end
+				end
+			)
+			# hostArch: $arch itself if there are no $BUILDPLATFORM parents (native trivially *is* the host), or null if crossHostArches could not be computed or came back empty -- keeping "null" exclusive to "cmd/builds has more to do, or this can never work" makes it a precise, filterable signal instead of also meaning "not applicable"
+			| .value.hostArch = (
+				.value.crossHostArches
+				| if ($buildPinned | length) == 0 then $arch
+				elif . == null then null
+				elif index($arch) then $arch
+				elif index("amd64") then "amd64"
+				elif length > 0 then sort[0]
+				else null
+				end
 			)
 		)
 	)

@@ -1,3 +1,4 @@
+include "doi";
 include "meta";
 
 first(.[] | select(normalized_builder == "oci-import"))

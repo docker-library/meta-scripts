@@ -104,21 +104,27 @@
 						"amd64/docker:cli",
 						"amd64/docker:24.0.7-cli-alpine3.18"
 					],
-					"froms": [
-						"alpine:3.18"
+					"dockerfileParents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.18",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"alpine:3.18": {
+					"parents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -211,22 +217,28 @@
 						"arm32v6/docker:cli",
 						"arm32v6/docker:24.0.7-cli-alpine3.18"
 					],
-					"froms": [
-						"alpine:3.18"
+					"dockerfileParents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.18",
 					"platformString": "linux/arm/v6",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v6"
 					},
-					"parents": {
-						"alpine:3.18": {
+					"parents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
 						}
-					}
+					],
+					"hostArch": "arm32v6",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -338,22 +350,28 @@
 						"arm32v7/docker:cli",
 						"arm32v7/docker:24.0.7-cli-alpine3.18"
 					],
-					"froms": [
-						"alpine:3.18"
+					"dockerfileParents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.18",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"alpine:3.18": {
+					"parents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -465,22 +483,28 @@
 						"arm64v8/docker:cli",
 						"arm64v8/docker:24.0.7-cli-alpine3.18"
 					],
-					"froms": [
-						"alpine:3.18"
+					"dockerfileParents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.18",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"alpine:3.18": {
+					"parents": [
+						{
+							"From": "alpine:3.18",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0"
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -619,21 +643,27 @@
 						"amd64/docker:latest",
 						"amd64/docker:24.0.7-alpine3.18"
 					],
-					"froms": [
-						"docker:24-cli"
+					"dockerfileParents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "docker:24-cli",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"docker:24-cli": {
+					"parents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM",
 							"sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -736,22 +766,28 @@
 						"arm32v6/docker:latest",
 						"arm32v6/docker:24.0.7-alpine3.18"
 					],
-					"froms": [
-						"docker:24-cli"
+					"dockerfileParents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "docker:24-cli",
 					"platformString": "linux/arm/v6",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v6"
 					},
-					"parents": {
-						"docker:24-cli": {
+					"parents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM",
 							"sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v6",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -892,22 +928,28 @@
 						"arm32v7/docker:latest",
 						"arm32v7/docker:24.0.7-alpine3.18"
 					],
-					"froms": [
-						"docker:24-cli"
+					"dockerfileParents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "docker:24-cli",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"docker:24-cli": {
+					"parents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM",
 							"sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1048,22 +1090,28 @@
 						"arm64v8/docker:latest",
 						"arm64v8/docker:24.0.7-alpine3.18"
 					],
-					"froms": [
-						"docker:24-cli"
+					"dockerfileParents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "docker:24-cli",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"docker:24-cli": {
+					"parents": [
+						{
+							"From": "docker:24-cli",
+							"Kind": "FROM",
 							"sourceId": "76d7d7d66aeb62eb797c8475407e6cd2b6ad262957a622035f81fb93e532b36b",
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1165,21 +1213,27 @@
 						"winamd64/docker:24-windowsservercore",
 						"winamd64/docker:windowsservercore"
 					],
-					"froms": [
-						"mcr.microsoft.com/windows/servercore:ltsc2022"
+					"dockerfileParents": [
+						{
+							"From": "mcr.microsoft.com/windows/servercore:ltsc2022",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "mcr.microsoft.com/windows/servercore:ltsc2022",
 					"platformString": "windows/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "windows"
 					},
-					"parents": {
-						"mcr.microsoft.com/windows/servercore:ltsc2022": {
+					"parents": [
+						{
+							"From": "mcr.microsoft.com/windows/servercore:ltsc2022",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:308ef3f8ee3e9c9a1bdec460009c1e6394b329db13eb3149461f8841be5b538a"
 						}
-					}
+					],
+					"hostArch": "windows-amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1281,21 +1335,27 @@
 						"winamd64/docker:24-windowsservercore",
 						"winamd64/docker:windowsservercore"
 					],
-					"froms": [
-						"mcr.microsoft.com/windows/servercore:1809"
+					"dockerfileParents": [
+						{
+							"From": "mcr.microsoft.com/windows/servercore:1809",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "mcr.microsoft.com/windows/servercore:1809",
 					"platformString": "windows/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "windows"
 					},
-					"parents": {
-						"mcr.microsoft.com/windows/servercore:1809": {
+					"parents": [
+						{
+							"From": "mcr.microsoft.com/windows/servercore:1809",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:4fe58f25a157ea749c7b770acebfdbd70c3cb2088c446943e90fe89ea059558b"
 						}
-					}
+					],
+					"hostArch": "windows-amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1422,27 +1482,37 @@
 						"amd64/notary:server-0.7.0",
 						"amd64/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1553,28 +1623,38 @@
 						"arm32v6/notary:server-0.7.0",
 						"arm32v6/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/arm/v6",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v6"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "arm32v6",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1704,28 +1784,38 @@
 						"arm64v8/notary:server-0.7.0",
 						"arm64v8/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1852,27 +1942,37 @@
 						"i386/notary:server-0.7.0",
 						"i386/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -1999,27 +2099,37 @@
 						"ppc64le/notary:server-0.7.0",
 						"ppc64le/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/ppc64le",
 					"platform": {
 						"architecture": "ppc64le",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "ppc64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2146,27 +2256,37 @@
 						"s390x/notary:server-0.7.0",
 						"s390x/notary:server"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/s390x",
 					"platform": {
 						"architecture": "s390x",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "s390x",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2293,27 +2413,37 @@
 						"amd64/notary:signer-0.7.0",
 						"amd64/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2424,28 +2554,38 @@
 						"arm32v6/notary:signer-0.7.0",
 						"arm32v6/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/arm/v6",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v6"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "arm32v6",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2575,28 +2715,38 @@
 						"arm64v8/notary:signer-0.7.0",
 						"arm64v8/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2723,27 +2873,37 @@
 						"i386/notary:signer-0.7.0",
 						"i386/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -2870,27 +3030,37 @@
 						"ppc64le/notary:signer-0.7.0",
 						"ppc64le/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/ppc64le",
 					"platform": {
 						"architecture": "ppc64le",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "ppc64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3017,27 +3187,37 @@
 						"s390x/notary:signer-0.7.0",
 						"s390x/notary:signer"
 					],
-					"froms": [
-						"golang:1.19-alpine3.16",
-						"alpine:3.16",
-						"golang:1.19-alpine3.16"
+					"dockerfileParents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM"
+						},
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "alpine:3.16",
 					"platformString": "linux/s390x",
 					"platform": {
 						"architecture": "s390x",
 						"os": "linux"
 					},
-					"parents": {
-						"golang:1.19-alpine3.16": {
+					"parents": [
+						{
+							"From": "golang:1.19-alpine3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						},
-						"alpine:3.16": {
+						{
+							"From": "alpine:3.16",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:e4cdb7d47b06ba0a062ad2a97a7d154967c8f83934594d9f2bd3efa89292996b"
 						}
-					}
+					],
+					"hostArch": "s390x",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3119,21 +3299,27 @@
 						"amd64/busybox:stable-glibc",
 						"amd64/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3216,22 +3402,28 @@
 						"arm32v5/busybox:stable-glibc",
 						"arm32v5/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v5",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v5"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v5",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3314,22 +3506,28 @@
 						"arm32v6/busybox:stable-musl",
 						"arm32v6/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v6",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v6"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v6",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3412,22 +3610,28 @@
 						"arm32v7/busybox:stable-glibc",
 						"arm32v7/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3510,22 +3714,28 @@
 						"arm64v8/busybox:stable-glibc",
 						"arm64v8/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3607,21 +3817,27 @@
 						"i386/busybox:stable-glibc",
 						"i386/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3703,21 +3919,27 @@
 						"mips64le/busybox:stable-glibc",
 						"mips64le/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/mips64le",
 					"platform": {
 						"architecture": "mips64le",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "mips64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3799,21 +4021,27 @@
 						"ppc64le/busybox:stable-glibc",
 						"ppc64le/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/ppc64le",
 					"platform": {
 						"architecture": "ppc64le",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "ppc64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3895,21 +4123,27 @@
 						"riscv64/busybox:stable-uclibc",
 						"riscv64/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/riscv64",
 					"platform": {
 						"architecture": "riscv64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "riscv64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -3991,21 +4225,27 @@
 						"s390x/busybox:stable-glibc",
 						"s390x/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/s390x",
 					"platform": {
 						"architecture": "s390x",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "s390x",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4077,21 +4317,27 @@
 						"riscv64/busybox:stable-glibc",
 						"riscv64/busybox:glibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/riscv64",
 					"platform": {
 						"architecture": "riscv64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "riscv64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4163,21 +4409,27 @@
 						"amd64/busybox:stable-musl",
 						"amd64/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4250,22 +4502,28 @@
 						"arm32v7/busybox:stable-musl",
 						"arm32v7/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4338,22 +4596,28 @@
 						"arm64v8/busybox:stable-musl",
 						"arm64v8/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4425,21 +4689,27 @@
 						"i386/busybox:stable-musl",
 						"i386/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4511,21 +4781,27 @@
 						"ppc64le/busybox:stable-musl",
 						"ppc64le/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/ppc64le",
 					"platform": {
 						"architecture": "ppc64le",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "ppc64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4597,21 +4873,27 @@
 						"riscv64/busybox:stable-musl",
 						"riscv64/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/riscv64",
 					"platform": {
 						"architecture": "riscv64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "riscv64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4683,21 +4965,27 @@
 						"s390x/busybox:stable-musl",
 						"s390x/busybox:musl"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/s390x",
 					"platform": {
 						"architecture": "s390x",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "s390x",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4769,21 +5057,27 @@
 						"amd64/busybox:stable-uclibc",
 						"amd64/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4856,22 +5150,28 @@
 						"arm32v5/busybox:stable-uclibc",
 						"arm32v5/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v5",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v5"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v5",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -4944,22 +5244,28 @@
 						"arm32v7/busybox:stable-uclibc",
 						"arm32v7/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5032,22 +5338,28 @@
 						"arm64v8/busybox:stable-uclibc",
 						"arm64v8/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5119,21 +5431,27 @@
 						"i386/busybox:stable-uclibc",
 						"i386/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5205,21 +5523,1451 @@
 						"mips64le/busybox:stable-uclibc",
 						"mips64le/busybox:uclibc"
 					],
-					"froms": [
-						"scratch"
+					"dockerfileParents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "scratch",
 					"platformString": "linux/mips64le",
 					"platform": {
 						"architecture": "mips64le",
 						"os": "linux"
 					},
-					"parents": {
-						"scratch": {
+					"parents": [
+						{
+							"From": "scratch",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": null
 						}
+					],
+					"hostArch": "mips64le",
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"6848bb9ee30ba17adaf5a00a7a578f18d142cce576a1c43c16bdaefbe44f6727": {
+		"buildId": "6848bb9ee30ba17adaf5a00a7a578f18d142cce576a1c43c16bdaefbe44f6727",
+		"build": {
+			"img": "oisupport/staging-amd64:6848bb9ee30ba17adaf5a00a7a578f18d142cce576a1c43c16bdaefbe44f6727",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "amd64",
+			"parents": {
+				"golang:1.21": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+				"infosiftr/moby:latest": "sha256:6cc5699690d00fe488561cea05f99b5e4fa8e0a86533f348af6d53f5cefefb83"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+							"size": 2323,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.base.digest": "sha256:5adb33fa5acfa9c961124600941acb92995c6ceb0b082bbac0dbf00c6724cee0",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T02:04:45Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "amd64",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+								"vnd.docker.reference.digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
 					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:6cc5699690d00fe488561cea05f99b5e4fa8e0a86533f348af6d53f5cefefb83",
+							"size": 3062,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.base.digest": "sha256:38a76d01668772e381ad2826d876627c89e7133e2f8a0f5d567306798b0f2a16",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T13:39:51Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:6cc5699690d00fe488561cea05f99b5e4fa8e0a86533f348af6d53f5cefefb83",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "amd64",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:db323e6e873837f60722d8d3024b520c134ab7f1429f5ca72cbf57820be74331",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:db323e6e873837f60722d8d3024b520c134ab7f1429f5ca72cbf57820be74331",
+								"vnd.docker.reference.digest": "sha256:6cc5699690d00fe488561cea05f99b5e4fa8e0a86533f348af6d53f5cefefb83",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "amd64",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"amd64": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"amd64/buildkit:0.13.2",
+						"amd64/buildkit:0.13",
+						"amd64/buildkit:0",
+						"amd64/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/amd64",
+					"platform": {
+						"architecture": "amd64",
+						"os": "linux"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"084ac612cff7ffc3a341519aed4dac85c566fc04a208ba7b93104a836a4ceba5": {
+		"buildId": "084ac612cff7ffc3a341519aed4dac85c566fc04a208ba7b93104a836a4ceba5",
+		"build": {
+			"img": "oisupport/staging-arm32v5:084ac612cff7ffc3a341519aed4dac85c566fc04a208ba7b93104a836a4ceba5",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "arm32v5",
+			"parents": {
+				"golang:1.21": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+				"infosiftr/moby:latest": "sha256:c370241c0c98684b56ec669d7bbecee436e85806d6a6211bb1891d10c6ea0133"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+							"size": 2323,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.base.digest": "sha256:5adb33fa5acfa9c961124600941acb92995c6ceb0b082bbac0dbf00c6724cee0",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T02:04:45Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "amd64",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+								"vnd.docker.reference.digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:c370241c0c98684b56ec669d7bbecee436e85806d6a6211bb1891d10c6ea0133",
+							"size": 3063,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v5",
+								"org.opencontainers.image.base.digest": "sha256:24bfbf923b10ba8cfcd22c2e4124e625b30133491891f288d92cefc8ce9f4d14",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T16:43:09Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:c370241c0c98684b56ec669d7bbecee436e85806d6a6211bb1891d10c6ea0133",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "arm",
+								"os": "linux",
+								"variant": "v5"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:51a5ae47ded119ca0286dd6b39a3f5766a64ab15bfdd89475b7018ce9d28ab28",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v5",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:51a5ae47ded119ca0286dd6b39a3f5766a64ab15bfdd89475b7018ce9d28ab28",
+								"vnd.docker.reference.digest": "sha256:c370241c0c98684b56ec669d7bbecee436e85806d6a6211bb1891d10c6ea0133",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "amd64",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"arm32v5": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"arm32v5/buildkit:0.13.2",
+						"arm32v5/buildkit:0.13",
+						"arm32v5/buildkit:0",
+						"arm32v5/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/arm/v5",
+					"platform": {
+						"architecture": "arm",
+						"os": "linux",
+						"variant": "v5"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"5dfd484eb92dfd8fc3e4de11b177e9548f70b6e5e86dc70868dfc3a92d1bdbaa": {
+		"buildId": "5dfd484eb92dfd8fc3e4de11b177e9548f70b6e5e86dc70868dfc3a92d1bdbaa",
+		"build": {
+			"img": "oisupport/staging-arm32v7:5dfd484eb92dfd8fc3e4de11b177e9548f70b6e5e86dc70868dfc3a92d1bdbaa",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "arm32v7",
+			"parents": {
+				"golang:1.21": "sha256:b9c2e58b44c8d4f15bd048980f6f1631e1618850bf78f3c3ae13e5f07a1bb7a6",
+				"infosiftr/moby:latest": "sha256:8db2ca116acb8f4eeab132842aee832c49a638ca3930cd8c385495175890ca8a"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:b9c2e58b44c8d4f15bd048980f6f1631e1618850bf78f3c3ae13e5f07a1bb7a6",
+							"size": 2325,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v7",
+								"org.opencontainers.image.base.digest": "sha256:413eb7a17bf465581914dd04c3592793bd8f547292671e2574b04d57a5b99589",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T11:34:12Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:b9c2e58b44c8d4f15bd048980f6f1631e1618850bf78f3c3ae13e5f07a1bb7a6",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "arm",
+								"os": "linux",
+								"variant": "v7"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:45c6a5f2638d8d0363ff4d09dde6d4e2b51b4f9ab635a982fddc870c2fe399d8",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v7",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:45c6a5f2638d8d0363ff4d09dde6d4e2b51b4f9ab635a982fddc870c2fe399d8",
+								"vnd.docker.reference.digest": "sha256:b9c2e58b44c8d4f15bd048980f6f1631e1618850bf78f3c3ae13e5f07a1bb7a6",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:8db2ca116acb8f4eeab132842aee832c49a638ca3930cd8c385495175890ca8a",
+							"size": 3063,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v7",
+								"org.opencontainers.image.base.digest": "sha256:f445f0eca2d6fa4c1525039c38dbea85a8a4149a88e2714a96e1e127bbb036ae",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T15:40:41Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8db2ca116acb8f4eeab132842aee832c49a638ca3930cd8c385495175890ca8a",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "arm",
+								"os": "linux",
+								"variant": "v7"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:2b691d3bf2dbe8f795865d5ef0caeafde51cd944fbd493e21ae25625faf6c847",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm32v7",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:2b691d3bf2dbe8f795865d5ef0caeafde51cd944fbd493e21ae25625faf6c847",
+								"vnd.docker.reference.digest": "sha256:8db2ca116acb8f4eeab132842aee832c49a638ca3930cd8c385495175890ca8a",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "arm32v7",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"arm32v7": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"arm32v7/buildkit:0.13.2",
+						"arm32v7/buildkit:0.13",
+						"arm32v7/buildkit:0",
+						"arm32v7/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/arm/v7",
+					"platform": {
+						"architecture": "arm",
+						"os": "linux",
+						"variant": "v7"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"3029033aa2bcb9a1c4fec4a8990c0f12ab629a270781b0dce82ceae4ac01cd03": {
+		"buildId": "3029033aa2bcb9a1c4fec4a8990c0f12ab629a270781b0dce82ceae4ac01cd03",
+		"build": {
+			"img": "oisupport/staging-arm64v8:3029033aa2bcb9a1c4fec4a8990c0f12ab629a270781b0dce82ceae4ac01cd03",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "arm64v8",
+			"parents": {
+				"golang:1.21": "sha256:dfceff6afa1332bfb629241677a1272cf914eb51da2e370d47ab9ce8b4d94b0c",
+				"infosiftr/moby:latest": "sha256:12120c66e2729647a0c7ae268e07c6118ca47c2df5cd39bd9ff0dd9e3c34f373"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:dfceff6afa1332bfb629241677a1272cf914eb51da2e370d47ab9ce8b4d94b0c",
+							"size": 2325,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm64v8",
+								"org.opencontainers.image.base.digest": "sha256:b537e2ea346b2c9385f469b3ee84c8eefe339c477a078ce6e9a89cdd1a0b6822",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T16:05:05Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:dfceff6afa1332bfb629241677a1272cf914eb51da2e370d47ab9ce8b4d94b0c",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "arm64",
+								"os": "linux",
+								"variant": "v8"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:b560cea10bef45f7ecb86325158fa29b5c467ece9d97008c016829291692f48c",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm64v8",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:b560cea10bef45f7ecb86325158fa29b5c467ece9d97008c016829291692f48c",
+								"vnd.docker.reference.digest": "sha256:dfceff6afa1332bfb629241677a1272cf914eb51da2e370d47ab9ce8b4d94b0c",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:12120c66e2729647a0c7ae268e07c6118ca47c2df5cd39bd9ff0dd9e3c34f373",
+							"size": 3063,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm64v8",
+								"org.opencontainers.image.base.digest": "sha256:c94f5ddd41327aa2d4a7cfba7889056c02936182fd76a513fec6160c97181fc0",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T14:55:45Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:12120c66e2729647a0c7ae268e07c6118ca47c2df5cd39bd9ff0dd9e3c34f373",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "arm64",
+								"os": "linux",
+								"variant": "v8"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:ea400e2eae49a6bb4a961563fa65f9c8477eba6c15916165a50f49de82d8c6e7",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "arm64v8",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:ea400e2eae49a6bb4a961563fa65f9c8477eba6c15916165a50f49de82d8c6e7",
+								"vnd.docker.reference.digest": "sha256:12120c66e2729647a0c7ae268e07c6118ca47c2df5cd39bd9ff0dd9e3c34f373",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "arm64v8",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"arm64v8": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"arm64v8/buildkit:0.13.2",
+						"arm64v8/buildkit:0.13",
+						"arm64v8/buildkit:0",
+						"arm64v8/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/arm64/v8",
+					"platform": {
+						"architecture": "arm64",
+						"os": "linux",
+						"variant": "v8"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"25970209bbeefa6d3eac1e2f7bae681c13d0297050a107800f1a59e6f212fec6": {
+		"buildId": "25970209bbeefa6d3eac1e2f7bae681c13d0297050a107800f1a59e6f212fec6",
+		"build": {
+			"img": "oisupport/staging-i386:25970209bbeefa6d3eac1e2f7bae681c13d0297050a107800f1a59e6f212fec6",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "i386",
+			"parents": {
+				"golang:1.21": "sha256:0d086625169a25725cd80317e495198f1bf1611fcefc0aa232f67cac89704773",
+				"infosiftr/moby:latest": "sha256:e71ebaad7dc3e6dca5cda1012519ace5532ad7bc5ef235ba4988513225b7be84"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:0d086625169a25725cd80317e495198f1bf1611fcefc0aa232f67cac89704773",
+							"size": 2322,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "i386",
+								"org.opencontainers.image.base.digest": "sha256:fc24d91b13db9bea6198bb18d275403768ca62332ea9815b3e91b87bda5b6ec4",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T02:04:49Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:0d086625169a25725cd80317e495198f1bf1611fcefc0aa232f67cac89704773",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "386",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:1e47321860195cc223c19138889d16c194a29ce7dedc6cbf429c6f1c429944a0",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "i386",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:1e47321860195cc223c19138889d16c194a29ce7dedc6cbf429c6f1c429944a0",
+								"vnd.docker.reference.digest": "sha256:0d086625169a25725cd80317e495198f1bf1611fcefc0aa232f67cac89704773",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:e71ebaad7dc3e6dca5cda1012519ace5532ad7bc5ef235ba4988513225b7be84",
+							"size": 3060,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "i386",
+								"org.opencontainers.image.base.digest": "sha256:00a5cd538a5885efc648411ce55fc407cd467d8f008dc6e509c04b8cf4819f7f",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T14:48:44Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:e71ebaad7dc3e6dca5cda1012519ace5532ad7bc5ef235ba4988513225b7be84",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "386",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:470f915503718222396280b90afdba04ec4eb9d053ea9a80b91feb094938d429",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "i386",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:470f915503718222396280b90afdba04ec4eb9d053ea9a80b91feb094938d429",
+								"vnd.docker.reference.digest": "sha256:e71ebaad7dc3e6dca5cda1012519ace5532ad7bc5ef235ba4988513225b7be84",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "i386",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"i386": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"i386/buildkit:0.13.2",
+						"i386/buildkit:0.13",
+						"i386/buildkit:0",
+						"i386/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/386",
+					"platform": {
+						"architecture": "386",
+						"os": "linux"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"545764ee68dcd6b1be00f8d771f48f839b67b6e59d96c1c8816ce230f599d179": {
+		"buildId": "545764ee68dcd6b1be00f8d771f48f839b67b6e59d96c1c8816ce230f599d179",
+		"build": {
+			"img": "oisupport/staging-ppc64le:545764ee68dcd6b1be00f8d771f48f839b67b6e59d96c1c8816ce230f599d179",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "ppc64le",
+			"parents": {
+				"golang:1.21": "sha256:fdf874af259564360541d6b20348e25a281ad703d9909c356e031b8496b91899",
+				"infosiftr/moby:latest": "sha256:d228787b5efa50c1a9623a915da68558f213960c1abaa96adbab9ba8e86b980b"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:fdf874af259564360541d6b20348e25a281ad703d9909c356e031b8496b91899",
+							"size": 2325,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "ppc64le",
+								"org.opencontainers.image.base.digest": "sha256:59fad96d845621440d0ea25364fecb6fd032c65ce53b07df77cb6b3d3c51b1ad",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-06T23:00:30Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:fdf874af259564360541d6b20348e25a281ad703d9909c356e031b8496b91899",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "ppc64le",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:b91c73ecd23d1d03d1786a755cacd8b377596f8b689c5a321b515f20fbc713b2",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "ppc64le",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:b91c73ecd23d1d03d1786a755cacd8b377596f8b689c5a321b515f20fbc713b2",
+								"vnd.docker.reference.digest": "sha256:fdf874af259564360541d6b20348e25a281ad703d9909c356e031b8496b91899",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:d228787b5efa50c1a9623a915da68558f213960c1abaa96adbab9ba8e86b980b",
+							"size": 3063,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "ppc64le",
+								"org.opencontainers.image.base.digest": "sha256:deefc402f62ae71568c0d3716cb61c4896e8e95207290c1055628bd6d1b7bbb9",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T17:13:20Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:d228787b5efa50c1a9623a915da68558f213960c1abaa96adbab9ba8e86b980b",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "ppc64le",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:4a07473889b2755ca9fe81e43f5ac851c70f253ba0f839c632a2c2df04c655f0",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "ppc64le",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:4a07473889b2755ca9fe81e43f5ac851c70f253ba0f839c632a2c2df04c655f0",
+								"vnd.docker.reference.digest": "sha256:d228787b5efa50c1a9623a915da68558f213960c1abaa96adbab9ba8e86b980b",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "ppc64le",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"ppc64le": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"ppc64le/buildkit:0.13.2",
+						"ppc64le/buildkit:0.13",
+						"ppc64le/buildkit:0",
+						"ppc64le/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/ppc64le",
+					"platform": {
+						"architecture": "ppc64le",
+						"os": "linux"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"053ceeb35bc0a2695f730825bf5846cb50eb2a0cf828c86484b74ee168f46ea4": {
+		"buildId": "053ceeb35bc0a2695f730825bf5846cb50eb2a0cf828c86484b74ee168f46ea4",
+		"build": {
+			"img": "oisupport/staging-riscv64:053ceeb35bc0a2695f730825bf5846cb50eb2a0cf828c86484b74ee168f46ea4",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "riscv64",
+			"parents": {
+				"golang:1.21": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+				"infosiftr/moby:latest": "sha256:fe3af633bb5c58e8e292e7cd41ef5c8c7fd3e89988466efd07eb2302d0eb74bf"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+							"size": 2323,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.base.digest": "sha256:5adb33fa5acfa9c961124600941acb92995c6ceb0b082bbac0dbf00c6724cee0",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-13T02:04:45Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "amd64",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "amd64",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:3ebdef0bd69a065dd4a0226d05ce5272c952b02e751850b8364fde34f87c962b",
+								"vnd.docker.reference.digest": "sha256:e6ba96dde4af9f4e06caba475fa65e94e4c54fe4aa3e9f4f504c02178eb8934e",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:fe3af633bb5c58e8e292e7cd41ef5c8c7fd3e89988466efd07eb2302d0eb74bf",
+							"size": 3063,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "riscv64",
+								"org.opencontainers.image.base.digest": "sha256:9b16a18281ae6a264442bb19211592013e202fc5037828635f75953e9e873766",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T16:12:15Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:fe3af633bb5c58e8e292e7cd41ef5c8c7fd3e89988466efd07eb2302d0eb74bf",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "riscv64",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:85779490985ee34dfd34f4120742eb8e6ef1732080297bc85892f7b3dd4283ac",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "riscv64",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:85779490985ee34dfd34f4120742eb8e6ef1732080297bc85892f7b3dd4283ac",
+								"vnd.docker.reference.digest": "sha256:fe3af633bb5c58e8e292e7cd41ef5c8c7fd3e89988466efd07eb2302d0eb74bf",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "amd64",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"riscv64": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"riscv64/buildkit:0.13.2",
+						"riscv64/buildkit:0.13",
+						"riscv64/buildkit:0",
+						"riscv64/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/riscv64",
+					"platform": {
+						"architecture": "riscv64",
+						"os": "linux"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
+				}
+			}
+		}
+	},
+	"a1f1b0ff3e2e50a79885540efda19e094d9d5763529d1baeabc5f331981ff287": {
+		"buildId": "a1f1b0ff3e2e50a79885540efda19e094d9d5763529d1baeabc5f331981ff287",
+		"build": {
+			"img": "oisupport/staging-s390x:a1f1b0ff3e2e50a79885540efda19e094d9d5763529d1baeabc5f331981ff287",
+			"resolved": null,
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"arch": "s390x",
+			"parents": {
+				"golang:1.21": "sha256:661ae48ed637fda3e3a66c908949e86bfa619513959142c0431f50b4afd116dc",
+				"infosiftr/moby:latest": "sha256:2a1a17d1d62499db28a53457f6ec8ddde2e30a8ea3f0c8794c7496a5ee43c1a7"
+			},
+			"resolvedParents": {
+				"golang:1.21": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:661ae48ed637fda3e3a66c908949e86bfa619513959142c0431f50b4afd116dc",
+							"size": 2323,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "s390x",
+								"org.opencontainers.image.base.digest": "sha256:af65546aef0be20475bd81e286ca22b7ec1c1f436b29f08a6d94103f81830110",
+								"org.opencontainers.image.base.name": "buildpack-deps:bookworm-scm",
+								"org.opencontainers.image.created": "2024-08-07T02:15:39Z",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:661ae48ed637fda3e3a66c908949e86bfa619513959142c0431f50b4afd116dc",
+								"org.opencontainers.image.revision": "aaed3270d35c8a4c8378d72a380890bafffcbec6",
+								"org.opencontainers.image.source": "https://github.com/docker-library/golang.git#aaed3270d35c8a4c8378d72a380890bafffcbec6:1.21/bookworm",
+								"org.opencontainers.image.url": "https://hub.docker.com/_/golang",
+								"org.opencontainers.image.version": "1.21.13-bookworm"
+							},
+							"platform": {
+								"architecture": "s390x",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:a9c54efd3c92b871a6d4bd5582ac30204fccb0facce0e8a686956c39c9cbd40e",
+							"size": 842,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "s390x",
+								"org.opencontainers.image.ref.name": "golang:1.21@sha256:a9c54efd3c92b871a6d4bd5582ac30204fccb0facce0e8a686956c39c9cbd40e",
+								"vnd.docker.reference.digest": "sha256:661ae48ed637fda3e3a66c908949e86bfa619513959142c0431f50b4afd116dc",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "golang:1.21@sha256:4746d26432a9117a5f58e95cb9f954ddf0de128e9d5816886514199316e4a2fb"
+					}
+				},
+				"infosiftr/moby:latest": {
+					"schemaVersion": 2,
+					"mediaType": "application/vnd.oci.image.index.v1+json",
+					"manifests": [
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:2a1a17d1d62499db28a53457f6ec8ddde2e30a8ea3f0c8794c7496a5ee43c1a7",
+							"size": 3061,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "s390x",
+								"org.opencontainers.image.base.digest": "sha256:79f9102397454866572f1c264b6c8807ffeda8603c084e2e358674b00d1574ae",
+								"org.opencontainers.image.base.name": "debian:trixie-slim",
+								"org.opencontainers.image.created": "2026-08-05T17:42:54Z",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:2a1a17d1d62499db28a53457f6ec8ddde2e30a8ea3f0c8794c7496a5ee43c1a7",
+								"org.opencontainers.image.revision": "dc881c6dcd338ab8286555023d54fcee8e53e3ac",
+								"org.opencontainers.image.source": "https://github.com/tianon/dockerfiles.git#dc881c6dcd338ab8286555023d54fcee8e53e3ac:infosiftr-moby",
+								"org.opencontainers.image.url": "https://hub.docker.com/r/infosiftr/moby",
+								"org.opencontainers.image.version": "23.0.18"
+							},
+							"platform": {
+								"architecture": "s390x",
+								"os": "linux"
+							}
+						},
+						{
+							"mediaType": "application/vnd.oci.image.manifest.v1+json",
+							"digest": "sha256:b6610c71f687d14949ce0d081844392746bbde812ef43d9d79c5ea398b8f7149",
+							"size": 838,
+							"annotations": {
+								"com.docker.official-images.bashbrew.arch": "s390x",
+								"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:b6610c71f687d14949ce0d081844392746bbde812ef43d9d79c5ea398b8f7149",
+								"vnd.docker.reference.digest": "sha256:2a1a17d1d62499db28a53457f6ec8ddde2e30a8ea3f0c8794c7496a5ee43c1a7",
+								"vnd.docker.reference.type": "attestation-manifest"
+							},
+							"platform": {
+								"architecture": "unknown",
+								"os": "unknown"
+							}
+						}
+					],
+					"annotations": {
+						"org.opencontainers.image.ref.name": "infosiftr/moby:latest@sha256:8dd56beee021d11ff3dd629689492a27dc5ee1e61b658c43ebc4730e64d60d8f"
+					}
+				}
+			},
+			"hostArch": "s390x",
+			"crossHostArches": [
+				"amd64",
+				"arm32v7",
+				"arm64v8",
+				"i386",
+				"mips64le",
+				"ppc64le",
+				"s390x"
+			]
+		},
+		"source": {
+			"sourceId": "e4195af35f0c1caf290d54717e92c8c67cf69723d561aae0c007db2152a7db8e",
+			"reproducibleGitChecksum": "f32e9b7ab78fecd14f065cecec4ea538bafa31f1d46d91ded8b56231c8abc4f8",
+			"entries": [
+				{
+					"GitRepo": "https://github.com/tianon/dockerfiles.git",
+					"GitFetch": "refs/heads/master",
+					"GitCommit": "386636e197ba347441c97db8edcfad9113e41365",
+					"Directory": "buildkit",
+					"File": "Dockerfile",
+					"Builder": "buildkit",
+					"SOURCE_DATE_EPOCH": 1716334145
+				}
+			],
+			"arches": {
+				"s390x": {
+					"tags": [
+						"buildkit:0.13.2",
+						"buildkit:0.13",
+						"buildkit:0",
+						"buildkit:latest"
+					],
+					"archTags": [
+						"s390x/buildkit:0.13.2",
+						"s390x/buildkit:0.13",
+						"s390x/buildkit:0",
+						"s390x/buildkit:latest"
+					],
+					"dockerfileParents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM"
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM"
+						}
+					],
+					"platformString": "linux/s390x",
+					"platform": {
+						"architecture": "s390x",
+						"os": "linux"
+					},
+					"parents": [
+						{
+							"From": "golang:1.21",
+							"Platform": "$BUILDPLATFORM",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						},
+						{
+							"From": "infosiftr/moby:latest",
+							"Kind": "FROM",
+							"sourceId": null,
+							"pin": null
+						}
+					],
+					"hostArch": null,
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5326,21 +7074,27 @@
 						"infosiftr-moby:amd64"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/amd64",
 					"platform": {
 						"architecture": "amd64",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "amd64",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5449,22 +7203,28 @@
 						"infosiftr-moby:arm32v5"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/arm/v5",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v5"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "arm32v5",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5573,22 +7333,28 @@
 						"infosiftr-moby:arm32v7"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/arm/v7",
 					"platform": {
 						"architecture": "arm",
 						"os": "linux",
 						"variant": "v7"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "arm32v7",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5697,22 +7463,28 @@
 						"infosiftr-moby:arm64v8"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/arm64/v8",
 					"platform": {
 						"architecture": "arm64",
 						"os": "linux",
 						"variant": "v8"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "arm64v8",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5819,21 +7591,27 @@
 						"infosiftr-moby:i386"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/386",
 					"platform": {
 						"architecture": "386",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "i386",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -5940,21 +7718,27 @@
 						"infosiftr-moby:mips64le"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/mips64le",
 					"platform": {
 						"architecture": "mips64le",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "mips64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -6061,21 +7845,27 @@
 						"infosiftr-moby:ppc64le"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/ppc64le",
 					"platform": {
 						"architecture": "ppc64le",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "ppc64le",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -6182,21 +7972,27 @@
 						"infosiftr-moby:s390x"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:bookworm-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:bookworm-slim",
 					"platformString": "linux/s390x",
 					"platform": {
 						"architecture": "s390x",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:bookworm-slim": {
+					"parents": [
+						{
+							"From": "debian:bookworm-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb"
 						}
-					}
+					],
+					"hostArch": "s390x",
+					"crossHostArches": null
 				}
 			}
 		}
@@ -6303,21 +8099,27 @@
 						"infosiftr-moby:riscv64"
 					],
 					"archTags": [],
-					"froms": [
-						"debian:unstable-slim"
+					"dockerfileParents": [
+						{
+							"From": "debian:unstable-slim",
+							"Kind": "FROM"
+						}
 					],
-					"lastStageFrom": "debian:unstable-slim",
 					"platformString": "linux/riscv64",
 					"platform": {
 						"architecture": "riscv64",
 						"os": "linux"
 					},
-					"parents": {
-						"debian:unstable-slim": {
+					"parents": [
+						{
+							"From": "debian:unstable-slim",
+							"Kind": "FROM",
 							"sourceId": null,
 							"pin": "sha256:8ab93b5dec6c19b4a45fbfdebc55c5d08ce7d39a90dc66cc273440ba3a1a5af0"
 						}
-					}
+					],
+					"hostArch": "riscv64",
+					"crossHostArches": null
 				}
 			}
 		}

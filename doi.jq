@@ -178,3 +178,35 @@ def build_should_sign:
 		| index("notary")
 	)
 ;
+
+# input: "build" object (with "buildId" top level key)
+# output: string ("Builder", but normalized)
+def normalized_builder:
+	.build.arch as $arch
+	| .source.entries[0].Builder
+	| if . == "" then
+		if $arch | startswith("windows-") then
+			# https://github.com/microsoft/Windows-Containers/issues/34
+			"classic"
+		else
+			"buildkit"
+		end
+	else . end
+;
+
+# input: "build object (with "buildId" top level key)
+# output: boolean
+def build_can_cross:
+	normalized_builder as $builder
+	| $builder == "oci-import"
+	or (
+		$builder == "buildkit"
+		and (.build.arch | startswith("windows-") | not)
+		and IN(
+			.source.arches[.build.arch].tags[]
+			| split(":")[0];
+			#"golang",
+			empty
+		)
+	)
+;

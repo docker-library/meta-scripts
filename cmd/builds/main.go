@@ -9,6 +9,8 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"slices"
+	"sort"
 	"strings"
 	"sync"
 
@@ -20,14 +22,23 @@ import (
 
 var concurrency = 1000
 
+// a single parent reference for a build, as produced by "sources.sh" -- From/Platform/Kind come straight from bashbrew's ArchDockerfileParents, sourceId/pin are layered on afterwards (see cross.md)
+type MetaSourceParent struct {
+	From     string  `json:"From"`
+	Platform string  `json:"Platform"`
+	Kind     string  `json:"Kind"`
+	SourceID *string `json:"sourceId"`
+	Pin      *string `json:"pin"`
+}
+
 type MetaSource struct {
 	SourceID string `json:"sourceId"`
 	Arches   map[string]struct {
-		Tags    []string `json:"tags"`
-		Parents om.OrderedMap[struct {
-			SourceID *string `json:"sourceId"`
-			Pin      *string `json:"pin"`
-		}]
+		Tags     []string           `json:"tags"`
+		Parents  []MetaSourceParent `json:"parents"`
+		HostArch *string            `json:"hostArch"` // nil means "genuinely needs a live check" (see cross.md) -- never "not applicable", "sources.sh" already resolves that case to the build's own target arch
+		// crossHostArches: same value as HostArch's companion in "sources.sh" -- declared (static) fidelity when non-nil, requiring a live check (below) only when nil. nil is *not* the same as an empty (but non-nil) list: empty means "checked, no common arch -- a live check will not fix this" (see cross.md)
+		CrossHostArches *[]string `json:"crossHostArches"`
 	}
 }
 
@@ -44,6 +55,9 @@ type MetaBuild struct {
 		Resolved *ocispec.Index `json:"resolved"`
 		BuildIDParts
 		ResolvedParents om.OrderedMap[ocispec.Index] `json:"resolvedParents"`
+		// both deliberately outside BuildIDParts -- purely informational, must never affect buildId's hash
+		HostArch        string   `json:"hostArch,omitempty"`
+		CrossHostArches []string `json:"crossHostArches,omitempty"` // the fully-resolved value: same meaning as the source-level field, but with any live-check fallback already applied
 	} `json:"build"`
 	Source json.RawMessage `json:"source"`
 }
@@ -134,6 +148,55 @@ func resolveArchIndex(ctx context.Context, img string, arch string, diskCacheFor
 	// TODO if we have more than one *actual* image match for arch (not just an attestation), this should error!! (would mean something like index/manifest list with multiple os.version values for Windows - we avoid this in DOI today, but we don't have any automated *checks* for it, so the current state is a little precarious)
 
 	return index, nil
+}
+
+// known bashbrew arches, used only as the last-resort fallback tier in liveHostArches (see cross.md)
+var knownArches = []string{"amd64", "arm32v5", "arm32v6", "arm32v7", "arm64v8", "i386", "mips64le", "ppc64le", "riscv64", "s390x"}
+
+// input: every $BUILDPLATFORM parent for one build, and that build's own target arch
+// output: every candidate arch (native, amd64, then a fixed order) that *all* of them resolve at live, plus which one of those wins under the same "native, then amd64, then first-sorted" priority "sources.sh" uses declaratively (empty string if none do)
+// this is *only* used when "sources.sh" could not determine crossHostArches/hostArch from static source data alone (see cross.md) -- checking every candidate instead of stopping at the first hit costs nothing extra, since resolveIndex already caches by image reference and each candidate arch is just a free local filter of the same cached manifest list
+func liveHostArches(ctx context.Context, buildPinned []MetaSourceParent, nativeArch string) ([]string, string, error) {
+	candidates := append([]string{nativeArch, "amd64"}, knownArches...)
+	tried := map[string]bool{}
+	viable := []string{}
+	for _, candidate := range candidates {
+		if tried[candidate] {
+			continue
+		}
+		tried[candidate] = true
+
+		allResolve := true
+		for _, parent := range buildPinned {
+			lookup := parent.From
+			if parent.Pin != nil {
+				lookup += "@" + *parent.Pin
+			}
+			resolved, err := resolveArchIndex(ctx, lookup, candidate, false)
+			if err != nil {
+				return nil, "", err
+			}
+			if resolved == nil {
+				allResolve = false
+				break
+			}
+		}
+		if allResolve {
+			viable = append(viable, candidate)
+		}
+	}
+	sort.Strings(viable) // match the alphabetical order jq's "keys"-based declared computation already produces
+
+	hostArch := ""
+	switch {
+	case slices.Contains(viable, nativeArch):
+		hostArch = nativeArch
+	case slices.Contains(viable, "amd64"):
+		hostArch = "amd64"
+	case len(viable) > 0:
+		hostArch = viable[0] // already sorted
+	}
+	return viable, hostArch, nil
 }
 
 type cacheFileContents struct {
@@ -286,39 +349,81 @@ func main() {
 			outs <- outChan
 
 			sourceArchResolvedFunc := sync.OnceValue(func() *ocispec.Index {
-				for _, from := range source.Arches[build.Build.Arch].Parents.Keys() {
-					if from == "scratch" {
+				arch := build.Build.Arch
+				parents := source.Arches[arch].Parents
+
+				// figure out, once, the single host arch every $BUILDPLATFORM parent in this build should be resolved at, and the full set behind that choice (see cross.md) -- both stay unset (i.e. irrelevant) if there are none
+				hostArch := ""
+				var crossHostArches []string
+				var buildPinned []MetaSourceParent
+				for _, parent := range parents {
+					if parent.Kind == "FROM" && parent.Platform == "$BUILDPLATFORM" {
+						buildPinned = append(buildPinned, parent)
+					}
+				}
+				if len(buildPinned) > 0 {
+					if source.Arches[arch].CrossHostArches != nil {
+						// "sources.sh" already worked this out from static source data alone -- trust it even if it's empty (meaning "checked, no common arch"; a live check would not fix that, so don't attempt one)
+						crossHostArches = *source.Arches[arch].CrossHostArches
+						if source.Arches[arch].HostArch != nil {
+							hostArch = *source.Arches[arch].HostArch
+						}
+					} else {
+						// at least one $BUILDPLATFORM parent is not bashbrew-tracked -- fall back to a live check (narrower, rarer path; see cross.md)
+						var err error
+						crossHostArches, hostArch, err = liveHostArches(ctx, buildPinned, arch)
+						if err != nil {
+							panic(err)
+						}
+					}
+					if hostArch == "" {
+						fmt.Fprintf(os.Stderr, "%s (%s) -> no viable host arch [%s]\n", source.SourceID, source.Arches[arch].Tags[0], arch)
+						close(outChan)
+						return nil
+					}
+				}
+
+				for _, parent := range parents {
+					if parent.From == "scratch" {
 						continue
 					}
+
+					// target-pinned parents resolve at this build's own arch, unchanged from before; $BUILDPLATFORM parents resolve at the host arch determined above
+					resolveArch := arch
+					if parent.Kind == "FROM" && parent.Platform == "$BUILDPLATFORM" {
+						resolveArch = hostArch
+					}
+
 					var resolved *ocispec.Index
-					parent := source.Arches[build.Build.Arch].Parents.Get(from)
 					if parent.SourceID != nil {
 						sourceArchResolvedMutex.RLock()
-						resolvedFunc, ok := sourceArchResolved[*parent.SourceID+"-"+build.Build.Arch]
+						resolvedFunc, ok := sourceArchResolved[*parent.SourceID+"-"+resolveArch]
 						if !ok {
-							panic("parent of " + source.SourceID + " on " + build.Build.Arch + " should be " + *parent.SourceID + " but that sourceId is unknown to us!")
+							panic("parent of " + source.SourceID + " on " + resolveArch + " should be " + *parent.SourceID + " but that sourceId is unknown to us!")
 						}
 						sourceArchResolvedMutex.RUnlock()
 						resolved = resolvedFunc()
 					} else {
-						lookup := from
+						lookup := parent.From
 						if parent.Pin != nil {
 							lookup += "@" + *parent.Pin
 						}
 
-						resolved, err = resolveArchIndex(ctx, lookup, build.Build.Arch, false)
+						resolved, err = resolveArchIndex(ctx, lookup, resolveArch, false)
 						if err != nil {
 							panic(err)
 						}
 					}
 					if resolved == nil {
-						fmt.Fprintf(os.Stderr, "%s (%s) -> not yet! [%s]\n", source.SourceID, source.Arches[build.Build.Arch].Tags[0], build.Build.Arch)
+						fmt.Fprintf(os.Stderr, "%s (%s) -> not yet! [%s]\n", source.SourceID, source.Arches[arch].Tags[0], arch)
 						close(outChan)
 						return nil
 					}
-					build.Build.ResolvedParents.Set(from, *resolved)
-					build.Build.Parents.Set(from, string(resolved.Manifests[0].Digest))
+					build.Build.ResolvedParents.Set(parent.From, *resolved)
+					build.Build.Parents.Set(parent.From, string(resolved.Manifests[0].Digest))
 				}
+				build.Build.HostArch = hostArch
+				build.Build.CrossHostArches = crossHostArches
 
 				// buildId calculation
 				buildIDJSON, err := json.Marshal(&build.Build.BuildIDParts)
