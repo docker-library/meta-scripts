@@ -51,13 +51,12 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 			Transport: clientOptions.Transport,
 		})
 
-		connectHost := host
-		if host == dockerHubCanonical {
-			connectHost = dockerHubConnect
-		} else if host == "localhost" || strings.HasPrefix(host, "localhost:") {
-			// assume localhost means HTTP
+		// keep the finished transport (auth, rate limiting, User-Agent) around for any requests we have to make ourselves because "ociclient" does not know about them (see "serverSideCopyManifest")
+		transportCache.Store(host, clientOptions.Transport)
+
+		connectHost, insecure := registryConnectHost(host)
+		if insecure {
 			clientOptions.Insecure = true
-			// TODO some way for callers to specify that their "localhost" *does* require TLS (maybe only do this if `opts == nil`, but then users cannot supply *any* options and still get help setting Insecure for localhost 🤔 -- at least this is a more narrow use case than the opposite of not having a way to have non-localhost insecure registries)
 		}
 
 		hostOptions := clientOptions // make a copy, since "ociclient.New" mutates it (such that sharing the object afterwards probably isn't the best idea -- they'll have the same DebugID if so, which isn't ideal)
@@ -133,6 +132,16 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 	return f.(func() (ociregistry.Interface, error))()
 }
 
+// returns the actual "host[:port]" requests for the given registry host should be sent to (see [dockerHubConnect]) and whether it should be assumed to be plain HTTP
+func registryConnectHost(host string) (connectHost string, insecure bool) {
+	if host == dockerHubCanonical {
+		return dockerHubConnect, false
+	}
+	// assume localhost means HTTP
+	// TODO some way for callers to specify that their "localhost" *does* require TLS (maybe only do this if `opts == nil`, but then users cannot supply *any* options and still get help setting Insecure for localhost 🤔 -- at least this is a more narrow use case than the opposite of not having a way to have non-localhost insecure registries)
+	return host, host == "localhost" || strings.HasPrefix(host, "localhost:")
+}
+
 type dockerAuthConfigWrapper struct {
 	ociauth.Config
 }
@@ -172,4 +181,6 @@ var (
 		return dockerAuthConfigWrapper{config}, nil
 	})
 	clientCache = sync.Map{} // "(normalized) host" => OnceValues() => ociregistry.Interface, error
+
+	transportCache = sync.Map{} // "host exactly as passed to Client" => http.RoundTripper (populated as a side effect of the corresponding clientCache entry, so look up the same string you gave Client; neither normalizes, that is up to the caller, see Reference.Normalize)
 )
