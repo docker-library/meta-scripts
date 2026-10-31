@@ -96,6 +96,10 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 
 			for _, child := range manifestChildren.Manifests {
 				childRef, childTargetRef := childToRefs(child)
+				if _, ok := serverSideCopyManifest(ctx, childRef, childTargetRef); ok {
+					// the registry copied the child (and all *its* children) for us
+					continue
+				}
 				r, err := Lookup(ctx, childRef, nil)
 				if err != nil {
 					return desc, fmt.Errorf("%s: manifest lookup failed: %w", childRef, err)
@@ -155,7 +159,11 @@ func EnsureManifest(ctx context.Context, ref Reference, manifest json.RawMessage
 func CopyManifest(ctx context.Context, srcRef, dstRef Reference, childRefs map[ociregistry.Digest]Reference) (ociregistry.Descriptor, error) {
 	var desc ociregistry.Descriptor
 
-	// wouldn't it be nice if MountBlob for manifests was a thing? 🥺
+	// wouldn't it be nice if MountBlob for manifests was a thing? 🥺 (on Docker Hub it kind of is, see "serverSideCopyManifest", and if that does not work out, we fall back to copying client side)
+	if copied, ok := serverSideCopyManifest(ctx, srcRef, dstRef); ok {
+		return copied, nil
+	}
+
 	r, err := Lookup(ctx, srcRef, nil)
 	if err != nil {
 		return desc, fmt.Errorf("%s: lookup failed: %w", srcRef, err)
