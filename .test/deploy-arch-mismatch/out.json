@@ -1,0 +1,72 @@
+{
+	"synthetic:latest": [
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+			"size": 1,
+			"annotations": {
+				"com.docker.official-images.bashbrew.arch": "amd64"
+			},
+			"platform": {
+				"os": "linux",
+				"architecture": "amd64"
+			}
+		},
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+			"size": 1,
+			"annotations": {
+				"com.docker.official-images.bashbrew.arch": "arm64v8"
+			},
+			"platform": {
+				"os": "linux",
+				"architecture": "arm64"
+			}
+		}
+	],
+	"synthetic:amd64": [
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+			"size": 1,
+			"annotations": {
+				"com.docker.official-images.bashbrew.arch": "amd64"
+			},
+			"platform": {
+				"os": "linux",
+				"architecture": "amd64"
+			}
+		}
+	],
+	"synthetic:arm64v8": [
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+			"size": 1,
+			"annotations": {
+				"com.docker.official-images.bashbrew.arch": "arm64v8"
+			},
+			"platform": {
+				"os": "linux",
+				"architecture": "arm64"
+			}
+		}
+	]
+}
+{
+	"synthetic:amd64": [
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+			"size": 1,
+			"annotations": {
+				"com.docker.official-images.bashbrew.arch": "amd64"
+			},
+			"platform": {
+				"os": "linux",
+				"architecture": "amd64"
+			}
+		}
+	]
+}

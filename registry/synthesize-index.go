@@ -7,7 +7,6 @@ import (
 	"github.com/docker-library/bashbrew/architecture"
 
 	"cuelabs.dev/go/oci/ociregistry"
-	"cuelabs.dev/go/oci/ociregistry/ocimem"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
@@ -45,7 +44,7 @@ func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error)
 		}
 
 	default:
-		return nil, fmt.Errorf("unsupported mediaType: %q", desc.MediaType)
+		return nil, fmt.Errorf("%s: unsupported mediaType: %q", ref, desc.MediaType)
 	}
 
 	switch index.SchemaVersion {
@@ -54,7 +53,7 @@ func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error)
 	case 2:
 		// all good, do nothing!
 	default:
-		return nil, fmt.Errorf("unsupported index schemaVersion: %q", index.SchemaVersion)
+		return nil, fmt.Errorf("%s: unsupported index schemaVersion: %q", ref, index.SchemaVersion)
 	}
 
 	switch index.MediaType {
@@ -69,7 +68,7 @@ func SynthesizeIndex(ctx context.Context, ref Reference) (*ocispec.Index, error)
 	case ocispec.MediaTypeImageIndex, mediaTypeDockerManifestList:
 		// all good, do nothing!
 	default:
-		return nil, fmt.Errorf("unsupported index mediaType: %q", index.MediaType)
+		return nil, fmt.Errorf("%s: unsupported index mediaType: %q", ref, index.MediaType)
 	}
 
 	setRefAnnotation(&index.Annotations, ref, desc.Digest)
@@ -145,9 +144,8 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 		case ocispec.MediaTypeImageManifest, mediaTypeDockerImageManifest:
 			var err error
 			if r == nil {
-				if m.Data != nil && int64(len(m.Data)) == m.Size {
-					r = ocimem.NewBytesReader(m.Data, *m)
-				} else {
+				r = descriptorDataReader(*m)
+				if r == nil {
 					r, err = client.GetManifest(ctx, ref.Repository, m.Digest)
 					if err != nil {
 						return err
@@ -163,10 +161,8 @@ func normalizeManifestPlatform(ctx context.Context, m *ocispec.Descriptor, r oci
 
 			switch manifest.Config.MediaType {
 			case ocispec.MediaTypeImageConfig, mediaTypeDockerImageConfig:
-				var r ociregistry.BlobReader
-				if manifest.Config.Data != nil && int64(len(manifest.Config.Data)) == manifest.Config.Size {
-					r = ocimem.NewBytesReader(manifest.Config.Data, manifest.Config)
-				} else {
+				r := descriptorDataReader(manifest.Config)
+				if r == nil {
 					r, err = client.GetBlob(ctx, ref.Repository, manifest.Config.Digest)
 					if err != nil {
 						return err

@@ -14,6 +14,7 @@ import (
 
 	"github.com/docker-library/meta-scripts/om"
 	"github.com/docker-library/meta-scripts/registry"
+	"github.com/docker-library/meta-scripts/sm"
 
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
@@ -50,7 +51,7 @@ type MetaBuild struct {
 
 var (
 	// keys are image/tag names, values are functions that return either *ocispec.Index or error
-	cacheResolve = sync.Map{}
+	cacheResolve = sm.Map[string, func() (*ocispec.Index, error)]{}
 	cacheFile    string
 )
 
@@ -71,7 +72,7 @@ func resolveIndex(ctx context.Context, img string, diskCacheForSure bool) (*ocis
 		return registry.SynthesizeIndex(ctx, ref)
 	}))
 
-	index, err := cacheFunc.(func() (*ocispec.Index, error))()
+	index, err := cacheFunc()
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +175,7 @@ func loadCacheFromFile() error {
 		fun, _ := cacheResolve.LoadOrStore(img.String(), sync.OnceValues(func() (*ocispec.Index, error) {
 			return index, nil
 		}))
-		index2, err := fun.(func() (*ocispec.Index, error))()
+		index2, err := fun()
 		if err != nil {
 			// this should never happen (hence panic vs return) 🙈
 			panic(err)

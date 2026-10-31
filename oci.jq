@@ -165,11 +165,11 @@ def validate_oci_digest:
 	| validate($dig;
 		validate_IN(.algorithm; "sha256", "sha512", "blake3")
 		| if .algorithm == "sha256" then
-			validate(.encoded; test("^[a-f0-9]{64}$"); "the encoded portion MUST match /[a-f0-9]{64}/")
+			validate(.encoded; test("^[a-f0-9]{64}$"); "sha256: the encoded portion MUST match /[a-f0-9]{64}/")
 		elif .algorithm == "sha512" then
-			validate(.encoded; test("^[a-f0-9]{128}$"); "the encoded portion MUST match /[a-f0-9]{128}/")
+			validate(.encoded; test("^[a-f0-9]{128}$"); "sha512: the encoded portion MUST match /[a-f0-9]{128}/")
 		elif .algorithm == "blake3" then # https://github.com/opencontainers/image-spec/pull/1240
-			validate(.encoded; test("^[a-f0-9]{64}$"); "the encoded portion MUST match /[a-f0-9]{64}/")
+			validate(.encoded; test("^[a-f0-9]{64}$"); "blake3: the encoded portion MUST match /[a-f0-9]{64}/")
 		else . end
 	)
 ;

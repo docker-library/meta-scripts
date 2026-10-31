@@ -9,6 +9,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/docker-library/meta-scripts/sm"
+
 	"cuelabs.dev/go/oci/ociregistry"
 	"cuelabs.dev/go/oci/ociregistry/ociauth"
 	"cuelabs.dev/go/oci/ociregistry/ociclient"
@@ -130,7 +132,7 @@ func Client(host string, opts *ociclient.Options) (ociregistry.Interface, error)
 
 		return client, nil
 	}))
-	return f.(func() (ociregistry.Interface, error))()
+	return f()
 }
 
 type dockerAuthConfigWrapper struct {
@@ -171,5 +173,5 @@ var (
 		}
 		return dockerAuthConfigWrapper{config}, nil
 	})
-	clientCache = sync.Map{} // "(normalized) host" => OnceValues() => ociregistry.Interface, error
+	clientCache = sm.Map[string, func() (ociregistry.Interface, error)]{} // "(normalized) host" => OnceValues() => ociregistry.Interface, error
 )
