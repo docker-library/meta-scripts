@@ -66,6 +66,7 @@ node('doi-meta') { // use the dedicated meta instance
 	}
 
 	env.BASHBREW_LIBRARY = workspace + '/meta/.doi/library'
+	env.BASHBREW_META_SCRIPTS = workspace + '/meta/.scripts'
 
 	dir('meta') {
 		withCredentials([

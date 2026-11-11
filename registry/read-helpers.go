@@ -34,12 +34,15 @@ func readJSONHelper(r ociregistry.BlobReader, v interface{}) error {
 
 	// decode directly! (mostly avoids double memory hit for big objects)
 	// (TODO protect against malicious objects somehow?)
-	if err := json.NewDecoder(tee).Decode(v); err != nil {
+	decoder := json.NewDecoder(tee)
+	if err := decoder.Decode(v); err != nil {
 		return err
 	}
+	// (json.Decoder uses a buffer to make reads more efficient but it means if we want to read the leftovers ourselves we have to join their buffer back in front of our reader)
+	leftovers := io.MultiReader(decoder.Buffered(), tee)
 
 	// read anything leftover ...
-	bs, err := io.ReadAll(tee)
+	bs, err := io.ReadAll(leftovers)
 	if err != nil {
 		return err
 	}

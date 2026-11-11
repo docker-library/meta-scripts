@@ -5,6 +5,8 @@ import (
 	"io"
 	"sync"
 
+	"github.com/docker-library/meta-scripts/sm"
+
 	"cuelabs.dev/go/oci/ociregistry"
 	"cuelabs.dev/go/oci/ociregistry/ocimem"
 	godigest "github.com/opencontainers/go-digest"
@@ -32,7 +34,7 @@ type registryCache struct {
 	registry ociregistry.Interface
 
 	// a map of "repo@digest" or "repo:tag" to *sync.Mutex to ensure we don't double up on upstream lookups
-	refMutexes sync.Map
+	refMutexes sm.Map[string, *sync.Mutex]
 	// (see "refMutex" function)
 
 	// https://github.com/cue-labs/oci/issues/24
@@ -52,7 +54,7 @@ func cacheKeyTag(repo, tag string) string {
 
 func (rc *registryCache) refMutex(ref string) *sync.Mutex {
 	refMu, _ := rc.refMutexes.LoadOrStore(ref, &sync.Mutex{})
-	return refMu.(*sync.Mutex)
+	return refMu
 }
 
 // a helper that implements GetBlob and GetManifest generically (since they're the same function signature and it doesn't really help *us* to treat those object types differently here)

@@ -10,6 +10,7 @@ import (
 	"sync"
 
 	"github.com/docker-library/meta-scripts/registry"
+	"github.com/docker-library/meta-scripts/sm"
 
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
@@ -62,7 +63,7 @@ func main() {
 
 	// a set of RWMutex objects for synchronizing the pushing of "child" objects before their parents later in the list of documents
 	// for every RWMutex, it will be *write*-locked during push, and *read*-locked during reading (which means we won't limit the parallelization of multiple parents after a given child is pushed, but we will stop parents from being pushed before their children)
-	childMutexes := sync.Map{}
+	childMutexes := sm.Map[string, *sync.RWMutex]{}
 	wg := sync.WaitGroup{}
 
 	var dryRunOuts chan chan []byte
@@ -135,8 +136,7 @@ func main() {
 					necessaryReadLockRefs = append(necessaryReadLockRefs, lockRef)
 				} else {
 					seenRefs[lockRefStr] = true
-					lock, _ := childMutexes.LoadOrStore(lockRefStr, &sync.RWMutex{})
-					mutex = lock.(*sync.RWMutex)
+					mutex, _ = childMutexes.LoadOrStore(lockRefStr, &sync.RWMutex{})
 					// if we have a "child" mutex, lock it immediately so we don't create a race between inputs
 					mutex.Lock() // (this gets unlocked in the goroutine below)
 					// this is sane to lock here because interdependent inputs are required to be in-order (children first), so if this hangs it's 100% a bug in the input order
@@ -216,9 +216,9 @@ func main() {
 						continue
 					}
 					seenChildren[lockRefStr] = true
-					lock, _ := childMutexes.LoadOrStore(lockRefStr, &sync.RWMutex{})
-					lock.(*sync.RWMutex).RLock()
-					defer lock.(*sync.RWMutex).RUnlock()
+					childMutex, _ := childMutexes.LoadOrStore(lockRefStr, &sync.RWMutex{})
+					childMutex.RLock()
+					defer childMutex.RUnlock()
 				}
 
 				logText := ref.StringWithKnownDigest(refsDigest) + logSuffix
